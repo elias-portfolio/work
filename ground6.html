@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balanced Crazy Random Speech Patterns</title>
+    <style>
+        body {
+            font-family: Courier, monospace;
+            background: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            white-space: pre;
+        }
+        .pattern {
+            font-size: 12px;
+            line-height: 1.2;
+            transform-origin: center;
+        }
+        .blue {
+            color: blue;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<pre class="pattern" id="pattern"></pre>
+
+<script>
+    async function fetchAndProcessSpeeches() {
+        const filePath = "json/speeches.txt"; // Adjust to actual file path
+        let textData;
+
+        try {
+            const response = await fetch(filePath);
+            textData = await response.text();
+        } catch (error) {
+            console.error("Failed to fetch speeches:", error);
+            return;
+        }
+
+        const kamalaText = textData.split("#KamalaBlue")[1]?.split("#TrumpRed")[0]?.trim() || "";
+        const trumpText = textData.split("#TrumpRed")[1]?.trim() || "";
+
+        const kamalaChunks = splitIntoChunks(kamalaText, 500);
+        const trumpChunks = splitIntoChunks(trumpText, 500);
+
+        renderBalancedCrazyPattern(kamalaChunks, trumpChunks);
+    }
+
+    function splitIntoChunks(text, size) {
+        const chunks = [];
+        let index = 0;
+
+        while (index < text.length) {
+            const chunk = text.slice(index, index + size);
+            chunks.push(chunk.trim());
+            index += size;
+        }
+
+        return chunks;
+    }
+
+    function generateTriangle(speech, className, transform) {
+        const words = speech.split(" ");
+        let result = "";
+        let lineLength = 1;
+
+        for (let i = 0; i < words.length; ) {
+            let line = "";
+            for (let j = 0; j < lineLength && i < words.length; j++, i++) {
+                line += words[i] + " ";
+            }
+            result += `<span class="${className}" style="transform: ${transform}">${line.trim().padStart(line.length + lineLength)}</span>\n`;
+            lineLength++;
+        }
+
+        return result;
+    }
+
+    function generateCircle(speech, className, transform) {
+        const words = speech.split(" ");
+        const radius = Math.floor(Math.random() * 10) + 10;
+        const canvasSize = radius * 2 + 1;
+        let result = Array.from({ length: canvasSize }, () => Array(canvasSize).fill(" "));
+
+        let angle = 0;
+        for (const word of words) {
+            const x = Math.round(radius + radius * Math.cos(angle));
+            const y = Math.round(radius + radius * Math.sin(angle));
+            if (result[y] && result[y][x]) result[y][x] = word;
+            angle += (2 * Math.PI) / words.length;
+        }
+
+        return result.map((row) => `<span class="${className}" style="transform: ${transform}">${row.join(" ").trim()}</span>`).join("\n");
+    }
+
+    function generateCross(speech, className, transform) {
+        const words = speech.split(" ");
+        const midPoint = Math.floor(words.length / 2);
+        let result = "";
+
+        for (let i = 0; i < words.length; i++) {
+            if (i === midPoint) {
+                result += `<span class="${className}" style="transform: ${transform}">${words.join(" ")}</span>\n`;
+            } else {
+                result += `<span class="${className}" style="transform: ${transform}">${" ".repeat(midPoint)}${words[i]}</span>\n`;
+            }
+        }
+
+        return result;
+    }
+
+    function generateMesh(speech1, speech2, transform1, transform2) {
+        const words1 = speech1.split(" ");
+        const words2 = speech2.split(" ");
+        let result = "";
+
+        for (let i = 0; i < Math.max(words1.length, words2.length); i++) {
+            const line1 = words1[i] || "";
+            const line2 = words2[i] || "";
+            result += `<span class="blue" style="transform: ${transform1}">${line1.padEnd(30)}</span><span class="red" style="transform: ${transform2}">${line2}</span>\n`;
+        }
+
+        return result;
+    }
+
+    function getRandomTransform() {
+        const rotate = `rotate(${Math.floor(Math.random() * 360)}deg)`;
+        const scale = `scale(${(Math.random() * 0.5 + 0.75).toFixed(2)})`;
+        return `${rotate} ${scale}`;
+    }
+
+    function renderBalancedCrazyPattern(kamalaChunks, trumpChunks) {
+        const patterns = [
+            generateTriangle,
+            generateCircle,
+            generateCross,
+            generateMesh
+        ];
+
+        const container = document.getElementById("pattern");
+        let result = "";
+
+        while (kamalaChunks.length || trumpChunks.length) {
+            const useKamala = Math.random() > 0.5 && kamalaChunks.length;
+            const useTrump = !useKamala && trumpChunks.length;
+
+            if (useKamala) {
+                const chunk = kamalaChunks.splice(Math.floor(Math.random() * kamalaChunks.length), 1)[0];
+                const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+                result += pattern(chunk, "blue", getRandomTransform()) + "\n\n";
+            } else if (useTrump) {
+                const chunk = trumpChunks.splice(Math.floor(Math.random() * trumpChunks.length), 1)[0];
+                const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+                result += pattern(chunk, "red", getRandomTransform()) + "\n\n";
+            }
+        }
+
+        container.innerHTML = result;
+    }
+
+    fetchAndProcessSpeeches();
+</script>
+</body>
+</html>
