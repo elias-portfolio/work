@@ -1,12 +1,43 @@
 @font-face {
     font-family: 'Suisse';
     src: url('./css/suisse.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
+
+@font-face {
+    font-family: 'BerlinerGrotesk';
+    src: url('./BerlinerGrotesk-Light.woff') format('woff'),
+         url('./BerlinerGrotesk-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AkzidenzGrotesk';
+    src: url('./AkzidenzGroteskBE-Bold.woff') format('woff'),
+         url('./AkzidenzGroteskBE-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Apply the font to <strong> elements */
+strong {
+    font-family: 'AkzidenzGrotesk', sans-serif;
+    font-weight: bold;
+}
+#europa-quote img {
+    margin: 0; /* Remove any margins */
+    padding: 0; /* Remove any padding */
+    display: block; /* Prevent inline space issues */
+}
+
 
 body {
     margin: 0;
     font-family: 'Suisse', 'sans-serif';
    	 text-transform: lowercase;
+	
 }
 
 
@@ -15,23 +46,33 @@ body2 {
     margin: 0;
     font-family: 'Suisse', 'sans-serif';
    	 text-transform: lowercase;
+	 padding: 10
 }
+.ascii-art {
+         
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            overflow-x: auto; /* Allows horizontal scrolling if necessary */
+        }
 .header {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%;
+    width: 30%;
     height: 40px;
     background-color: #ffffff;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     box-sizing: border-box;
-	position: fixed; 
-	z-index: 1000;
-	font-family: 'Suisse', 'sans-serif';
+    position: fixed;
+    z-index: 1000;
+    font-family: 'Suisse', 'sans-serif';
     text-transform: lowercase;
-	font-size: 16px;
+    font-size: 16px;
+	  color: #000000;
 }
 .diablo-solution,
 .diablo-images {
@@ -54,23 +95,6 @@ body2 {
     padding: 0;
 }
 
-#about-link {
-    text-decoration: none;
-    color: black;
-    font-size: 16px;
-    font-weight: normal;
-}
-
-#about-link:hover {
-    text-decoration: underline;
-}
-
-#portfolio-name {
-    font-size: 16px;
-    font-weight: normal;
-    color: black;
-    text-transform: none;
-}
 
 .website-view {
     display: grid;
@@ -105,6 +129,7 @@ body2 {
     text-decoration: none;
     color: black;
     border-bottom: 1px solid transparent;
+	
 }
 
 .list-item a:hover {
@@ -115,6 +140,7 @@ body2 {
     flex: 0 0 auto;
     text-align: left;
     margin-right: 40px;
+	  color: black;
 }
 
 .title {
@@ -146,28 +172,32 @@ body2 {
     text-transform: lowercase;
     line-height: 1.5;
     text-align: left;
-    padding: 10px;
+    padding: 1px;
 }
 
+
 #quotation {
-    font-family: 'Suisse', 'sans-serif';
-    font-size: 16px;
-    text-transform: lowercase;
-    line-height: 1.5;
-    color: black;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    padding: 10px;
-    width: 90%;
-    border: 2px solid black;
-    text-align: right;
-    cursor: pointer;
+   font-family: 'Suisse', 'sans-serif';/* Clean and professional font */
+    font-size: 16px; /* Adjust size for readability */
+    text-transform: none; /* Avoid forcing all lowercase */
+    line-height: 2; /* Increase line height for better spacing */
+    color: #black; /* Slightly softer black for reduced eye strain */
+   
+
+    padding: 20px; /* More padding for cleaner layout */
+    max-width: 800px; /* Limit width for better readability */
+    margin: 5px auto; /* Center element horizontally with space around it */
+    border: 2px solid #000; /* Bold border for structure */
+    border-radius: 0px; /* Add rounded corners for aesthetics */
+    background-color: #FFFFFF; /* Light background for better contrast */
+    text-align: left; /* Align text to the left */
+    cursor: pointer; /* Maintain clickable behavior */
 }
 
 #quotation-image {
-    margin-top: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+    border-radius: 0px;
+ 
 }
 #europa-quote {
     font-family: 'Suisse', 'sans-serif';
@@ -175,14 +205,16 @@ body2 {
     text-transform: lowercase;
     line-height: 1.5;
     color: black;
-    white-space: pre-wrap;
+  
     word-wrap: break-word;
-    padding: 10px;
-    width: 90%;
+    padding: 1px;
+    width: 100%;
     border: 2px solid black;
     text-align: left;
     cursor: pointer;
-    margin: 
+	 margin: 0;
+    padding: 0;
+  
 }
 
 #diablo {
@@ -193,12 +225,37 @@ body2 {
     white-space: pre-wrap;
     word-wrap: break-word;
     width: 90%;
-    border: 0px solid black;
+  
     text-align: center;
     cursor: pointer;
    
 }
+ .animation-container {
+        width: 100%; /* Full width of the container */
+        overflow: hidden; /* Hide content outside the container */
+        position: relative; /* Relative position for the child animation */
+        height: 32px; /* Adjust the height to prevent squashing */
+        margin-top: 10px; /* Add some space between text and GIF */
+    }
 
+    /* Animated GIF */
+    .animated-gif {
+        position: absolute; /* Position absolutely to move within the container */
+        height: auto; /* Maintain aspect ratio */
+        width: auto; /* Maintain aspect ratio */
+        max-height: 32px; /* Prevent GIF from being too tall */
+        animation: scroll-animation 10s linear infinite; /* Smooth scrolling animation */
+    }
+
+    /* Keyframe animation */
+    @keyframes scroll-animation {
+        from {
+            transform: translateX(100%); /* Start off-screen to the right */
+        }
+        to {
+            transform: translateX(-100%); /* End off-screen to the left */
+        }
+    }
 #diablo-insight {
     font-family: 'Suisse', 'sans-serif';
     font-size: 12px;
@@ -220,7 +277,7 @@ body2 {
     color: black;
     white-space: pre-wrap;
     word-wrap: break-word;
-    padding: 10px;
+    padding: 1px;
     width: 90%;
     border: 2px solid green;
     text-align: left;

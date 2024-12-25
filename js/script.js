@@ -99,201 +99,344 @@ async function fetchSongAndVideo() {
     }
 }
 
-function openWindowWithSize(url) {
-    const width = Math.round(window.innerWidth * 0.7);
-    const height = Math.round(window.innerHeight * 0.7);
-    const left = Math.round((window.innerWidth - width) / 2);
-    const top = Math.round((window.innerHeight - height) / 2);
-    window.open(url, '_blank', `width=${width},height=${height},left=${left},top=${top}`);
-}
-
-function showContent(section) {
-    const content = {
-      spotify: `
-    <div style="position: absolute; top: 0; width: 100%; height: auto; overflow: hidden; padding: 10px;">
-        <!-- Updated iframe -->
-        <iframe src="https://www.youtube.com/embed/Fi_V9lzc5BE" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen 
-                style="width: 100%; height: 300px; border-radius: 5px;"></iframe>
-        
-        <!-- Adding images -->
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
-            <img src="images/Spotify/spoinsta.png" 
-                 alt="Spotify Image 1" 
-                 style="width: calc(25% - 10px); border-radius: 5px;">
-            <img src="images/Spotify/spotooh1.png" 
-                 alt="Spotify Image 2" 
-                 style="width: calc(25% - 10px); border-radius: 5px;">
-            <img src="images/Spotify/spotooh2.png" 
-                 alt="Spotify Image 3" 
-                 style="width: calc(25% - 10px); border-radius: 5px;">
-            <img src="images/Spotify/spotooh3.png" 
-                 alt="Spotify Image 4" 
-                 style="width: calc(25% - 10px); border-radius: 5px;">
-        </div>
-        
-        <!-- Adding text content -->
-        <div style="margin-top: 20px; font-size: 16px; font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5;">
-            <h3 style="text-transform: lowercase;">Brief:</h3>
-            <p>Market audiobooks to young adults and teenagers.</p>
-
-            <h3 style="text-transform: lowercase;">Background:</h3>
-            <p>96% of young adults use a smart device in their last hour awake, and 70% of them use audio as a sleep aid. And while falling asleep to an audiobook seems ideal, it actually sucks because you never know when you fell asleep.</p>
-
-            <h3 style="text-transform: lowercase;">Unexpected Insight:</h3>
-            <p>Sleep trackers can use the smartphone accelerometer to pinpoint the moment you sleep.</p>
-
-            <h3 style="text-transform: lowercase;">Solution:</h3>
-            <p>Audiobooks that pause when you sleep.</p>
-        </div>
-    </div>
-`,
-		
-        ipren: `<h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ipren Campaign</h2><p>Details...</p>
-<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
-            <img src="images/treo/treo-tidning-png-2.png" 
-                 alt="Spotify Image 1" 
-                 style="width: calc(25% - 10px); border-radius: 5px;">
-            <img src="images/treo/treo-tidning-png-4.png" 
-                 alt="Spotify Image 2" 
-                 style="width: calc(25% - 10px); border-radius: 5px;">
-         
-        </div>
-`,
-        diablo: `<div id="diablo" onclick="cycleDiabloContent()"> this project was a tribue to the badassness of cultures worldwide. flip through the pitch by clicking on the text 
+document.addEventListener("DOMContentLoaded", () => {
+    const dynamicHeader = document.getElementById("dynamic-header");
+    const contentDisplay = document.getElementById("content-display");
+    const mediaArea = document.getElementById("media");
     
-</div>
-
-<div id="diablo-insight" style="display: none;">
-    <!-- Content will be dynamically added here -->
-</div>
- 
-    
-   
-
-
-
-
-    `,
-        f16: `<h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">F-16 Jet Campaign</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur scelerisque ipsum dolor, vel luctus risus luctus sit amet. Pellentesque scelerisque gravida diam. Curabitur vitae risus sit amet justo scelerisque tempor. Phasellus </p>`,
-  groundnews: `
-<div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
-    <!-- Add iframe container -->
-    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
-        <!-- Iframe directly displaying the ground6.html content -->
-        <iframe id="ground5-iframe" src="ground6.html" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-
-    <br>
-    <br>
-
-    <div style="text-align: center;">
-        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
-            do you feel lost in this year's election cycle?
-        </p>
-        <p style="font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5; font-size: 12px; font-weight: normal;">
-            Ground News helps you break free from algorithms <br>by comparing the whole spectrum of news sources.
-        </p>
-    </div>
-
-    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
-        <!-- Iframe directly displaying the ground1.html content -->
-        <iframe id="ground1-iframe" src="ground1.html" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-
-<br>
-    <br>
-
-    <div style="text-align: center;">
-        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
-            do you feel lost in this year's election cycle?
-        </p>
-        <p style="font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5; font-size: 12px; font-weight: normal;">
-            Ground News helps you break free from algorithms <br>by comparing the whole spectrum of news sources.
-        </p>
-    </div>
-
-`
-
-
-,
-        kalles: `<h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Kalles Kaviar Campaign</h2><p>Details...</p>`,
-      europa: `<div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
-    <div id="europa-quote" onclick="fetchAndDisplayEuropaQuotation();" style="cursor: pointer;">
-        Click the box to flip through some of the work.
-    </div>
-    <div>
-        <p> This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Check out the full exhibit here. <br>
-            <a href="https://europearchive.eu/country-index/" target="_blank">https://europearchive.eu/country-index/</a>
-        </p>
-    </div>
-
-</div>
-
-`,
-
-
-        ikea: `<h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ikea Campaign</h2><p>Details...</p>`,
-        ecb: `<h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">ECB Campaign</h2><p>Details...</p>`,
-        birthday: `
-            <div style="padding: 2px; font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
-                Just like people, songs are born every day, <br> this song is from the day you were born.
-
-                <form onsubmit="event.preventDefault(); fetchSongAndVideo();" style="margin-bottom: 20px;">
-                    <input type="date" id="birthdate" name="birthdate" required style="background-color: #000000; color: white; padding: 5px 5px; border: 1px solid white; cursor: pointer; margin-right: 10px;">
-                    <button type="submit" style="background-color: #000000; color: white; padding: 5px 5px; border: 1px solid white; cursor: pointer;">Get Your Birthday Song</button>
-                </form>
-                <h2 id="songTitle" style="margin-top: 20px;"></h2>
-                <iframe id="youtubeEmbed" width="100%" height="315" src="" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-            </div>
-        `,
-        banned: `<h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Banned Songs</h2><p>Details...</p>`,
-        kindle: `
-            
-<div id="quotation" onclick="fetchAndDisplayQuotation();">
-    this little eulogy for my broken kindle is built on whatever annotations i was able to salvage. start by clicking the box
-</div>
-        `,
-        amazonCrime: `
-    <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
-        <p>this was really made  for my friends, but yea,  this tool downloads a movie from my collection, hehehe</p>
-        <div style="display: flex; align-items: center; gap: 2px; margin-bottom: 20px;">
-            <form onsubmit="event.preventDefault(); findMovie();" style="display: flex; align-items: center; gap: 2px;">
-                <input type="number" id="yearInput" min="1919" max="2023" value="1988" required style="background-color: #000000; color: white; padding: 5px; border: 1px solid white; cursor: pointer;">
-                <button type="submit" style="background-color: #000000; color: white; padding: 5px; border: 1px solid white; cursor: pointer;">Find Movie</button>
-            </form>
-            <form onsubmit="event.preventDefault(); find90MinuteMovies();" style="display: inline;">
-                <button type="submit" style="background-color: #000000; color: white; padding: 5px; border: 1px solid white; cursor: pointer;">Give me a 90 minuter</button>
-            </form>
-        </div>
-        <p id="movieLink"></p>
-        <div id="movieCredits"></div>
-    </div>
-                `,
-		
+    const projectPaths = {
+        ikea: "/elias/portfolio/2011/ikea",
+        ipren: "/elias/portfolio/2011/ipren",
+        spotify: "/elias/portfolio/2011/spotify",
+        diablo: "/elias/portfolio/2011/diablo",
+        f16: "/elias/portfolio/2011/f16",
+        groundnews: "/elias/portfolio/2011/groundnews",
+        kalles: "/elias/portfolio/2011/kalles",
+        europa: "/elias/portfolio/2011/europa",
+        ecb: "/elias/portfolio/2011/ecb",
+        birthday: "/elias/portfolio/2011/birthday",
+        banned: "/elias/portfolio/2011/banned",
+        kindle: "/elias/portfolio/2011/kindle",
+        amazonCrime: "/elias/portfolio/2011/amazonCrime"
     };
+	
+	
+    // Initialize with default text (no links)
+    dynamicHeader.textContent = '/elias/'; // Change this to whatever you prefer as the default
 
-    const displayArea = document.getElementById('content-display');
-    const mediaArea = document.getElementById('media');
+	
+    
+    // Function to show content and update the dynamic header
+    function showContent(section) {
+        const content = {
+            spotify: `
+                <div style="position: absolute; top: 0; width: 100%; height: auto; overflow: hidden; padding: 10px;">
+                    <!-- Updated iframe -->
+                    <iframe src="https://www.youtube.com/embed/Fi_V9lzc5BE" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen 
+                            style="width: 100%; height: 300px; border-radius: 5px;"></iframe>
+                    
+                    <!-- Adding images -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+                        <img src="images/Spotify/spoinsta.png" 
+                             alt="Spotify Image 1" 
+                             style="width: calc(25% - 10px); border-radius: 5px;">
+                        <img src="images/Spotify/spotooh1.png" 
+                             alt="Spotify Image 2" 
+                             style="width: calc(25% - 10px); border-radius: 5px;">
+                        <img src="images/Spotify/spotooh2.png" 
+                             alt="Spotify Image 3" 
+                             style="width: calc(25% - 10px); border-radius: 5px;">
+                        <img src="images/Spotify/spotooh3.png" 
+                             alt="Spotify Image 4" 
+                             style="width: calc(25% - 10px); border-radius: 5px;">
+                    </div>
 
-    if (content[section]) {
-        displayArea.innerHTML = content[section];
 
-        // Adjust layout to make the content area occupy 70%
-        mediaArea.style.flex = '0 0 50%';
-        mediaArea.style.width = '50%';
-    } else {
-        displayArea.innerHTML = '<p>No content available.</p>';
-    }
+
+                    <div style="margin-top: 20px; font-size: 16px; font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5;">
+                        <h3 style="text-transform: lowercase;">Brief:</h3>
+                        <p>Market audiobooks to young adults and teenagers.</p>
+
+                        <h3 style="text-transform: lowercase;">Background:</h3>
+                        <p>96% of young adults use a smart device in their last hour awake, and 70% of them use audio as a sleep aid. And while falling asleep to an audiobook seems ideal, it actually sucks because you never know when you fell asleep.</p>
+
+                        <h3 style="text-transform: lowercase;">Unexpected Insight:</h3>
+                        <p>Sleep trackers can use the smartphone accelerometer to pinpoint the moment you sleep.</p>
+
+                        <h3 style="text-transform: lowercase;">Solution:</h3>
+                        <p>Audiobooks that pause when you sleep.</p>
+                    </div>
+                </div>
+            `,
+            ipren: `
+                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ipren Campaign</h2>
+                <p>Details...</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+                    <img src="images/treo/treo-tidning-png-2.png" 
+                         alt="Spotify Image 1" 
+                         style="width: calc(25% - 10px); border-radius: 5px;">
+                    <img src="images/treo/treo-tidning-png-4.png" 
+                         alt="Spotify Image 2" 
+                         style="width: calc(25% - 10px); border-radius: 5px;">
+                </div>
+            `,
+            diablo: `
+
+<div id="diablo" onclick="cycleDiabloContent()">
+   <strong> click the text to flip through the pitch or check the case below </strong>
+    <a href="#" onclick="openPopup('https://www.youtube.com/embed/qxbl1RnUT-c?modestbranding=1&rel=0&autoplay=0'); return false;">https://www.youtube.com/watch?v=qxbl1RnUT-c</a>
+    <div class="animation-container">
+        <img src="images/Diablo/animation.gif" alt="Diablo Animation" class="animated-gif">
+    </div>
+</div>
+
+
+
+
+
+
+                <div id="diablo-insight" style="display: none;">
+
+                    <!-- Content will be dynamically added here -->
+               
+            `,
+            f16: `
+                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">F-16 Jet Campaign</h2>
+                
+▀████▀                             ▀███████████████████████████████████████████▀█████▄▄▄▄▄▀ ░▓█▀  ░░      ███████████████████████████████████████████████████      ▄██████  ▓  ▀  ▒▒      ▄███████████████████████████████████████████                     ▄█████▄████████  ▒▐▌█▐▌▓▓
+██████   ▐█████████  ░▐▌▓▐▌██
+▄████▄   ███▄▄▀▄▄██   ▐▌▒▐▌██ ▄▄▄▄▄▄▄                  ▄▄▄▄█████▄
+        ▐███▀▀▀▀▀██   ▐▌░▐▌██ █▄██████████████████▄ ▄▄███████████ █▐█████░░ 
+        ▐██████████   ▐▌ ▐▌██ ███████ ▄▄     ▄▄████  ▀▀▀▀      ▀▀ ▓▐█████▓▓░
+   ▄▄  ▀▐██▀▀▀▀▀▀▀█░ ░▐▌░▐▌██ ▓█▀▀▀▀█ █▓  ▄▄█   ▌▄▐               ░▐███████▒
+   █▄███▐██ █▀▀▀█ █▒ ▒▐▌▒▐▌██ ░█ ██ █ ▓░     ▄▄█▌█▐                ▐██████▀▓
+    ▀█  ▐██ ▌▐▀▌▐ █▓ ▓▐▌▓▐▌██ ▄█▄▄▄▄█ ░   ▄▄█   ▌▓▐    ▀███████▀    ▌▀▀▀▀▀▀▀
+   ▄▄ █▄ ██ █▄▄▄█ ██ ▓▐▌░▐▌██ ███████  ░     ▄▄█▌░▐░   █████████    ▌      ▐
+   █▄██▀ ▐█▄▄▄▄▄▄▄██▌█▐▌▓▐▌██ ▓▓▓▓▓▓▓ ░▒  ▀▀█   ▌█▐▒   █████████    ▌      ▐
+    ▀█    ▀██████████▄  ▀  ██ ▒▒▒▒▒▒▒ ▒▓     ▄▄█▌▀▐▓   ▄███████▄   ░▌ ■    ▐
+   ▄▄ █▄    ▀▀█████████▄▄▄▄██ ░▓░▓░▓░ ▓▀  ▄▄█   ████               ▒▌    ▐▄▐
+   █▄██▀░  ░   ▀▀▀███████████ ███████ █▄     ▄▄█████▄▄█ ▄          ▓▌▀ █▄  ▐
+    ▀█  ▒░ ▒  ░ ░  ▀▀▀▀▀▀███▀           ▄█████████▀▄▀▀ ▀▀         ■   ▄▄  ▄▄ ▄
+   ▄▄ █▄▓▒░▓░░▓░▓░▒        ▀▀           ▀▀▀▀▀▀▀▀▀▀█▀███▄ ■         ▄▄ ▀▀▀▄▀▀
+   █▄██▀█▓▒█▒▓█▓█▓▓░                        ▀▀ ■█▄▄█ ▄█▀           ▄▄▄▀▀▀█▄▒▄▄
+    ▀█  ██▓█▓██████▓    ▀███████████████▀    ▄▄  ▀ ██ ▀ ▄          ▀▀▀███■█ ▀▀
+     ███████████▓░██    █████████████████                          ██▄ ▄█ ▀▄ ▀
+     ▀█   ██████████    █████████████████                  ▀███▀    ▀  ▀█▀   ■
+                        ▄███████████████▄                  ▄███▄            
+                              ▀
+                           ▄            ▓        ▄▄▄▀▀▀▀▀▀▀▀▀▀▄▄
+                            █▀▀▀▀▄▄     ▄     ▄▀▀ ▄▄▄▓██████▓▄▄ ▀▄
+                            █ ▀█▄▄ ▀█▀▀▀▓▀▀▀█▀ ▄█████▀▀▀▀▀▀▀███▓▄ ▓
+         ▄▄█▀▀▀▀▀▀▀▀▄▄     ▐▌░▓████▄ ▀▄ ▀ ▄▀ ▄▓█▀▀ ▄▄▄▓████▄ ▀███▌▐▌
+      ▄▀▀ ▄▄▄▓████▓▄▄ ▀▄   ▓ ▐███▌▀██▄ ▀▄▐▌ ██▀ ▄██████████▓ ▐████ █
+    ▄▀ ▄▓████▀▀▀▀████▓▄ █ ▐▌ ▓███ ▄ ▀█▓▄ █ ▓█▌ ▓████████▀▀▀ ▄████▓ █  ▀
+  ▄▀ ▄▓██▀▀ ▄▄█▓▄▄ ▀███▌▐██ ▐███▌▐█▓ ▐██▌ ▐██▌ █████████ ▀▀▓█████▌ █  ▄
+▄▀ ▄████▌ ▄▓█████▀▄ ▐███ ▐▌ ▓███ ███▌ ███  ███▄ ▀▓████████▄▄▄ ▀▀▀ ▐▌  ▀
+▓▀▄ ▀████ ████▓▀▄██ ▐███ ▓ ▐███▌▐███▓ ▐██▌  ▀▓██▄▄ ▀▀▀▓████████▀█▀▀▄▄▄▓▄▄ ▄▄  ▄
+▀ ▐▓ ▐███▌▐█▓▀▄██▓▀ ███▌▐▌ ████ ▀▓███▌ ██▓ ▓▄ ▀▀▓████▄▄▄▄▄▄▄▄ ▀▀▀▀▓▄▄ █ rl!/gen
+▄  █▌ ▓███ ▀▄█▓▀▀ ▄██▓▀ ▓ ▐███▌▐█▄▀██▓ ▐██▌▐██▀   ▀▀▀▀▀▀▀▓███████▄▄ ▀▀█▄
+   ▐█ ▐███▌  ▄▄▄████▀  ▀▌ ▓███ ▓██▓▄▀█▌ ██▓ ▓▌ ▄▓███▀ ▓█▄▄▄▄▄▄ ▀▀▀▓██▄▄ ▀▄▄
+    ▓▌ ▓███████▓▀▀  ▄▄█▓ ▐███▌▄█████▓▄▀ ▐██▌▐ ▐████ ▄██████████▓▀▄▄ ▀███▄ ▀▓▄
+    ▐█ ▐███▌  ▄▄▄▓██▀██▌ ████▄▄ ▀▀█████▌ ██▓  ████▌▐██████████▀▄▓███▄ ▀██▓▄ ▀▓
+     ▓▌ ▓█████▀▀▀ ▄ ▐█▓ ▐███▌▀▀██▄▄ ▀▀█▓ ▐██▌ ▓███▌▐███████▓▀▄███████▓ ▐███▌ ▐▓
+     ▐█ ▐███▌ ▄▓██▌ ██▌ ████  ■▄ ▀▀▓█▄▄ ▀ ███ ▐████ ██████▀▄██████████▌ ███▓  █▌      ▓▌ ▓███ ▐███ ▐█▓ ▀▀▓████▄ ▀▓▄▄ ▀▀▓█▄▄██▌ ████▓ ▀▓█▀▄▓██████████▓ ▐███▌ ▐▓
+      ▐█ ▐██▓▄ ██▄ ▀▀▀▀ ▄▄ ▀▀▓██▄▄ ▀█▓▄▄ ▀▀▓██  ▓████▄  ▓██████████▓▀ ▄██▓▀ ▄▓▒
+      ▓  ▀▀▀ ▄▄▓▀▀▀▀▀▀▀▀▓▀▀▀▄ ▀█▀ ▄▀   ▀▀▓▄▄▄ ▀  ▀████▓▄▄ ▀▀▓███▀▀ ▄▄███▀ ▄█▀ ░
+      ▀▀▀▀▀▀▀▀          ▒    ▀▄ ▄▀          ▀▀▀▀▀▄▄ ▀▀█████▄▄▄▄▄▄████▓▀ ▄▓▀
+                        ░      ▀                   ▀▀▄▄ ▀▀▀▓█████▓▀▀ ▄▄█▀
+                                                       ▀▀▀▄▄▄▄▄▄▄▄▄▀▀▀
+
+            `,
+            groundnews: `
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
+                    <!-- Add iframe container -->
+                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                        <iframe id="ground5-iframe" src="ground6.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
+                            do you feel lost in this year's election cycle?
+                        </p>
+                        <p style="font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5; font-size: 12px; font-weight: normal;">
+                            Ground News helps you break free from algorithms <br>by comparing the whole spectrum of news sources.
+                        </p>
+                    </div>
+
+                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
+                        <!-- Iframe directly displaying the ground1.html content -->
+                        <iframe id="ground1-iframe" src="ground1.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
+                            do you feel lost in this year's election cycle?
+                        </p>
+                        <p style="font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5; font-size: 12px; font-weight: normal;">
+                            Ground News helps you break free from algorithms <br>by comparing the whole spectrum of news sources.
+                        </p>
+                    </div>
+                </div>
+            `,
+            kalles: `
+               <pre>
+
+<span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:red;">  </span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███████████████████████████████████████████</span><span style="font-weight:bold;color:dimgray;">
+</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">██████</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;">▄</span><span style="font-weight:bold;color:yellow;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">▄▄</span><span style="color:red;background-color:fuchsia;">▀</span><span style="color:red;background-color:black;"> </span><span style="font-weight:bold;color:red;background-color:red;">░▓</span><span style="font-weight:bold;color:red;background-color:black;">█</span><span style="font-weight:bold;color:dimgray;background-color:white;">▀</span>  <span style="font-weight:bold;color:yellow;">░░</span><span style="color:lime;">███████████████████████████████████████████████████</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▄██████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span><span style="color:red;"> ▓</span><span style="color:white;">  </span><span style="font-weight:bold;color:red;background-color:red;">▀</span>  <span style="font-weight:bold;color:yellow;">▒▒</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███████████████████████████████████████████</span><span style="font-weight:bold;color:dimgray;">
+</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">██████</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▄████████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span><span style="color:red;"> ▒</span><span style="font-weight:bold;color:white;">▐▌</span><span style="color:red;background-color:fuchsia;">█</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:black;">▓▓</span>
+<span style="color:lime;">██████</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▐█████████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span><span style="color:red;"> ░</span><span style="font-weight:bold;color:white;">▐▌</span><span style="color:red;">▓</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">██</span>
+<span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span>   <span style="font-weight:bold;color:yellow;">███</span>▄<span style="font-weight:bold;background-color:white;">▄</span>▀<span style="font-weight:bold;background-color:white;">▄</span>▄<span style="font-weight:bold;color:yellow;">██</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span> <span style="color:red;"> </span><span style="font-weight:bold;color:white;">▐▌</span><span style="color:red;">▒</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">██</span> <span style="color:#3333FF;">▄</span><span style="font-weight:bold;color:#3333FF;">▄▄▄▄</span><span style="color:#3333FF;">▄▄</span><span style="color:white;">▄</span><span style="font-weight:bold;color:yellow;">▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:black;">█████</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span>
+ ▐<span style="font-weight:bold;color:yellow;">███</span>▀<span style="font-weight:bold;background-color:white;">▀▀▀</span>▀<span style="font-weight:bold;color:yellow;">██</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span>  <span style="font-weight:bold;">▐▌</span><span style="color:red;">░</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">█</span><span style="font-weight:bold;color:white;background-color:white;">▄█████</span><span style="font-weight:bold;color:yellow;background-color:black;">███████████</span><span style="font-weight:bold;color:white;background-color:white;">██▄</span> ▄<span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">███████████</span> █<span style="font-weight:bold;color:yellow;">▐███</span>██<span style="font-weight:bold;">░░</span><span style="color:fuchsia;"> </span><span style="color:white;">
+</span><span style="font-weight:bold;color:yellow;">▐██████████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span>  <span style="font-weight:bold;">▐▌</span> <span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">█</span><span style="font-weight:bold;color:yellow;">██████</span> <span style="font-weight:bold;color:#3333FF;">▄▄</span><span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">▄▄</span><span style="color:#3333FF;">█</span><span style="font-weight:bold;color:yellow;">███</span> <span style="font-weight:bold;color:yellow;background-color:white;"> ▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▀</span>▀▀▀▀ ▓<span style="font-weight:bold;color:yellow;">▐█████</span><span style="font-weight:bold;color:white;">▓▓</span><span style="color:red;">░</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:dimgray;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▐██▀</span><span style="font-weight:bold;color:yellow;background-color:white;">▀▀▀▀▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▀█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">░</span> <span style="color:fuchsia;">░</span><span style="font-weight:bold;color:white;">▐▌</span>░<span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">▓</span><span style="font-weight:bold;color:yellow;">█▀</span><span style="font-weight:bold;color:yellow;background-color:white;">▀▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▀█</span> █<span style="font-weight:bold;color:#3333FF;">▓</span>  <span style="font-weight:bold;color:yellow;background-color:yellow;">▄▄</span><span style="color:yellow;">█</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:red;">▄</span><span style="font-weight:bold;color:yellow;">▐</span>░<span style="font-weight:bold;color:yellow;">▐█████</span><span style="font-weight:bold;color:white;">██</span><span style="color:red;">▒</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span>█<span style="font-weight:bold;color:yellow;">▐██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">█▀▀▀█</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">▒</span> <span style="color:fuchsia;">▒</span><span style="font-weight:bold;color:white;">▐▌</span>▒<span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">░</span><span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> ▓<span style="font-weight:bold;color:#3333FF;">░</span><span style="font-weight:bold;color:red;background-color:red;">▄▄</span><span style="color:red;">█</span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:yellow;">█</span><span style="font-weight:bold;color:yellow;">▐</span><span style="font-weight:bold;color:yellow;"> ▐█████</span><span style="font-weight:bold;color:white;">█</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="color:red;">▓</span><span style="color:white;">
+</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span>  <span style="font-weight:bold;color:yellow;">▐██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">▌▐▀▌▐</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">▓</span> <span style="color:fuchsia;">▓</span><span style="font-weight:bold;color:white;">▐▌</span>▓<span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:dimgray;">▄</span><span style="font-weight:bold;color:yellow;">█▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:black;">▄█</span> ░<span style="font-weight:bold;color:#3333FF;"> </span>  <span style="font-weight:bold;color:lime;background-color:lime;">▄▄</span><span style="color:lime;">█</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:yellow;background-color:white;">▓</span><span style="font-weight:bold;color:yellow;background-color:black;">▐</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span>  <span style="font-weight:bold;color:yellow;">  </span><span style="color:fuchsia;">▌▀▀▀▀▀▀</span><span style="color:red;">▀</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:dimgray;background-color:black;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">█▄▄▄█</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">█</span> <span style="font-weight:bold;color:#3333FF;">▓</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:#3333FF;background-color:white;">░</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:yellow;">███████</span> <span style="font-weight:bold;color:#3333FF;"> ░</span><span style="font-weight:bold;background-color:white;">▄▄</span>█<span style="font-weight:bold;color:yellow;">▌</span><span style="background-color:yellow;">░</span><span style="font-weight:bold;color:yellow;background-color:black;">▐</span><span style="color:yellow;">░</span><span style="color:white;"></span><span style="color:lime;">█████████</span><span style="color:white;"></span><span style="color:fuchsia;">▌</span><span style="color:#3333FF;">      </span><span style="color:fuchsia;">▐</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span> <span style="font-weight:bold;color:yellow;">▐█▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄▄▄▄▄</span><span style="font-weight:bold;color:yellow;background-color:black;">▄█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">█</span>▌<span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">█</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:#3333FF;background-color:white;">▓</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:yellow;">▓▓▓▓▓▓▓</span><span style="font-weight:bold;color:white;"> </span><span style="font-weight:bold;color:#3333FF;">░▒</span>  <span style="font-weight:bold;color:dimgray;background-color:white;">▀▀</span><span style="font-weight:bold;color:dimgray;background-color:black;">█</span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:yellow;">█</span><span style="font-weight:bold;color:yellow;">▐</span><span style="color:yellow;">▒</span><span style="color:white;"></span><span style="color:lime;">█████████</span><span style="color:white;"></span><span style="color:fuchsia;">▌</span><span style="color:#3333FF;">      </span><span style="color:fuchsia;">▐</span><span style="color:white;">
+</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;">▀██████████▄</span>  <span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">▀</span>  <span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;">▒▒▒▒▒▒▒ </span><span style="font-weight:bold;color:#3333FF;">▒▓</span><span style="font-weight:bold;color:fuchsia;background-color:fuchsia;">▄▄</span><span style="color:fuchsia;">█</span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:red;">▀</span><span style="font-weight:bold;color:yellow;">▐</span><span style="color:yellow;">▓</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:fuchsia;">░▌</span><span style="color:aqua;"> ■</span><span style="color:white;"></span><span style="color:fuchsia;">▐</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;">▀</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="font-weight:bold;color:white;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">████████</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span> <span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;">▓</span><span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;">▓</span><span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;">▓</span><span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;"> </span><span style="font-weight:bold;color:#3333FF;background-color:black;">▓</span><span style="font-weight:bold;color:#3333FF;background-color:white;">▀</span>  <span style="font-weight:bold;color:aqua;background-color:aqua;">▄▄</span><span style="color:aqua;">█   </span><span style="font-weight:bold;color:yellow;">███</span><span style="color:yellow;">█</span><span style="color:white;"></span><span style="color:fuchsia;">▒▌</span><span style="color:white;"></span><span style="color:aqua;">▐▄</span><span style="color:fuchsia;">▐</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="color:yellow;">░</span><span style="color:white;">  </span><span style="color:yellow;">░</span><span style="color:white;"> </span><span style="color:red;"> </span><span style="color:white;"> </span><span style="font-weight:bold;color:yellow;">▀▀</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="font-weight:bold;color:white;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">██████████</span> <span style="font-weight:bold;color:dimgray;">███████ </span><span style="font-weight:bold;color:#3333FF;">█</span><span style="font-weight:bold;color:#3333FF;background-color:white;">▄</span> <span style="font-weight:bold;color:yellow;"> </span><span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">▄▄</span><span style="color:#3333FF;">█</span><span style="font-weight:bold;color:white;">███</span><span style="color:yellow;">█</span><span style="color:red;">▄</span><span style="font-weight:bold;color:red;background-color:red;">▄</span><span style="color:red;">█</span><span style="color:white;"> </span><span style="color:red;">▄</span><span style="color:white;"></span><span style="color:fuchsia;">▓▌</span><span style="color:aqua;">▀</span><span style="color:white;"> </span><span style="font-weight:bold;color:aqua;background-color:aqua;">█▄</span>  <span style="color:fuchsia;">▐</span><span style="color:white;">
+</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span>  <span style="color:yellow;">▒</span><span style="color:fuchsia;">░</span><span style="color:white;"> </span><span style="color:yellow;">▒</span><span style="color:white;"> </span><span style="color:red;"> </span><span style="color:yellow;">░</span><span style="color:white;"> </span><span style="color:red;">░</span><span style="color:white;">  ▀</span><span style="font-weight:bold;color:yellow;">▀▀▀</span><span style="font-weight:bold;color:yellow;background-color:white;">▀▀</span><span style="font-weight:bold;color:yellow;background-color:black;">███</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="color:red;"> </span><span style="color:white;"></span><span style="color:red;">▄</span><span style="font-weight:bold;color:yellow;">███</span><span style="font-weight:bold;color:yellow;background-color:yellow;">████</span><span style="font-weight:bold;color:white;background-color:black;">██</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="color:red;background-color:yellow;">▄</span><span style="color:red;background-color:black;">▀▀</span><span style="color:white;background-color:black;"> </span><span style="color:red;background-color:black;">▀▀</span><span style="color:white;background-color:black;"></span><span style="color:aqua;background-color:black;">■</span><span style="color:fuchsia;background-color:black;">  </span><span style="color:white;background-color:black;"> </span><span style="color:aqua;background-color:black;">▄▄</span><span style="color:white;background-color:black;">  </span><span style="color:aqua;background-color:black;">▄</span><span style="font-weight:bold;color:dimgray;background-color:black;">▄</span><span style="color:aqua;"> ▄</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="color:yellow;">▓</span><span style="color:fuchsia;">▒</span><span style="color:red;">░</span><span style="color:yellow;">▓</span><span style="color:fuchsia;">░</span><span style="color:red;">░</span><span style="color:yellow;">▓</span><span style="color:fuchsia;">░</span><span style="color:red;">▓</span><span style="color:yellow;">░</span><span style="font-weight:bold;color:yellow;">▒</span><span style="font-weight:bold;color:dimgray;"> </span>     <span style="font-weight:bold;color:#3333FF;">  </span><span style="font-weight:bold;color:dimgray;">▀▀</span><span style="font-weight:bold;color:#3333FF;"> </span><span style="color:red;">▀</span><span style="color:yellow;">▀▀▀▀▀▀▀▀▀</span><span style="color:red;">█▀█</span><span style="font-weight:bold;color:red;background-color:red;">██</span><span style="color:red;">▄ ■</span><span style="color:white;"></span><span style="color:aqua;">▄</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▄</span> <span style="color:aqua;">▀</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">▀▄</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">▀</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▓</span><span style="color:red;">▒</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▒</span><span style="color:red;">▓</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▓</span><span style="color:red;">█</span><span style="color:yellow;">▓</span><span style="font-weight:bold;color:yellow;">▓</span><span style="font-weight:bold;color:dimgray;">░</span> <span style="font-weight:bold;color:dimgray;"> </span>          <span style="color:red;">▀▀</span><span style="color:white;"> </span><span style="color:dimgray;background-color:red;">■</span><span style="color:red;background-color:black;">█▄</span><span style="font-weight:bold;color:red;background-color:red;">▄</span><span style="color:red;">█</span><span style="color:white;"> </span><span style="color:red;">▄█▀</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;">▄</span><span style="color:aqua;">▄▄</span><span style="font-weight:bold;color:dimgray;background-color:aqua;">▀</span><span style="color:aqua;">▀</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">█</span><span style="font-weight:bold;color:dimgray;">▄</span><span style="font-weight:bold;color:aqua;">▒</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▄</span><span style="color:aqua;">▄</span><span style="color:white;">
+</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span>  <span style="color:yellow;">█</span><span style="color:fuchsia;">█</span><span style="color:red;">▓</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▓</span><span style="color:red;">█</span><span style="color:yellow;">█</span><span style="color:fuchsia;">█</span><span style="color:red;">█</span><span style="color:yellow;">█</span><span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:dimgray;">▓</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███████████████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="font-weight:bold;color:red;background-color:red;">▄</span><span style="color:red;">▄</span><span style="color:white;">  </span><span style="color:red;">▀</span><span style="color:white;"> </span><span style="color:red;">██</span><span style="color:white;"> </span><span style="color:red;">▀</span><span style="color:white;"> </span><span style="color:red;">▄</span><span style="color:white;"></span><span style="color:aqua;">▀▀</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="font-weight:bold;color:aqua;background-color:black;">█</span><span style="font-weight:bold;color:aqua;background-color:aqua;">█</span><span style="color:aqua;">█</span><span style="color:dimgray;background-color:aqua;">■</span><span style="color:aqua;background-color:black;">█</span><span style="color:fuchsia;background-color:black;"> </span><span style="color:aqua;background-color:black;">▀</span><span style="font-weight:bold;color:dimgray;background-color:black;">▀</span>
+<span style="font-weight:bold;color:yellow;">███████████▓░█</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;">   </span> <span style="color:lime;">█████████████████</span><span style="color:white;"></span><span style="font-weight:bold;color:aqua;">██</span><span style="color:aqua;">▄</span><span style="font-weight:bold;color:dimgray;"> </span><span style="color:aqua;">▄█ </span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="font-weight:bold;color:dimgray;background-color:aqua;">▄</span> <span style="color:aqua;">▀</span><span style="color:white;">
+</span><span style="font-weight:bold;color:yellow;"> </span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:#3333FF;background-color:black;">  </span><span style="font-weight:bold;color:yellow;background-color:black;"> </span><span style="font-weight:bold;color:dimgray;background-color:black;">██████████</span><span style="color:lime;">█████████████████</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:aqua;">▀  </span><span style="font-weight:bold;color:dimgray;">▀</span><span style="font-weight:bold;color:aqua;">█</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">■</span><span style="color:white;">
+</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███████████████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:aqua;">    </span><span style="color:white;">  </span><span style="color:aqua;">   </span><span style="color:white;">
+</span></pre>
+
+            `,
+            europa: `
+                    <div id="europa-quote" onclick="fetchAndDisplayEuropaQuotation();" style="cursor: pointer;">
+                        Click the box to flip through some of the work.
+                    </div>
+                  
+              
+<div>
+                        <p>This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Check out the full exhibit here. <br>
+                            <a href="https://europearchive.eu/country-index/" target="_blank">https://europearchive.eu/country-index/</a>
+                        </p>
+                    </div>   
+            `,
+            ikea: `
+                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ikea Campaign</h2>
+                <p>Details...</p>
+            `,
+            ecb: `
+                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">ECB Campaign</h2>
+                <p>Details...</p>
+            `,
+            birthday: `
+                <div style="padding: 2px; font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
+                    Just like people, songs are born every day, <br> this song is from the day you were born.
+
+                    <form onsubmit="event.preventDefault(); fetchSongAndVideo();" style="margin-bottom: 20px;">
+                        <input type="date" id="birthdate" name="birthdate" required style="background-color: #000000; color: white; padding: 5px 5px; border: 1px solid white; cursor: pointer; margin-right: 10px;">
+                        <button type="submit" style="background-color: #000000; color: white; padding: 5px 5px; border: 1px solid white; cursor: pointer;">Get Your Birthday Song</button>
+                    </form>
+                    <h2 id="songTitle" style="margin-top: 20px;"></h2>
+                    <iframe id="youtubeEmbed" width="100%" height="315" src="" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
+                </div>
+            `,
+            banned: `
+                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Banned Songs</h2>
+                <p>Details...</p>
+            `,
+            kindle: `
+                <div id="quotation" onclick="fetchAndDisplayQuotation();">
+              this is a eulogy for my dead Kindle, composed of random, out-of-context fragments salvaged from its drive. click to flip through.
+
+
+
+
+
+
+            `,
+            amazonCrime: `
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
+                    <p>this was really made for my friends, but yea, this tool downloads a movie from my collection, hehehe</p>
+                    <div style="display: flex; align-items: center; gap: 2px; margin-bottom: 20px;">
+                        <form onsubmit="event.preventDefault(); findMovie();" style="display: flex; align-items: center; gap: 2px;">
+                            <input type="number" id="yearInput" min="1919" max="2023" value="1988" required style="background-color: #000000; color: white; padding: 5px; border: 1px solid white; cursor: pointer;">
+                            <button type="submit" style="background-color: #000000; color: white; padding: 5px; border: 1px solid white; cursor: pointer;">Find Movie</button>
+                        </form>
+                        <form onsubmit="event.preventDefault(); find90MinuteMovies();" style="display: inline;">
+                            <button type="submit" style="background-color: #000000; color: white; padding: 5px; border: 1px solid white; cursor: pointer;">Give me a 90 minuter</button>
+                        </form>
+                    </div>
+                    <p id="movieLink"></p>
+                    <div id="movieCredits"></div>
+                </div>
+            `
+        };
+
+        // Update content display area
+        if (content[section]) {
+            contentDisplay.innerHTML = content[section];
+            mediaArea.style.flex = "0 0 50%"; 
+            mediaArea.style.width = "50%"; 
+        } else {
+            contentDisplay.innerHTML = "<p>No content available.</p>"; 
+        }
+
+        // Update dynamic header with project path if section exists
+      if (projectPaths[section]) {
+    dynamicHeader.innerHTML = `${projectPaths[section]}`;
+} else {
+    dynamicHeader.innerHTML = ''; // Clear the header if there's no section
 }
-document.addEventListener('DOMContentLoaded', () => {
+    }
+
+    // Expose showContent globally so it can be called from HTML
+    window.showContent = showContent;
+
+    // Additional function to open a new window
+    function openWindowWithSize(url) {
+        const width = Math.round(window.innerWidth * 0.7);
+        const height = Math.round(window.innerHeight * 0.7);
+        const left = Math.round((window.innerWidth - width) / 2);
+        const top = Math.round((window.innerHeight - height) / 2);
+        window.open(url, '_blank', `width=${width},height=${height},left=${left},top=${top}`);
+    }
+
+    // Initialize the Europa Quote
     initializeEuropaQuote();
 });
+function openPopup(url) {
+    const width = 800; // Width of the popup window
+    const height = 450; // Height of the popup window
+    const left = (screen.width - width) / 2; // Center the popup horizontally
+    const top = (screen.height - height) / 2; // Center the popup vertically
 
+    // Open a popup window
+    const popupWindow = window.open(
+        url,
+        '_blank',
+        `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=no`
+    );
+
+    // Bring the popup window into focus
+    if (popupWindow) {
+        popupWindow.focus();
+    } else {
+        alert('Popup blocked! Please enable popups for this website.');
+    }
+}
+// Global variables for loading
 let initialLoadEuropa = true;
+let initialLoad = true;
 
+// Function to initialize the Europa content
 function initializeEuropaQuote() {
     const europaQuoteElement = document.getElementById('europa-quote');
     if (initialLoadEuropa && europaQuoteElement) {
@@ -301,64 +444,7 @@ function initializeEuropaQuote() {
             "This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Click the box to flip through some of the work.";
     }
 }
-
-function fetchAndDisplayEuropaQuotation() {
-    fetch('json/europa.txt')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(text => {
-            const europaQuoteElement = document.getElementById('europa-quote');
-
-            if (!text) {
-                europaQuoteElement.textContent = "Failed to load the Europa Archive. Please try again.";
-                return;
-            }
-
-            const entries = text.split(/\n\s*\n/);
-
-            // Attempt to find a valid entry
-            let validEntry = null;
-            for (let i = 0; i < entries.length; i++) {
-                const randomIndex = Math.floor(Math.random() * entries.length);
-                const randomEntry = entries[randomIndex];
-
-                const match = randomEntry.match(/^(\d+)\.(.*?)\n([\s\S]+)/);
-                if (match) {
-                    validEntry = {
-                        number: match[1],
-                        title: match[2].trim(),
-                        description: match[3].trim(),
-                    };
-                    break; // Exit the loop if a valid entry is found
-                }
-            }
-
-            if (validEntry) {
-                europaQuoteElement.innerHTML = `
-                    <div style="margin-bottom: 10px; font-weight: bold;">${validEntry.number}. ${validEntry.title}</div>
-                    <div>${validEntry.description}</div>
-                `;
-            } else {
-                europaQuoteElement.textContent =
-                    "No valid entries found. Please try again.";
-            }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            const europaQuoteElement = document.getElementById('europa-quote');
-            europaQuoteElement.textContent = "Error fetching content. Please try again later.";
-        });
-}
-
-
-
-
-let initialLoad = true;
-const imageMap = {
+const europaImages = {
     155: "images/europa/155.collection photo manuals_austria.gif",
     157: "images/europa/157.cut-out incomplete album page_germany.gif",
     165: "images/europa/165.fieldpost 1940_austria.gif",
@@ -386,8 +472,43 @@ const imageMap = {
     482: "images/europa/482.group photo gymnastic team_the netherlands.gif"
 };
 
+function fetchAndDisplayEuropaQuotation() {
+    fetch('json/europa.txt')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(text => {
+            const europaQuoteElement = document.getElementById('europa-quote');
+            const entries = text.split(/\n\s*\n/); // Split text into entries by double line breaks
+            const randomIndex = Math.floor(Math.random() * entries.length);
+            const selectedEntry = entries[randomIndex].trim();
 
+            // Extract the ID from the entry text (even if it's wrapped in <strong>)
+            const entryIdMatch = selectedEntry.match(/<strong>(\d+)\./); // Match IDs like "176." within <strong> tags
+            const entryId = entryIdMatch ? entryIdMatch[1] : null;
 
+            // Check if there's a corresponding image for the ID
+            if (entryId && europaImages[entryId]) {
+                europaQuoteElement.innerHTML = `
+                    <div>
+                        <img src="${europaImages[entryId]}" alt="Europa Image ${entryId}" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+                        <p>${selectedEntry}</p>
+                    </div>
+                `;
+            } else {
+                // If no image exists, just display the text
+                europaQuoteElement.innerHTML = selectedEntry;
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
+
+// Function to fetch and display quotations
 function fetchAndDisplayQuotation() {
     fetch('texter/annotations.txt')
         .then(response => {
@@ -397,72 +518,84 @@ function fetchAndDisplayQuotation() {
             return response.text();
         })
         .then(text => {
-            const quotations = text.split(/\n\s*\n/);
+            console.log('Fetched Text:', text);
+
+            // Split entries by blank lines (double line breaks) and filter out entries with 3 words or less
+            const quotations = text
+                .split(/\n\s*\n/) // Split into entries by blank lines
+                .map(entry => entry.trim()) // Trim extra whitespace
+                .filter(entry => entry.split(/\s+/).length > 3); // Filter entries with more than 3 words
+            
+            console.log('Filtered Quotations:', quotations);
+
             const quotationElement = document.getElementById('quotation');
-            const imageElement = document.getElementById('quotation-image');
 
-            if (initialLoad) {
-                initialLoad = false; // Prevent resetting the initial text
-            } else {
-                const randomQuotation = quotations[Math.floor(Math.random() * quotations.length)];
-                const match = randomQuotation.match(/^(\d+)\.(.*?)\n([\s\S]+)/);
-
-                if (match) {
-                    const number = parseInt(match[1], 10);
-                    const title = match[2].trim();
-                    const description = match[3].trim();
-
-                    // Update the text content
-                    quotationElement.innerHTML = `
-                        <div style="margin-bottom: 10px; font-weight: bold;">${number}. ${title}</div>
-                        <div>${description}</div>
-                    `;
-
-                    // Debug image path
-                    if (imageMap[number]) {
-                        const imagePath = imageMap[number];
-                        console.log(`Loading image: ${imagePath}`);
-                        imageElement.src = imagePath;
-                        imageElement.alt = `${title} (${number})`;
-                        imageElement.style.display = "block"; // Show the image
-                    } else {
-                        console.warn(`No image found for entry ${number}`);
-                        imageElement.style.display = "none"; // Hide the image
-                    }
-                } else {
-                    console.error("Could not parse the selected entry:", randomQuotation);
-                    quotationElement.textContent = "Could not parse the selected entry. Please try again.";
-                    imageElement.style.display = "none";
-                }
+            if (!quotationElement) {
+                console.error('Quotation element not found in the DOM.');
+                return;
             }
+
+            if (quotations.length === 0) {
+                // Handle the case where all entries are skipped
+                console.warn('No valid quotations available.');
+                quotationElement.innerHTML = `
+                    <div style="color: red;">
+                        No valid quotations to display. Please check the text file.
+                    </div>
+                `;
+                return;
+            }
+
+            // Select a random entry
+            const randomQuotation = quotations[Math.floor(Math.random() * quotations.length)];
+            console.log('Selected Quotation:', randomQuotation);
+
+            // Update the quotation element
+            quotationElement.innerHTML = `
+                <div>${randomQuotation}</div>
+            `;
         })
         .catch(error => {
             console.error('Fetch error:', error);
-            const quotationElement = document.getElementById('quotation');
-            const imageElement = document.getElementById('quotation-image');
 
-            quotationElement.textContent = "Error fetching content. Please try again later.";
-            imageElement.style.display = "none";
+            const quotationElement = document.getElementById('quotation');
+            if (quotationElement) {
+                quotationElement.innerHTML = `
+                    <div style="color: red;">
+                        Could not load quotations. Please try again.
+                    </div>
+                `;
+            }
         });
 }
 
 
+
+// Function to load Ground 5 content
 function loadGround5Content() {
     const iframe = document.getElementById('ground5-iframe');
-
-    // Check if the iframe exists
     if (iframe) {
-        // Set the iframe source to ground5.html
         iframe.src = 'ground6.html';
-
-        // Make the iframe visible
         iframe.style.display = 'block';
     } else {
         console.error('Iframe element not found.');
     }
 }
+function loadConverted10111111Content() {
+    const iframe = document.getElementById('ground5-iframe');
+    if (iframe) {
+        iframe.src = 'converted-10111111.html'; // Ensure this file is in the correct location
+        iframe.style.display = 'block';
+    } else {
+        console.error('Iframe element not found. Make sure the iframe with id "ground5-iframe" exists.');
+    }
+}
 
 
+
+
+
+// Load Amazon Crime Functionality
 function loadAmazonCrimeFunctionality() {
     fetch('texter/movies.json')
         .then(response => {
@@ -473,21 +606,15 @@ function loadAmazonCrimeFunctionality() {
         })
         .then(movies => {
             function find90MinuteMovies() {
-                const maximumRuntime = 97;
-
                 const shortMovies = movies.filter(movie => {
-                    if (movie.Runtime && movie.Year > 1945) {
-                        const runtime = parseInt(movie.Runtime.split(' ')[0]);
-                        return runtime <= maximumRuntime;
-                    }
-                    return false;
+                    const runtime = parseInt(movie.Runtime.split(' ')[0]);
+                    return movie.Runtime && movie.Year > 1945 && runtime <= 97;
                 });
-
                 displayMovie(shortMovies);
             }
 
             function findMovie() {
-                const year = parseFloat(document.getElementById('yearInput').value);
+                const year = parseInt(document.getElementById('yearInput').value);
                 const moviesFromYear = movies.filter(movie => movie.Year === year);
                 displayMovie(moviesFromYear);
             }
@@ -517,7 +644,6 @@ function loadAmazonCrimeFunctionality() {
             function createMovieElement(selectedMovie, posterPath) {
                 const defaultImageUrl = 'Bilder/poster.png';
                 const imageUrl = posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImageUrl;
-
                 const movieInfoHTML = `
                     <p>${selectedMovie.Title} | Runtime: ${selectedMovie.Runtime} | <a href="${selectedMovie.Link}" target="_blank" onclick="openWindowWithSize('${selectedMovie.Link}')">Link</a> | Password: elias</p>
                 `;
@@ -530,7 +656,6 @@ function loadAmazonCrimeFunctionality() {
                         <img src="${imageUrl}" alt="${selectedMovie.Title} Poster" style="max-width:100%;height:auto;">
                     </div>
                 `;
-
                 return movieElement;
             }
 
@@ -542,8 +667,7 @@ function loadAmazonCrimeFunctionality() {
                     .then(response => response.json())
                     .then(data => {
                         if (data.results && data.results.length > 0) {
-                            const movieId = data.results[0].id;
-                            callback(movieId);
+                            callback(data.results[0].id);
                         } else {
                             console.error(`No TMDB entry found for: ${title} (${year})`);
                         }
@@ -560,11 +684,7 @@ function loadAmazonCrimeFunctionality() {
                 fetch(detailsUrl)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.poster_path) {
-                            callback(data.poster_path);
-                        } else {
-                            callback(null);
-                        }
+                        callback(data.poster_path || null);
                     })
                     .catch(error => {
                         console.error(`Error fetching TMDB details for movie ID: ${movieId}`, error);
@@ -579,33 +699,23 @@ function loadAmazonCrimeFunctionality() {
                 fetch(url)
                     .then(response => response.json())
                     .then(data => callback(data))
-                    .catch(error => console.error('Error fetching movie credits: ' + movieId, error));
+                    .catch(error => console.error(`Error fetching movie credits for movie ID: ${movieId}`, error));
             }
 
             function displayMovieCredits(credits) {
-                const director = credits.crew.find(member => member.job === 'Director');
-                const actors = credits.cast.slice(0, 5);
                 const movieCreditsElement = document.getElementById('movieCredits');
                 movieCreditsElement.innerHTML = '';
 
+                const director = credits.crew.find(member => member.job === 'Director');
                 if (director) {
-                    const directorUrl = `https://www.themoviedb.org/person/${director.id}`;
-                    movieCreditsElement.innerHTML += `<p>Director: <a href="${directorUrl}" target="_blank">${director.name}</a></p>`;
+                    movieCreditsElement.innerHTML += `<p>Director: <a href="https://www.themoviedb.org/person/${director.id}" target="_blank">${director.name}</a></p>`;
                 } else {
                     movieCreditsElement.innerHTML += '<p>Director information not available.</p>';
                 }
 
+                const actors = credits.cast.slice(0, 5);
                 if (actors.length > 0) {
-                    let actorsHTML = '<p>Actors: ';
-                    actors.forEach((actor, index) => {
-                        const actorUrl = `https://www.themoviedb.org/person/${actor.id}`;
-                        actorsHTML += `<a href="${actorUrl}" target="_blank">${actor.name}</a>`;
-                        if (index < actors.length - 1) {
-                            actorsHTML += ', ';
-                        }
-                    });
-                    actorsHTML += '</p>';
-                    movieCreditsElement.innerHTML += actorsHTML;
+                    movieCreditsElement.innerHTML += '<p>Actors: ' + actors.map(actor => `<a href="https://www.themoviedb.org/person/${actor.id}" target="_blank">${actor.name}</a>`).join(', ') + '</p>';
                 } else {
                     movieCreditsElement.innerHTML += '<p>Actor information not available.</p>';
                 }
@@ -617,62 +727,28 @@ function loadAmazonCrimeFunctionality() {
         .catch(error => console.error('Error loading movie data: ', error));
 }
 
+// Texts and insights for Diablo
 const diabloTexts = [
-    `<strong>Brief:</strong>
-    Create a launch campaign that breaks through culture in a way unique to Diablo.`,
+    `<strong>Brief:</strong> <br> Create a launch campaign that breaks through culture in a way unique to Diablo.`,
+    `<strong>Background:</strong> <br>Diablo is set in an underworld inspired by Hell.`,
+    `<strong>Background:</strong><br> An underworld like our "hell" is not a concept unique to the West, and neither is being scared shitless by it.`,
+    `<strong>Background:</strong> <br>Across the world, we’ve been gearing up for one final quest through the kingdom of death.`,
+    `<strong>Background:</strong><br> Packing our coffins with badass shit like: spellbooks, weapons, maps, and coins `,
+    `<strong>Unique Insight:</strong><br> Turns out that some of the demon slaying gear has made its way back to the living.`,
+    `<strong>Unique Insight:</strong> <br>In museums around the world it lies. Thirsting for the foul taste of demon blood once more.`,
+    `<strong>Solution:</strong> <br>Let’s Gear 4 Hell by looting and wielding the same gear used by our ancestors when slaying demons in the afterlife.`,
+    ` <img src="./images/Diablo/Render.gif" alt="Render Gif" style="width:100%;"> <img src="./images/Diablo/korea.gif" alt="Korea Gif" style="width:100%;"> <img src="images/Diablo/SKELETT_25fps_output.gif" alt="Diablo Skeleton Animation" width="50%"> `,
     
-    `<strong>Background:</strong>
-    Diablo is set in an underworld inspired by Hell.`,
-	
-	`<strong>Background:</strong>
-    An underworld like our "hell" is not a concept unique to the West, and neither is being scared shitless by it.
-  `,
-    
-   ` <strong>Background:</strong>
-    Across the world, we’ve been gearing up for one final quest through the kingdom of death.<strong>`,
- 
-		`<strong>Background:</strong>
-		Packing our coffins with badass shit like: spellbooks, weapons, maps, and coins   <img src="images/Diablo/SKELETT_25fps_output.gif" alt="Diablo Skeleton Animation" width="50%"> 
-
- ` ,
-    
-	
-    `<strong>Unique Insight:</strong>
-    Turns out that some of the demon slaying gear has made its way back to the living. `,
-	
-	
-    `<strong>Unique Insight:</strong>
-     In museums around the world it lies. <strong> thirsting for the foul taste of demon blood once more. 
-</div>
-</strong>`,
-    
-	`<strong>Solution:</strong> 
-let’s Gear 4 Hell by looting and wielding the same gear used by our ancestors when slaying demons in the afterlife
-  ` ,
-    
-     `<strong>Media:   <img src="./images/Diablo/Render.gif" alt="Render Gif" style="width:100%; "> </strong>
-   `,
-    `<strong>Media:   <img src="./images/Diablo/korea.gif" alt="Korea Gif" style="width:100%;">   "> </strong>`,
 ];
-// Content for the #diablo-insight box
+
 const diabloInsightContent = `
-<sup>1</sup>For instance, in ancient Greece, it was customary to place a coin in or on the mouth of the deceased as payment for 
-    <a href="https://en.wikipedia.org/wiki/Charon%27s_obol" target="_blank">Charon</a>, the ferryman who transported souls across the river dividing the living from the dead. 
+<sup>1</sup>For instance, in ancient Greece, it was customary to place a coin in or on the mouth of the deceased as payment for <a href="https://en.wikipedia.org/wiki/Charon%27s_obol" target="_blank">Charon</a>, the ferryman who transported souls across the river dividing the living from the dead.<br>
+<sup>2</sup>Similarly, ancient Egyptians included the <a href="https://en.wikipedia.org/wiki/Book_of_the_Dead" target="_blank">Book of the Dead</a>, a collection of spells intended to guide and protect the deceased in the afterlife, within their burial practices.<br>
+<sup>3</sup>In Norse traditions, Vikings honored their dead by burying them with grave goods such as weapons, jewelry, and tools, reflecting their status and beliefs. Notably, some Viking burials included <a href="https://en.wikipedia.org/wiki/Norse_funeral" target="_blank">ship burials</a>, where the deceased were placed in boats along with their possessions, symbolizing their journey to the afterlife.<br>
+<sup>4</sup>Likewise, in ancient China, it was common to include <a href="https://en.wikipedia.org/wiki/Mingqi" target="_blank">mingqi</a>, or "spirit goods," in burials. These items ranged from everyday objects to elaborate models of servants and animals, intended to serve and accompany the deceased in the afterlife.`;
 
-<sup>2</sup>Similarly, ancient Egyptians included the 
-    <a href="https://en.wikipedia.org/wiki/Book_of_the_Dead" target="_blank">Book of the Dead</a>, a collection of spells intended to guide and protect the deceased in the afterlife, within their burial practices. 
-
-<sup>3</sup>In Norse traditions, Vikings honored their dead by burying them with grave goods such as weapons, jewelry, and tools, reflecting their status and beliefs. Notably, some Viking burials included <a href="https://en.wikipedia.org/wiki/Norse_funeral" target="_blank">ship burials</a>, where the deceased were placed in boats along with their possessions, symbolizing their journey to the afterlife. 
-
-<sup>4</sup>Likewise, in ancient China, it was common to include 
-    <a href="https://en.wikipedia.org/wiki/Mingqi" target="_blank">mingqi</a>, or "spirit goods," in burials. 
-    These items ranged from everyday objects to elaborate models of servants and animals, intended to serve and accompany the deceased in the afterlife.`;
-
-
-
-// Index for cycling through diabloTexts
+// Cycling through diablo texts
 let diabloIndex = 0;
-
 function cycleDiabloContent() {
     const diabloElement = document.getElementById('diablo');
     const diabloInsightElement = document.getElementById('diablo-insight');
@@ -691,14 +767,17 @@ function cycleDiabloContent() {
         diabloInsightElement.style.display = 'block';
         diabloInsightElement.innerHTML = diabloInsightContent;
     } 
-    // Check for "Solution:" trigger
-    else if (currentText.includes('Solution:')) {
-        diabloInsightElement.style.display = 'block';
-        diabloInsightElement.innerHTML = 'check out the case film:<a href="https://www.youtube.com/watch?v=qxbl1RnUT-c&modestbranding=1&rel=0" target="_blank">https://www.youtube.com/watch?v=qxbl1RnUT-c</a> <img src="images/Diablo/texturer/animated_frames.gif" alt="Diablo Animation" style="height: 16px;">';
-    } else {
-        diabloInsightElement.style.display = 'none';
-    }
-
+   else if (currentText.includes('Solution:')) {
+    diabloInsightElement.style.display = 'block';
+    diabloInsightElement.innerHTML = `
+        check out the case film:
+        <a href="#" onclick="openPopup('https://www.youtube.com/embed/qxbl1RnUT-c?modestbranding=1&rel=0&autoplay=0'); return false;">https://www.youtube.com/watch?v=qxbl1RnUT-c</a>
+        <img src="images/Diablo/texturer/animated_frames.gif" alt="Diablo Animation" style="height: 16px;">
+    `;
+} else {
+    diabloInsightElement.style.display = 'none';
+}
     // Increment and loop the index
     diabloIndex = (diabloIndex + 1) % diabloTexts.length;
 }
+

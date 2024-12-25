@@ -1,0 +1,3 @@
+[Cls -l "/Users/eliaskarlsson/sixteencolors-archive/sixteencolors-archive-master/output/all_ans_combined.txt"
+
+
