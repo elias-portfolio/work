@@ -117,7 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
         birthday: "/elias/portfolio/2011/birthday",
         banned: "/elias/portfolio/2011/banned",
         kindle: "/elias/portfolio/2011/kindle",
-        amazonCrime: "/elias/portfolio/2011/amazonCrime"
+        amazonCrime: "/elias/portfolio/2011/amazonCrime",
+		scripts: "/elias/portfolio/2011/scripts"
     };
 	
 	
@@ -203,72 +204,64 @@ document.addEventListener("DOMContentLoaded", () => {
                     <!-- Content will be dynamically added here -->
                
             `,
-            f16: `
-                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">F-16 Jet Campaign</h2>
-                
-▀████▀                             ▀███████████████████████████████████████████▀█████▄▄▄▄▄▀ ░▓█▀  ░░      ███████████████████████████████████████████████████      ▄██████  ▓  ▀  ▒▒      ▄███████████████████████████████████████████                     ▄█████▄████████  ▒▐▌█▐▌▓▓
-██████   ▐█████████  ░▐▌▓▐▌██
-▄████▄   ███▄▄▀▄▄██   ▐▌▒▐▌██ ▄▄▄▄▄▄▄                  ▄▄▄▄█████▄
-        ▐███▀▀▀▀▀██   ▐▌░▐▌██ █▄██████████████████▄ ▄▄███████████ █▐█████░░ 
-        ▐██████████   ▐▌ ▐▌██ ███████ ▄▄     ▄▄████  ▀▀▀▀      ▀▀ ▓▐█████▓▓░
-   ▄▄  ▀▐██▀▀▀▀▀▀▀█░ ░▐▌░▐▌██ ▓█▀▀▀▀█ █▓  ▄▄█   ▌▄▐               ░▐███████▒
-   █▄███▐██ █▀▀▀█ █▒ ▒▐▌▒▐▌██ ░█ ██ █ ▓░     ▄▄█▌█▐                ▐██████▀▓
-    ▀█  ▐██ ▌▐▀▌▐ █▓ ▓▐▌▓▐▌██ ▄█▄▄▄▄█ ░   ▄▄█   ▌▓▐    ▀███████▀    ▌▀▀▀▀▀▀▀
-   ▄▄ █▄ ██ █▄▄▄█ ██ ▓▐▌░▐▌██ ███████  ░     ▄▄█▌░▐░   █████████    ▌      ▐
-   █▄██▀ ▐█▄▄▄▄▄▄▄██▌█▐▌▓▐▌██ ▓▓▓▓▓▓▓ ░▒  ▀▀█   ▌█▐▒   █████████    ▌      ▐
-    ▀█    ▀██████████▄  ▀  ██ ▒▒▒▒▒▒▒ ▒▓     ▄▄█▌▀▐▓   ▄███████▄   ░▌ ■    ▐
-   ▄▄ █▄    ▀▀█████████▄▄▄▄██ ░▓░▓░▓░ ▓▀  ▄▄█   ████               ▒▌    ▐▄▐
-   █▄██▀░  ░   ▀▀▀███████████ ███████ █▄     ▄▄█████▄▄█ ▄          ▓▌▀ █▄  ▐
-    ▀█  ▒░ ▒  ░ ░  ▀▀▀▀▀▀███▀           ▄█████████▀▄▀▀ ▀▀         ■   ▄▄  ▄▄ ▄
-   ▄▄ █▄▓▒░▓░░▓░▓░▒        ▀▀           ▀▀▀▀▀▀▀▀▀▀█▀███▄ ■         ▄▄ ▀▀▀▄▀▀
-   █▄██▀█▓▒█▒▓█▓█▓▓░                        ▀▀ ■█▄▄█ ▄█▀           ▄▄▄▀▀▀█▄▒▄▄
-    ▀█  ██▓█▓██████▓    ▀███████████████▀    ▄▄  ▀ ██ ▀ ▄          ▀▀▀███■█ ▀▀
-     ███████████▓░██    █████████████████                          ██▄ ▄█ ▀▄ ▀
-     ▀█   ██████████    █████████████████                  ▀███▀    ▀  ▀█▀   ■
-                        ▄███████████████▄                  ▄███▄            
-                              ▀
-                           ▄            ▓        ▄▄▄▀▀▀▀▀▀▀▀▀▀▄▄
-                            █▀▀▀▀▄▄     ▄     ▄▀▀ ▄▄▄▓██████▓▄▄ ▀▄
-                            █ ▀█▄▄ ▀█▀▀▀▓▀▀▀█▀ ▄█████▀▀▀▀▀▀▀███▓▄ ▓
-         ▄▄█▀▀▀▀▀▀▀▀▄▄     ▐▌░▓████▄ ▀▄ ▀ ▄▀ ▄▓█▀▀ ▄▄▄▓████▄ ▀███▌▐▌
-      ▄▀▀ ▄▄▄▓████▓▄▄ ▀▄   ▓ ▐███▌▀██▄ ▀▄▐▌ ██▀ ▄██████████▓ ▐████ █
-    ▄▀ ▄▓████▀▀▀▀████▓▄ █ ▐▌ ▓███ ▄ ▀█▓▄ █ ▓█▌ ▓████████▀▀▀ ▄████▓ █  ▀
-  ▄▀ ▄▓██▀▀ ▄▄█▓▄▄ ▀███▌▐██ ▐███▌▐█▓ ▐██▌ ▐██▌ █████████ ▀▀▓█████▌ █  ▄
-▄▀ ▄████▌ ▄▓█████▀▄ ▐███ ▐▌ ▓███ ███▌ ███  ███▄ ▀▓████████▄▄▄ ▀▀▀ ▐▌  ▀
-▓▀▄ ▀████ ████▓▀▄██ ▐███ ▓ ▐███▌▐███▓ ▐██▌  ▀▓██▄▄ ▀▀▀▓████████▀█▀▀▄▄▄▓▄▄ ▄▄  ▄
-▀ ▐▓ ▐███▌▐█▓▀▄██▓▀ ███▌▐▌ ████ ▀▓███▌ ██▓ ▓▄ ▀▀▓████▄▄▄▄▄▄▄▄ ▀▀▀▀▓▄▄ █ rl!/gen
-▄  █▌ ▓███ ▀▄█▓▀▀ ▄██▓▀ ▓ ▐███▌▐█▄▀██▓ ▐██▌▐██▀   ▀▀▀▀▀▀▀▓███████▄▄ ▀▀█▄
-   ▐█ ▐███▌  ▄▄▄████▀  ▀▌ ▓███ ▓██▓▄▀█▌ ██▓ ▓▌ ▄▓███▀ ▓█▄▄▄▄▄▄ ▀▀▀▓██▄▄ ▀▄▄
-    ▓▌ ▓███████▓▀▀  ▄▄█▓ ▐███▌▄█████▓▄▀ ▐██▌▐ ▐████ ▄██████████▓▀▄▄ ▀███▄ ▀▓▄
-    ▐█ ▐███▌  ▄▄▄▓██▀██▌ ████▄▄ ▀▀█████▌ ██▓  ████▌▐██████████▀▄▓███▄ ▀██▓▄ ▀▓
-     ▓▌ ▓█████▀▀▀ ▄ ▐█▓ ▐███▌▀▀██▄▄ ▀▀█▓ ▐██▌ ▓███▌▐███████▓▀▄███████▓ ▐███▌ ▐▓
-     ▐█ ▐███▌ ▄▓██▌ ██▌ ████  ■▄ ▀▀▓█▄▄ ▀ ███ ▐████ ██████▀▄██████████▌ ███▓  █▌      ▓▌ ▓███ ▐███ ▐█▓ ▀▀▓████▄ ▀▓▄▄ ▀▀▓█▄▄██▌ ████▓ ▀▓█▀▄▓██████████▓ ▐███▌ ▐▓
-      ▐█ ▐██▓▄ ██▄ ▀▀▀▀ ▄▄ ▀▀▓██▄▄ ▀█▓▄▄ ▀▀▓██  ▓████▄  ▓██████████▓▀ ▄██▓▀ ▄▓▒
-      ▓  ▀▀▀ ▄▄▓▀▀▀▀▀▀▀▀▓▀▀▀▄ ▀█▀ ▄▀   ▀▀▓▄▄▄ ▀  ▀████▓▄▄ ▀▀▓███▀▀ ▄▄███▀ ▄█▀ ░
-      ▀▀▀▀▀▀▀▀          ▒    ▀▄ ▄▀          ▀▀▀▀▀▄▄ ▀▀█████▄▄▄▄▄▄████▓▀ ▄▓▀
-                        ░      ▀                   ▀▀▄▄ ▀▀▀▓█████▓▀▀ ▄▄█▀
-                                                       ▀▀▀▄▄▄▄▄▄▄▄▄▀▀▀
+            
+			f16: `   <video id="f16-video" width="80%" controls>
+    <source src="images/f16/f16.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<br>	
+translation: This ad lasts as long as an F-16 takes to fly 700 meters.
+
+
+
+
 
             `,
             groundnews: `
+
+<br> The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches with the headline + copy that said:  <br><div style="text-align: left;">
+                        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
+                            Lost in the election cycle?  <br> Cut through the noise with Ground News. 
+
+
+
+
+
+
+                        </p>
+
+    </div>
+ Ground News helps you break free from algorithms by comparing the whole spectrum of news sources. <br> <br>
+	
+
+
+
+
+
+<hr>
+<br>
+<br>
+<br>
+
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
                     <!-- Add iframe container -->
                     <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
                         <!-- Iframe directly displaying the ground6.html content -->
                         <iframe id="ground5-iframe" src="ground6.html" style="width: 100%; height: 100%; border: none;"></iframe>
                     </div>
+<br> <br>
 
-                    <br>
-                    <br>
 
-                    <div style="text-align: center;">
-                        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
-                            do you feel lost in this year's election cycle?
+
+
+
+
                         </p>
-                        <p style="font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5; font-size: 12px; font-weight: normal;">
-                            Ground News helps you break free from algorithms <br>by comparing the whole spectrum of news sources.
-                        </p>
-                    </div>
+
+    </div>
+
+	
+<hr>
 
                     <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
                         <!-- Iframe directly displaying the ground1.html content -->
@@ -278,42 +271,27 @@ document.addEventListener("DOMContentLoaded", () => {
                     <br>
                     <br>
 
-                    <div style="text-align: center;">
-                        <p style="font-family: 'Suisse', 'sans-serif'; color: white; line-height: 1.5; background-color: black; display: inline-block; padding: 1px; font-weight: bold;">
-                            do you feel lost in this year's election cycle?
-                        </p>
-                        <p style="font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5; font-size: 12px; font-weight: normal;">
-                            Ground News helps you break free from algorithms <br>by comparing the whole spectrum of news sources.
-                        </p>
+                
+    </div>
+
+<hr>
+
+
+               
+                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                        <iframe id="ground5-iframe" src="ground6.html" style="width: 100%; height: 100%; border: none;"></iframe>
                     </div>
+
+<hr>
+
+
                 </div>
             `,
             kalles: `
                <pre>
 
-<span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:red;">  </span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███████████████████████████████████████████</span><span style="font-weight:bold;color:dimgray;">
-</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">██████</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;">▄</span><span style="font-weight:bold;color:yellow;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">▄▄</span><span style="color:red;background-color:fuchsia;">▀</span><span style="color:red;background-color:black;"> </span><span style="font-weight:bold;color:red;background-color:red;">░▓</span><span style="font-weight:bold;color:red;background-color:black;">█</span><span style="font-weight:bold;color:dimgray;background-color:white;">▀</span>  <span style="font-weight:bold;color:yellow;">░░</span><span style="color:lime;">███████████████████████████████████████████████████</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▄██████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span><span style="color:red;"> ▓</span><span style="color:white;">  </span><span style="font-weight:bold;color:red;background-color:red;">▀</span>  <span style="font-weight:bold;color:yellow;">▒▒</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███████████████████████████████████████████</span><span style="font-weight:bold;color:dimgray;">
-</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">██████</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▄████████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span><span style="color:red;"> ▒</span><span style="font-weight:bold;color:white;">▐▌</span><span style="color:red;background-color:fuchsia;">█</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:black;">▓▓</span>
-<span style="color:lime;">██████</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▐█████████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span><span style="color:red;"> ░</span><span style="font-weight:bold;color:white;">▐▌</span><span style="color:red;">▓</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">██</span>
-<span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span>   <span style="font-weight:bold;color:yellow;">███</span>▄<span style="font-weight:bold;background-color:white;">▄</span>▀<span style="font-weight:bold;background-color:white;">▄</span>▄<span style="font-weight:bold;color:yellow;">██</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span> <span style="color:red;"> </span><span style="font-weight:bold;color:white;">▐▌</span><span style="color:red;">▒</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">██</span> <span style="color:#3333FF;">▄</span><span style="font-weight:bold;color:#3333FF;">▄▄▄▄</span><span style="color:#3333FF;">▄▄</span><span style="color:white;">▄</span><span style="font-weight:bold;color:yellow;">▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:black;">█████</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span>
- ▐<span style="font-weight:bold;color:yellow;">███</span>▀<span style="font-weight:bold;background-color:white;">▀▀▀</span>▀<span style="font-weight:bold;color:yellow;">██</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span>  <span style="font-weight:bold;">▐▌</span><span style="color:red;">░</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">█</span><span style="font-weight:bold;color:white;background-color:white;">▄█████</span><span style="font-weight:bold;color:yellow;background-color:black;">███████████</span><span style="font-weight:bold;color:white;background-color:white;">██▄</span> ▄<span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">███████████</span> █<span style="font-weight:bold;color:yellow;">▐███</span>██<span style="font-weight:bold;">░░</span><span style="color:fuchsia;"> </span><span style="color:white;">
-</span><span style="font-weight:bold;color:yellow;">▐██████████</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;"> </span>  <span style="font-weight:bold;">▐▌</span> <span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">█</span><span style="font-weight:bold;color:yellow;">██████</span> <span style="font-weight:bold;color:#3333FF;">▄▄</span><span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">▄▄</span><span style="color:#3333FF;">█</span><span style="font-weight:bold;color:yellow;">███</span> <span style="font-weight:bold;color:yellow;background-color:white;"> ▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▀</span>▀▀▀▀ ▓<span style="font-weight:bold;color:yellow;">▐█████</span><span style="font-weight:bold;color:white;">▓▓</span><span style="color:red;">░</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:dimgray;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▐██▀</span><span style="font-weight:bold;color:yellow;background-color:white;">▀▀▀▀▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▀█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">░</span> <span style="color:fuchsia;">░</span><span style="font-weight:bold;color:white;">▐▌</span>░<span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">▓</span><span style="font-weight:bold;color:yellow;">█▀</span><span style="font-weight:bold;color:yellow;background-color:white;">▀▀</span><span style="font-weight:bold;color:yellow;background-color:black;">▀█</span> █<span style="font-weight:bold;color:#3333FF;">▓</span>  <span style="font-weight:bold;color:yellow;background-color:yellow;">▄▄</span><span style="color:yellow;">█</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:red;">▄</span><span style="font-weight:bold;color:yellow;">▐</span>░<span style="font-weight:bold;color:yellow;">▐█████</span><span style="font-weight:bold;color:white;">██</span><span style="color:red;">▒</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span>█<span style="font-weight:bold;color:yellow;">▐██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">█▀▀▀█</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">▒</span> <span style="color:fuchsia;">▒</span><span style="font-weight:bold;color:white;">▐▌</span>▒<span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:#3333FF;">░</span><span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> ▓<span style="font-weight:bold;color:#3333FF;">░</span><span style="font-weight:bold;color:red;background-color:red;">▄▄</span><span style="color:red;">█</span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:yellow;">█</span><span style="font-weight:bold;color:yellow;">▐</span><span style="font-weight:bold;color:yellow;"> ▐█████</span><span style="font-weight:bold;color:white;">█</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="color:red;">▓</span><span style="color:white;">
-</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span>  <span style="font-weight:bold;color:yellow;">▐██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">▌▐▀▌▐</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">▓</span> <span style="color:fuchsia;">▓</span><span style="font-weight:bold;color:white;">▐▌</span>▓<span style="font-weight:bold;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:dimgray;">▄</span><span style="font-weight:bold;color:yellow;">█▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:black;">▄█</span> ░<span style="font-weight:bold;color:#3333FF;"> </span>  <span style="font-weight:bold;color:lime;background-color:lime;">▄▄</span><span style="color:lime;">█</span><span style="color:white;"></span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:yellow;background-color:white;">▓</span><span style="font-weight:bold;color:yellow;background-color:black;">▐</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span>  <span style="font-weight:bold;color:yellow;">  </span><span style="color:fuchsia;">▌▀▀▀▀▀▀</span><span style="color:red;">▀</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:dimgray;background-color:black;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:white;background-color:black;">█▄▄▄█</span><span style="font-weight:bold;color:yellow;background-color:white;"> </span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">█</span> <span style="font-weight:bold;color:#3333FF;">▓</span><span style="font-weight:bold;color:white;">▐▌</span><span style="font-weight:bold;color:#3333FF;background-color:white;">░</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:yellow;">███████</span> <span style="font-weight:bold;color:#3333FF;"> ░</span><span style="font-weight:bold;background-color:white;">▄▄</span>█<span style="font-weight:bold;color:yellow;">▌</span><span style="background-color:yellow;">░</span><span style="font-weight:bold;color:yellow;background-color:black;">▐</span><span style="color:yellow;">░</span><span style="color:white;"></span><span style="color:lime;">█████████</span><span style="color:white;"></span><span style="color:fuchsia;">▌</span><span style="color:#3333FF;">      </span><span style="color:fuchsia;">▐</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span> <span style="font-weight:bold;color:yellow;">▐█▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄▄▄▄▄</span><span style="font-weight:bold;color:yellow;background-color:black;">▄█</span><span style="font-weight:bold;color:yellow;background-color:fuchsia;">█</span>▌<span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">█</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:#3333FF;background-color:white;">▓</span><span style="font-weight:bold;color:white;background-color:black;">▐▌</span><span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;color:yellow;">▓▓▓▓▓▓▓</span><span style="font-weight:bold;color:white;"> </span><span style="font-weight:bold;color:#3333FF;">░▒</span>  <span style="font-weight:bold;color:dimgray;background-color:white;">▀▀</span><span style="font-weight:bold;color:dimgray;background-color:black;">█</span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:yellow;">█</span><span style="font-weight:bold;color:yellow;">▐</span><span style="color:yellow;">▒</span><span style="color:white;"></span><span style="color:lime;">█████████</span><span style="color:white;"></span><span style="color:fuchsia;">▌</span><span style="color:#3333FF;">      </span><span style="color:fuchsia;">▐</span><span style="color:white;">
-</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:yellow;">▀██████████▄</span>  <span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">▀</span>  <span style="font-weight:bold;color:yellow;background-color:white;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span> <span style="font-weight:bold;">▒▒▒▒▒▒▒ </span><span style="font-weight:bold;color:#3333FF;">▒▓</span><span style="font-weight:bold;color:fuchsia;background-color:fuchsia;">▄▄</span><span style="color:fuchsia;">█</span><span style="font-weight:bold;color:yellow;">▌</span><span style="color:red;">▀</span><span style="font-weight:bold;color:yellow;">▐</span><span style="color:yellow;">▓</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:fuchsia;">░▌</span><span style="color:aqua;"> ■</span><span style="color:white;"></span><span style="color:fuchsia;">▐</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;">▀</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="font-weight:bold;color:white;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">████████</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">▄▄</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span> <span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;">▓</span><span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;">▓</span><span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;">▓</span><span style="color:dimgray;background-color:white;">░</span><span style="color:white;background-color:black;"> </span><span style="font-weight:bold;color:#3333FF;background-color:black;">▓</span><span style="font-weight:bold;color:#3333FF;background-color:white;">▀</span>  <span style="font-weight:bold;color:aqua;background-color:aqua;">▄▄</span><span style="color:aqua;">█   </span><span style="font-weight:bold;color:yellow;">███</span><span style="color:yellow;">█</span><span style="color:white;"></span><span style="color:fuchsia;">▒▌</span><span style="color:white;"></span><span style="color:aqua;">▐▄</span><span style="color:fuchsia;">▐</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="color:yellow;">░</span><span style="color:white;">  </span><span style="color:yellow;">░</span><span style="color:white;"> </span><span style="color:red;"> </span><span style="color:white;"> </span><span style="font-weight:bold;color:yellow;">▀▀</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="font-weight:bold;color:white;background-color:black;">█</span><span style="font-weight:bold;color:yellow;background-color:black;">██████████</span> <span style="font-weight:bold;color:dimgray;">███████ </span><span style="font-weight:bold;color:#3333FF;">█</span><span style="font-weight:bold;color:#3333FF;background-color:white;">▄</span> <span style="font-weight:bold;color:yellow;"> </span><span style="font-weight:bold;color:#3333FF;background-color:#3333FF;">▄▄</span><span style="color:#3333FF;">█</span><span style="font-weight:bold;color:white;">███</span><span style="color:yellow;">█</span><span style="color:red;">▄</span><span style="font-weight:bold;color:red;background-color:red;">▄</span><span style="color:red;">█</span><span style="color:white;"> </span><span style="color:red;">▄</span><span style="color:white;"></span><span style="color:fuchsia;">▓▌</span><span style="color:aqua;">▀</span><span style="color:white;"> </span><span style="font-weight:bold;color:aqua;background-color:aqua;">█▄</span>  <span style="color:fuchsia;">▐</span><span style="color:white;">
-</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span>  <span style="color:yellow;">▒</span><span style="color:fuchsia;">░</span><span style="color:white;"> </span><span style="color:yellow;">▒</span><span style="color:white;"> </span><span style="color:red;"> </span><span style="color:yellow;">░</span><span style="color:white;"> </span><span style="color:red;">░</span><span style="color:white;">  ▀</span><span style="font-weight:bold;color:yellow;">▀▀▀</span><span style="font-weight:bold;color:yellow;background-color:white;">▀▀</span><span style="font-weight:bold;color:yellow;background-color:black;">███</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="color:red;"> </span><span style="color:white;"></span><span style="color:red;">▄</span><span style="font-weight:bold;color:yellow;">███</span><span style="font-weight:bold;color:yellow;background-color:yellow;">████</span><span style="font-weight:bold;color:white;background-color:black;">██</span><span style="font-weight:bold;color:white;background-color:white;">▀</span><span style="color:red;background-color:yellow;">▄</span><span style="color:red;background-color:black;">▀▀</span><span style="color:white;background-color:black;"> </span><span style="color:red;background-color:black;">▀▀</span><span style="color:white;background-color:black;"></span><span style="color:aqua;background-color:black;">■</span><span style="color:fuchsia;background-color:black;">  </span><span style="color:white;background-color:black;"> </span><span style="color:aqua;background-color:black;">▄▄</span><span style="color:white;background-color:black;">  </span><span style="color:aqua;background-color:black;">▄</span><span style="font-weight:bold;color:dimgray;background-color:black;">▄</span><span style="color:aqua;"> ▄</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">▄▄</span> <span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="color:yellow;">▓</span><span style="color:fuchsia;">▒</span><span style="color:red;">░</span><span style="color:yellow;">▓</span><span style="color:fuchsia;">░</span><span style="color:red;">░</span><span style="color:yellow;">▓</span><span style="color:fuchsia;">░</span><span style="color:red;">▓</span><span style="color:yellow;">░</span><span style="font-weight:bold;color:yellow;">▒</span><span style="font-weight:bold;color:dimgray;"> </span>     <span style="font-weight:bold;color:#3333FF;">  </span><span style="font-weight:bold;color:dimgray;">▀▀</span><span style="font-weight:bold;color:#3333FF;"> </span><span style="color:red;">▀</span><span style="color:yellow;">▀▀▀▀▀▀▀▀▀</span><span style="color:red;">█▀█</span><span style="font-weight:bold;color:red;background-color:red;">██</span><span style="color:red;">▄ ■</span><span style="color:white;"></span><span style="color:aqua;">▄</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▄</span> <span style="color:aqua;">▀</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">▀▄</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">▀</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;background-color:white;">▄</span><span style="font-weight:bold;color:yellow;background-color:black;">██</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▓</span><span style="color:red;">▒</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▒</span><span style="color:red;">▓</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▓</span><span style="color:red;">█</span><span style="color:yellow;">▓</span><span style="font-weight:bold;color:yellow;">▓</span><span style="font-weight:bold;color:dimgray;">░</span> <span style="font-weight:bold;color:dimgray;"> </span>          <span style="color:red;">▀▀</span><span style="color:white;"> </span><span style="color:dimgray;background-color:red;">■</span><span style="color:red;background-color:black;">█▄</span><span style="font-weight:bold;color:red;background-color:red;">▄</span><span style="color:red;">█</span><span style="color:white;"> </span><span style="color:red;">▄█▀</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;">▄</span><span style="color:aqua;">▄▄</span><span style="font-weight:bold;color:dimgray;background-color:aqua;">▀</span><span style="color:aqua;">▀</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">█</span><span style="font-weight:bold;color:dimgray;">▄</span><span style="font-weight:bold;color:aqua;">▒</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▄</span><span style="color:aqua;">▄</span><span style="color:white;">
-</span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span>  <span style="color:yellow;">█</span><span style="color:fuchsia;">█</span><span style="color:red;">▓</span><span style="color:yellow;">█</span><span style="color:fuchsia;">▓</span><span style="color:red;">█</span><span style="color:yellow;">█</span><span style="color:fuchsia;">█</span><span style="color:red;">█</span><span style="color:yellow;">█</span><span style="font-weight:bold;color:yellow;">█</span><span style="font-weight:bold;color:dimgray;">▓</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███████████████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="font-weight:bold;color:red;background-color:red;">▄</span><span style="color:red;">▄</span><span style="color:white;">  </span><span style="color:red;">▀</span><span style="color:white;"> </span><span style="color:red;">██</span><span style="color:white;"> </span><span style="color:red;">▀</span><span style="color:white;"> </span><span style="color:red;">▄</span><span style="color:white;"></span><span style="color:aqua;">▀▀</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="font-weight:bold;color:aqua;background-color:black;">█</span><span style="font-weight:bold;color:aqua;background-color:aqua;">█</span><span style="color:aqua;">█</span><span style="color:dimgray;background-color:aqua;">■</span><span style="color:aqua;background-color:black;">█</span><span style="color:fuchsia;background-color:black;"> </span><span style="color:aqua;background-color:black;">▀</span><span style="font-weight:bold;color:dimgray;background-color:black;">▀</span>
-<span style="font-weight:bold;color:yellow;">███████████▓░█</span><span style="font-weight:bold;color:dimgray;">█</span><span style="font-weight:bold;color:yellow;">   </span> <span style="color:lime;">█████████████████</span><span style="color:white;"></span><span style="font-weight:bold;color:aqua;">██</span><span style="color:aqua;">▄</span><span style="font-weight:bold;color:dimgray;"> </span><span style="color:aqua;">▄█ </span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="font-weight:bold;color:dimgray;background-color:aqua;">▄</span> <span style="color:aqua;">▀</span><span style="color:white;">
-</span><span style="font-weight:bold;color:yellow;"> </span><span style="font-weight:bold;color:yellow;background-color:white;">▀</span><span style="font-weight:bold;color:yellow;background-color:black;">█</span><span style="font-weight:bold;color:#3333FF;background-color:black;">  </span><span style="font-weight:bold;color:yellow;background-color:black;"> </span><span style="font-weight:bold;color:dimgray;background-color:black;">██████████</span><span style="color:lime;">█████████████████</span><span style="color:white;"></span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:lime;">███</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▀</span><span style="color:aqua;">▀  </span><span style="font-weight:bold;color:dimgray;">▀</span><span style="font-weight:bold;color:aqua;">█</span><span style="font-weight:bold;color:aqua;background-color:aqua;">▀</span><span style="color:aqua;">■</span><span style="color:white;">
-</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███████████████</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:lime;">███</span><span style="font-weight:bold;color:dimgray;background-color:lime;">▄</span><span style="color:aqua;">    </span><span style="color:white;">  </span><span style="color:aqua;">   </span><span style="color:white;">
-</span></pre>
+
 
             `,
             europa: `
@@ -328,13 +306,30 @@ document.addEventListener("DOMContentLoaded", () => {
                         </p>
                     </div>   
             `,
-            ikea: `
-                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ikea Campaign</h2>
-                <p>Details...</p>
+            ikea: ` These crappy analog pictures that are either impressive or very unimpressive aren't from an archive of the early 20th century, but the result of me doing everything from making the original chemicals used, to developing them, to scanning them with a crappy Pentax camera from 2011. Kinda like this website, I love doing stuff from the ground up if possible, therefore the shittiness. 
+
+                <img src="images/foton/Screenshot 2025-02-04 at 12.45.53.png" alt="Screenshot 2025-02-04" style="width: calc(100% - 10px); border-radius: 5px;">
+<img src="images/foton/400-46.jpg" alt="Image 400-46" style="width: calc(100% - 10px); border-radius: 5px;">
+
+<img src="images/foton/400-47.jpg" alt="Image 400-47" style="width: calc(100% - 10px); border-radius: 5px;">
+<img src="images/foton/400-53.jpg" alt="Image 400-53" style="width: calc(100% - 10px); border-radius: 5px;">
+<img src="images/foton/400-48.jpg" alt="Image 400-48" style="width: calc(100% - 10px); border-radius: 5px;">
+
+<img src="images/foton/400-49.jpg" alt="Image 400-49" style="width: calc(100% - 10px); border-radius: 5px;">
+<img src="images/foton/400-57.jpg" alt="Image 400-57" style="width: calc(100% - 10px); border-radius: 5px;">
+<img src="images/foton/400-50.jpg" alt="Image 400-50" style="width: calc(100% - 10px); border-radius: 5px;">
+<img src="images/foton/400-52.jpg" alt="Image 400-52" style="width: calc(100% - 10px); border-radius: 5px;">
+
+
             `,
-            ecb: `
-                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">ECB Campaign</h2>
-                <p>Details...</p>
+            ecb: ` Uppdraget var att återuppliva och infoga humor till garbergs klassiska treo koncept "huvudvärk kan komma plötsligt", <br> genom att lägga till en bokstav i rubriken så öppnades en helt ny värld upp.
+<br>
+<hr>
+             <img src="images/treo/treo-tidning-png-4.png" style="width: calc(100% - 10px); border-radius: 5px;">  
+<br>
+<hr>
+
+	  
             `,
             birthday: `
                 <div style="padding: 2px; font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
@@ -349,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `,
             banned: `
-                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Banned Songs</h2>
+                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">save our friends</h2>
                 <p>Details...</p>
             `,
             kindle: `
@@ -362,6 +357,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             `,
+			scripts: ` 
+
+                       <div id="iframe-container" style="margin-top: 20px; width: 100%;  overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                         <iframe id="ground5-iframe" src="scripts nuptse.html" 
+        style="width: 100%; height: 1200px; border: none; overflow: hidden;">
+</iframe>
+                    </div>
+
+<div id="iframe-container" style="margin-top: 20px; width: 100%;  overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                         <iframe id="ground5-iframe" src="scripts.html" 
+        style="width: 100%; height: 1200px; border: none; overflow: hidden;">
+</iframe>
+                    </div>
+
+                       
+                    `,
             amazonCrime: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
                     <p>this was really made for my friends, but yea, this tool downloads a movie from my collection, hehehe</p>
