@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         europa: "/elias/portfolio/europa",
         ecb: "/elias/portfolio/treo",
         birthday: "/elias/portfolio/birthday",
-        banned: "/elias/portfolio/banned",
+        banned: "/elias/portfolio/radio2am",
         kindle: "/elias/portfolio/kindle",
         amazonCrime: "/elias/portfolio/amazonCrime",
 		scripts: "/elias/portfolio/scripts"
@@ -130,47 +130,42 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to show content and update the dynamic header
     function showContent(section) {
         const content = {
-            spotify: `
-                <div style="position: absolute; top: 0; width: 100%; height: auto; overflow: hidden; padding: 10px;">
-                    <!-- Updated iframe -->
-                    <iframe src="https://www.youtube.com/embed/Fi_V9lzc5BE" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen 
-                            style="width: 100%; height: 300px; border-radius: 5px;"></iframe>
-                    
-                    <!-- Adding images -->
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
-                        <img src="images/Spotify/spoinsta.png" 
-                             alt="Spotify Image 1" 
-                             style="width: calc(25% - 10px); border-radius: 5px;">
-                        <img src="images/Spotify/spotooh1.png" 
-                             alt="Spotify Image 2" 
-                             style="width: calc(25% - 10px); border-radius: 5px;">
-                        <img src="images/Spotify/spotooh2.png" 
-                             alt="Spotify Image 3" 
-                             style="width: calc(25% - 10px); border-radius: 5px;">
-                        <img src="images/Spotify/spotooh3.png" 
-                             alt="Spotify Image 4" 
-                             style="width: calc(25% - 10px); border-radius: 5px;">
-                    </div>
+            spotify: ` <div style="position: absolute; top: 0; width: 100%; padding: 10px;">
 
 
 
-                    <div style="margin-top: 20px; font-size: 16px; font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5;">
-                        <h3 style="text-transform: lowercase;">Brief:</h3>
-                        <p>Market audiobooks to young adults and teenagers.</p>
+  <!-- YouTube iframe (clean background style) -->
+   <iframe 
+    id="yt-bg-player"
+    src="https://www.youtube.com/embed/Fi_V9lzc5BE?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=Fi_V9lzc5BE" 
+    frameborder="0" 
+    allow="autoplay; encrypted-media" 
+    allowfullscreen 
+    style="width: 100%; height: 300px; border-radius: 5px;">
+  </iframe>
 
-                        <h3 style="text-transform: lowercase;">Background:</h3>
-                        <p>96% of young adults use a smart device in their last hour awake, and 70% of them use audio as a sleep aid. And while falling asleep to an audiobook seems ideal, it actually sucks because you never know when you fell asleep.</p>
+ 
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
 
-                        <h3 style="text-transform: lowercase;">Unexpected Insight:</h3>
-                        <p>Sleep trackers can use the smartphone accelerometer to pinpoint the moment you sleep.</p>
+    
+    <div style="max-width: 800px; width: 100%;">
+      <img src="images/Spotify/spotooh2.png" style="width: 100%; height: auto; border-radius: 8px;">
+    </div>
 
-                        <h3 style="text-transform: lowercase;">Solution:</h3>
-                        <p>Audiobooks that pause when you sleep.</p>
-                    </div>
-                </div>
+   
+    <div style="max-width: 800px; width: 100%; font-family: 'Suisse', sans-serif; text-transform: lowercase; color: black; font-size: 14px; line-height: 1.3; padding: 1px;">
+      <p><strong>Brief:</strong><br>
+        market audiobooks to young adults and teenagers.</p>
+
+      <p><strong>Background:</strong><br>
+        96% of young adults use a smart device in their last hour awake, and 70% of them use audio as a sleep aid. and while falling asleep to an audiobook seems ideal, it actually sucks because you never know when you fell asleep.</p>
+
+      <p><strong>Solution:</strong><br>
+        audiobooks that pause when you sleep.</p>
+    </div>
+
+  </div>
+</div>
             `,
             ipren: `
                 <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ipren Campaign</h2>
@@ -205,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
                
             `,
             
-			f16: `   <video id="f16-video" width="80%" controls>
+			f16: `   <video id="f16-video" width="100%" controls>
     <source src="images/f16/f16.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
@@ -218,11 +213,13 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
             `,
             groundnews: `
+To generate new ads just click the case on the left again.<br> <br>
 
-<br> The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches. <br> <br>  To generate new ads just click the case on the left again.
+<hr>
+<br> The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches with the copy: <br> <br> Is this election confusing you? Cut through the noise with Ground News.. <br> <br>  
 
     </div>
-<br> <br>
+<br> 
 	
 
 
@@ -232,8 +229,7 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 <hr>
 <br>
 <br>
-<p style="font-family: 'Helvetica', 'Arial', sans-serif; text-align: center; text-transform: uppercase; color: white; line-height: 1.5; background-color: red; display: block; padding: 12px; font-weight: bold; margin: 0 auto; letter-spacing: 1px;">
-  Lost in the election cycle?  <br> 
+
 </p>
 <br>
 <br>
@@ -344,8 +340,11 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
                 </div>
             `,
             banned: `
-                <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">save our friends</h2>
-                <p>Details...</p>
+                
+                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                        <iframe id="ground5-iframe" src="radiomp3.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div>
             `,
             kindle: `
                 <div id="quotation" onclick="fetchAndDisplayQuotation();">
