@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Always 2AM Radio</title>
+
+  <style>
+   @font-face {
+  font-family: 'WieynkFraktur';
+  src: url('css/WieynkFraktur.woff2') format('woff2');
+}
+
+body, html {
+  font-family: 'WieynkFraktur', serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0b0b22;
+  color: #fff;
+  text-align: center;
+  font-size: 28px;
+}
+
+.crossout {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.gradient-text {
+  background: linear-gradient(to bottom,
+    #c4e538,
+    #ffffff,
+    #ffe600,
+    #ff7e00
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-text2 {
+  background: linear-gradient(to bottom,
+    #ff7e00,
+    #ffe600,
+    #ffffff,
+    #c4e538
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+
+
+
+
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#bg-stream-iframe,
+#bg-stream-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.77vh;
+  height: 100vh;
+  object-fit: cover;
+  transform: translate(-50%, -50%) scale(1.3);
+  transform-origin: center center;
+  pointer-events: none;
+  opacity: 0.5;
+  border: none;
+  display: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  margin: auto;
+  padding-top: 40px;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+#current-time {
+  font-size: 0.5rem;
+
+  opacity: 0.7;
+}
+
+#location {
+  font-size: 20px;
+
+  opacity: 0.7;
+}
+
+#custom-controls {
+  margin-top: 240px;
+}
+
+#play-pause {
+  background-color: transparent;
+  color: #fff;
+	
+  border: 2px solid #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 3rem;
+  font-family: 'WieynkFraktur', serif;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+  </style>
+</head>
+
+<body>
+
+  <div class="video-background">
+    <iframe id="bg-stream-iframe" frameborder="0" allowfullscreen></iframe>
+    <img id="bg-stream-img" />
+  </div>
+
+  <div class="container">
+    <h1>
+  
+
+
+   
+
+    <audio id="radio-player" autoplay></audio>
+
+    <div id="custom-controls">
+      <button id="play-pause">Pause</button>
+    </div>
+
+    <h2 id="location"></h2>
+	   <h2 id="current-time"></h2>
+    </h1>
+	</div>
+
+  <script>
+    const placeholderStreams = {
+      "-3": "./mp3/chile.mp3",
+      "3":  "./mp3/uganda.mp3",
+      "5":  "./mp3/india.mp3",
+      "6":  "./mp3/india.mp3"
+    };
+
+    const radioStreams = {
+      "-10": ["https://stream.ktuh.org:8001/stream"],
+      "-9": ["https://s26.myradiostream.com:17824/"],
+      "-8": ["https://www.dublab.com/"],
+      "-7": ["https://transmitter.clubcasting.net:8000/onacid"],
+      "-6": ["https://nofmradio.web.app/"],
+      "-5": ["https://www.thelotradio.com/"],
+      "-4": ["https://n10as.radiocult.fm/stream"],
+      "-2": ["https://servidor24-1.brlogic.com:7516/live?source=app_pwa"],
+      "0": ["https://oroko-radio.radiocult.fm/stream"],
+      "1": ["https://cashmereradio.out.airtime.pro/cashmereradio_b"],
+      "2": ["https://20ft-radio.radiocult.fm/stream"],
+      "7": ["https://stream.zeno.fm/2uhuu5hvzqzuv"],
+      "8": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],
+      "9": ["https://uk5.internet-radio.com/proxy/mmr?mp=/stream"],
+      "12": ["https://radio.kamchatkalive.ru:8103/dance"]
+    };
+
+   const backgroundStreams = {
+  "-12": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-11": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-10": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-9": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-8": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk"
+  },
+  "-7": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-6": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-5": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/rnXIjl_Rzy4?autoplay=1&mute=1&controls=0&loop=1&playlist=rnXIjl_Rzy4"
+  },
+  "-4": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-3": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "-2": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM"
+  },
+  "-1": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "0": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/Dl1byqohXk8?autoplay=1&mute=1&controls=0&loop=1&playlist=Dl1byqohXk8"
+  },
+  "1": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/5Uqw_G_IdjE?autoplay=1&mute=1&controls=0&loop=1&playlist=5Uqw_G_IdjE"
+  },
+  "2": {
+    type: "image",
+    url: "http://cam-stadthaus.dacor.de/cgi-bin/faststream.jpg?stream=full&fps=0"
+  },
+  "3": {
+    type: "image",
+    url: "https://webcam.ehingen.de/cgi-bin/faststream.jpg?stream=full&fps=0"
+  },
+  "4": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "5": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "6": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "7": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ"
+  },
+  "8": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/irw_cppaJvE?autoplay=1&mute=1&controls=0&loop=1&playlist=irw_cppaJvE"
+  },
+  "9": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "10": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "11": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  },
+  "12": {
+    type: "youtube",
+    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+  }
+};
+
+    function get2amTimezoneOffset() {
+      const utcHour = new Date().getUTCHours();
+      let offset = (2 - utcHour + 24) % 24;
+      if (offset > 12) offset -= 24;
+      return offset;
+    }
+
+    function pickRandomStream(offset) {
+      const streams = radioStreams[offset.toString()];
+      return streams && streams.length ? streams[Math.floor(Math.random() * streams.length)] : null;
+    }
+
+    function playStreamWithRandomStart(audio, url) {
+      audio.src = url;
+      audio.load();
+      audio.addEventListener('loadedmetadata', () => {
+        if (audio.duration && isFinite(audio.duration)) {
+          audio.currentTime = Math.random() * audio.duration;
+        }
+        audio.play();
+      }, { once: true });
+    }
+
+    async function updateRadio() {
+      const offset = get2amTimezoneOffset();
+      const audioPlayer = document.getElementById("radio-player");
+      const locationEl = document.getElementById("location");
+
+      const regularStream = pickRandomStream(offset);
+      const placeholder = placeholderStreams[offset.toString()];
+      const bgStreamObj = backgroundStreams[offset.toString()];
+
+      const iframeEl = document.getElementById("bg-stream-iframe");
+      const imgEl = document.getElementById("bg-stream-img");
+
+      // Hide both background elements
+      iframeEl.style.display = "none";
+      imgEl.style.display = "none";
+
+      if (bgStreamObj) {
+        if (bgStreamObj.type === "youtube") {
+          iframeEl.src = bgStreamObj.url;
+          iframeEl.style.display = "block";
+        } else if (bgStreamObj.type === "image") {
+          imgEl.src = bgStreamObj.url;
+          imgEl.style.display = "block";
+        }
+      }
+
+      const timezoneLabels = {
+        "-10": "gmt-10", "-9": "gmt-9", "-8": "gmt-8", "-7": "gmt-7", "-6": "gmt-6",
+        "-5": "gmt-5", "-4": "gmt-4", "-3": "gmt-3", "-2": "gmt-2",
+        "0": "gmt±0", "1": "gmt+1", "2": "gmt+2", "3": "gmt+3",
+        "5": "gmt+5", "7": "gmt+7", "8": "gmt+8", "9": "gmt+9", "12": "gmt+12"
+      };
+
+      const locationName = timezoneLabels[offset] || `GMT${offset}`;
+
+      if (regularStream) {
+        audioPlayer.src = regularStream;
+        audioPlayer.play().catch(console.error);
+      } else if (placeholder) {
+        playStreamWithRandomStart(audioPlayer, placeholder);
+      } else {
+        locationEl.textContent = `🌐 Offline at ${locationName}`;
+        return;
+      }
+
+      locationEl.textContent = `current stream: ${locationName}`;
+      updateLocalTime();
+    }
+
+    function updateLocalTime() {
+      const now = new Date();
+      document.getElementById("current-time").textContent =
+        `Local Time: ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    }
+
+    const audioPlayer = document.getElementById('radio-player');
+    document.getElementById('play-pause').onclick = () => {
+      audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
+      document.getElementById('play-pause').textContent = audioPlayer.paused ? 'Play' : 'Pause';
+    };
+
+    updateRadio();
+    setInterval(updateLocalTime, 60000);
+  </script>
+</body>
+</html>

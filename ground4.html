@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Speech Patterns</title>
+    <style>
+        body {
+            font-family: Courier, monospace;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            white-space: pre;
+        }
+        .pattern {
+            font-size: 12px;
+            line-height: 1.2;
+        }
+        .blue {
+            color: blue;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<pre class="pattern" id="pattern"></pre>
+
+<script>
+    const speech1 = `
+        So, America, the path that led me here in recent weeks was, no doubt, unexpected. 
+        But I’m no stranger to unlikely journeys. So, my mother, our mother, Shyamala Harris, 
+        had one of her own. And I miss her every day, especially now. 
+        We are the heirs to the greatest democracy in the history. 
+        And on behalf of our children and our grandchildren and all those who sacrificed so dearly for our freedom and liberty, 
+        we must be worthy of this moment now. We will not go back.
+    `;
+
+    const speech2 = `
+        So we're going to Pennsylvania Avenue, we’re going to the Capitol, 
+        and we’re going to try to do it more and give. 
+        Dems are hopeless; they never vote anything—not even once. 
+        But we’re going to try and give our Republicans, the weak ones 
+        (because strong ones don't need any help), 
+        the kind of pride, boldness that they need to take back our country again. 
+        So let's march and make America great again.
+    `;
+
+    function generateTriangle(speech, className) {
+        const words = speech.split(" ");
+        let result = "";
+        let lineLength = 1;
+
+        for (let i = 0; i < words.length; ) {
+            let line = "";
+            for (let j = 0; j < lineLength && i < words.length; j++, i++) {
+                line += words[i] + " ";
+            }
+            result += `<span class="${className}">${line.trim().padStart(line.length + lineLength)}</span>\n`;
+            lineLength++;
+        }
+
+        return result;
+    }
+
+    function generateCircle(speech, className) {
+        const words = speech.split(" ");
+        const radius = 20;
+        const canvasSize = radius * 2 + 1;
+        let result = Array.from({ length: canvasSize }, () =>
+            Array(canvasSize).fill(" ")
+        );
+
+        let angle = 0;
+        for (const word of words) {
+            const x = Math.round(radius + radius * Math.cos(angle));
+            const y = Math.round(radius + radius * Math.sin(angle));
+            if (result[y] && result[y][x]) result[y][x] = word;
+            angle += (2 * Math.PI) / words.length;
+        }
+
+        return result
+            .map((row) =>
+                `<span class="${className}">${row.join(" ").trim()}</span>`
+            )
+            .join("\n");
+    }
+
+    function generateCross(speech, className) {
+        const words = speech.split(" ");
+        const midPoint = Math.floor(words.length / 2);
+        let result = "";
+
+        for (let i = 0; i < words.length; i++) {
+            if (i === midPoint) {
+                result += `<span class="${className}">${words.join(" ")}</span>\n`;
+            } else {
+                result += `<span class="${className}">${" ".repeat(
+                    midPoint
+                )}${words[i]}</span>\n`;
+            }
+        }
+
+        return result;
+    }
+
+    function generateMesh(speech1, speech2) {
+        const words1 = speech1.split(" ");
+        const words2 = speech2.split(" ");
+        let result = "";
+
+        for (let i = 0; i < Math.max(words1.length, words2.length); i++) {
+            const line1 = words1[i] || "";
+            const line2 = words2[i] || "";
+            result += `<span class="blue">${line1.padEnd(30)}</span><span class="red">${line2}</span>\n`;
+        }
+
+        return result;
+    }
+
+    function randomPattern() {
+        const container = document.getElementById("pattern");
+        const patterns = [
+            () => generateTriangle(speech1, "blue") + generateTriangle(speech2, "red"),
+            () => generateCircle(speech1, "blue") + generateCircle(speech2, "red"),
+            () => generateCross(speech1, "blue") + generateCross(speech2, "red"),
+            () => generateMesh(speech1, speech2),
+        ];
+
+        container.innerHTML = patterns[Math.floor(Math.random() * patterns.length)]();
+    }
+
+    // Generate a random pattern on load
+    randomPattern();
+</script>
+</body>
+</html>

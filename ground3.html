@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Speech Spiral</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .spiral {
+            position: relative;
+            width: 10px;
+            height: 300px;
+            border-radius: 20%;
+        }
+        .spiral span {
+            position: absolute;
+            transform-origin: center;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        .speech1 span {
+            color: blue;
+        }
+        .speech2 span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="spiral speech1" id="speech1"></div>
+    <div class="spiral speech2" id="speech2"></div>
+	
+
+    <script>
+        // Speech 1 (Blue)
+        const speech1 = `
+            So, America, the path that led me here in recent weeks was, no doubt, unexpected. But I’m no stranger to unlikely journeys.
+            So, my mother, our mother, Shyamala Harris, had one of her own. And I miss her every day, especially now. We are the heirs
+            to the greatest democracy in the history. And on behalf of our children and our grandchildren and all those who sacrificed
+            so dearly for our freedom and liberty, we must be worthy of this moment now. We will not go back.
+        `;
+
+        // Speech 2 (Red)
+        const speech2 = `
+            So we're going to Pennsylvania Avenue, we’re going to the Capitol, and we’re going to try to do it more and give.
+            Dems are hopeless; they never vote anything—not even once. But we’re going to try and give our Republicans, the weak ones
+            (because strong ones don't need any help), the kind of pride, boldness that they need to take back our country again.
+            So let's march and make America great again.
+        `;
+
+        // Spiral Generator Function
+        function generateSpiral(speechText, containerId, startAngle = 0, startRadius = 0) {
+            const container = document.getElementById(containerId);
+            const words = speechText.split(' ');
+
+            let angle = startAngle;
+            let radius = startRadius;
+
+            words.forEach((word) => {
+                const span = document.createElement('span');
+                span.textContent = word;
+
+                const x = 300 + radius * Math.cos(angle); // Center at 300, 300
+                const y = 300 + radius * Math.sin(angle);
+                span.style.left = `${x}px`;
+                span.style.top = `${y}px`;
+                span.style.transform = `rotate(${angle}rad)`;
+                container.appendChild(span);
+
+                angle += 0.2; // Adjust spacing between words
+                radius += 0.8; // Adjust spacing between spiral loops
+            });
+        }
+
+        // Generate Spirals
+        generateSpiral(speech1, 'speech1');
+        generateSpiral(speech2, 'speech2', Math.PI, 15); // Offset the second spiral
+    </script>
+</body>
+</html>

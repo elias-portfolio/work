@@ -1,0 +1,299 @@
+@font-face {
+    font-family: 'Suisse';
+    src: url('./css/suisse.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BerlinerGrotesk';
+    src: url('./BerlinerGrotesk-Light.woff') format('woff'),
+         url('./BerlinerGrotesk-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AkzidenzGrotesk';
+    src: url('./AkzidenzGroteskBE-Bold.woff') format('woff'),
+         url('./AkzidenzGroteskBE-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Apply the font to <strong> elements */
+strong {
+    font-family: 'AkzidenzGrotesk', sans-serif;
+    font-weight: bold;
+}
+#europa-quote img {
+    margin: 0; /* Remove any margins */
+    padding: 0; /* Remove any padding */
+    display: block; /* Prevent inline space issues */
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Suisse', 'sans-serif';
+   	 text-transform: lowercase;
+	padding: 10
+}
+
+
+
+body2 {
+    margin: 0;
+    font-family: 'Suisse', 'sans-serif';
+   	 text-transform: lowercase;
+	 padding: 10
+}
+.ascii-art {
+         
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            overflow-x: auto; /* Allows horizontal scrolling if necessary */
+        }
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 40px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 1000;
+    font-family: 'Suisse', 'sans-serif';
+    text-transform: lowercase;
+    font-size: 16px;
+	  color: #000000;
+}
+.diablo-solution,
+.diablo-images {
+    margin: 0;
+    padding: 0;
+}
+
+.diablo-video {
+    width: 100%;
+    height: 300px;
+    display: block;
+    border: none;
+    margin: 0 auto;
+}
+
+.diablo-image {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+
+.website-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+#list {
+    grid-column: 1 / 2;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.list-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.list-item a {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid transparent;
+	
+}
+
+.list-item a:hover {
+    border-bottom: 1px solid black;
+}
+
+.year {
+    flex: 0 0 auto;
+    text-align: left;
+    margin-right: 40px;
+	  color: black;
+}
+
+.title {
+    flex: 3;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.category {
+    flex: 2;
+    text-align: right;
+}
+
+#media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+#content-display {
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 16px;
+    text-transform: lowercase;
+    line-height: 1.5;
+    text-align: left;
+    padding: 1px;
+}
+
+
+#quotation {
+   font-family: 'Suisse', 'sans-serif';/* Clean and professional font */
+    font-size: 16px; /* Adjust size for readability */
+    text-transform: none; /* Avoid forcing all lowercase */
+    line-height: 2; /* Increase line height for better spacing */
+    color: #black; /* Slightly softer black for reduced eye strain */
+   
+
+    padding: 20px; /* More padding for cleaner layout */
+    max-width: 800px; /* Limit width for better readability */
+    margin: 5px auto; /* Center element horizontally with space around it */
+    border: 2px solid #000; /* Bold border for structure */
+    border-radius: 0px; /* Add rounded corners for aesthetics */
+    background-color: #FFFFFF; /* Light background for better contrast */
+    text-align: left; /* Align text to the left */
+    cursor: pointer; /* Maintain clickable behavior */
+}
+
+#quotation-image {
+    margin-top: 0px;
+    border-radius: 0px;
+ 
+}
+#europa-quote {
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 16px;
+    text-transform: lowercase;
+    line-height: 1.5;
+    color: black;
+  
+    word-wrap: break-word;
+    padding: 1px;
+    width: 100%;
+    border: 2px solid black;
+    text-align: left;
+    cursor: pointer;
+	 margin: 0;
+    padding: 0;
+  
+}
+
+#diablo {
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 16px;
+    line-height: 3;
+    color: black;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 90%;
+  
+    text-align: center;
+    cursor: pointer;
+   
+}
+ .animation-container {
+        width: 100%; /* Full width of the container */
+        overflow: hidden; /* Hide content outside the container */
+        position: relative; /* Relative position for the child animation */
+        height: 32px; /* Adjust the height to prevent squashing */
+        margin-top: 10px; /* Add some space between text and GIF */
+    }
+
+    /* Animated GIF */
+    .animated-gif {
+        position: absolute; /* Position absolutely to move within the container */
+        height: auto; /* Maintain aspect ratio */
+        width: auto; /* Maintain aspect ratio */
+        max-height: 32px; /* Prevent GIF from being too tall */
+        animation: scroll-animation 10s linear infinite; /* Smooth scrolling animation */
+    }
+
+    /* Keyframe animation */
+    @keyframes scroll-animation {
+        from {
+            transform: translateX(100%); /* Start off-screen to the right */
+        }
+        to {
+            transform: translateX(-100%); /* End off-screen to the left */
+        }
+    }
+#diablo-insight {
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 12px;
+    line-height: 1.5;
+    color: black;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 10px;
+    width: 30%;
+    border: 2px solid black;
+    text-align: left;
+    margin-top: 20px;
+}
+
+#insight {
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 16px;
+    line-height: 1.5;
+    color: black;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 1px;
+    width: 90%;
+    border: 2px solid green;
+    text-align: left;
+    margin-top: 20px;
+    display: none;
+}
+#diablo iframe {
+    margin: 0;
+    padding: 0;
+    display: block;
+    border: none;
+	}
+
+	#diablo img {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+}
