@@ -73,7 +73,7 @@ body, html {
   width: 177.77vh;
   height: 100vh;
   object-fit: cover;
-  transform: translate(-50%, -50%) scale(1.3);
+  transform: translate(-50%, -50%) scale(1.6);
   transform-origin: center center;
   pointer-events: none;
   opacity: 0.5;
@@ -144,7 +144,7 @@ h1 {
     <audio id="radio-player" autoplay></audio>
 
     <div id="custom-controls">
-      <button id="play-pause">Pause</button>
+      <button id="play-pause">pause</button>
     </div>
 
     <h2 id="location"></h2>
@@ -154,34 +154,43 @@ h1 {
 
   <script>
     const placeholderStreams = {
-      "-3": "./mp3/chile.mp3",
-      "3":  "./mp3/uganda.mp3",
-      "5":  "./mp3/india.mp3",
-      "6":  "./mp3/india.mp3"
+     
+     
     };
 
     const radioStreams = {
-      "-10": ["https://stream.ktuh.org:8001/stream"],
-      "-9": ["https://s26.myradiostream.com:17824/"],
-      "-8": ["https://www.dublab.com/"],
+      "-12": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"],
+	  "-11": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"],
+	  "-10": ["https://stream.ktuh.org:8001/stream"],
+      "-9": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"],
+      "-8": ["https://dublab.out.airtime.pro/dublab_a"],
       "-7": ["https://transmitter.clubcasting.net:8000/onacid"],
       "-6": ["https://nofmradio.web.app/"],
       "-5": ["https://www.thelotradio.com/"],
       "-4": ["https://n10as.radiocult.fm/stream"],
+      "-3": ["https://19993.live.streamtheworld.com/LOS40_URBANAAC.aac"],
       "-2": ["https://servidor24-1.brlogic.com:7516/live?source=app_pwa"],
-      "0": ["https://oroko-radio.radiocult.fm/stream"],
+      "-1": ["https://hts02.brascast.com:9288/live"],
+		"0": ["https://oroko-radio.radiocult.fm/stream"],
       "1": ["https://cashmereradio.out.airtime.pro/cashmereradio_b"],
       "2": ["https://20ft-radio.radiocult.fm/stream"],
+	  "3": ["https://azuracast.datea.services:8000/radio.mp3"],
+	  "4": ["https://stream-173.zeno.fm/eqd0fq6cwg0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJlcWQwZnE2Y3dnMHV2IiwiaG9zdCI6InN0cmVhbS0xNzMuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6ImtMVXNVNU51UTFTaXluWlRhd25XLWciLCJpYXQiOjE3NDMwMDI2MzUsImV4cCI6MTc0MzAwMjY5NX0.IisqB9uSkt5A7M_AmFV7LKff0brdS3IMjG-1txT7YMw"],
+	 
+	  "5": ["https://n06.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-tok=AAABlbSgm_sAxxmdwPtH0XyivA&rj-ttl=5"],
+	  "6": ["https://air.pc.cdn.bitgravity.com/air/live/pbaudio037/chunklist.m3u8"],
       "7": ["https://stream.zeno.fm/2uhuu5hvzqzuv"],
       "8": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],
       "9": ["https://uk5.internet-radio.com/proxy/mmr?mp=/stream"],
+	  "10": ["https://hls-01-radiorecord.hostingradio.ru/record-techno/112/playlist.m3u8?hlssid=e2cc43c1de26435da12a3394447e4183"],
+	  "11": ["https://streamer.fbiradio.com/stream"],
       "12": ["https://radio.kamchatkalive.ru:8103/dance"]
     };
 
    const backgroundStreams = {
   "-12": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    url: "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8"
   },
   "-11": {
     type: "youtube",
@@ -189,11 +198,11 @@ h1 {
   },
   "-10": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    url: "https://www.youtube.com/embed/cl6Md1GtI_g?autoplay=1&mute=1&controls=0&loop=1&playlist=cl6Md1GtI_g"
   },
   "-9": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    url: "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ"
   },
   "-8": {
     type: "youtube",
@@ -229,7 +238,7 @@ h1 {
   },
   "0": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/Dl1byqohXk8?autoplay=1&mute=1&controls=0&loop=1&playlist=Dl1byqohXk8"
+    url: "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0"
   },
   "1": {
     type: "youtube",
@@ -240,8 +249,8 @@ h1 {
     url: "http://cam-stadthaus.dacor.de/cgi-bin/faststream.jpg?stream=full&fps=0"
   },
   "3": {
-    type: "image",
-    url: "https://webcam.ehingen.de/cgi-bin/faststream.jpg?stream=full&fps=0"
+    type: "youtube",
+    url: "https://www.youtube.com/embed/6UCCz_Pukd8?autoplay=1&mute=1&controls=0"
   },
   "4": {
     type: "youtube",
@@ -269,15 +278,15 @@ h1 {
   },
   "10": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    url: "https://www.youtube.com/embed/wULEcVypV4Q?autoplay=1&mute=1&controls=0"
   },
   "11": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    url: "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0"
   },
   "12": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    url: "https://www.youtube.com/embed/WXMCCHX9D2Q?autoplay=1&mute=1&controls=0"
   }
 };
 
@@ -334,7 +343,7 @@ h1 {
         "-10": "gmt-10", "-9": "gmt-9", "-8": "gmt-8", "-7": "gmt-7", "-6": "gmt-6",
         "-5": "gmt-5", "-4": "gmt-4", "-3": "gmt-3", "-2": "gmt-2",
         "0": "gmt±0", "1": "gmt+1", "2": "gmt+2", "3": "gmt+3",
-        "5": "gmt+5", "7": "gmt+7", "8": "gmt+8", "9": "gmt+9", "12": "gmt+12"
+        "5": "gmt+5", "7": "gmt+7", "8": "gmt+8", "9": "gmt+9", "12": "gmt+12", "11": "gmt+11"
       };
 
       const locationName = timezoneLabels[offset] || `GMT${offset}`;
@@ -362,7 +371,7 @@ h1 {
     const audioPlayer = document.getElementById('radio-player');
     document.getElementById('play-pause').onclick = () => {
       audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
-      document.getElementById('play-pause').textContent = audioPlayer.paused ? 'Play' : 'Pause';
+      document.getElementById('play-pause').textContent = audioPlayer.paused ? 'play' : 'pause';
     };
 
     updateRadio();
