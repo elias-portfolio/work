@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f0f1f;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timezone-card {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        #live-clock {
+            font-size: 2em;
+            text-align: center;
+            margin: 20px 0;
+            color: #7f7fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="live-clock"></div>
+        <div id="timezone-map"></div>
+    </div>
+
+<script>
+const timezoneMap = {
+    "-12": { name: "Baker Island Time", locations: ["Baker Island"] },
+    "-11": { name: "Niue Time", locations: ["Niue", "Midway Atoll"] },
+    "-10": { name: "HST", locations: ["Hawaii", "Johnston Atoll"] },
+    "-9": { name: "AKST", locations: ["Alaska"] },
+    "-8": { name: "PST", locations: ["Los Angeles", "Vancouver"] },
+    "-7": { name: "MST", locations: ["Phoenix", "Denver"] },
+    "-6": { name: "CST", locations: ["Mexico City", "Chicago"] },
+    "-5": { name: "EST", locations: ["New York", "Toronto"] },
+    "-4": { name: "AST", locations: ["Caracas", "Santiago"] },
+    "-3": { name: "BRT", locations: ["Buenos Aires", "São Paulo"] },
+    "-2": { name: "FNT", locations: ["Fernando de Noronha"] },
+    "-1": { name: "AZOT", locations: ["Azores"] },
+    "0": { name: "GMT", locations: ["London", "Reykjavik"] },
+    "1": { name: "CET", locations: ["Paris", "Berlin"] },
+    "2": { name: "EET", locations: ["Helsinki", "Cairo"] },
+    "3": { name: "MSK", locations: ["Moscow", "Baghdad"] },
+    "4": { name: "GST", locations: ["Dubai", "Baku"] },
+    "5": { name: "PKT", locations: ["Islamabad", "Karachi"] },
+    "6": { name: "BTT", locations: ["Dhaka", "Almaty"] },
+    "7": { name: "ICT", locations: ["Bangkok", "Jakarta"] },
+    "8": { name: "CST", locations: ["Beijing", "Perth"] },
+    "9": { name: "JST", locations: ["Tokyo", "Seoul"] },
+    "10": { name: "AEST", locations: ["Sydney", "Guam"] },
+    "11": { name: "NFT", locations: ["Nouméa"] },
+    "12": { name: "NZST", locations: ["Auckland", "Fiji"] }
+};
+
+function get2amLocations() {
+    const now = new Date();
+    const utcHour = now.getUTCHours();
+    const targetOffset = (2 - utcHour + 24) % 24;
+    
+    // Calculate valid offsets considering all timezones
+    const validOffsets = [];
+    for (let i = -12; i <= 12; i++) {
+        if ((utcHour + i + 24) % 24 === 2) {
+            validOffsets.push(i.toString());
+        }
+    }
+
+    return validOffsets.map(offset => ({
+        offset,
+        ...timezoneMap[offset]
+    }));
+}
+
+function updateDisplay() {
+    const locations = get2amLocations();
+    const now = new Date();
+    
+    // Update clock
+    document.getElementById('live-clock').textContent = 
+        now.toUTCString().replace('GMT', 'UTC');
+    
+    // Update timezone map
+    const container = document.getElementById('timezone-map');
+    container.innerHTML = locations.map(zone => `
+        <div class="timezone-card">
+            <h3>UTC${zone.offset >= 0 ? '+' : ''}${zone.offset}</h3>
+            <p>${zone.name}</p>
+            <small>${zone.locations.join(', ')}</small>
+        </div>
+    `).join('');
+}
+
+// Update every minute
+setInterval(updateDisplay, 60000);
+updateDisplay();
+</script>
+</body>
+</html>
