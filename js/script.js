@@ -105,20 +105,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const mediaArea = document.getElementById("media");
     
     const projectPaths = {
-        ikea: "/elias/portfolio/ikea",
-        ipren: "/elias/portfolio/ipren",
-        spotify: "/elias/portfolio/spotify",
-        diablo: "/elias/portfolio/diablo",
-        f16: "/elias/portfolio/f16",
-        groundnews: "/elias/portfolio/groundnews",
-        kalles: "/elias/portfolio//kalles",
-        europa: "/elias/portfolio/europa",
-        ecb: "/elias/portfolio/treo",
-        birthday: "/elias/portfolio/birthday",
-        banned: "/elias/portfolio/radio2am",
-        kindle: "/elias/portfolio/kindle",
-        amazonCrime: "/elias/portfolio/amazonCrime",
-		scripts: "/elias/portfolio/scripts"
+        ikea: "elias",
+        ipren: "/elias",
+        spotify: "/elias",
+        diablo: "/elias",
+        f16: "/elias",
+        groundnews: "/elias",
+        kalles: "/elias",
+        europa: "/elias",
+        ecb: "/elias",
+        birthday: "/elias",
+        banned: "/elias",
+        kindle: "/elias",
+        amazonCrime: "/elias",
+		scripts: "/elias",
     };
 	
 	
