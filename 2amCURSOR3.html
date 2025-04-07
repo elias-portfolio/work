@@ -153,15 +153,16 @@
     }
 
     #fullscreen-button {
-      position: absolute;
+      position: fixed;
       bottom: 2vh;
-      right: 2vh;
+      left: 2vh;
       background: transparent;
       border: none;
       color: #ff3b3b;
       font-size: 2vh;
       cursor: pointer;
       z-index: 30;
+      font-family: 'WieynkFrakturVignetten', serif;
     }
 
     #clock-logo {
@@ -192,7 +193,7 @@
 
     .controls {
       position: absolute;
-      top: 2vh;
+      top: 8vh;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -234,19 +235,21 @@
 
     #quote-marquee {
       position: absolute;
-      bottom: 2vh;
+      top: 2vh;
       width: 100%;
-      font-size: 4vh;
+      font-size: 2.5vh;
       text-align: center;
       color: #ff3b3b;
       font-family: 'WieynkFraktur', serif;
-      text-shadow:
-        0 0 10px rgba(255, 59, 59, 0.8),
-        0 0 20px rgba(255, 59, 59, 0.6),
-        0 0 30px rgba(255, 59, 59, 0.4),
-        0 0 40px rgba(255, 59, 59, 0.2);
+      text-shadow: 
+        0 0 10px rgba(255, 59, 59, 0.4),
+        0 0 20px rgba(255, 59, 59, 0.3),
+        0 0 30px rgba(255, 59, 59, 0.2),
+        0 0 40px rgba(255, 59, 59, 0.1),
+        0 0 50px rgba(255, 59, 59, 0.05);
       white-space: nowrap;
       overflow: hidden;
+      background: transparent;
     }
   </style>
 </head>
@@ -271,7 +274,7 @@
 
   <audio id="radio-player" autoplay></audio>
 
-  <button id="fullscreen-button">🔲</button>
+  <button id="fullscreen-button">U</button>
 
   <script>
    const radioStreams = {
