@@ -119,7 +119,7 @@
       left: 50%;
       margin-top: -50vw;
       margin-left: -50vh;
-      border: 2vh solid #ff3b3b;
+     
       box-sizing: border-box;
       background-color: rgba(0,0,0,0.2);
       backdrop-filter: blur(2px);
@@ -131,19 +131,38 @@
         width: 100vw;
         height: 100vh;
         margin: 0;
+        border-width: 2vw;
+      }
+
+      #clock-time {
+        font-size: 15vh;
+      }
+
+      #quote-marquee {
+        font-size: 3vh;
+      }
+
+      #stream-info {
+        font-size: 1.2vh;
+        margin-top: 0.5vh;
+      }
+
+      #mute-button {
+        font-size: 1.5vh;
       }
     }
 
     #fullscreen-button {
-      position: absolute;
+      position: fixed;
       bottom: 2vh;
-      right: 2vh;
+      left: 2vh;
       background: transparent;
       border: none;
       color: #ff3b3b;
       font-size: 2vh;
       cursor: pointer;
       z-index: 30;
+      font-family: 'WieynkFrakturVignetten', serif;
     }
 
     #clock-logo {
@@ -168,13 +187,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2vh;
+      gap: 0;
       box-sizing: border-box;
     }
 
     .controls {
       position: absolute;
-      top: 2vh;
+      top: 8vh;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -199,32 +218,46 @@
     #stream-info {
       color: #ff3b3b;
       font-family: 'WieynkFraktur', serif;
-      font-size: 2vh;
+      font-size: 1.5vh;
       opacity: 0.7;
       text-shadow: 0 0 10px rgba(255, 59, 59, 0.8);
+      margin-top: -0.5vh;
+      padding-top: 0;
     }
 
     #clock-time {
       font-variant-numeric: tabular-nums;
       font-family: 'WieynkFrakturZierBold';
       font-size: 20vh;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     #quote-marquee {
       position: absolute;
-      bottom: 2vh;
+      top: 2vh;
       width: 100%;
-      font-size: 4vh;
+      font-size: 2.5vh;
       text-align: center;
       color: #ff3b3b;
       font-family: 'WieynkFraktur', serif;
-      text-shadow:
-        0 0 10px rgba(255, 59, 59, 0.8),
-        0 0 20px rgba(255, 59, 59, 0.6),
-        0 0 30px rgba(255, 59, 59, 0.4),
-        0 0 40px rgba(255, 59, 59, 0.2);
+      text-shadow: 
+        0 0 10px rgba(255, 59, 59, 0.4),
+        0 0 20px rgba(255, 59, 59, 0.3),
+        0 0 30px rgba(255, 59, 59, 0.2),
+        0 0 40px rgba(255, 59, 59, 0.1),
+        0 0 50px rgba(255, 59, 59, 0.05);
       white-space: nowrap;
       overflow: hidden;
+      background: transparent;
+      animation: marquee 30s linear 1;
+      display: none;
+      will-change: transform;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
@@ -236,20 +269,20 @@
 
   <div class="container">
     <div class="controls">
-      <div id="stream-info">Loading...</div>
       <button id="mute-button"></button>
     </div>
     <div id="clock-logo">
       <div id="clock-time">02:00 AM</div>
-      <marquee id="quote-marquee" behavior="scroll" direction="left" scrollamount="3">
+      <div id="stream-info">Loading...</div>
+      <div id="quote-marquee">
         The night whispers secrets only literature can decipher...
-      </marquee>
+      </div>
     </div>
   </div>
 
   <audio id="radio-player" autoplay></audio>
 
-  <button id="fullscreen-button">🔲</button>
+  <button id="fullscreen-button">U</button>
 
   <script>
    const radioStreams = {
@@ -279,7 +312,7 @@
       "8": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],//chengdu
       "9": ["https://uk5.internet-radio.com/proxy/mmr?mp=/stream"], //tokuo
 	  "11": ["https://amoris.sknt.ru/dubtechnomix"], //ryssland
-	  "10": ["https://streamer.fbiradio.com/stream"], // sydney 
+	  "10": ["https://iheart.4zzz.org.au/4zzz"], // Brisbane
       "12": ["https://radio.kamchatkalive.ru:8103/dance"] //kamchat
     };
 
@@ -306,7 +339,7 @@
       "7": "Indonesia",
       "8": "Chengdu",
       "9": "Tokyo",
-      "10": "Sydney",
+      "10": "Brisbane",
       "11": "Russia",
       "12": "Kamchatka"
     };
@@ -402,7 +435,7 @@
   },
   "10": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/wULEcVypV4Q?autoplay=1&mute=1&controls=0"
+    url: "https://www.youtube.com/embed/cVHILf4irQk?autoplay=1&mute=1&controls=0"
   },
   "11": {
     type: "youtube",
@@ -884,7 +917,7 @@
       
     "time": "02:52:00 AM",
     "descriptive": "Nearly four",
-    "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality—but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model.",
+    "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality--but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model.",
     "source": "",
     "author": ""
 }
@@ -922,7 +955,7 @@
         img.style.display = "none";
       }
 
-      if (stream) {
+      if (stream && audioPlayer.paused) {
         audioPlayer.src = stream;
         audioPlayer.play().catch(console.error);
       }
@@ -934,14 +967,24 @@
       const s = now.getSeconds().toString().padStart(2, '0');
       document.getElementById('clock-time').textContent = `02:${m}:${s}`;
 
-      const timeNow = `02:${m}:00 AM`;
-      const match = quotes.find(q => q.time === timeNow);
-      const marquee = document.getElementById('quote-marquee');
+      if (s === '00') { // Update quote only at the beginning of every minute
+        const timeNow = `02:${m}:00 AM`;
+        const match = quotes.find(q => q.time === timeNow);
+        const marquee = document.getElementById('quote-marquee');
 
-      if (match) {
-        marquee.textContent = `${match.quote} — ${match.author.trim()} (${match.source.trim()})`;
-      } else {
-        marquee.textContent = "The night whispers secrets only literature can decipher...";
+        if (match) {
+          marquee.style.display = 'none';
+          marquee.textContent = match.quote.replace(/"/g, '“');
+          setTimeout(() => {
+            marquee.style.display = 'block';
+            marquee.style.animation = 'none';
+            setTimeout(() => {
+              marquee.style.animation = '';
+            }, 10);
+          }, 50);
+        } else {
+          marquee.style.display = 'none';
+        }
       }
     }
 
@@ -970,7 +1013,7 @@
     updateClockLogo();
     updateRadio();
     setInterval(updateClockLogo, 1000);
-    setInterval(updateRadio, 60000);	
+    setInterval(updateRadio, 3600000);	
   </script>
 </body>
 </html>
