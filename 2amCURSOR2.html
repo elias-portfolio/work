@@ -186,7 +186,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2vh;
+      gap: 0;
       box-sizing: border-box;
     }
 
@@ -220,13 +220,16 @@
       font-size: 1.5vh;
       opacity: 0.7;
       text-shadow: 0 0 10px rgba(255, 59, 59, 0.8);
-      margin-top: 4vh;
+      margin-top: -0.5vh;
+      padding-top: 0;
     }
 
     #clock-time {
       font-variant-numeric: tabular-nums;
       font-family: 'WieynkFrakturZierBold';
       font-size: 20vh;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     #quote-marquee {
@@ -255,11 +258,11 @@
 
   <div class="container">
     <div class="controls">
-      <div id="stream-info">Loading...</div>
       <button id="mute-button"></button>
     </div>
     <div id="clock-logo">
       <div id="clock-time">02:00 AM</div>
+      <div id="stream-info">Loading...</div>
       <marquee id="quote-marquee" behavior="scroll" direction="left" scrollamount="3">
         The night whispers secrets only literature can decipher...
       </marquee>
@@ -903,7 +906,7 @@
       
     "time": "02:52:00 AM",
     "descriptive": "Nearly four",
-    "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality—but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model.",
+    "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality--but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model.",
     "source": "",
     "author": ""
 }
@@ -941,7 +944,7 @@
         img.style.display = "none";
       }
 
-      if (stream) {
+      if (stream && audioPlayer.paused) {
         audioPlayer.src = stream;
         audioPlayer.play().catch(console.error);
       }
@@ -989,7 +992,7 @@
     updateClockLogo();
     updateRadio();
     setInterval(updateClockLogo, 1000);
-    setInterval(updateRadio, 60000);	
+    setInterval(updateRadio, 3600000);	
   </script>
 </body>
 </html>
