@@ -125,6 +125,27 @@
       backdrop-filter: blur(2px);
     }
 
+    @media (orientation: landscape) {
+      .container {
+        transform: none;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+    }
+
+    #fullscreen-button {
+      position: absolute;
+      bottom: 2vh;
+      right: 2vh;
+      background: transparent;
+      border: none;
+      color: #ff3b3b;
+      font-size: 2vh;
+      cursor: pointer;
+      z-index: 30;
+    }
+
     #clock-logo {
       position: relative;
       font-size: 25vh;
@@ -227,6 +248,8 @@
   </div>
 
   <audio id="radio-player" autoplay></audio>
+
+  <button id="fullscreen-button">🔲</button>
 
   <script>
    const radioStreams = {
@@ -932,6 +955,16 @@
       const audio = document.getElementById('radio-player');
       audio.muted = !audio.muted;
       document.getElementById('mute-button').textContent = audio.muted ? '🔇' : '🔊';
+    };
+
+    document.getElementById('fullscreen-button').onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
     };
 
     updateClockLogo();
