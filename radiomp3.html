@@ -146,6 +146,34 @@ h1 {
     <div id="custom-controls">
       <button id="play-pause">pause</button>
     </div>
+		<a href="2amCURSOR.html" style="
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 8px 14px;
+
+  color: #fff;
+  border: 2px solid #ff7e00,;
+  border-radius: 1px;
+  font-family: 'WieynkFraktur', serif;
+  font-size: 16px;
+  text-decoration: none;
+  z-index: 1001;
+  transition: background-color 0.2s ease;
+										 background: linear-gradient(to bottom,
+    #ff7e00,
+    #ffe600,
+    #ffffff,
+    #c4e538
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#111'">
+  beta
+</a>
 
     <h2 id="location"></h2>
 	   <h2 id="current-time"></h2>
@@ -177,10 +205,10 @@ h1 {
 	  "3": ["https://azuracast.datea.services:8000/radio.mp3"],
 	  "4": ["https://stream-173.zeno.fm/eqd0fq6cwg0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJlcWQwZnE2Y3dnMHV2IiwiaG9zdCI6InN0cmVhbS0xNzMuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6ImtMVXNVNU51UTFTaXluWlRhd25XLWciLCJpYXQiOjE3NDMwMDI2MzUsImV4cCI6MTc0MzAwMjY5NX0.IisqB9uSkt5A7M_AmFV7LKff0brdS3IMjG-1txT7YMw"],
 	 
-	  "5": ["https://n06.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-tok=AAABlbSgm_sAxxmdwPtH0XyivA&rj-ttl=5"],
-	  "6": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],
+	  "5": ["https://audio.mixcloud.stream/secure/hls/,4/9/5/7/4fa6-276c-4a11-9fa3-1ecd089f9228,4/9/5/7/4fa6-276c-4a11-9fa3-1ecd089f9228-192K,.m4a.urlset/index.m3u8"],
+	  "6": ["https://sslive.zeilsteen.com/;"],
       "7": ["https://stream.zeno.fm/2uhuu5hvzqzuv"],
-      "8": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],
+      "8": ["http://94.130.113.214:8000/dubtechno"],
       "9": ["https://uk5.internet-radio.com/proxy/mmr?mp=/stream"],
 	  "10": ["https://amoris.sknt.ru/dubtechnomix"],
 	  "11": ["https://streamer.fbiradio.com/stream"],
@@ -198,7 +226,7 @@ h1 {
   },
   "-10": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/4fqkHVZ2dUM?autoplay=1&mute=1&controls=0"
+    url: "https://www.youtube.com/embed/sxQAhw1sAyY?autoplay=1&mute=1&controls=0&loop=1&playlist=sxQAhw1sAyY"
   },
   "-9": {
     type: "youtube",
@@ -343,7 +371,7 @@ h1 {
         "-10": "gmt-10", "-9": "gmt-9", "-8": "gmt-8", "-7": "gmt-7", "-6": "gmt-6",
         "-5": "gmt-5", "-4": "gmt-4", "-3": "gmt-3", "-2": "gmt-2",
         "0": "gmt±0", "1": "gmt+1", "2": "gmt+2", "3": "gmt+3",
-        "5": "gmt+5", "7": "gmt+7", "8": "gmt+8", "9": "gmt+9", "12": "gmt+12", "10": "gmt+12", "11": "gmt+11"
+        "5": "gmt+5", "7": "gmt+7", "8": "gmt+8", "9": "gmt+9", "12": "gmt+12", "10": "gmt+10", "11": "gmt+11"
       };
 
       const locationName = timezoneLabels[offset] || `GMT${offset}`;
