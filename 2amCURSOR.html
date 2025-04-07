@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Always 2AM Radio</title>
   <style>
     /* 1) KzidenzGroteskBE-Bold.woff */
@@ -77,10 +77,8 @@
       overflow: hidden;
       background-color: #0b0b22;
       color: #fff;
+      width: 100%;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .video-background {
@@ -89,18 +87,17 @@
       left: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       z-index: 0;
+      overflow: hidden;
     }
 
     #bg-stream-iframe, #bg-stream-img {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 177.77vh;
+      width: 177.77777778vh; /* 16:9 aspect ratio */
       height: 100vh;
-      object-fit: cover;
-      transform: translate(-50%, -50%) scale(1.6);
+      transform: translate(-50%, -50%) rotate(90deg);
       pointer-events: none;
       opacity: 0.5;
       border: none;
@@ -108,25 +105,33 @@
     }
 
     .container {
-      position: relative;
+      position: fixed;
       z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      pointer-events: none;
+      width: 100vh;
+      height: 100vw;
+      transform: rotate(90deg);
+      transform-origin: center center;
+      top: 50%;
+      left: 50%;
+      margin-top: -50vw;
+      margin-left: -50vh;
+      border: 2vh solid #ff3b3b;
+      box-sizing: border-box;
+      background-color: rgba(0,0,0,0.2);
+      backdrop-filter: blur(2px);
     }
 
     #clock-logo {
       position: relative;
-      font-size: 25rem;
+      font-size: 25vh;
       font-family: 'AkzidenzGroteskBE-Bold', sans-serif;
       color: #ff3b3b;
       user-select: none;
-      pointer-events: none;
-      border: 100px solid #ff3b3b;
-      padding: 170px 40px;
-      border-radius: 2px;
+      cursor: pointer;
       text-shadow:
         0 0 10px rgba(255, 59, 59, 0.8),
         0 0 20px rgba(255, 59, 59, 0.6),
@@ -136,22 +141,59 @@
         0 0 20px rgba(255, 59, 59, 0.4),
         0 0 40px rgba(255, 59, 59, 0.3),
         0 0 60px rgba(255, 59, 59, 0.2);
-      background-color: rgba(0,0,0,0.2);
-      backdrop-filter: blur(2px);
-		
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2vh;
+      box-sizing: border-box;
     }
 
-   #clock-time {
-  /* Enforce uniform digit widths, if the font supports it */
-  font-variant-numeric: tabular-nums;
-	   font-family: 'WieynkFrakturZierBold'; 
-}
+    .controls {
+      position: absolute;
+      top: 2vh;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 1vh;
+      width: 100%;
+      z-index: 20;
+    }
+
+    #mute-button {
+      color: #ff3b3b;
+      font-family: 'WieynkFraktur', serif;
+      text-shadow: 0 0 10px rgba(255, 59, 59, 0.8);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 2vh;
+      opacity: 0.7;
+      padding: 0.5vh 1vh;
+    }
+
+    #stream-info {
+      color: #ff3b3b;
+      font-family: 'WieynkFraktur', serif;
+      font-size: 2vh;
+      opacity: 0.7;
+      text-shadow: 0 0 10px rgba(255, 59, 59, 0.8);
+    }
+
+    #clock-time {
+      font-variant-numeric: tabular-nums;
+      font-family: 'WieynkFrakturZierBold';
+      font-size: 20vh;
+    }
 
     #quote-marquee {
       position: absolute;
-      bottom: 5px;
+      bottom: 2vh;
       width: 100%;
-      font-size: 60px;
+      font-size: 4vh;
       text-align: center;
       color: #ff3b3b;
       font-family: 'WieynkFraktur', serif;
@@ -163,168 +205,6 @@
       white-space: nowrap;
       overflow: hidden;
     }
-
-    #bottom-content {
-      position: absolute;
-      color: #ff3b3b;
-      bottom: -20px;
-      left: 20px;
-      font-family: 'WieynkFraktur', serif;
-      font-size: 1.3rem;
-      opacity: 0.9;
-      pointer-events: auto;
-    }
-
-    #play-button {
-      position: absolute;
-      top: calc(50% + 70px);
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0,0,0,0);
-      color: #ff3b3b;
-      z-index: 10;
-      text-shadow:
-        0 0 10px rgba(255, 59, 59, 0.8),
-        0 0 20px rgba(255, 59, 59, 0.6),
-        0 0 30px rgba(255, 59, 59, 0.4),
-        0 0 40px rgba(255, 59, 59, 0.2);
-      box-shadow:
-        0 0 20px rgba(255, 59, 59, 0.4),
-        0 0 40px rgba(255, 59, 59, 0.3),
-        0 0 60px rgba(255, 59, 59, 0.2);
-      backdrop-filter: blur(2px);
-      padding: 5px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1.5rem;
-      font-family: 'WieynkFraktur', serif;
-      z-index: 11;
-      pointer-events: auto;
-    }
-
-    #mute-button {
-		text-align: center;
-      color: #ff3b3b;
-      font-family: 'WieynkFraktur', serif;
-      text-shadow:
-        0 0 10px rgba(255, 59, 59, 0.8),
-        0 0 20px rgba(255, 59, 59, 0.6),
-        0 0 30px rgba(255, 59, 59, 0.4),
-        0 0 40px rgba(255, 59, 59, 0.2);
-      white-space: nowrap;
-      overflow: hidden;
-    
-      position: absolute;
-      font-family: 'WieynkFraktur', serif;
-      top: 20px;
-      right: 20px;
-      background: transparent;
-      color: #ff3b3b;
-      padding: 5px 15px;
-      border: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-      pointer-events: auto;
-      z-index: 20;
-    }
-
-    /* Mobile-specific styles for landscape orientation */
-    @media (max-width: 768px) {
-      html, body {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      body {
-        transform: rotate(90deg);
-        transform-origin: center center;
-        width: 100vh;
-        height: 100vw;
-        position: fixed;
-        top: 0;
-        left: 0;
-      }
-
-      .video-background {
-        width: 100vh;
-        height: 100vw;
-      }
-
-      #bg-stream-iframe, #bg-stream-img {
-        width: 100vh;
-        height: 100vw;
-        transform: translate(-50%, -50%) scale(1.2);
-      }
-
-      .container {
-        width: 100vh;
-        height: 100vw;
-      }
-
-      #clock-logo {
-        font-size: 15vw;
-        border-width: 5vw;
-        padding: 10vw 2vw;
-      }
-
-      #clock-time {
-        font-size: 12vw;
-      }
-
-      #quote-marquee {
-        font-size: 4vw;
-        bottom: 2vw;
-      }
-
-      #bottom-content {
-        font-size: 3vw;
-        bottom: 5vw;
-        left: 5vw;
-      }
-
-      #play-button {
-        font-size: 4vw;
-        padding: 2vw 5vw;
-        top: calc(50% + 10vw);
-      }
-
-      #mute-button {
-        font-size: 3vw;
-        padding: 2vw 5vw;
-        top: 5vw;
-        right: 5vw;
-      }
-    }
-
-    /* Additional adjustments for very small screens */
-    @media (max-width: 480px) {
-      #clock-logo {
-        font-size: 20vw;
-        border-width: 3vw;
-        padding: 8vw 1.5vw;
-      }
-
-      #clock-time {
-        font-size: 10vw;
-      }
-
-      #quote-marquee {
-        font-size: 3.5vw;
-      }
-
-      #bottom-content {
-        font-size: 2.5vw;
-      }
-
-      #play-button {
-        font-size: 3.5vw;
-      }
-
-      #mute-button {
-        font-size: 2.5vw;
-      }
-    }
   </style>
 </head>
 <body>
@@ -334,53 +214,78 @@
   </div>
 
   <div class="container">
+    <div class="controls">
+      <div id="stream-info">Loading...</div>
+      <button id="mute-button"></button>
+    </div>
     <div id="clock-logo">
       <div id="clock-time">02:00 AM</div>
       <marquee id="quote-marquee" behavior="scroll" direction="left" scrollamount="3">
-  The night whispers secrets only literature can decipher...
-</marquee>
+        The night whispers secrets only literature can decipher...
+      </marquee>
     </div>
   </div>
 
-  <div id="bottom-content">
-    <div id="location">Loading...</div>
-    <button id="play-button">Play</button>
-  </div>
-
-  <button id="mute-button">mute</button>
   <audio id="radio-player" autoplay></audio>
 
-  
   <script>
    const radioStreams = {
-      "-12": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"],
-	  "-11": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"],
-	  "-10": ["https://stream.ktuh.org:8001/stream"],
-      "-9": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"],
-      "-8": ["https://dublab.out.airtime.pro/dublab_a"],
-      "-7": ["https://transmitter.clubcasting.net:8000/onacid"],
-      "-6": ["https://nofmradio.web.app/"],
-      "-5": ["https://www.thelotradio.com/"],
-      "-4": ["https://n10as.radiocult.fm/stream"],
-      "-3": ["https://19993.live.streamtheworld.com/LOS40_URBANAAC.aac"],
-      "-2": ["https://servidor24-1.brlogic.com:7516/live?source=app_pwa"],
-      "-1": ["https://stream.radioquantica.com:8443/stream"],
-		"0": ["https://oroko-radio.radiocult.fm/stream"],
+      "-12": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"], //världsradio
+	  "-11": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"], //världsradio
+	  "-10": ["https://stream.ktuh.org:8001/stream"], //honolulu
+      "-9": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"], //alaska
+      "-7": ["https://dublab.out.airtime.pro/dublab_a"], // l.a
+      "-8": ["https://transmitter.clubcasting.net:8000/onacid"],
+      "-6": ["https://nofmradio.web.app/"], //mexivo
+      "-5": ["https://edge.mixlr.com/channel/ibrdq"], //kingston
+      "-4": ["https://n10as.radiocult.fm/stream"], //montreal
+      "-3": ["https://servidor24-1.brlogic.com:7516/live?source=app_pwa"],//brazil
+      "-2": ["https://servidor30.brlogic.com:8262/live?identifier=Radio%20Graviola&source=5172"], //porto
+      "+1": ["https://stream.radioquantica.com:8443/stream"],//portugal
+		"0": ["https://oroko-radio.radiocult.fm/stream"], //ghana
       
     
-	  "1": ["https://azuracast.datea.services:8000/radio.mp3"],
-	   "2": ["https://cashmereradio.out.airtime.pro/cashmereradio_b"],
-	     "3": ["https://20ft-radio.radiocult.fm/stream"],
-	  "4": ["https://radio.beshknow.com/beshknow"],
+	  "-1": ["https://azuracast.datea.services:8000/radio.mp3"],
+	   "2": ["https://cashmereradio.out.airtime.pro/cashmereradio_b"], //berlin
+	     "3": ["https://20ft-radio.radiocult.fm/stream"], //ukraina
+	  "4": ["https://radio.beshknow.com/beshknow"], //iran
 	 
-	  "6": ["https://n06.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-tok=AAABlbSgm_sAxxmdwPtH0XyivA&rj-ttl=5"],
-	  "5": ["http://94.130.113.214:8000/dubtechno"],
-      "7": ["https://stream.zeno.fm/2uhuu5hvzqzuv"],
-      "8": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],
-      "9": ["https://uk5.internet-radio.com/proxy/mmr?mp=/stream"],
-	  "10": ["https://amoris.sknt.ru/dubtechnomix"],
-	  "11": ["https://streamer.fbiradio.com/stream"],
-      "12": ["https://radio.kamchatkalive.ru:8103/dance"]
+	  "6": ["http://94.130.113.214:8000/dubtechno"], //india
+	  "5": ["https://stream-160.zeno.fm/nvvbgyewxksuv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJudnZiZ3lld3hrc3V2IiwiaG9zdCI6InN0cmVhbS0xNjAuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IlNjd3hwbmhnUXVtcF9obi1kVExJWHciLCJpYXQiOjE3NDQwMzI3OTEsImV4cCI6MTc0NDAzMjg1MX0.wHAV5c_z-a1oKhx_RH6L5tS8dsySE3a4ZijUcquDbXg"], // pakistan
+      "7": ["https://stream.zeno.fm/2uhuu5hvzqzuv"], //indonesia
+      "8": ["https://listen.belowground.fm/listen/belowground_fm/radio.mp3"],//chengdu
+      "9": ["https://uk5.internet-radio.com/proxy/mmr?mp=/stream"], //tokuo
+	  "11": ["https://amoris.sknt.ru/dubtechnomix"], //ryssland
+	  "10": ["https://streamer.fbiradio.com/stream"], // sydney 
+      "12": ["https://radio.kamchatkalive.ru:8103/dance"] //kamchat
+    };
+
+    const streamLocations = {
+      "-12": "World Radio",
+      "-11": "World Radio",
+      "-10": "Honolulu",
+      "-9": "Alaska",
+      "-8": "Pacific Time",
+      "-7": "Los Angeles",
+      "-6": "Mexico",
+      "-5": "Kingston",
+      "-4": "Montreal",
+      "-3": "Brazil",
+      "-2": "Porto",
+      "-1": "Atlantic Time",
+      "0": "Ghana",
+      "+1": "Portugal",
+      "2": "Berlin",
+      "3": "Ukraine",
+      "4": "Iran",
+      "5": "Pakistan",
+      "6": "India",
+      "7": "Indonesia",
+      "8": "Chengdu",
+      "9": "Tokyo",
+      "10": "Sydney",
+      "11": "Russia",
+      "12": "Kamchatka"
     };
 
     const backgroundStreams = {
@@ -443,7 +348,7 @@
   "2": {
     type: "youtube",
    url: "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA"
-  },
+},
   "3": {
   type: "youtube",
   url: "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk"
@@ -482,7 +387,7 @@
   },
   "12": {
     type: "youtube",
-    url: "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k"
+    url: "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&rel=0"
   }
 };
 
@@ -973,20 +878,25 @@
       const offset = get2amTimezoneOffset();
       const stream = radioStreams[offset]?.[0];
       const audioPlayer = document.getElementById('radio-player');
-      const locationEl = document.getElementById('location');
-      locationEl.textContent = `current stream: GMT${offset >= 0 ? '+' : ''}${offset}`;
+      const locationEl = document.getElementById('stream-info');
+      const location = streamLocations[offset] || "unknown location";
+      locationEl.textContent = `current 2 am stream ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}`;
 
       const bg = backgroundStreams[offset];
       const iframe = document.getElementById("bg-stream-iframe");
       const img = document.getElementById("bg-stream-img");
-      iframe.style.display = img.style.display = "none";
-
+      
       if (bg?.type === "youtube") {
-        iframe.src = bg.url;
         iframe.style.display = "block";
+        img.style.display = "none";
+        iframe.src = bg.url;
       } else if (bg?.type === "image") {
-        img.src = bg.url;
         img.style.display = "block";
+        iframe.style.display = "none";
+        img.src = bg.url;
+      } else {
+        iframe.style.display = "none";
+        img.style.display = "none";
       }
 
       if (stream) {
@@ -1012,20 +922,17 @@
       }
     }
 
-    document.getElementById('mute-button').onclick = () => {
-      const audio = document.getElementById('radio-player');
-      audio.muted = !audio.muted;
-      document.getElementById('mute-button').textContent = audio.muted ? 'UNMUTE' : 'MUTE';
-    };
-
-    document.getElementById('play-button').onclick = () => {
+    document.getElementById('clock-logo').onclick = () => {
       const audio = document.getElementById('radio-player');
       audio.paused ? audio.play() : audio.pause();
-      document.getElementById('play-button').textContent = audio.paused ? 'PLAY' : 'PAUSE';
     };
 
-    
-   
+    document.getElementById('mute-button').onclick = (e) => {
+      e.stopPropagation();
+      const audio = document.getElementById('radio-player');
+      audio.muted = !audio.muted;
+      document.getElementById('mute-button').textContent = audio.muted ? '🔇' : '🔊';
+    };
 
     updateClockLogo();
     updateRadio();
