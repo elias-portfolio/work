@@ -279,12 +279,14 @@
     <div id="clock-logo">
       <div id="clock-time">02:00 AM</div>
 		<div id="stream-info">Loading...</div>
+		
       
       <marquee id="quote-marquee" behavior="scroll" direction="left" scrollamount="3">
         The night whispers secrets only literature can decipher...
       </marquee>
     </div>
   </div>
+	
 
   <audio id="radio-player" autoplay></audio>
 
@@ -427,26 +429,26 @@
     type: "youtube",
     url: "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI"
   },
-  "7": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ"
-  },
+ "7": {
+  type: "image",
+  url: "http://103.95.42.254:84/mjpg/video.mjpg"
+},
   "8": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/irw_cppaJvE?autoplay=1&mute=1&controls=0&loop=1&playlist=irw_cppaJvE"
-  },
+  type: "image",
+  url: "http://133.175.249.187/SnapshotJPEG?Resolution=640x480&Quality=Clarity"
+},
   "9": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0"
-  },
-  "10": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/wULEcVypV4Q?autoplay=1&mute=1&controls=0"
-  },
+  type: "image",
+  url: "http://124.247.184.30/cgi-bin/camera?resolution=640&quality=1&Language=0"
+},
+ "10": {
+  type: "image",
+  url: "http://60.242.51.204:8000/cgi-bin/camera?resolution=640&quality=1&Language=0"
+},
   "11": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0"
-  },
+  type: "image",
+  url: "http://219.127.113.137/SnapshotJPEG?Resolution=640x480&Quality=Clarity"
+},
   "12": {
     type: "youtube",
     url: "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&rel=0"
@@ -1000,12 +1002,7 @@
   </script>
 
 <!-- New buttons container -->
-<div class="ui-buttons">
-
-  <button id="btn-fullscreen">H</button>
-  <button id="btn-toggle-ui">H</button>
-</div>
-
+ 
 <style>
   .ui-buttons {
   font-family: 'WieynkFrakturVignetten';
@@ -1054,6 +1051,40 @@
     const location = streamLocations[offset] || "Unknown location";
     alert(`Stream timezone offset: GMT${offset >= 0 ? '+' : ''}${offset}\nLocation: ${location}`);
   };
+	  const audio = document.getElementById("radio-player");
+const asciiWave = document.getElementById("ascii-wave");
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const sourceNode = audioCtx.createMediaElementSource(audio);
+const analyser = audioCtx.createAnalyser();
+
+analyser.fftSize = 128;
+const bufferLength = analyser.fftSize;
+const dataArray = new Uint8Array(bufferLength);
+
+sourceNode.connect(analyser);
+analyser.connect(audioCtx.destination);
+
+function renderWaveform() {
+  analyser.getByteTimeDomainData(dataArray);
+
+  const wave = Array.from(dataArray)
+    .filter((_, i) => i % 4 === 0) // downsample a bit
+    .map(value => {
+      const v = (value - 128) / 128; // normalize to -1..1
+      const row = Math.floor((v + 1) * 10); // map to 0-20 lines
+      return ' '.repeat(row) + '*';
+    })
+    .join('\n');
+
+  asciiWave.textContent = wave;
+  requestAnimationFrame(renderWaveform);
+}
+
+audio.addEventListener('play', () => {
+  audioCtx.resume();
+  renderWaveform();
+});
 </script>
 </body>
 </html>
