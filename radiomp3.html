@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Always 2AM Radio</title>
@@ -160,6 +161,9 @@
 
       #quote-marquee {
         font-size: 4vh;
+	
+ 
+      
       }
 
       #stream-info {
@@ -200,6 +204,8 @@
 
       #quote-marquee {
         font-size: 3vh;
+		   text-shadow: none;
+			    
       }
 
       
@@ -257,13 +263,12 @@
       text-align: center;
       color: #ff3b3b;
       font-family: 'WieynkFraktur', serif;
-      text-shadow:
-        0 0 10px rgba(255, 59, 59, 0.8),
-        0 0 20px rgba(255, 59, 59, 0.6),
-        0 0 30px rgba(255, 59, 59, 0.4),
-        0 0 40px rgba(255, 59, 59, 0.2);
-      white-space: nowrap;
-      overflow: hidden;
+		
+		   text-shadow: none;
+			    
+      }
+      
+     
     }
   </style>
 </head>
@@ -272,6 +277,7 @@
   <div class="video-background">
     <iframe id="bg-stream-iframe" frameborder="0" allow="autoplay; fullscreen"></iframe>
     <img id="bg-stream-img" style="display:none;" />
+    <video id="bg-stream-video" autoplay muted playsinline style="position:absolute;top:50%;left:50%;width:177.77777778vh;height:100vh;transform:translate(-50%,-50%) scale(2);z-index:0;object-fit:cover;opacity:0.5;display:none;"></video>
   </div>
 
   <div class="container">
@@ -282,7 +288,7 @@
 		
       
       <marquee id="quote-marquee" behavior="scroll" direction="left" scrollamount="3">
-        The night whispers secrets only literature can decipher...
+        ...
       </marquee>
     </div>
   </div>
@@ -296,10 +302,10 @@
    const radioStreams = {
       "-12": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"], //världsradio
 	  "-11": ["https://worldwidefm.out.airtime.pro/worldwidefm_b"], //världsradio
-	  "-10": ["https://stream.ktuh.org:8001/stream"], //honolulu
-      "-9": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"], //alaska
+	  "-9": ["https://stream.ktuh.org:8001/stream"], //honolulu
+      "-8": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"], //alaska
       "-7": ["https://dublab.out.airtime.pro/dublab_a"], // l.a
-      "-8": ["https://transmitter.clubcasting.net:8000/onacid"],
+      "-10": ["https://transmitter.clubcasting.net:8000/onacid"],
       "-6": ["https://nofmradio.web.app/"], //mexivo
       "-5": ["https://edge.mixlr.com/channel/ibrdq"], //kingston
       "-4": ["https://n10as.radiocult.fm/stream"], //montreal
@@ -325,11 +331,11 @@
     };
 
     const streamLocations = {
-      "-12": "World Radio",
-      "-11": "World Radio",
-      "-10": "Honolulu",
-      "-9": "Alaska",
-      "-8": "Pacific Time",
+      "-12": "THE DEAD ZONE",
+      "-11": "THE DEAD ZONE",
+      "-10": "THE DEAD ZONE",
+      "-9": "Honolulu",
+      "-8": "Alaska",
       "-7": "Los Angeles",
       "-6": "Mexico",
       "-5": "Kingston",
@@ -362,21 +368,25 @@
     url: "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8"
   },
   "-10": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/sxQAhw1sAyY?autoplay=1&mute=1&controls=0&loop=1&playlist=sxQAhw1sAyY"
-  },
-  "-9": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ"
-  },
+  type: "image",
+  url: "http://128.171.116.47/mjpg/video.mjpg"
+},
+		 "-9": {
+  type: "image",
+  url: "http://132.160.100.57/mjpg/video.mjpg"
+},
   "-8": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk"
+    type: "image",
+    url: "http://137.229.93.113/mjpg/video.mjpg"
   },
   "-7": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+    type: "image",
+    url: "http://64.69.144.102/mjpg/video.mjpg"
   },
+ "-7": {
+  type: "iframe",
+  url: "https://embed.skylinewebcams.com/player/926"
+},
   "-6": {
     type: "youtube",
     url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
@@ -443,15 +453,15 @@
 },
  "10": {
   type: "image",
-  url: "http://60.242.51.204:8000/cgi-bin/camera?resolution=640&quality=1&Language=0"
+  url: "http://220.233.144.165:8888/mjpg/video.mjpg"
 },
   "11": {
   type: "image",
-  url: "http://219.127.113.137/SnapshotJPEG?Resolution=640x480&Quality=Clarity"
+  url: "http://122.252.152.146/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER"
 },
   "12": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&rel=0"
+    type: "image",
+    url: "https://www.shors.ru/images/camera/image96.jpg"
   }
 };
 
@@ -932,73 +942,95 @@
 
 ];
     function get2amTimezoneOffset() {
-      const utcHour = new Date().getUTCHours();
-      let offset = (2 - utcHour + 24) % 24;
-      if (offset > 12) offset -= 24;
-      return offset;
+  const utcHour = new Date().getUTCHours();
+  let offset = (2 - utcHour + 24) % 24;
+  if (offset > 12) offset -= 24;
+  return offset;
+}
+
+function updateRadio() {
+  const offset = get2amTimezoneOffset();
+  const stream = radioStreams[offset]?.[0];
+  const audioPlayer = document.getElementById('radio-player');
+  const locationEl = document.getElementById('stream-info');
+  const location = streamLocations[offset] || "unknown location";
+  
+  const bg = backgroundStreams[offset];
+  const iframe = document.getElementById("bg-stream-iframe");
+  const img = document.getElementById("bg-stream-img");
+  const video = document.getElementById("bg-stream-video");
+  
+  locationEl.textContent = `on air: gmt ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}`;
+  
+  if (bg?.type === "youtube" || bg?.type === "iframe") {
+    iframe.style.display = "block";
+    img.style.display = "none";
+    iframe.src = bg.url;
+  } else if (bg?.type === "hls") {
+    video.style.display = "block";
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(bg.url);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = bg.url;
     }
+  } else if (bg?.type === "image") {
+    img.style.display = "block";
+    iframe.style.display = "none";
+    img.src = bg.url;
+  } else {
+    iframe.style.display = "none";
+    img.style.display = "none";
+  }
 
-    function updateRadio() {
-      const offset = get2amTimezoneOffset();
-      const stream = radioStreams[offset]?.[0];
-      const audioPlayer = document.getElementById('radio-player');
-	   const locationEl = document.getElementById('stream-info');
-	  const location = streamLocations[offset] || "unknown location";
-      
-      const bg = backgroundStreams[offset];
-      const iframe = document.getElementById("bg-stream-iframe");
-      const img = document.getElementById("bg-stream-img");
-	   locationEl.textContent = `current 2 am stream ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}`;
-      
-      if (bg?.type === "youtube") {
-        iframe.style.display = "block";
-        img.style.display = "none";
-        iframe.src = bg.url;
-      } else if (bg?.type === "image") {
-        img.style.display = "block";
-        iframe.style.display = "none";
-        img.src = bg.url;
-      } else {
-        iframe.style.display = "none";
-        img.style.display = "none";
-      }
+  if (stream) {
+    audioPlayer.src = stream;
+    audioPlayer.play().catch(console.error);
+  }
+}
 
-      if (stream && audioPlayer.paused) {
-        audioPlayer.src = stream;
-        audioPlayer.play().catch(console.error);
-      }
-    }
+function scheduleHourlyUpdate() {
+  updateRadio(); // Initial run
 
-     function updateClockLogo() {
-      const now = new Date();
-      const m = now.getMinutes().toString().padStart(2, '0');
-      const s = now.getSeconds().toString().padStart(2, '0');
-      document.getElementById('clock-time').textContent = `02:${m}:${s}`;
+  const now = new Date();
+  const msUntilNextHour =
+    (60 - now.getMinutes()) * 60 * 1000 -
+    now.getSeconds() * 1000 -
+    now.getMilliseconds();
 
-      const timeNow = `02:${m}:00 AM`;
-      const match = quotes.find(q => q.time === timeNow);
-      const marquee = document.getElementById('quote-marquee');
+  setTimeout(() => {
+    updateRadio(); // Right on the hour
+    setInterval(updateRadio, 60 * 60 * 1000); // Every hour
+  }, msUntilNextHour);
+}
 
-      if (match) {
-        marquee.textContent = `${match.quote} — ${match.author.trim()} (${match.source.trim()})`;
-      } else {
-        marquee.textContent = "The night whispers secrets only literature can decipher...";
-      }
-    }
+function updateClockLogo() {
+  const now = new Date();
+  const m = now.getMinutes().toString().padStart(2, '0');
+  const s = now.getSeconds().toString().padStart(2, '0');
+  document.getElementById('clock-time').textContent = `02:${m}:${s}`;
 
-    document.getElementById('clock-logo').onclick = () => {
-      const audio = document.getElementById('radio-player');
-      audio.paused ? audio.play() : audio.pause();
-    };
+  const timeNow = `02:${m}:00 AM`;
+  const match = quotes.find(q => q.time === timeNow);
+  const marquee = document.getElementById('quote-marquee');
 
-    
+  if (match) {
+    marquee.textContent = `${match.quote} — ${match.author.trim()} (${match.source.trim()})`;
+  } else {
+    marquee.textContent = "The night whispers secrets only literature can decipher...";
+  }
+}
 
-    
+document.getElementById('clock-logo').onclick = () => {
+  const audio = document.getElementById('radio-player');
+  audio.paused ? audio.play() : audio.pause();
+};
 
-    updateClockLogo();
-    updateRadio();
-    setInterval(updateClockLogo, 1000);
-    setInterval(updateRadio, 3600000);	
+updateClockLogo();
+setInterval(updateClockLogo, 1000);
+scheduleHourlyUpdate();
+  
   </script>
 
 <!-- New buttons container -->
