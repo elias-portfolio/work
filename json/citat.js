@@ -114,10 +114,10 @@
         "author": "Chris James"
     }, {
         "time": "2:15:00 AM",
-        "descriptive": "2.15am",
-        "quote": "At 2.15am a policeman observed the place in darkness, but with the stranger's motor still at the curb.",
-        "source": "The Shadow Out of Time",
-        "author": "H.P. Lovecraft"
+        "descriptive": "2:15",
+        "quote": "Above the door of Room 69 the clock ticked on at 2:15. The motion was accelerating. What had once been the gymnasium was now a small room, seven feet wide, a tight, almost perfect cube.",
+        "source": "Manhole 69",
+        "author": "JG Ballard"
     }, {
         "time": "2:15:00 AM",
         "descriptive": "two fifteen",
@@ -319,179 +319,169 @@
     }, 
 			 
 {
-  "time": "2:06:00 AM",
-  "descriptive": "2:06 AM placeholder",
-  "quote": "Placeholder quote for 2:06 AM",
-  "source": "",
-  "author": ""
+ "time": "2:06:00 AM",
+        "descriptive": "2:06",
+        "quote": "When he woke it was 2:06 by the digital clock on the bedside table. He lay there looking at the ceiling, the raw glare of the vaporlamp outside bathing the bedroom in a cold and bluish light. Like a winter moon.",
+        "source": "No Country for Old Men",
+        "author": "Cormac McCarthy"
 },
 {
   "time": "2:08:00 AM",
-  "descriptive": "2:08 AM placeholder",
-  "quote": "Placeholder quote for 2:08 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "2.08AM",
+        "quote": "It was 2.08AM but he had left the ball at the same time as I did, and had further to travel.",
+        "source": "The Rosie Project",
+        "author": "Graeme Simsion"
 },
 {
   "time": "2:09:00 AM",
-  "descriptive": "2:09 AM placeholder",
-  "quote": "Placeholder quote for 2:09 AM",
-  "source": "",
-  "author": ""
-},
+        "descriptive": "nine minutes past one",
+        "quote": "They made an unostentatious exit from their coach, finding themselves, when the express had rolled on into the west, upon a station platform in a foreign city at nine minutes past two in the morning-but at length without their shadow.",
+        "source": "The Black Bag",
+        "author": "Louis Joseph Vance"},
 {
   "time": "2:11:00 AM",
-  "descriptive": "2:11 AM placeholder",
-  "quote": "Placeholder quote for 2:11 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "2:11 AM",
+        "quote": "It was at 2:11 AM beneath the cool metal of a jungle gym that all Andrew's dreams came true. He kissed his one true love and swore up and down that it would last forever to this exhausted companion throughout their long trek home.",
+        "source": "Dying in the Twilight of Summer",
+        "author": "Seth O'Connell"
 },
 {
-  "time": "2:14:00 AM",
-  "descriptive": "2:14 AM placeholder",
-  "quote": "Placeholder quote for 2:14 AM",
-  "source": "",
-  "author": ""
+     "time": "2:14:00 AM",
+        "descriptive": "2.14",
+        "quote": "Since he had told the girl that it had to end, he'd been waking up every morning at 2.14, without fail. Every morning his eyes would flick open, alert, and the red numerals on his electric alarm clock would read 2.14.",
+        "source": "The Slap",
+        "author": "Christos Tsiolkas"
 },
 {
   "time": "2:16:00 AM",
-  "descriptive": "2:16 AM placeholder",
-  "quote": "Placeholder quote for 2:16 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "sixteen past two",
+        "quote": "At sixteen past two,they walked into the interview room.",
+        "source": "Nothing Gold Can Stay ",
+        "author": "Dana Stabenow "
 },
 {
   "time": "2:19:00 AM",
-  "descriptive": "2:19 AM placeholder",
-  "quote": "Placeholder quote for 2:19 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "2.19 A.M.",
+        "quote": "The time stamp on Navidson's camcorder indicates that it is exactly 2.19 A.M.",
+        "source": "House of Leaves",
+        "author": "Mark Z Danielewski"
 },
 {
-  "time": "2:22:00 AM",
-  "descriptive": "2:22 AM placeholder",
-  "quote": "Placeholder quote for 2:22 AM",
-  "source": "",
-  "author": ""
-},
+   "time": "2:22:00 AM",
+        "descriptive": "2:22",
+        "quote": "It was 2:22 when we found Dad's grave.",
+        "source": "Extremely Loud and Incredibly Close",
+        "author": "Jonathan Safran Foer"},
+
 {
   "time": "2:23:00 AM",
-  "descriptive": "2:23 AM placeholder",
-  "quote": "Placeholder quote for 2:23 AM",
-  "source": "",
-  "author": ""
-},
-{
-  "time": "2:29:00 AM",
-  "descriptive": "2:29 AM placeholder",
-  "quote": "Placeholder quote for 2:29 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "twenty-three minutes past one",
+        "quote": "The clock marked twenty-three minutes past two. He was suddenly full of agitation,yet hopeful.She had come!Who could tell what she would say?She might offer the most natural explanation of her late arrival.",
+        "source": "A Mummer's Tale",
+        "author": "Anatole France"
 },
 {
   "time": "2:38:00 AM",
-  "descriptive": "2:38 AM placeholder",
-  "quote": "Placeholder quote for 2:38 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "2.38am",
+        "quote": "At 2.38am, it began to snow in Bowling Green, Kentucky. The geese circling the city flew back to the park, landed, and hunkered down to sit it out on their island in the lake.",
+        "source": "Just Like the Ones we Used to Know",
+        "author": "Connie Willis"
+
 },
 {
   "time": "2:39:00 AM",
-  "descriptive": "2:39 AM placeholder",
-  "quote": "Placeholder quote for 2:39 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "2.39am.",
+        "quote": "23 October 1893 2.39am. Upon further thought, I feel it necessary to explain that exile into the Master's workshop is not an unpleasant fate. It is not simply some bare-walled cellar devoid of stimulation - quite the opposite.",
+        "source": "The Clockwork man",
+        "author": "William Jablonsky"
 },
 {
   "time": "2:40:00 AM",
-  "descriptive": "2:40 AM placeholder",
-  "quote": "Placeholder quote for 2:40 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "three forty",
+        "quote": "His bedside clock shows two forty. He has no idea what he's doing out of bed: he has no need to relieve himself, nor is he disturbed by a dream or some element of the day before, or even by the state of the world.",
+        "source": "Saturday",
+        "author": "Ian McEwan"
 },
 {
-  "time": "2:41:00 AM",
-  "descriptive": "2:41 AM placeholder",
-  "quote": "Placeholder quote for 2:41 AM",
-  "source": "",
-  "author": ""
-},
+   "time": "2:41:00 AM",
+        "descriptive": "2.41 AM.",
+        "quote": "The alarm clock said 2.41 AM. He sat up. Why was the alarm clock slow? He picked up the alarm clock and adjusted the hands to show the same time as his wristwatch: 2.44am",
+        "source": "The Dogs of Riga",
+        "author": "Henning Mankell"},
 {
   "time": "2:42:00 AM",
-  "descriptive": "2:42 AM placeholder",
-  "quote": "Placeholder quote for 2:42 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "2:42",
+        "quote": "\"We are due in Yellow Sky at 2:42,\" he said, looking tenderly into her eyes. \"Oh, are we?\" she said, as if she had not been aware of it. To evince surprise at her husband's statement was part of her wifely amiability.",
+        "source": "Bride Comes to Yellow Sky",
+        "author": "Stephen Crane"
 },
 {
-  "time": "2:44:00 AM",
-  "descriptive": "2:44 AM placeholder",
-  "quote": "Placeholder quote for 2:44 AM",
-  "source": "",
-  "author": ""
+ "time": "2:44:00 AM",
+        "descriptive": "2.44 AM",
+        "quote": "It was dark. After she had switched the light on and been to the toilet, she checked her watch: 2.44 AM She undressed, put the cat out the door and returned to the twin bed.",
+        "source": "Liver: Leber",
+        "author": "Will Self"},
+{
+   "time": "2:48:00 AM",
+        "descriptive": "2:48",
+        "quote": "At 2:48 the happy hour when clarity visits warm darkness which soaks my eyes I know no sin",
+        "source": "4:48 Psychosis",
+        "author": "Sarah Kane"
 },
 {
-  "time": "2:48:00 AM",
-  "descriptive": "2:48 AM placeholder",
-  "quote": "Placeholder quote for 2:48 AM",
-  "source": "",
-  "author": ""
+ "time": "2:49:00 AM",
+        "descriptive": "2.49",
+        "quote": "It was 2.49 when he hit me because of the two hundred times I had said, \"I don't know.\" He hit me a lot after that.",
+        "source": "The Ipcress File",
+        "author": "Len Deighton"
 },
 {
-  "time": "2:49:00 AM",
-  "descriptive": "2:49 AM placeholder",
-  "quote": "Placeholder quote for 2:49 AM",
-  "source": "",
-  "author": ""
+   "time": "2:50:00 AM",
+        "descriptive": "ten or five to three",
+        "quote": "She had used her cell phone to leave several messages on the answering machine in Sao Paulo of the young dentist of the previous evening, whose name was Fernando. The first was recorded at ten or five to two in the morning. I'm never going to forget you ... I'm sure we'll meet again somewhere.",
+        "source": "A Death in Brazil: A Book of Omissions",
+        "author": "Peter Robb"},
+{
+   "time": "2:51:00 AM",
+        "descriptive": "2:51",
+        "quote": "I lacked the will and physical strength to get out of bed and move through the dark house, clutching walls and stair rails. To feel my way, reinhabit my body, re-enter the world. Sweat trickled down my ribs. The digital reading on the clock-radio was 2:51. Always odd numbered at times like this. What does it mean? Is death odd-numbered?",
+        "source": "White Noise ",
+        "author": "Don DeLillo "
 },
 {
-  "time": "2:50:00 AM",
-  "descriptive": "2:50 AM placeholder",
-  "quote": "Placeholder quote for 2:50 AM",
-  "source": "",
-  "author": ""
-},
-{
-  "time": "2:51:00 AM",
-  "descriptive": "2:51 AM placeholder",
-  "quote": "Placeholder quote for 2:51 AM",
-  "source": "",
-  "author": ""
+ "time": "2:52:00 AM",
+        "descriptive": "Nearly four",
+        "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality-but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model airplane scattered to the wind... I am in my old room, yes, in the dark, certainly, and it is cold, obviously, but what time is it? \"Nearly three,son.\" But I mean what time?",
+        "source": "Sometimes a Great Notion ",
+        "author": "Ken Kesey "
 },
 {
   "time": "2:52:00 AM",
-  "descriptive": "2:52 AM placeholder",
-  "quote": "Placeholder quote for 2:52 AM",
-  "source": "",
-  "author": ""
+        "descriptive": "Nearly four",
+        "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality-but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model airplane scattered to the wind... I am in my old room, yes, in the dark, certainly, and it is cold, obviously, but what time is it? \"Nearly three,son.\" But I mean what time?",
+        "source": "Sometimes a Great Notion ",
+        "author": "Ken Kesey 
 },
 {
-  "time": "2:53:00 AM",
-  "descriptive": "2:53 AM placeholder",
-  "quote": "Placeholder quote for 2:53 AM",
-  "source": "",
-  "author": ""
+   "time": "2:54:00 AM",
+        "descriptive": "2.54 AM",
+        "quote": "The charter flight from Florida touched down at Aldergrove minutes earlier,at 2.54 AM",
+        "source": "The More a Man Has,the More a Man Wants",
+        "author": "Paul Muldoon"
 },
 {
-  "time": "2:54:00 AM",
-  "descriptive": "2:54 AM placeholder",
-  "quote": "Placeholder quote for 2:54 AM",
-  "source": "",
-  "author": ""
+ "time": "2:57:00 AM",
+        "descriptive": "Nearly four",
+        "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality-but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model airplane scattered to the wind... I am in my old room, yes, in the dark, certainly, and it is cold, obviously, but what time is it? \"Nearly three,son.\" But I mean what time?",
+        "source": "Sometimes a Great Notion ",
+        "author": "Ken Kesey "
 },
 {
-  "time": "2:57:00 AM",
-  "descriptive": "2:57 AM placeholder",
-  "quote": "Placeholder quote for 2:57 AM",
-  "source": "",
-  "author": ""
-},
-{
-  "time": "2:58:00 AM",
-  "descriptive": "2:58 AM placeholder",
-  "quote": "Placeholder quote for 2:58 AM",
-  "source": "",
-  "author": ""
+ "time": "3:58:00 AM",
+        "descriptive": "two minutes to four",
+        "quote": "The ancient house was deserted,the crumbling garage padlocked,and one was just able to discern-by peering through a crack in the bubbling sun on the window-the face of a clock on the opposite wall.The clock had stopped at two minutes to three early in the morning,or who could tell,it may have been earlier still,yesterday in the afternoon,a couple of hours after Kaiser had left Kamaria for Bartica.",
+        "source": "Heartland",
+        "author": "Wilson Harris"
 }
        
 ];
