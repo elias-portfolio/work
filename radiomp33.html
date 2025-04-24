@@ -20,7 +20,7 @@
     src: url('css/WieynkFraktur.woff2') format('woff2'),
          url('css/WieynkFraktur.woff') format('woff');
     font-weight: 400;
-    font-style: normal;
+    font-style: normal;				
   }
 
   /* 3) WieynkFraktur Bold.woff (Bold variant) */
@@ -306,7 +306,7 @@
       "-8": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"], //alaska
       "-7": ["https://dublab.out.airtime.pro/dublab_a"], // l.a
       "-10": ["https://transmitter.clubcasting.net:8000/onacid"],
-      "-6": ["https://nofmradio.web.app/"], //mexivo
+      "-6": ["https://firebasestorage.googleapis.com/v0/b/nofmradio.appspot.com/o/NoFM%20-%20Todo%20Menos%20Miedo433.mp3?alt=media&token=584fea6a-b9cc-4e0e-a56c-8815a7fba807"], //mexivo
       "-5": ["https://edge.mixlr.com/channel/ibrdq"], //kingston
       "-4": ["https://n10as.radiocult.fm/stream"], //montreal
       "-3": ["https://servidor24-1.brlogic.com:7516/live?source=app_pwa"],//brazil
@@ -388,9 +388,9 @@
   url: "https://embed.skylinewebcams.com/player/926"
 },
   "-6": {
-    type: "youtube",
-    url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
-  },
+  type: "video",
+  url: "dither.mp4"
+},
   "-5": {
     type: "youtube",
     url: "https://www.youtube.com/embed/rnXIjl_Rzy4?autoplay=1&mute=1&controls=0&loop=1&playlist=rnXIjl_Rzy4"
@@ -959,15 +959,24 @@ function updateRadio() {
   const iframe = document.getElementById("bg-stream-iframe");
   const img = document.getElementById("bg-stream-img");
   const video = document.getElementById("bg-stream-video");
-  
+
   locationEl.textContent = `on air: gmt ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}`;
-  
+
   if (bg?.type === "youtube" || bg?.type === "iframe") {
     iframe.style.display = "block";
     img.style.display = "none";
+    video.style.display = "none";
     iframe.src = bg.url;
+  } else if (bg?.type === "video") {
+    video.style.display = "block";
+    iframe.style.display = "none";
+    img.style.display = "none";
+    video.src = bg.url;
   } else if (bg?.type === "hls") {
     video.style.display = "block";
+    iframe.style.display = "none";
+    img.style.display = "none";
+
     if (Hls.isSupported()) {
       const hls = new Hls();
       hls.loadSource(bg.url);
@@ -978,10 +987,12 @@ function updateRadio() {
   } else if (bg?.type === "image") {
     img.style.display = "block";
     iframe.style.display = "none";
+    video.style.display = "none";
     img.src = bg.url;
   } else {
     iframe.style.display = "none";
     img.style.display = "none";
+    video.style.display = "none";
   }
 
   if (stream) {

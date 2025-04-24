@@ -13,6 +13,20 @@
     font-weight: 700;
     font-style: normal;
   }
+	  
+	@font-face {
+  font-family: 'Schwere';
+  src: url('css/Schwere.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+	  
+	  @font-face {
+    font-family: 'speical';
+    src: url('css/special.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
 
   /* 2) WieynkFraktur.woff2 + WieynkFraktur.woff (Regular) */
   @font-face {
@@ -217,6 +231,9 @@
 
     #clock-logo {
       position: relative;
+		border: 1px;
+		border-color: red;
+			
       font-size: 25vh;
       font-family: 'AkzidenzGroteskBE-Bold', sans-serif;
       color: #ff3b3b;
@@ -247,10 +264,10 @@
 
     
 
-    #clock-time {
+  #clock-time {
       font-variant-numeric: tabular-nums;
       font-family: 'WieynkFrakturZierBold';
-      font-size: 20vh;
+      font-size: 12vh;
       margin-bottom: 0;
       padding-bottom: 0;
     }
@@ -306,7 +323,7 @@
       "-8": ["https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/"], //alaska
       "-7": ["https://dublab.out.airtime.pro/dublab_a"], // l.a
       "-10": ["https://transmitter.clubcasting.net:8000/onacid"],
-      "-6": ["https://nofmradio.web.app/"], //mexivo
+      "-6": ["https://radio.mensajito.mx/nopalVentana"], //mexivo
       "-5": ["https://edge.mixlr.com/channel/ibrdq"], //kingston
       "-4": ["https://n10as.radiocult.fm/stream"], //montreal
       "-3": ["https://servidor24-1.brlogic.com:7516/live?source=app_pwa"],//brazil
@@ -331,9 +348,9 @@
     };
 
     const streamLocations = {
-      "-12": "THE DEAD ZONE",
-      "-11": "THE DEAD ZONE",
-      "-10": "THE DEAD ZONE",
+      "-12": "BLUB, THE DEAD ZONE",
+      "-11": "BLUB,BLUB, THE DEAD ZONE",
+      "-10": "BLUB, BLUB, THE BLUB, DEAD ZONE",
       "-9": "Honolulu",
       "-8": "Alaska",
       "-7": "Los Angeles",
@@ -382,15 +399,15 @@
    },
    "-7": {
      type: "youtube",
-     url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+     url: "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk"
    },
    "-6": {
      type: "youtube",
-     url: "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY"
+     url: "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw"
    },
    "-5": {
      type: "youtube",
-     url: "https://www.youtube.com/embed/rnXIjl_Rzy4?autoplay=1&mute=1&controls=0&loop=1&playlist=rnXIjl_Rzy4"
+     url: "https://www.youtube.com/embed/_Rm4nXOQK9I?autoplay=1&mute=1&controls=0&loop=1&playlist=_Rm4nXOQK9I"
    },
    "-4": {
      type: "youtube",
@@ -1015,7 +1032,7 @@ function updateClockLogo() {
   if (match) {
     marquee.textContent = `${match.quote} — ${match.author.trim()} (${match.source.trim()})`;
   } else {
-    marquee.textContent = "The night whispers secrets only literature can decipher...";
+    marquee.textContent = "<3";
   }
 }
 

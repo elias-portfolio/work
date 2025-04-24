@@ -377,11 +377,11 @@
 },
   "-8": {
     type: "image",
-    url: "http://137.229.93.113/mjpg/video.mjpg"
+    url: "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ"
   },
   "-7": {
     type: "image",
-    url: "http://64.69.144.102/mjpg/video.mjpg"
+    url: "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk"
   },
  "-7": {
   type: "iframe",
@@ -1018,7 +1018,7 @@ function updateClockLogo() {
   if (match) {
     marquee.textContent = `${match.quote} — ${match.author.trim()} (${match.source.trim()})`;
   } else {
-    marquee.textContent = "The night whispers secrets only literature can decipher...";
+    marquee.textContent = "...";
   }
 }
 
@@ -1101,10 +1101,10 @@ function renderWaveform() {
   analyser.getByteTimeDomainData(dataArray);
 
   const wave = Array.from(dataArray)
-    .filter((_, i) => i % 4 === 0) // downsample a bit
+    .filter((_, i) => i % 4 === 0) // 
     .map(value => {
-      const v = (value - 128) / 128; // normalize to -1..1
-      const row = Math.floor((v + 1) * 10); // map to 0-20 lines
+      const v = (value - 128) / 128; 
+      const row = Math.floor((v + 1) * 10);
       return ' '.repeat(row) + '*';
     })
     .join('\n');

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>2AM RADIO</title>
+<style>
+    @font-face {
+      font-family: 'Suisse';
+      src: url('./css/suisse.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+#background-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.77vh; /* 100 * (16/9) */
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* lets clicks pass through */
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .video-bg {
+    width: 100vw;
+    height: 56.25vw; /* 100 / (16/9) */
+  }
+}
+
+#bg-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.77777778vh;
+  height: 100vh;
+  transform: translate(-50%, -50%) scale(1.5);
+  transform-origin: center center;
+  pointer-events: none;
+  opacity: 1;
+  border: none;
+  z-index: 0;
+}
+    body {
+      
+      color: white;
+      font-family: 'Suisse', sans-serif;
+      font-size: 14px;
+      margin: 0;
+      padding: 10px;
+      text-transform: lowercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      line-height: 1.3;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .zone {
+      margin: 0 8px 0 0;
+      padding: 0;
+
+      white-space: nowrap;
+    }
+
+    .gmt {
+      background-color: #359395;
+      color: white;
+      font-weight: bold;
+    }
+
+    .location {
+      background-color: #f2eb0c;
+      color: black;
+      font-weight: bold;
+    }
+
+    .stream {
+      background-color: #ff3800;
+      color: white;
+      font-weight: bold;
+    }
+  
+.neon-clock {
+color: red;
+	font-size: 14px;
+	animation: pulse 1.5s infinite alternate;
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: 'tnum';
+	font-family: 'Suisse', monospace;
+}
+	
+	
+
+.clock-container {
+  position: fixed;
+  
+}
+.rewind {
+  cursor: pointer;
+  
+}
+
+.zone img {
+  height: 15px;
+  vertical-align: middle;
+}
+
+</style>
+</head>
+<body>
+<body>
+<div id="background-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden;">
+<div id="background-container">
+<div class="video-bg">
+<iframe allow="autoplay" allowfullscreen="" frameborder="0" id="bg-frame"></iframe>
+</div>
+</div>
+</div>
+<div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
+<audio id="radio-player"></audio>
+<script>
+    const radioStreams = {
+      "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-10": "https://transmitter.clubcasting.net:8000/onacid",
+      "-9": "https://stream.ktuh.org:8001/stream",
+      "-8": "https://s26.myradiostream.com:17824/",
+      "-7": "https://dublab.out.airtime.pro/dublab_a",
+      "-6": "https://radio.mensajito.mx/nopalVentana",
+      "-5": "https://edge.mixlr.com/channel/ibrdq",
+      "-4": "https://n10as.radiocult.fm/stream",
+      "-3": "https://servidor24-1.brlogic.com:7516/live",
+      "-2": "https://servidor30.brlogic.com:8262/live",
+      "-1": "https://azuracast.datea.services:8000/radio.mp3",
+      "0": "https://oroko-radio.radiocult.fm/stream",
+      "1": "https://stream.radioquantica.com:8443/stream",
+      "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+      "3": "https://20ft-radio.radiocult.fm/stream",
+      "4": "https://radio.beshknow.com/beshknow",
+      "5": "https://stream-160.zeno.fm/nvvbgyewxksuv",
+      "6": "http://94.130.113.214:8000/dubtechno",
+      "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+      "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
+      "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+      "10": "https://oroko-radio.radiocult.fm/stream",
+      "11": "https://stream.tbc.radio:8000/radio.mp3",
+      "12": "https://radio.kamchatkalive.ru:8103/dance"
+    };
+
+    const streamLocations = {
+      "-12": "Deadzone",
+      "-11": "Deep Sea",
+      "-10": "Blub City",
+      "-9": "Honolulu",
+      "-8": "Alaska",
+      "-7": "Los Angeles",
+      "-6": "Mexico",
+      "-5": "Kingston",
+      "-4": "Montreal",
+      "-3": "São Paulo",
+      "-2": "Porto",
+      "-1": "Atlantis",
+      "0": "Ghana",
+      "1": "Portugal",
+      "2": "Berlin",
+      "3": "Kyiv",
+      "4": "Baku",
+      "5": "Karachi",
+      "6": "Jaipur",
+      "7": "Indonesia",
+      "8": "Chengdu",
+      "9": "Tokyo",
+      "10": "Sydney",
+      "11": "Auckland",
+      "12": "Kamchatka"
+    };
+
+    const placeholderCities = [
+      "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",
+      "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi", "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",
+      "Vienna", "Warsaw", "Zagreb", "Amsterdam", "Belgrade", "Copenhagen", "Dublin", "Helsinki", "Jerusalem", "Lima",
+      "Manila", "Ottawa", "Reykjavik", "Singapore", "Tallinn", "Valencia", "Wellington", "Xi'an", "Yerevan", "Zurich",
+      "Bangkok", "Cape Town", "Cologne", "Damascus", "Edmonton", "Frankfurt", "Guadalajara", "Hamburg", "Islamabad",
+      "Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples", "Osaka", "Perth", "Quito", "Rome", "Seoul",
+      "Toronto", "Vancouver", "Xiamen", "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
+      "Kathmandu", "Luxembourg", "Marseille", "Nicosia", "Panama City", "Rabat", "Sarajevo", "Tunis", "Ulaanbaatar"
+    ];
+
+    const offset = (2 - new Date().getUTCHours() + 24) % 24;
+    const adjustedOffset = offset > 12 ? offset - 24 : offset;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const grid = document.getElementById("radio-zones");
+    const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
+    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url })));
+    const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
+    const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
+
+    const allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];
+    while (allBlocks.length < 150) {
+      allBlocks.push({ type: 'placeholder', name: placeholderCities[Math.floor(Math.random() * placeholderCities.length)] });
+    }
+
+    const layout = shuffle(allBlocks).slice(0, 150);
+
+    layout.forEach(block => {
+      let html = '';
+      let className = 'zone';
+
+      if (block.type === 'gmt') {
+        if (parseInt(block.key) === adjustedOffset) className += ' gmt';
+        html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
+      } else if (block.type === 'stream') {
+        if (parseInt(block.key) === adjustedOffset) className += ' stream';
+        html = `${block.url}`;
+      } else if (block.type === 'location') {
+        if (block.key === String(adjustedOffset)) className += ' location';
+        html = `${block.name}`;
+      } else if (block.type === 'placeholder') {
+        html = `${block.name}`;
+      }
+
+      const div = document.createElement('div');
+      div.className = className;
+      div.innerHTML = html;
+      grid.appendChild(div);
+    });
+
+    const audio = document.getElementById("radio-player");
+    const currentStream = radioStreams[adjustedOffset];
+    if (currentStream) {
+      audio.src = currentStream;
+      audio.load();
+      audio.play().catch(error => {
+        console.log('Auto-play prevented:', error);
+      });
+    }
+  
+    const backgroundStreams = {
+      "-12": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8",
+      "-11": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8",
+      "-10": "https://www.youtube.com/embed/sxQAhw1sAyY?autoplay=1&mute=1&controls=0&loop=1&playlist=sxQAhw1sAyY",
+      "-9": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ",
+      "-8": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk",
+      "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk",
+      "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw",
+      "-5": "https://www.youtube.com/embed/_Rm4nXOQK9I?autoplay=1&mute=1&controls=0&loop=1&playlist=_Rm4nXOQK9I",
+      "-4": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
+      "-3": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
+      "-2": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM",
+      "-1": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
+      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0",
+      "1": "https://www.youtube.com/embed/5Uqw_G_IdjE?autoplay=1&mute=1&controls=0&loop=1&playlist=5Uqw_G_IdjE",
+      "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA",
+      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk",
+      "4": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
+      "5": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI",
+      "6": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI",
+      "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ",
+      "8": "https://www.youtube.com/embed/irw_cppaJvE?autoplay=1&mute=1&controls=0&loop=1&playlist=irw_cppaJvE",
+      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0",
+      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0",
+      "11": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0",
+      "12": "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k"
+    };
+    const bgFrame = document.getElementById("bg-frame");
+    bgFrame.src = backgroundStreams[adjustedOffset];
+
+
+let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
+virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+
+function updateClock() {
+  const now = new Date();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  
+  // Check if we're at XX:59:59 to prepare for stream change
+  if (minutes === "59" && seconds === "59") {
+    setTimeout(() => {
+      virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
+      virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+      
+      const newStream = radioStreams[virtualOffset];
+      const newBg = backgroundStreams[virtualOffset];
+      
+      if (newStream) {
+        audio.src = newStream;
+        audio.play().catch(console.error);
+      }
+      if (newBg) {
+        bgFrame.src = newBg;
+      }
+      
+      updateHighlights(virtualOffset);
+    }, 1000);
+  }
+  
+  document.getElementById("clock").textContent = `2:${minutes}:${seconds}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+// Update the tick function to always show uppercase AM
+function tick() {
+  const now = new Date();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  document.getElementById("clock").textContent = `2:${minutes}:${seconds} AM`;
+}
+
+function updateHighlights(offset) {
+  document.querySelectorAll('.gmt, .stream, .location').forEach(el => {
+    el.classList.remove('gmt', 'stream', 'location');
+  });
+
+  document.querySelectorAll('#radio-zones .zone').forEach(zone => {
+    if (zone.textContent.startsWith('gmt')) {
+      if (zone.textContent.includes(`${offset >= 0 ? '+' : ''}${offset}`)) {
+        zone.classList.add('gmt');
+      }
+    } else if (radioStreams[offset] && zone.textContent.includes(radioStreams[offset])) {
+      zone.classList.add('stream');
+    } else if (streamLocations[offset] && zone.textContent === streamLocations[offset]) {
+      zone.classList.add('location');
+    }
+  });
+}
+
+// Add global click handler for play/pause right after audio setup
+document.body.addEventListener("click", (e) => {
+  const clickedText = e.target.closest(".zone");
+  const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
+  const clickedClock = e.target.id === "clock" || e.target.closest("#clock");
+
+  // If the click is NOT on any interactive/text element
+  if (!clickedText && !clickedRewind && !clickedClock) {
+    if (audio.paused) {
+      audio.play().catch(console.error);
+    } else {
+      audio.pause();
+    }
+  }
+});
+
+document.getElementById("rewind").addEventListener("click", () => {
+  virtualOffset = virtualOffset - 1;
+  if (virtualOffset < -12) virtualOffset = 12;
+
+  const newStream = radioStreams[virtualOffset];
+  const newBg = backgroundStreams[virtualOffset];
+  if (newStream) {
+    audio.src = newStream;
+    audio.play().catch(console.error);
+  }
+  if (newBg) {
+    bgFrame.src = newBg;
+  }
+
+  updateHighlights(virtualOffset);
+});
+
+document.getElementById("playPause").addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play().then(() => {
+      document.getElementById("playPause").textContent = "pause";
+    }).catch(console.error);
+  } else {
+    audio.pause();
+    document.getElementById("playPause").textContent = "play";
+  }
+});
+
+// Update play/pause text when audio state changes
+audio.addEventListener("play", () => {
+  document.getElementById("playPause").textContent = "pause";
+});
+
+audio.addEventListener("pause", () => {
+  document.getElementById("playPause").textContent = "play";
+});
+</script>
+</body>
+</html>
