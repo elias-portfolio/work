@@ -213,38 +213,23 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
             `,
             groundnews: `
-To generate new ads just click the case on the left again.<br> <br>
 
-<hr>
-<br> The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches with the copy: <br> <br> Is this election confusing you? Cut through the noise with Ground News.. <br> <br>  
+<div> 
+
+<br> The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches. All under the concept and tagline: decode the election.
 
     </div>
-<br> 
-	
 
-
-
-
-
-<hr>
-<br>
-<br>
-
-</p>
-<br>
-<br>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
                     <!-- Add iframe container -->
-                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
+                    <div id="iframe-container" style="margin-top: 20px; width: 100%; height: 700px; overflow: hidden;">
                         <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="ground6.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                        <iframe id="ground5-iframe" src="ground4.html" style="width: 100%; height: 100%; border: none;"></iframe>
                     </div>
 
 
-<br> <br> <p style="font-family: 'Helvetica', 'Arial', sans-serif; text-align: center; text-transform: uppercase; color: white; line-height: 1.5; background-color: red; display: block; padding: 12px; font-weight: bold; margin: 0 auto; letter-spacing: 1px;">
- Cut through the noise with Ground News.
-</p>
+<br> <br> 
 
 
 
@@ -260,7 +245,7 @@ To generate new ads just click the case on the left again.<br> <br>
 
                     <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
                         <!-- Iframe directly displaying the ground1.html content -->
-                        <iframe id="ground1-iframe" src="ground1.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                        <iframe id="ground1-iframe" src="ascittrump.html" style="width: 100%; height: 100%; border: none;"></iframe>
                     </div>
 
                     <br>
