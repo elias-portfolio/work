@@ -345,7 +345,7 @@ To generate new ads just click the case on the left again.<br> <br>
                         <!-- Iframe directly displaying the ground6.html content -->
                         <iframe id="ground5-iframe" src="2amtext.html" style="width: 100%; height: 100%; border: none;"></iframe>
                     </div> 
-  <br> a radio that only broadcasts from wherever it’s 2AM. <br> https://elias-portfolio.github.io/work/2amtext.html
+
             `,
             kindle: `
                 <div id="quotation" onclick="fetchAndDisplayQuotation();">
