@@ -19,6 +19,7 @@
   height: 100vh;
   z-index: -1;
   overflow: hidden;
+  background: black;
 }
 
 .video-bg {
@@ -29,16 +30,11 @@
   height: 100vh;
   transform: translate(-50%, -50%);
   pointer-events: none; /* lets clicks pass through */
+  background: black;
 }
 
-@media (min-aspect-ratio: 16/9) {
-  .video-bg {
-    width: 100vw;
-    height: 56.25vw; /* 100 / (16/9) */
-  }
-}
-
-#bg-frame {
+#bg-frame,
+#bg-video {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -50,6 +46,10 @@
   opacity: 1;
   border: none;
   z-index: 0;
+}
+
+#bg-video {
+  object-fit: cover;
 }
     body {
       
@@ -129,12 +129,10 @@ color: red;
 </style>
 </head>
 <body>
-<body>
-<div id="background-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden;">
 <div id="background-container">
 <div class="video-bg">
 <iframe allow="autoplay" allowfullscreen="" frameborder="0" id="bg-frame"></iframe>
-</div>
+<video id="bg-video" loop muted playsinline style="display: none"></video>
 </div>
 </div>
 <div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone" id="fullscreen">fullscreen</div><div class="zone" id="hideUI">hide text</div><div class="zone" id="clockMode">clock mode</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
@@ -268,7 +266,7 @@ color: red;
       "-12": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
       "-11": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
       "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
-      "-9": "https://www.youtube.com/embed/oG5zz9Sjw3E?autoplay=1&mute=1&controls=0&loop=1&playlist=oG5zz9Sjw3E&vq=hd1080",
+      "-9": ["./css/trim5.mp4", "./css/trim4.mp4", "./css/trim3.mp4"],
       "-8": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ&vq=hd1080",
       "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",
       "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
@@ -291,148 +289,248 @@ color: red;
       "11": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
       "12": "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&vq=hd1080"
     };
-    const bgFrame = document.getElementById("bg-frame");
-    bgFrame.src = backgroundStreams[adjustedOffset];
 
+    let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
+    virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
 
-let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
-virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+    // Add this variable to track current video index
+    let currentVideoIndex = 0;
 
-function updateClock() {
-  const now = new Date();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  
-  // Check if we're at XX:59:59 to prepare for stream change
-  if (minutes === "59" && seconds === "59") {
-    setTimeout(() => {
-      virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
-      virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+    function updateBackground(offset) {
+      const newBg = backgroundStreams[offset];
+      const bgFrame = document.getElementById("bg-frame");
+      const bgVideo = document.getElementById("bg-video");
       
+      if (newBg) {
+        if (Array.isArray(newBg)) {
+          // Handle multiple video files
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          
+          // Set up video ended event handler if not already set
+          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
+            bgVideo.addEventListener('ended', function() {
+              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
+              bgVideo.src = newBg[currentVideoIndex];
+              bgVideo.play().catch(console.error);
+            });
+            bgVideo.setAttribute('data-rotation-initialized', 'true');
+          }
+          
+          // Start with current video in rotation if not already playing it
+          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
+            bgVideo.src = newBg[currentVideoIndex];
+            bgVideo.load();
+            bgVideo.play().catch(e => {
+              console.error('Video play error:', e);
+              setTimeout(() => bgVideo.play().catch(console.error), 100);
+            });
+          }
+        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
+          // Handle single video file
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          
+          if (bgVideo.src !== newBg) {
+            bgVideo.src = newBg;
+            bgVideo.load();
+          }
+          bgVideo.play().catch(e => {
+            console.error('Video play error:', e);
+            setTimeout(() => bgVideo.play().catch(console.error), 100);
+          });
+        } else {
+          // Handle YouTube iframe
+          bgVideo.style.display = 'none';
+          bgFrame.style.display = 'block';
+          if (bgFrame.src !== newBg) {
+            bgFrame.src = newBg;
+          }
+        }
+      }
+    }
+
+    // Add this function to test the video directly
+    function testVideo() {
+      const videoElement = document.createElement('video');
+      videoElement.src = './css/backround.mp4';
+      videoElement.autoplay = true;
+      videoElement.loop = true;
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      videoElement.style.cssText = 'width: 100px; height: 100px; position: fixed; top: 10px; left: 10px; z-index: 9999;';
+      document.body.appendChild(videoElement);
+      videoElement.play().catch(e => console.error('Test video play failed:', e));
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      
+      if (minutes === "59" && seconds === "59") {
+        setTimeout(() => {
+          virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
+          virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+          
+          const newStream = radioStreams[virtualOffset];
+          if (newStream) {
+            audio.src = newStream;
+            audio.play().catch(console.error);
+          }
+          
+          updateBackground(virtualOffset);
+          updateHighlights(virtualOffset);
+        }, 1000);
+      }
+      
+      document.getElementById("clock").textContent = `2:${minutes}:${seconds}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Update the tick function to always show uppercase AM
+    function tick() {
+      const now = new Date();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      document.getElementById("clock").textContent = `2:${minutes}:${seconds} AM`;
+    }
+
+    function updateHighlights(offset) {
+      document.querySelectorAll('.gmt, .stream, .location').forEach(el => {
+        el.classList.remove('gmt', 'stream', 'location');
+      });
+
+      document.querySelectorAll('#radio-zones .zone').forEach(zone => {
+        if (zone.textContent.startsWith('gmt')) {
+          if (zone.textContent.includes(`${offset >= 0 ? '+' : ''}${offset}`)) {
+            zone.classList.add('gmt');
+          }
+        } else if (radioStreams[offset] && zone.textContent.includes(radioStreams[offset])) {
+          zone.classList.add('stream');
+        } else if (streamLocations[offset] && zone.textContent === streamLocations[offset]) {
+          zone.classList.add('location');
+        }
+      });
+    }
+
+    // Add global click handler for play/pause right after audio setup
+    document.body.addEventListener("click", (e) => {
+      const clickedText = e.target.closest(".zone");
+      const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
+      const clickedClock = e.target.id === "clock" || e.target.closest("#clock");
+      const clickedHideUI = e.target.id === "hideUI" || e.target.closest("#hideUI");
+      const clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
+      const clickedFullscreen = e.target.id === "fullscreen" || e.target.closest("#fullscreen");
+
+      // If the click is NOT on any interactive/text element
+      if (!clickedText && !clickedRewind && !clickedClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
+        if (audio.paused) {
+          audio.play().catch(console.error);
+        } else {
+          audio.pause();
+        }
+      }
+    });
+
+    document.getElementById("rewind").addEventListener("click", () => {
+      const oldOffset = virtualOffset;
+      virtualOffset = virtualOffset - 1;
+      if (virtualOffset < -12) virtualOffset = 12;
+      
+      // Reset video index when leaving Hawaii timezone
+      if (oldOffset === -9) {
+        currentVideoIndex = 0;
+      }
+
       const newStream = radioStreams[virtualOffset];
-      const newBg = backgroundStreams[virtualOffset];
-      
       if (newStream) {
         audio.src = newStream;
         audio.play().catch(console.error);
       }
-      if (newBg) {
-        bgFrame.src = newBg;
-      }
       
+      updateBackground(virtualOffset);
       updateHighlights(virtualOffset);
-    }, 1000);
-  }
-  
-  document.getElementById("clock").textContent = `2:${minutes}:${seconds}`;
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-
-// Update the tick function to always show uppercase AM
-function tick() {
-  const now = new Date();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  document.getElementById("clock").textContent = `2:${minutes}:${seconds} AM`;
-}
-
-function updateHighlights(offset) {
-  document.querySelectorAll('.gmt, .stream, .location').forEach(el => {
-    el.classList.remove('gmt', 'stream', 'location');
-  });
-
-  document.querySelectorAll('#radio-zones .zone').forEach(zone => {
-    if (zone.textContent.startsWith('gmt')) {
-      if (zone.textContent.includes(`${offset >= 0 ? '+' : ''}${offset}`)) {
-        zone.classList.add('gmt');
+      
+      // Test video if we're at GMT-9
+      if (virtualOffset === -9) {
+        testVideo();
       }
-    } else if (radioStreams[offset] && zone.textContent.includes(radioStreams[offset])) {
-      zone.classList.add('stream');
-    } else if (streamLocations[offset] && zone.textContent === streamLocations[offset]) {
-      zone.classList.add('location');
-    }
-  });
-}
+    });
 
-// Add global click handler for play/pause right after audio setup
-document.body.addEventListener("click", (e) => {
-  const clickedText = e.target.closest(".zone");
-  const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
-  const clickedClock = e.target.id === "clock" || e.target.closest("#clock");
-  const clickedHideUI = e.target.id === "hideUI" || e.target.closest("#hideUI");
-  const clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
-  const clickedFullscreen = e.target.id === "fullscreen" || e.target.closest("#fullscreen");
+    document.getElementById("playPause").addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          document.getElementById("playPause").textContent = "pause";
+        }).catch(console.error);
+      } else {
+        audio.pause();
+        document.getElementById("playPause").textContent = "play";
+      }
+    });
 
-  // If the click is NOT on any interactive/text element
-  if (!clickedText && !clickedRewind && !clickedClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
-    if (audio.paused) {
-      audio.play().catch(console.error);
-    } else {
-      audio.pause();
-    }
-  }
-});
-
-document.getElementById("rewind").addEventListener("click", () => {
-  virtualOffset = virtualOffset - 1;
-  if (virtualOffset < -12) virtualOffset = 12;
-
-  const newStream = radioStreams[virtualOffset];
-  const newBg = backgroundStreams[virtualOffset];
-  if (newStream) {
-    audio.src = newStream;
-    audio.play().catch(console.error);
-  }
-  if (newBg) {
-    bgFrame.src = newBg;
-  }
-
-  updateHighlights(virtualOffset);
-});
-
-document.getElementById("playPause").addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play().then(() => {
+    // Update play/pause text when audio state changes
+    audio.addEventListener("play", () => {
       document.getElementById("playPause").textContent = "pause";
-    }).catch(console.error);
-  } else {
-    audio.pause();
-    document.getElementById("playPause").textContent = "play";
-  }
-});
+    });
 
-// Update play/pause text when audio state changes
-audio.addEventListener("play", () => {
-  document.getElementById("playPause").textContent = "pause";
-});
+    audio.addEventListener("pause", () => {
+      document.getElementById("playPause").textContent = "play";
+    });
 
-audio.addEventListener("pause", () => {
-  document.getElementById("playPause").textContent = "play";
-});
+    // Add hide UI functionality
+    document.getElementById("hideUI").addEventListener("click", () => {
+      const zones = document.querySelectorAll('.zone:not(#hideUI)');
+      zones.forEach(zone => {
+        zone.style.display = zone.style.display === 'none' ? '' : 'none';
+      });
+    });
 
-// Add hide UI functionality
-document.getElementById("hideUI").addEventListener("click", () => {
-  const zones = document.querySelectorAll('.zone:not(#hideUI)');
-  zones.forEach(zone => {
-    zone.style.display = zone.style.display === 'none' ? '' : 'none';
-  });
-});
+    // Add clock mode functionality
+    document.getElementById("clockMode").addEventListener("click", () => {
+      window.location.href = './radiomp3.html';
+    });
 
-// Add clock mode functionality
-document.getElementById("clockMode").addEventListener("click", () => {
-  window.location.href = './radiomp3.html';
-});
+    // Add fullscreen functionality
+    document.getElementById("fullscreen").addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(console.error);
+      } else {
+        document.exitFullscreen().catch(console.error);
+      }
+    });
 
-// Add fullscreen functionality
-document.getElementById("fullscreen").addEventListener("click", () => {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(console.error);
-  } else {
-    document.exitFullscreen().catch(console.error);
-  }
-});
+    // Add this to the end of your script to ensure initial state is correct
+    document.addEventListener('DOMContentLoaded', function() {
+      const offset = virtualOffset;
+      updateBackground(offset);
+    });
 </script>
 </body>
 </html>
