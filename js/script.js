@@ -216,7 +216,7 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
 <div> 
 
-<br> The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches. All under the concept and tagline: decode the election.
+ The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches. All under the concept and tagline: decode the election.
 
     </div>
 
