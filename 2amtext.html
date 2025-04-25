@@ -137,13 +137,41 @@ color: red;
 </div>
 </div>
 </div>
-<div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
+<div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone" id="fullscreen">fullscreen</div><div class="zone" id="hideUI">hide text</div><div class="zone" id="clockMode">clock mode</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
 <audio id="radio-player"></audio>
 <script>
+    const streamLocations = {
+      "-12": "Deadzone",
+      "-11": "Deadzone",
+      "-10": "Deep Sea",
+      "-9": "Honolulu",
+      "-8": "Alaska",
+      "-7": "Los Angeles",
+      "-6": "Mexico",
+      "-5": "Kingston",
+      "-4": "Montreal",
+      "-3": "Brazil",
+      "-2": "Cabo Verde",
+      "-1": "Portugal",
+      "0": "Ghana",
+      "1": "Vatican",
+      "2": "Berlin",
+      "3": "Kyiv",
+      "4": "Bethlehem",
+      "5": "Karachi",
+      "6": "Jaipur",
+      "7": "Philippines",
+      "8": "Chengdu",
+      "9": "Tokyo",
+      "10": "Australia",
+      "11": "Auckland",
+      "12": "Kamchatka"
+    };
+
     const radioStreams = {
       "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
       "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
-      "-10": "https://transmitter.clubcasting.net:8000/onacid",
+      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
       "-9": "https://stream.ktuh.org:8001/stream",
       "-8": "https://s26.myradiostream.com:17824/",
       "-7": "https://dublab.out.airtime.pro/dublab_a",
@@ -151,49 +179,21 @@ color: red;
       "-5": "https://edge.mixlr.com/channel/ibrdq",
       "-4": "https://n10as.radiocult.fm/stream",
       "-3": "https://servidor24-1.brlogic.com:7516/live",
-      "-2": "https://servidor30.brlogic.com:8262/live",
-      "-1": "https://azuracast.datea.services:8000/radio.mp3",
+      "-2": "https://stream-175.zeno.fm/pjktyby8dn5tv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJwamt0eWJ5OGRuNXR2IiwiaG9zdCI6InN0cmVhbS0xNzUuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6ImhnSVVxZlhZVHh1MDA5RjVyNXRHSlEiLCJpYXQiOjE3NDU1NDQ1OTcsImV4cCI6MTc0NTU0NDY1N30.x0nqvd5aM_LtQu1tVovq_prJ00qQWEdV7vU3N7SVk9M",
+      "-1": "https://stream.radioquantica.com:8443/stream",
       "0": "https://oroko-radio.radiocult.fm/stream",
-      "1": "https://stream.radioquantica.com:8443/stream",
+      "1": "https://radio.vaticannews.va/stream-en",
       "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
       "3": "https://20ft-radio.radiocult.fm/stream",
-      "4": "https://radio.beshknow.com/beshknow",
+      "4": "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
       "5": "https://stream-160.zeno.fm/nvvbgyewxksuv",
       "6": "http://94.130.113.214:8000/dubtechno",
       "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
       "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
       "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
-      "10": "https://oroko-radio.radiocult.fm/stream",
+      "10": "https://radio.beshknow.com/beshknow",
       "11": "https://stream.tbc.radio:8000/radio.mp3",
       "12": "https://radio.kamchatkalive.ru:8103/dance"
-    };
-
-    const streamLocations = {
-      "-12": "Deadzone",
-      "-11": "Deep Sea",
-      "-10": "Blub City",
-      "-9": "Honolulu",
-      "-8": "Alaska",
-      "-7": "Los Angeles",
-      "-6": "Mexico",
-      "-5": "Kingston",
-      "-4": "Montreal",
-      "-3": "São Paulo",
-      "-2": "Porto",
-      "-1": "Atlantis",
-      "0": "Ghana",
-      "1": "Portugal",
-      "2": "Berlin",
-      "3": "Kyiv",
-      "4": "Baku",
-      "5": "Karachi",
-      "6": "Jaipur",
-      "7": "Indonesia",
-      "8": "Chengdu",
-      "9": "Tokyo",
-      "10": "Sydney",
-      "11": "Auckland",
-      "12": "Kamchatka"
     };
 
     const placeholderCities = [
@@ -265,23 +265,23 @@ color: red;
     }
   
     const backgroundStreams = {
-      "-12": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8",
-      "-11": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8",
-      "-10": "https://www.youtube.com/embed/sxQAhw1sAyY?autoplay=1&mute=1&controls=0&loop=1&playlist=sxQAhw1sAyY",
-      "-9": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ",
-      "-8": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk",
+      "-12": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g",
+      "-11": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g",
+      "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8",
+      "-9": "https://www.youtube.com/embed/6tHEWDnxj2Y?autoplay=1&mute=1&controls=0&loop=1&playlist=6tHEWDnxj2Y",
+      "-8": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ",
       "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk",
       "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw",
       "-5": "https://www.youtube.com/embed/_Rm4nXOQK9I?autoplay=1&mute=1&controls=0&loop=1&playlist=_Rm4nXOQK9I",
-      "-4": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
-      "-3": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
-      "-2": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM",
-      "-1": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
+      "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs",
+      "-3": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM",
+      "-2": "https://www.youtube.com/embed/loHbMM9JfCs?autoplay=1&mute=1&controls=0&loop=1&playlist=loHbMM9JfCs",
+      "-1": "https://www.youtube.com/embed/Dl1byqohXk8?autoplay=1&mute=1&controls=0&loop=1&playlist=Dl1byqohXk8",
       "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0",
-      "1": "https://www.youtube.com/embed/5Uqw_G_IdjE?autoplay=1&mute=1&controls=0&loop=1&playlist=5Uqw_G_IdjE",
+      "1": "https://www.youtube.com/embed/J6MqpK91bEA?autoplay=1&mute=1&controls=0&loop=1&playlist=J6MqpK91bEA",
       "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA",
       "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk",
-      "4": "https://www.youtube.com/embed/l_8DrACHpwY?autoplay=1&mute=1&controls=0&loop=1&playlist=l_8DrACHpwY",
+      "4": "https://www.youtube.com/embed/y4k2lXk1MBw?autoplay=1&mute=1&controls=0&loop=1&playlist=y4k2lXk1MBw",
       "5": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI",
       "6": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI",
       "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ",
@@ -361,9 +361,12 @@ document.body.addEventListener("click", (e) => {
   const clickedText = e.target.closest(".zone");
   const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
   const clickedClock = e.target.id === "clock" || e.target.closest("#clock");
+  const clickedHideUI = e.target.id === "hideUI" || e.target.closest("#hideUI");
+  const clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
+  const clickedFullscreen = e.target.id === "fullscreen" || e.target.closest("#fullscreen");
 
   // If the click is NOT on any interactive/text element
-  if (!clickedText && !clickedRewind && !clickedClock) {
+  if (!clickedText && !clickedRewind && !clickedClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
     if (audio.paused) {
       audio.play().catch(console.error);
     } else {
@@ -407,6 +410,28 @@ audio.addEventListener("play", () => {
 
 audio.addEventListener("pause", () => {
   document.getElementById("playPause").textContent = "play";
+});
+
+// Add hide UI functionality
+document.getElementById("hideUI").addEventListener("click", () => {
+  const zones = document.querySelectorAll('.zone:not(#hideUI)');
+  zones.forEach(zone => {
+    zone.style.display = zone.style.display === 'none' ? '' : 'none';
+  });
+});
+
+// Add clock mode functionality
+document.getElementById("clockMode").addEventListener("click", () => {
+  window.location.href = './radiomp3.html';
+});
+
+// Add fullscreen functionality
+document.getElementById("fullscreen").addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(console.error);
+  } else {
+    document.exitFullscreen().catch(console.error);
+  }
 });
 </script>
 </body>
