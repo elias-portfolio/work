@@ -137,8 +137,6 @@ color: red;
 </div>
 <div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone" id="fullscreen">fullscreen</div><div class="zone" id="hideUI">hide text</div><div class="zone" id="clockMode">clock mode</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
 <audio id="radio-player"></audio>
-<!-- Add YouTube API script -->
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
     const streamLocations = {
       "-12": "Deadzone",
@@ -335,13 +333,9 @@ color: red;
           if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
             bgVideo.src = newBg[currentVideoIndex];
             bgVideo.load();
-            bgVideo.muted = true; // Ensure muted state
             bgVideo.play().catch(e => {
               console.error('Video play error:', e);
-              setTimeout(() => {
-                bgVideo.muted = true; // Re-enforce mute
-                bgVideo.play().catch(console.error);
-              }, 100);
+              setTimeout(() => bgVideo.play().catch(console.error), 100);
             });
           }
         } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
@@ -365,333 +359,34 @@ color: red;
             bgVideo.src = newBg;
             bgVideo.load();
           }
-          bgVideo.muted = true; // Ensure muted state
           bgVideo.play().catch(e => {
             console.error('Video play error:', e);
-            setTimeout(() => {
-              bgVideo.muted = true; // Re-enforce mute
-              bgVideo.play().catch(console.error);
-            }, 100);
+            setTimeout(() => bgVideo.play().catch(console.error), 100);
           });
         } else {
-          // Handle YouTube iframe using the YouTube IFrame API
+          // Handle YouTube iframe
           bgVideo.style.display = 'none';
           bgFrame.style.display = 'block';
-          
-          // Extract video ID from the URL
-          const videoId = extractYouTubeID(newBg);
-          
-          if (videoId) {
-            if (youtubePlayer) {
-              // If player exists, load new video
-              youtubePlayer.loadVideoById({
-                videoId: videoId,
-                suggestedQuality: 'hd1080'
-              });
-              youtubePlayer.mute(); // Ensure muted
-              youtubePlayer.playVideo();
-            } else {
-              // Create new player
-              youtubePlayer = new YT.Player('bg-frame', {
-                videoId: videoId,
-                playerVars: {
-                  'autoplay': 1,
-                  'controls': 0,
-                  'showinfo': 0,
-                  'rel': 0,
-                  'loop': 1,
-                  'playlist': videoId,
-                  'vq': 'hd1080',
-                },
-                events: {
-                  'onReady': function(event) {
-                    event.target.mute();
-                    event.target.playVideo();
-                  },
-                  'onStateChange': function(event) {
-                    // Re-mute on any state change (including ads)
-                    if (!event.target.isMuted()) {
-                      event.target.mute();
-                    }
-                  }
-                }
-              });
-            }
-            
-            // Set up periodic mute check for YouTube
-            if (!window.ytMuteInterval) {
-              window.ytMuteInterval = setInterval(function() {
-                if (youtubePlayer && youtubePlayer.isMuted && !youtubePlayer.isMuted()) {
-                  youtubePlayer.mute();
-                  console.log("Re-muted YouTube player");
-                }
-              }, 1000); // Check every second
-            }
+          if (bgFrame.src !== newBg) {
+            bgFrame.src = newBg;
           }
         }
       }
     }
-    
-    // Helper function to extract YouTube video ID from various URL formats
-    function extractYouTubeID(url) {
-      if (!url) return null;
-      
-      // Handle YouTube embed URLs
-      const embedMatch = url.match(/embed\/([^?&]+)/);
-      if (embedMatch && embedMatch[1]) return embedMatch[1];
-      
-      // Handle standard YouTube URLs
-      const standardMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-      return standardMatch ? standardMatch[1] : null;
-    }
-    
-    // Add event listener for YouTube API ready
-    window.onYouTubeIframeAPIReady = function() {
-      // Initialize with current offset when API is ready
-      updateBackground(virtualOffset);
-    };
-    
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+
+    // Add this function to test the video directly
+    function testVideo() {
+      const videoElement = document.createElement('video');
+      videoElement.src = './css/backround.mp4';
+      videoElement.autoplay = true;
+      videoElement.loop = true;
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      videoElement.style.cssText = 'width: 100px; height: 100px; position: fixed; top: 10px; left: 10px; z-index: 9999;';
+      document.body.appendChild(videoElement);
+      videoElement.play().catch(e => console.error('Test video play failed:', e));
     }
 
-    const grid = document.getElementById("radio-zones");
-    const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
-    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url })));
-    const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
-    const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
-
-    const allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];
-    while (allBlocks.length < 150) {
-      allBlocks.push({ type: 'placeholder', name: placeholderCities[Math.floor(Math.random() * placeholderCities.length)] });
-    }
-
-    const layout = shuffle(allBlocks).slice(0, 150);
-
-    layout.forEach(block => {
-      let html = '';
-      let className = 'zone';
-
-      if (block.type === 'gmt') {
-        if (parseInt(block.key) === adjustedOffset) className += ' gmt';
-        html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
-      } else if (block.type === 'stream') {
-        if (parseInt(block.key) === adjustedOffset) className += ' stream';
-        html = `${block.url}`;
-      } else if (block.type === 'location') {
-        if (block.key === String(adjustedOffset)) className += ' location';
-        html = `${block.name}`;
-      } else if (block.type === 'placeholder') {
-        html = `${block.name}`;
-      }
-
-      const div = document.createElement('div');
-      div.className = className;
-      div.innerHTML = html;
-      grid.appendChild(div);
-    });
-
-    const audio = document.getElementById("radio-player");
-    const currentStream = radioStreams[adjustedOffset];
-    if (currentStream) {
-      audio.src = currentStream;
-      audio.load();
-      audio.play().catch(error => {
-        console.log('Auto-play prevented:', error);
-      });
-    }
-  
-    const backgroundStreams = {
-      "-12": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
-      "-11": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
-      "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
-      "-9": ["./css/trim5.mp4", "./css/trim4.mp4", "./css/trim3.mp4"],
-      "-8": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ&vq=hd1080",
-      "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",
-      "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
-      "-5": "https://www.youtube.com/embed/_Rm4nXOQK9I?autoplay=1&mute=1&controls=0&loop=1&playlist=_Rm4nXOQK9I&vq=hd1080",
-      "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs&vq=hd1080",
-      "-3": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM&vq=hd1080",
-      "-2": "https://www.youtube.com/embed/loHbMM9JfCs?autoplay=1&mute=1&controls=0&loop=1&playlist=loHbMM9JfCs&vq=hd1080",
-      "-1": "https://www.youtube.com/embed/Dl1byqohXk8?autoplay=1&mute=1&controls=0&loop=1&playlist=Dl1byqohXk8&vq=hd1080",
-      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&vq=hd1080",
-      "1": "https://www.youtube.com/embed/J6MqpK91bEA?autoplay=1&mute=1&controls=0&loop=1&playlist=J6MqpK91bEA&vq=hd1080",
-      "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA&vq=hd1080",
-      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
-      "4": "https://www.youtube.com/embed/y4k2lXk1MBw?autoplay=1&mute=1&controls=0&loop=1&playlist=y4k2lXk1MBw&vq=hd1080",
-      "5": "https://www.youtube.com/embed/R-0gpX-BlGQ?autoplay=1&mute=1&controls=0&loop=1&playlist=R-0gpX-BlGQ&vq=hd1080",
-      "6": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI&vq=hd1080",
-      "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ&vq=hd1080",
-      "8": "https://www.youtube.com/embed/DP9hbJmwbNU?autoplay=1&mute=1&controls=0&loop=1&playlist=DP9hbJmwbNU&vq=hd1080",
-      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&vq=hd1080",
-      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
-      "11": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
-      "12": "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&vq=hd1080"
-    };
-
-    let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
-    virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
-
-    // Add this variable to track current video index
-    let currentVideoIndex = 0;
-
-    function updateBackground(offset) {
-      const newBg = backgroundStreams[offset];
-      const bgFrame = document.getElementById("bg-frame");
-      const bgVideo = document.getElementById("bg-video");
-      
-      if (newBg) {
-        if (Array.isArray(newBg)) {
-          // Handle multiple video files
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          
-          // Set up video ended event handler if not already set
-          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
-            bgVideo.addEventListener('ended', function() {
-              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
-              bgVideo.src = newBg[currentVideoIndex];
-              bgVideo.play().catch(console.error);
-            });
-            bgVideo.setAttribute('data-rotation-initialized', 'true');
-          }
-          
-          // Start with current video in rotation if not already playing it
-          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
-            bgVideo.src = newBg[currentVideoIndex];
-            bgVideo.load();
-            bgVideo.muted = true; // Ensure muted state
-            bgVideo.play().catch(e => {
-              console.error('Video play error:', e);
-              setTimeout(() => {
-                bgVideo.muted = true; // Re-enforce mute
-                bgVideo.play().catch(console.error);
-              }, 100);
-            });
-          }
-        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
-          // Handle single video file
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          
-          if (bgVideo.src !== newBg) {
-            bgVideo.src = newBg;
-            bgVideo.load();
-          }
-          bgVideo.muted = true; // Ensure muted state
-          bgVideo.play().catch(e => {
-            console.error('Video play error:', e);
-            setTimeout(() => {
-              bgVideo.muted = true; // Re-enforce mute
-              bgVideo.play().catch(console.error);
-            }, 100);
-          });
-        } else {
-          // Handle YouTube iframe using the YouTube IFrame API
-          bgVideo.style.display = 'none';
-          bgFrame.style.display = 'block';
-          
-          // Extract video ID from the URL
-          const videoId = extractYouTubeID(newBg);
-          
-          if (videoId) {
-            if (youtubePlayer) {
-              // If player exists, load new video
-              youtubePlayer.loadVideoById({
-                videoId: videoId,
-                suggestedQuality: 'hd1080'
-              });
-              youtubePlayer.mute(); // Ensure muted
-              youtubePlayer.playVideo();
-            } else {
-              // Create new player
-              youtubePlayer = new YT.Player('bg-frame', {
-                videoId: videoId,
-                playerVars: {
-                  'autoplay': 1,
-                  'controls': 0,
-                  'showinfo': 0,
-                  'rel': 0,
-                  'loop': 1,
-                  'playlist': videoId,
-                  'vq': 'hd1080',
-                },
-                events: {
-                  'onReady': function(event) {
-                    event.target.mute();
-                    event.target.playVideo();
-                  },
-                  'onStateChange': function(event) {
-                    // Re-mute on any state change (including ads)
-                    if (!event.target.isMuted()) {
-                      event.target.mute();
-                    }
-                  }
-                }
-              });
-            }
-            
-            // Set up periodic mute check for YouTube
-            if (!window.ytMuteInterval) {
-              window.ytMuteInterval = setInterval(function() {
-                if (youtubePlayer && youtubePlayer.isMuted && !youtubePlayer.isMuted()) {
-                  youtubePlayer.mute();
-                  console.log("Re-muted YouTube player");
-                }
-              }, 1000); // Check every second
-            }
-          }
-        }
-      }
-    }
-    
-    // Helper function to extract YouTube video ID from various URL formats
-    function extractYouTubeID(url) {
-      if (!url) return null;
-      
-      // Handle YouTube embed URLs
-      const embedMatch = url.match(/embed\/([^?&]+)/);
-      if (embedMatch && embedMatch[1]) return embedMatch[1];
-      
-      // Handle standard YouTube URLs
-      const standardMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-      return standardMatch ? standardMatch[1] : null;
-    }
-    
-    // Add event listener for YouTube API ready
-    window.onYouTubeIframeAPIReady = function() {
-      // Initialize with current offset when API is ready
-      updateBackground(virtualOffset);
-    };
-    
     function updateClock() {
       const now = new Date();
       const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -831,27 +526,10 @@ color: red;
       }
     });
 
-    // Ensure the YouTube player is cleaned up on page unload
-    window.addEventListener('beforeunload', function() {
-      if (window.ytMuteInterval) {
-        clearInterval(window.ytMuteInterval);
-      }
-      if (youtubePlayer) {
-        youtubePlayer.destroy();
-      }
-    });
-
     // Add this to the end of your script to ensure initial state is correct
     document.addEventListener('DOMContentLoaded', function() {
       const offset = virtualOffset;
-      if (!window.YT) {
-        // If YouTube API isn't loaded yet, wait for it
-        setTimeout(function() {
-          updateBackground(offset);
-        }, 1000);
-      } else {
-        updateBackground(offset);
-      }
+      updateBackground(offset);
     });
 </script>
 </body>
