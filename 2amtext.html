@@ -127,6 +127,7 @@ color: red;
 }
 
 </style>
+<script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
 <div id="background-container">
@@ -368,13 +369,92 @@ color: red;
           bgVideo.style.display = 'none';
           bgFrame.style.display = 'block';
           if (bgFrame.src !== newBg) {
-            bgFrame.src = newBg;
+            // Use postMessage API for additional muting control
+            bgFrame.src = newBg + "&enablejsapi=1";
+            
+            // Try to initialize YouTube API control when frame loads
+            bgFrame.onload = function() {
+              try {
+                if (window.YT && window.YT.Player) {
+                  if (ytPlayer) {
+                    ytPlayer.destroy();
+                  }
+                  ytPlayer = new YT.Player(bgFrame.id, {
+                    events: {
+                      'onReady': function(event) {
+                        event.target.mute();
+                        event.target.setPlaybackQuality('hd1080');
+                      },
+                      'onStateChange': function(event) {
+                        // Ensure video stays muted during state changes (like when ads start)
+                        event.target.mute();
+                      }
+                    }
+                  });
+                }
+              } catch(e) {
+                console.error("YouTube API error:", e);
+              }
+            };
           }
         }
       }
     }
 
-    // Add this function to test the video directly
+    // Force muting function - runs periodically
+    function enforceMuting() {
+      const bgFrame = document.getElementById("bg-frame");
+      const bgVideo = document.getElementById("bg-video");
+      
+      // Force HTML5 video to be muted
+      if (bgVideo && bgVideo.style.display !== 'none') {
+        bgVideo.muted = true;
+      }
+      
+      // Force YouTube iframe to be muted using both API and postMessage
+      if (bgFrame && bgFrame.style.display !== 'none') {
+        // Use YouTube API if available
+        if (ytPlayer && typeof ytPlayer.mute === 'function') {
+          ytPlayer.mute();
+        }
+        
+        // Backup: Use postMessage API directly
+        try {
+          bgFrame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+        } catch(e) {
+          // Ignore errors from cross-origin frames
+        }
+      }
+    }
+
+    // Run mute enforcement every second
+    setInterval(enforceMuting, 1000);
+
+    // Add event listener for messages from YouTube iframe
+    window.addEventListener('message', function(event) {
+      // Listen for YouTube events and ensure muting
+      if (event.data && typeof event.data === 'string') {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.event === 'onStateChange' || data.event === 'infoDelivery') {
+            enforceMuting();
+          }
+        } catch(e) {
+          // Ignore parsing errors
+        }
+      }
+    });
+
+    // Update all YouTube URLs to include API parameters
+    for (const key in backgroundStreams) {
+      if (typeof backgroundStreams[key] === 'string' && backgroundStreams[key].includes('youtube.com/embed/')) {
+        // Make sure API is enabled and additional mute parameter is set
+        if (!backgroundStreams[key].includes('enablejsapi=1')) {
+          backgroundStreams[key] += (backgroundStreams[key].includes('?') ? '&' : '?') + 'enablejsapi=1';
+        }
+      }
+    }
+
     function testVideo() {
       const videoElement = document.createElement('video');
       videoElement.src = './css/backround.mp4';
@@ -530,6 +610,7 @@ color: red;
     document.addEventListener('DOMContentLoaded', function() {
       const offset = virtualOffset;
       updateBackground(offset);
+      enforceMuting();
     });
 </script>
 </body>
