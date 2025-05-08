@@ -130,42 +130,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to show content and update the dynamic header
     function showContent(section) {
         const content = {
-            spotify: ` <div style="position: absolute; top: 0; width: 100%; padding: 10px;">
+            banned: `
+              
+                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                        <iframe id="ground5-iframe" src="2amtext.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div> 
 
-
-
-  <!-- YouTube iframe (clean background style) -->
-   <iframe 
-    id="yt-bg-player"
-    src="https://www.youtube.com/embed/Fi_V9lzc5BE?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=Fi_V9lzc5BE" 
-    frameborder="0" 
-    allow="autoplay; encrypted-media" 
-    allowfullscreen 
-    style="width: 100%; height: 300px; border-radius: 5px;">
-  </iframe>
-
- 
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
-
-    
-    <div style="max-width: 800px; width: 100%;">
-      <img src="images/Spotify/spotooh2.png" style="width: 100%; height: auto; border-radius: 8px;">
-    </div>
-
-   
-    <div style="max-width: 800px; width: 100%; font-family: 'Suisse', sans-serif; text-transform: lowercase; color: black; font-size: 14px; line-height: 1.3; padding: 1px;">
-      <p><strong>Brief:</strong><br>
-        market audiobooks to young adults and teenagers.</p>
-
-      <p><strong>Background:</strong><br>
-        96% of young adults use a smart device in their last hour awake, and 70% of them use audio as a sleep aid. and while falling asleep to an audiobook seems ideal, it actually sucks because you never know when you fell asleep.</p>
-
-      <p><strong>Solution:</strong><br>
-        audiobooks that pause when you sleep.</p>
-    </div>
-
-  </div>
-</div>
             `,
             ipren: `
                 <h2 style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">Ipren Campaign</h2>
@@ -232,27 +203,22 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 <br> <br> 
 
 
+ <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
+                    <!-- Add iframe container -->
+                    <div id="iframe-container" style="margin-top: 20px; width: 100%; height: 700px; overflow: hidden;">
+                        <!-- Iframe directly displaying the ground6.html content -->
+                        <iframe id="ground5-iframe" src="ground4.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div>
 
 
 
-
-                        </p>
+                        
 
     </div>
 
 	
 <hr>
 
-                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
-                        <!-- Iframe directly displaying the ground1.html content -->
-                        <iframe id="ground1-iframe" src="ascittrump.html" style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div>
-
-                    <br>
-                    <br>
-
-                
-    </div>
 
 <hr>
 
@@ -324,13 +290,42 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
                     <iframe id="youtubeEmbed" width="100%" height="315" src="" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
                 </div>
             `,
-            banned: `
-              
-                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
-                        <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="2amtext.html" style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div> 
+           spotify: ` <div style="position: absolute; top: 0; width: 100%; padding: 10px;">
 
+
+
+  <!-- YouTube iframe (clean background style) -->
+   <iframe 
+    id="yt-bg-player"
+    src="https://www.youtube.com/embed/Fi_V9lzc5BE?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=Fi_V9lzc5BE" 
+    frameborder="0" 
+    allow="autoplay; encrypted-media" 
+    allowfullscreen 
+    style="width: 100%; height: 300px; border-radius: 5px;">
+  </iframe>
+
+ 
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
+
+    
+    <div style="max-width: 800px; width: 100%;">
+      <img src="images/Spotify/spotooh2.png" style="width: 100%; height: auto; border-radius: 8px;">
+    </div>
+
+   
+    <div style="max-width: 800px; width: 100%; font-family: 'Suisse', sans-serif; text-transform: lowercase; color: black; font-size: 14px; line-height: 1.3; padding: 1px;">
+      <p><strong>Brief:</strong><br>
+        market audiobooks to young adults and teenagers.</p>
+
+      <p><strong>Background:</strong><br>
+        96% of young adults use a smart device in their last hour awake, and 70% of them use audio as a sleep aid. and while falling asleep to an audiobook seems ideal, it actually sucks because you never know when you fell asleep.</p>
+
+      <p><strong>Solution:</strong><br>
+        audiobooks that pause when you sleep.</p>
+    </div>
+
+  </div>
+</div>
             `,
             kindle: `
                 <div id="quotation" onclick="fetchAndDisplayQuotation();">
