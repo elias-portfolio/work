@@ -267,11 +267,11 @@ color: red;
       "-12": "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
       "-11": "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
       "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
-      "-9": "https://www.youtube.com/embed/oG5zz9Sjw3E?autoplay=1&mute=1&controls=0&loop=1&playlist=oG5zz9Sjw3E&vq=hd1080",
-      "-8": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ&vq=hd1080",
+      "-9": "https://www.youtube.com/embed/B6W4QqlXoBM?autoplay=1&mute=1&controls=0&loop=1&playlist=B6W4QqlXoBM&vq=hd1080",
+      "-8": "https://www.youtube.com/embed/sTXKIz2NGvg?autoplay=1&mute=1&controls=0&loop=1&playlist=sTXKIz2NGvg&vq=hd1080",
       "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",
       "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
-      "-5": "https://www.youtube.com/embed/62GDA4T7R_0?autoplay=1&mute=1&controls=0&loop=1&playlist=62GDA4T7R_0&vq=hd1080",
+      "-5": "https://www.youtube.com/embed/VSiBuorUA_k?autoplay=1&mute=1&controls=0&loop=1&playlist=VSiBuorUA_k&vq=hd1080",
       "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs&vq=hd1080",
       "-3": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM&vq=hd1080",
       "-2": "https://www.youtube.com/embed/PnSCgxiwtGg?autoplay=1&mute=1&controls=0&loop=1&playlist=PnSCgxiwtGg&vq=hd1080",
@@ -281,14 +281,14 @@ color: red;
       "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA&vq=hd1080",
       "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
       "4": "https://www.youtube.com/embed/y4k2lXk1MBw?autoplay=1&mute=1&controls=0&loop=1&playlist=y4k2lXk1MBw&vq=hd1080",
-      "5": "https://www.youtube.com/embed/_CgIRFnYmHQ?autoplay=1&mute=1&controls=0&loop=1&playlist=_CgIRFnYmHQ&vq=hd1080",
-      "6": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI&vq=hd1080",
+      "5": "https://www.youtube.com/embed/-Wqxh3wVHqc?autoplay=1&mute=1&controls=0&loop=1&playlist=-Wqxh3wVHqc&vq=hd1080",
+      "6": "https://www.youtube.com/embed/YsVog8149q8?autoplay=1&mute=1&controls=0&loop=1&playlist=YsVog8149q8&vq=hd1080",
       "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ&vq=hd1080",
-      "8": "https://www.youtube.com/embed/_A_-TjdZ7lw?autoplay=1&mute=1&controls=0&loop=1&playlist=_A_-TjdZ7lw&vq=hd1080",
+      "8": "https://www.youtube.com/embed/3szkFHfr6sA?autoplay=1&mute=1&controls=0&loop=1&playlist=3szkFHfr6sA&vq=hd1080",
       "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&vq=hd1080",
       "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
       "11": "https://www.youtube.com/embed/2_soyZW1MZg?autoplay=1&mute=1&controls=0&loop=1&playlist=2_soyZW1MZg&vq=hd1080",
-      "12": "https://www.youtube.com/embed/tUh6FqHpVRE?autoplay=1&mute=1&controls=0&loop=1&playlist=tUh6FqHpVRE&vq=hd1080"
+      "12": "shors-refresh"
     };
 
     let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
@@ -302,7 +302,43 @@ color: red;
       const bgFrame = document.getElementById("bg-frame");
       const bgVideo = document.getElementById("bg-video");
       
-      if (newBg) {
+      // Stop previous image refresh if switching away
+      clearInterval(window._shorsImageInterval);
+      document.getElementById("shors-cam-img")?.remove();
+      
+      if (newBg === "shors-refresh") {
+        bgFrame.style.display = 'none';
+        bgVideo.style.display = 'none';
+
+        let img = document.getElementById("shors-cam-img");
+        if (!img) {
+          img = document.createElement("img");
+          img.id = "shors-cam-img";
+          img.style.position = "absolute";
+          img.style.top = "50%";
+          img.style.left = "50%";
+          img.style.width = "177.77777778vh";
+          img.style.height = "100vh";
+          img.style.transform = "translate(-50%, -50%) scale(1.5)";
+          img.style.transformOrigin = "center center";
+          img.style.pointerEvents = "none";
+          img.style.opacity = "1";
+          img.style.zIndex = "0";
+          img.style.objectFit = "cover";
+          document.querySelector(".video-bg").appendChild(img);
+        }
+
+        // Set up auto-refreshing background
+        function refreshImage() {
+          const timestamp = new Date().getTime(); // prevent caching
+          img.src = `https://www.shors.ru/images/camera/image96.jpg?${timestamp}`;
+        }
+
+        // Refresh immediately and then every minute
+        refreshImage();
+        clearInterval(window._shorsImageInterval);
+        window._shorsImageInterval = setInterval(refreshImage, 60000);
+      } else if (newBg) {
         if (Array.isArray(newBg)) {
           // Handle multiple video files
           bgFrame.style.display = 'none';
