@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>2AM RADIO</title>
+<style>
+    @font-face {
+      font-family: 'Suisse';
+      src: url('./css/suisse.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    #background-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      background: black;
+    }
+
+    .video-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 177.77vh; /* 100 * (16/9) */
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      pointer-events: none; /* lets clicks pass through */
+      background: black;
+    }
+
+    #bg-frame,
+    #bg-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 177.77777778vh;
+      height: 100vh;
+      transform: translate(-50%, -50%) scale(1.5);
+      transform-origin: center center;
+      pointer-events: none;
+      opacity: 1;
+      border: none;
+      z-index: 0;
+    }
+
+    #bg-video {
+      object-fit: cover;
+    }
+    
+    body {
+      color: white;
+      font-family: 'Suisse', sans-serif;
+      font-size: 14px;
+      margin: 0;
+      padding: 10px;
+      text-transform: lowercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      line-height: 1.3;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .zone {
+      margin: 0 8px 0 0;
+      padding: 0;
+      white-space: nowrap;
+    }
+
+    .gmt {
+      background-color: #359395;
+      color: white;
+      font-weight: bold;
+    }
+
+    .location {
+      background-color: #f2eb0c;
+      color: black;
+      font-weight: bold;
+    }
+
+    .stream {
+      background-color: #ff3800;
+      color: white;
+      font-weight: bold;
+    }
+  
+    .neon-clock {
+      color: red;
+      font-size: 14px;
+      animation: pulse 1.5s infinite alternate;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum';
+      font-family: 'Suisse', monospace;
+    }
+    
+    .clock-container {
+      position: fixed;
+    }
+    
+    .rewind {
+      cursor: pointer;
+    }
+
+    .zone img {
+      height: 15px;
+      vertical-align: middle;
+    }
+
+    iframe {
+      border: none; /* Keep border removed */
+    }
+
+    /* Map styles - improved for dynamic sizing */
+    #map-container {
+      position: fixed; /* Keep fixed positioning */
+      bottom: 0;
+      left: 0;00%;
+      width: 100%;; /* Default height, will be set dynamically */
+      height: 30vh; /* Default height, will be set dynamically */
+      z-index: 1000;en; /* Prevent scrolling entirely */
+      overflow: hidden; /* Prevent scrolling entirely */
+      border-top: 1px solid rgba(255,255,255,0.3);
+      background-color: rgba(0,0,0,0.2);
+      display: flex;t: center; /* Center the map horizontally */
+      justify-content: center; /* Center the map horizontally */
+      align-items: center; /* Center the map vertically */*//
+    } opacity: 1; /* Ensure container is opaque */
+    } transition: opacity 0.3s ease; /* Add transition for smooth appearance */
+    #map {
+      white-space: pre;
+      font-family: monospace;
+      color: white;monospace;
+      padding: 0;e;monospace;
+      line-height: 1;
+      transform-origin: center; /* Set transform origin for scaling */
+      transition: transform 0.3s ease; /* Smooth scaling transition */
+    } transition: transform 0.3s ease; /* Smooth scaling transition */
+      visibility: visible; /* Ensure map content is visible */
+    .twoam {y: 1; /* Ensure map content is opaque */ner */
+      color: #ff3800; /* Updated color for the map */
+    }
+    .twoam {
+    .land {: #ff3800; /* Updated color for the map */
+      color: #f2eb0c; /* Land dots color */
+    }land {
+</style>d {: #f2eb0c; /* Land dots color */
+</head>olor: #f2eb0c; /* Land dots color */
+<body>e>
+<div id="background-container">
+  <div class="video-bg">
+    <iframe allow="autoplay" allowfullscreen="" frameborder="0" id="bg-frame"></iframe>
+    <video id="bg-video" loop muted playsinline style="display: none"></video>
+  </div>lass="video-bg">lay" allowfullscreen="" frameborder="0" id="bg-frame"></iframe>
+</div>frame allow="autoplay" allowfullscreen="" frameborder="0" id="bg-frame"></iframe>
+    <video id="bg-video" loop muted playsinline style="display: none"></video>
+<div class="grid" id="radio-zones">
+  <div class="zone neon-clock" id="clock">2:00:00 AM</div>
+  <div class="zone" id="playPause">play</div>0:00 AM</div>
+  <div class="zone" id="fullscreen">fullscreen</div>
+  <div class="zone" id="hideUI">hide text</div>00 AM</div>
+  <div class="zone" id="clockMode">clock mode</div>
+  <div class="zone rewind" id="rewind">الإسكندرية</div>
+</div> class="zone" id="hideUI">hide text</div>ية</div>
+  <div class="zone" id="clockMode">clock mode</div>
+<audio id="radio-player"></audio>wind">الإسكندرية</div>
+</div>d="map-container">
+<div id="map-container">
+  <pre id="map"></pre>r"></audio>
+</div>t>
+<div id="map-container">s = {
+<script>d="map"></pre>",
+    const streamLocations = {
+      "-12": "Deadzone",
+      "-11": "Deadzone",
+      "-10": "Deep Sea",s = {
+      "-9": "Honolulu",,",
+      "-8": "Alaska",e",
+      "-7": "Los Angeles",
+      "-6": "Mexico",",
+      "-5": "Kingston",
+      "-4": "Montreal",s",
+      "-3": "Brazil",",
+      "-2": "Cabo Verde",
+      "-1": "Portugal",
+      "0": "Ghana",",
+      "1": "Vatican",de",
+      "2": "Berlin",l",
+      "3": "Kyiv",,",
+      "4": "Bethlehem",
+      "5": "Karachi",es",
+      "6": "Jaipur",,
+      "7": "Philippines",
+      "8": "Chengdu",a",
+      "9": "Tokyo",,d",
+      "10": "Australia",,
+      "11": "Auckland",
+      "12": "Kamchatka"
+    };"10": "Australia", {
+      "11": "Auckland",orldwidefm.out.airtime.pro/worldwidefm_b",
+    const radioStreams = {dwidefm.out.airtime.pro/worldwidefm_b",
+      "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",ndon",
+      "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",42989445?0.10626689329334882/",
+      "-9": "https://stream.ktuh.org:8001/stream",worldwidefm_b",
+      "-8": "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/",
+      "-7": "https://dublab.out.airtime.pro/dublab_a",vineradiolondon",
+      "-6": "https://radio.mensajito.mx/nopalVentana",
+      "-5": "https://edge.mixlr.com/channel/ibrdq",type=http&nocache=1742989445?0.10626689329334882/",
+      "-4": "https://n10as.radiocult.fm/stream",ab_a",,
+      "-3": "https://servidor24-1.brlogic.com:7516/live",",
+      "-2": "https://stream-175.zeno.fm/pjktyby8dn5tv",
+      "-1": "https://stream.radioquantica.com:8443/stream",
+      "0": "https://oroko-radio.radiocult.fm/stream",ve",eradio_b",
+      "1": "https://radio.vaticannews.va/stream-en",v",
+      "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",tl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+      "3": "https://20ft-radio.radiocult.fm/stream",,,
+      "4": "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+      "5": "https://stream-176.zeno.fm/unweahz8hc3vv",mereradio_b",
+      "6": "http://94.130.113.214:8000/dubtechno",",owground_fm/radio.mp3",
+      "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+      "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
+      "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+      "10": "https://radio.beshknow.com/beshknow",ance"
+      "11": "https://stream.tbc.radio:8000/radio.mp3",ground_fm/radio.mp3",
+      "12": "https://radio.kamchatkalive.ru:8103/dance"=/stream",
+    };"10": "https://radio.beshknow.com/beshknow",
+      "11": "https://stream.tbc.radio:8000/radio.mp3",burgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",
+    const placeholderCities = [hatkalive.ru:8103/dance"slo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",
+      "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",",
+      "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi", "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",h",
+      "Vienna", "Warsaw", "Zagreb", "Amsterdam", "Belgrade", "Copenhagen", "Dublin", "Helsinki", "Jerusalem", "Lima",
+      "Manila", "Ottawa", "Reykjavik", "Singapore", "Tallinn", "Valencia", "Wellington", "Xi'an", "Yerevan", "Zurich",
+      "Bangkok", "Cape Town", "Cologne", "Damascus", "Edmonton", "Frankfurt", "Guadalajara", "Hamburg", "Islamabad",na",
+      "Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples", "Osaka", "Perth", "Quito", "Rome", "Seoul",
+      "Toronto", "Vancouver", "Xiamen", "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
+      "Kathmandu", "Luxembourg", "Marseille", "Nicosia", "Panama City", "Rabat", "Sarajevo", "Tunis", "Ulaanbaatar",
+    ];"Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples", "Osaka", "Perth", "Quito", "Rome", "Seoul",
+      "Toronto", "Vancouver", "Xiamen", "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
+    const offset = (2 - new Date().getUTCHours() + 24) % 24;nama City", "Rabat", "Sarajevo", "Tunis", "Ulaanbaatar"
+    const adjustedOffset = offset > 12 ? offset - 24 : offset;
+      for (let i = array.length - 1; i > 0; i--) {
+    function shuffle(array) {ate().getUTCHours() + 24) % 24;
+      for (let i = array.length - 1; i > 0; i--) {24 : offset;
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }or (let i = array.length - 1; i > 0; i--) {
+      return array;ath.floor(Math.random() * (i + 1));
+    }   [array[i], array[j]] = [array[j], array[i]];s");
+      }st gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
+    const grid = document.getElementById("radio-zones");eams).map(([key, url]) => ({ type: 'stream', key, url })));
+    const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));type: 'location', key, name })));
+    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url })));
+    const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
+    const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
+    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url })));ngth)] });
+    const allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];e: 'location', key, name })));
+    while (allBlocks.length < 150) {e(placeholderCities.map(name => ({ type: 'placeholder', name })));
+      allBlocks.push({ type: 'placeholder', name: placeholderCities[Math.floor(Math.random() * placeholderCities.length)] });
+    }onst allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];
+    while (allBlocks.length < 150) {
+    const layout = shuffle(allBlocks).slice(0, 150);aceholderCities[Math.floor(Math.random() * placeholderCities.length)] });
+    }   if (parseInt(block.key) === adjustedOffset) className += ' gmt';
+    layout.forEach(block => {ey >= 0 ? '+' : ''}${block.key}`;
+      let html = '';huffle(allBlocks).slice(0, 150);
+      let className = 'zone';y) === adjustedOffset) className += ' stream';
+    layout.forEach(block => {;
+      if (block.type === 'gmt') {location') {
+        if (parseInt(block.key) === adjustedOffset) className += ' gmt';n';
+        html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
+      } else if (block.type === 'stream') {r') {
+        if (parseInt(block.key) === adjustedOffset) className += ' stream';
+        html = `${block.url}`;y >= 0 ? '+' : ''}${block.key}`;
+      } else if (block.type === 'location') {');
+        if (block.key === String(adjustedOffset)) className += ' location';
+        html = `${block.name}`;
+      } else if (block.type === 'placeholder') {
+        html = `${block.name}`;g(adjustedOffset)) className += ' location';
+      } html = `${block.name}`;
+      } else if (block.type === 'placeholder') {-player");
+      const div = document.createElement('div');ffset];
+      div.className = className;
+      div.innerHTML = html;ream;
+      grid.appendChild(div);reateElement('div');
+    });iv.className = className;> {
+      div.innerHTML = html;lay prevented:', error);
+    const audio = document.getElementById("radio-player");
+    const currentStream = radioStreams[adjustedOffset];
+    if (currentStream) {
+      audio.src = currentStream;ementById("radio-player");
+      audio.load();ream = radioStreams[adjustedOffset];?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
+      audio.play().catch(error => {om/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
+        console.log('Auto-play prevented:', error);0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
+      });io.load();/trim5.mp4", "./css/trim4.mp4", "./css/trim3.mp4"],
+    } audio.play().catch(error => {m/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ&vq=hd1080",
+        console.log('Auto-play prevented:', error);Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",
+    const backgroundStreams = {e.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
+      "-12": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
+      "-11": "https://www.youtube.com/embed/0FBiyFpV__g?autoplay=1&mute=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
+      "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
+      "-9": ["./css/trim5.mp4", "./css/trim4.mp4", "./css/trim3.mp4"],e=1&controls=0&loop=1&playlist=0FBiyFpV__g&vq=hd1080",
+      "-8": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ&vq=hd1080",,
+      "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",,
+      "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
+      "-5": "https://www.youtube.com/embed/_Rm4nXOQK9I?autoplay=1&mute=1&controls=0&loop=1&playlist=_Rm4nXOQK9I&vq=hd1080",
+      "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs&vq=hd1080",
+      "-3": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM&vq=hd1080",
+      "-2": "https://www.youtube.com/embed/loHbMM9JfCs?autoplay=1&mute=1&controls=0&loop=1&playlist=loHbMM9JfCs&vq=hd1080",
+      "-1": "https://www.youtube.com/embed/Dl1byqohXk8?autoplay=1&mute=1&controls=0&loop=1&playlist=Dl1byqohXk8&vq=hd1080",
+      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&vq=hd1080",ylist=6QoLEltTzIM&vq=hd1080",
+      "1": "https://www.youtube.com/embed/J6MqpK91bEA?autoplay=1&mute=1&controls=0&loop=1&playlist=J6MqpK91bEA&vq=hd1080",,
+      "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA&vq=hd1080",,
+      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
+      "4": "https://www.youtube.com/embed/y4k2lXk1MBw?autoplay=1&mute=1&controls=0&loop=1&playlist=y4k2lXk1MBw&vq=hd1080",
+      "5": "https://www.youtube.com/embed/R-0gpX-BlGQ?autoplay=1&mute=1&controls=0&loop=1&playlist=R-0gpX-BlGQ&vq=hd1080",
+      "6": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI&vq=hd1080",
+      "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ&vq=hd1080",
+      "8": "https://www.youtube.com/embed/DP9hbJmwbNU?autoplay=1&mute=1&controls=0&loop=1&playlist=DP9hbJmwbNU&vq=hd1080",
+      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&vq=hd1080",list=9IC0EfKdScI&vq=hd1080",
+      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",ist=p0Qhe4vhYLQ&vq=hd1080",
+      "11": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",ist=DP9hbJmwbNU&vq=hd1080",
+      "12": "https://www.youtube.com/embed/Hs9LMEew-6k?autoplay=1&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&vq=hd1080"
+    };"10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
+      "11": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
+    let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;&mute=1&controls=0&loop=1&playlist=Hs9LMEew-6k&vq=hd1080"
+    virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+      const bgVideo = document.getElementById("bg-video");
+    // Add this variable to track current video index + 24) % 24;
+    let currentVideoIndex = 0;set > 12 ? virtualOffset - 24 : virtualOffset;
+          // Handle multiple video files
+    function updateBackground(offset) {nt video index
+      const newBg = backgroundStreams[offset];
+      const bgFrame = document.getElementById("bg-frame");
+      const bgVideo = document.getElementById("bg-video");
+      const newBg = backgroundStreams[offset];
+      if (newBg) {e = document.getElementById("bg-frame");
+        if (Array.isArray(newBg)) {lementById("bg-video");
+          // Handle multiple video filesnslate(-50%, -50%) scale(1.5)";
+          bgFrame.style.display = 'none'; "center center";
+          bgVideo.style.display = 'block';one";
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";one';
+          bgVideo.style.left = "50%";ock';
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";dler if not already set
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";Index + 1) % newBg.length;
+          bgVideo.style.opacity = "1";ranslate(-50%, -50%) scale(1.5)";
+          bgVideo.style.border = "none";= "center center";
+          bgVideo.style.zIndex = "0"; = "none";-initialized', 'true');
+          bgVideo.style.objectFit = "cover";
+          bgVideo.style.border = "none"; rotation if not already playing it
+          // Set up video ended event handler if not already set
+          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
+            bgVideo.addEventListener('ended', function() {
+              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
+              bgVideo.src = newBg[currentVideoIndex];itialized')) {
+              bgVideo.play().catch(console.error);tion() {e.error), 100);
+            });urrentVideoIndex = (currentVideoIndex + 1) % newBg.length;
+            bgVideo.setAttribute('data-rotation-initialized', 'true');
+          }   bgVideo.play().catch(console.error);wBg.endsWith('.mp4')) {
+            });ndle single video file
+          // Start with current video in rotation if not already playing it
+          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
+            bgVideo.src = newBg[currentVideoIndex];
+            bgVideo.load();rent video in rotation if not already playing it
+            bgVideo.play().catch(e => {Bg[currentVideoIndex])) {
+              console.error('Video play error:', e);
+              setTimeout(() => bgVideo.play().catch(console.error), 100);
+            });ideo.play().catch(e => {anslate(-50%, -50%) scale(1.5)";
+          }   console.error('Video play error:', e);nter";
+        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
+          // Handle single video file;
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';g' && newBg.endsWith('.mp4')) {
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";one';
+          bgVideo.style.left = "50%";ock';
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";e.error), 100);
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";ranslate(-50%, -50%) scale(1.5)";
+          bgVideo.style.border = "none";= "center center";
+          bgVideo.style.zIndex = "0"; = "none";
+          bgVideo.style.objectFit = "cover";
+          bgVideo.style.border = "none";';
+          if (bgVideo.src !== newBg) {
+            bgVideo.src = newBg;t = "cover";
+            bgVideo.load();
+          }f (bgVideo.src !== newBg) {
+          bgVideo.play().catch(e => {
+            console.error('Video play error:', e);
+            setTimeout(() => bgVideo.play().catch(console.error), 100);
+          });ideo.play().catch(e => {
+        } else {ole.error('Video play error:', e);
+          // Handle YouTube iframeeo.play().catch(console.error), 100);
+          bgVideo.style.display = 'none';
+          bgFrame.style.display = 'block';
+          if (bgFrame.src !== newBg) {
+            bgFrame.src = newBg;= 'none';
+          }gFrame.style.display = 'block';HEIGHT}, () => Array(WIDTH).fill(0));
+        } if (bgFrame.src !== newBg) {
+      }     bgFrame.src = newBg;sercontent.com/datasets/geo-countries/master/data/countries.geojson')
+    }     }(res => res.json())
+        }en(data => {
+    // Add the map functionalityature => {
+    const WIDTH = 240 * 2; feature.geometry.coordinates;
+    const HEIGHT = 60 * 4;etry.type === 'Polygon') {
+    const MIN_LON = -180;onalityList];
+    const MAX_LON = 180;2;
+    const MIN_LAT = -90;4;ch(polygon => {
+    const MAX_LAT = 90;0;rEach(([lon, lat]) => {
+    const MAX_LON = 180;Math.floor((lon - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+    let highResGrid = Array.from({length: HEIGHT}, () => Array(WIDTH).fill(0));HT);
+    const MAX_LAT = 90;0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+    function initMap() {rid[y][x] = 1; // Country pixel
+      fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      .then(res => res.json())
+      .then(data => {) {
+        data.features.forEach(feature => {.com/datasets/geo-countries/master/data/countries.geojson')
+          let coordsList = feature.geometry.coordinates;
+          if (feature.geometry.type === 'Polygon') {
+            coordsList = [coordsList];=> {
+          }et coordsList = feature.geometry.coordinates;
+          coordsList.forEach(polygon => {Polygon') {r);
+            polygon[0].forEach(([lon, lat]) => {fails
+              const x = Math.floor((lon - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+              const y = Math.floor((MAX_LAT - lat) / (MAX_LAT - MIN_LAT) * HEIGHT);
+              if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+                highResGrid[y][x] = 1; // Country pixelAX_LON - MIN_LON) * WIDTH);
+              }onst y = Math.floor((MAX_LAT - lat) / (MAX_LAT - MIN_LAT) * HEIGHT);
+            });f (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+          });   highResGrid[y][x] = 1; // Country pixel
+        });   }setHours = (2 - utcHour + 24 + 12) % 24;
+        draw2AM();Longitude = (offsetHours / 24) * 360 - 180;
+        render();
+      })});argetX = Math.floor((targetLongitude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+      .catch(err => {est even pixel (for Braille)
+        console.error("Failed to load map data:", err);
+        // Fallback rendering in case the fetch fails
+        draw2AM();> {2AM ZONE pixel (for Braille)
+        render();rror("Failed to load map data:", err);le blocks)
+      });/ Fallback rendering in case the fetch fails
+    }   draw2AM();x = -Math.floor(stripeWidth/2); dx <= Math.floor(stripeWidth/2); dx++) {
+        render(); = targetX + dx; // pixels wide (~3 Braille blocks)
+    function draw2AM() {x < WIDTH) {
+      const now = new Date(); = 2;
+      const utcHour = now.getUTCHours();
+    function draw2AM() {
+      const offsetHours = (2 - utcHour + 24 + 12) % 24;
+      const targetLongitude = (offsetHours / 24) * 360 - 180;
+    function render() {
+      let targetX = Math.floor((targetLongitude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+      const targetLongitude = (offsetHours / 24) * 360 - 180;
+      // Snap to nearest even pixel (for Braille)
+      targetX = Math.floor(targetX / 2) * 2;ude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+        for (let x = 0; x < WIDTH; x += 1) {    
+      // Draw a wide 2AM ZONE pixel (for Braille)
+      const stripeWidth = 6; // 6 pixels wide (~3 Braille blocks)
+      for (let y = 0; y < HEIGHT; y++) {2) has2AM = true;
+        for (let dx = -Math.floor(stripeWidth/2); dx <= Math.floor(stripeWidth/2); dx++) {
+          const x = targetX + dx; pixels wide (~3 Braille blocks)
+          if (x >= 0 && x < WIDTH) {+) { === 1 || highResGrid[y+1]?.[x] === 1) {
+            highResGrid[y][x] = 2;stripeWidth/2); dx <= Math.floor(stripeWidth/2); dx++) {
+          }onst x = targetX + dx;
+        } if (x >= 0 && x < WIDTH) {arent ocean
+      }     highResGrid[y][x] = 2;
+    }     }
+        }utput += '\n';
+    function render() {
+      const mapEl = document.getElementById('map');
+      if (!mapEl) return;ntainer after rendering
+      r();
+      let output = '';
+      for (let y = 0; y < HEIGHT; y += 2) {ainer after rendering
+        for (let x = 0; x < WIDTH; x += 1) {    
+          let has2AM = false;o-zones');
+          if (highResGrid[y]?.[x] === 2) has2AM = true;cument.getElementById('map-container');
+          if (highResGrid[y+1]?.[x] === 2) has2AM = true;
+
+          if (has2AM) {justment failed: Elements not found.");
+            output += `<span class="twoam">┊</span>`;
+          } else if (highResGrid[y]?.[x] === 1 || highResGrid[y+1]?.[x] === 1) {
+            output += `<span class="land">·</span>`; // land dot
+          } else {
+            output += ' '; // transparent ocean
+          }
+        }
+        output += '\n';sibility = 'visible';
+      }
+      mapEl.innerHTML = output;t grid dimensions and position
+      BoundingClientRect();
+      // Call adjustMapContainer *after* map content is sett = window.innerHeight;
+      adjustMapContainer(); 
+    } below grid and set its height
+mapContainer.style.top = `${gridRect.bottom}px`;
+    // Add the map functionalitydimensions while maintaining aspect ratio
+    const WIDTH = 240 * 2;plete before scaling
+    const HEIGHT = 60 * 4;
+    const MIN_LON = -180;onality
+    const MAX_LON = 180;2;ht > 0) {
+    const MIN_LAT = -90;4;curate fitting calculation
+    const MAX_LAT = 90;0;Width;
+    const MAX_LON = 180;
+    let highResGrid = Array.from({length: HEIGHT}, () => Array(WIDTH).fill(0));
+    const MAX_LAT = 90;   // Use the smaller scale factor to ensure entire map fits without scrolling, add padding
+    function initMap() {    const scale = Math.min(scaleX, scaleY) * 0.95; // 5% padding
+      fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')ale})`;
+      .then(res => res.json())
+      .then(data => {) {able for scaling.");
+        data.features.forEach(feature => {.com/datasets/geo-countries/master/data/countries.geojson')dimensions are zero
+          let coordsList = feature.geometry.coordinates;1)';
+          if (feature.geometry.type === 'Polygon') {
+            coordsList = [coordsList];=> {
+          }et coordsList = feature.geometry.coordinates;
+          coordsList.forEach(polygon => {Polygon') {
+            polygon[0].forEach(([lon, lat]) => {he time changes
+              const x = Math.floor((lon - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+              const y = Math.floor((MAX_LAT - lat) / (MAX_LAT - MIN_LAT) * HEIGHT);draw2AM();
+              if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+                highResGrid[y][x] = 1; // Country pixelAX_LON - MIN_LON) * WIDTH);
+              }onst y = Math.floor((MAX_LAT - lat) / (MAX_LAT - MIN_LAT) * HEIGHT);
+            });f (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+          });   highResGrid[y][x] = 1; // Country pixel
+        });   }tart(2, '0');
+        draw2AM();t(2, '0');
+        render();
+      })});
+      .catch(err => {
+        console.error("Failed to load map data:", err);
+        // Fallback rendering in case the fetch fails
+        draw2AM();> {
+        render();rror("Failed to load map data:", err);
+      });/ Fallback rendering in case the fetch fails.body.addEventListener("click", (e) => {
+    }   draw2AM();
+        render();
+    function draw2AM() {t.closest("#clock");
+      const now = new Date();t.closest("#hideUI");
+      const utcHour = now.getUTCHours();t clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
+    function draw2AM() {
+      const offsetHours = (2 - utcHour + 24 + 12) % 24;
+      const targetLongitude = (offsetHours / 24) * 360 - 180;OT on any interactive/text element
+edClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
+      let targetX = Math.floor((targetLongitude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);12;
+      const targetLongitude = (offsetHours / 24) * 360 - 180;
+      // Snap to nearest even pixel (for Braille)
+      targetX = Math.floor(targetX / 2) * 2;ude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+
+      // Draw a wide 2AM ZONE pixel (for Braille)
+      const stripeWidth = 6; // 6 pixels wide (~3 Braille blocks) }
+      for (let y = 0; y < HEIGHT; y++) {});
+        for (let dx = -Math.floor(stripeWidth/2); dx <= Math.floor(stripeWidth/2); dx++) {
+          const x = targetX + dx; pixels wide (~3 Braille blocks)d").addEventListener("click", () => {
+          if (x >= 0 && x < WIDTH) {+) {
+            highResGrid[y][x] = 2;stripeWidth/2); dx <= Math.floor(stripeWidth/2); dx++) {fset = virtualOffset - 1;
+          }onst x = targetX + dx;12;
+        } if (x >= 0 && x < WIDTH) {video index when leaving Hawaii timezone
+      }     highResGrid[y][x] = 2;
+    }     }
+        }
+    function render() {
+      const mapEl = document.getElementById('map');
+      if (!mapEl) return;
+      (console.error);
+      let output = '';
+      for (let y = 0; y < HEIGHT; y += 2) {
+        for (let x = 0; x < WIDTH; x += 1) {    
+          let has2AM = false;r("click", () => {
+          if (highResGrid[y]?.[x] === 2) has2AM = true;
+          if (highResGrid[y+1]?.[x] === 2) has2AM = true;
+.textContent = "pause";
+          if (has2AM) {catch(console.error);
+            output += `<span class="twoam">┊</span>`;
+          } else if (highResGrid[y]?.[x] === 1 || highResGrid[y+1]?.[x] === 1) {
+            output += `<span class="land">·</span>`; // land dot").textContent = "play";
+          } else {
+            output += ' '; // transparent ocean
+          }
+        }
+        output += '\n'; if (!document.fullscreenElement) {
+      }        document.documentElement.requestFullscreen().catch(console.error);
+      mapEl.innerHTML = output;
+      
+      // Call adjustMapContainer *after* map content is set
+      adjustMapContainer(); 
+    }
+
+    function adjustMapContainer() {ent.getElementById("clockMode").addEventListener("click", () => {
+      const grid = document.getElementById('radio-zones');      window.location.href = './radiomp3.html';
+      const mapContainer = document.getElementById('map-container');
+      const map = document.getElementById('map');
+      
+      if (!grid || !mapContainer || !map) {addEventListener("click", () => {
+        console.error("Map adjustment failed: Crucial elements not found."); zones = document.querySelectorAll('.zone:not(#hideUI)');
+        return; 
+      }
+      
+      // Get grid dimensions and position
+      const gridRect = grid.getBoundingClientRect();
+      const windowHeight = window.innerHeight;ize the map (calls render -> adjustMapContainer)
+      const windowWidth = window.innerWidth;
+      cript>
+      // Calculate available height below the grid
+      const availableHeight = Math.max(50, windowHeight - gridRect.bottom - 10); // Min 50px, 10px bottom buffer            // Position map container directly below the grid      mapContainer.style.top = `${gridRect.bottom}px`;      mapContainer.style.height = `${availableHeight}px`;            // Make container visible *after* positioning      mapContainer.style.visibility = 'visible';      mapContainer.style.opacity = '1';      // Scale map content after a short delay to allow rendering      setTimeout(() => {        if (map.offsetWidth > 0 && map.offsetHeight > 0) {          const mapWidth = map.scrollWidth;          const mapHeight = map.scrollHeight;                    const scaleX = mapContainer.clientWidth / mapWidth;          const scaleY = mapContainer.clientHeight / mapHeight;          const scale = Math.min(scaleX, scaleY) * 0.95; // 5% padding                    map.style.transform = `scale(${scale})`;        } else {          // If map content isn't ready, try again shortly          console.warn("Map dimensions not ready for scaling, retrying...");          setTimeout(() => adjustMapContainer(), 200);         }      }, 150);     }    // ... (rest of the existing code like initMap, updateClock, etc.) ...    // Initialize on page load    document.addEventListener('DOMContentLoaded', function() {      const offset = virtualOffset;      updateBackground(offset);      initMap(); // This will call render, which calls adjustMapContainer            // Add resize listener      window.addEventListener('resize', adjustMapContainer);      // Keep a failsafe check, but adjustMapContainer should handle retries now      setTimeout(() => {        if (mapContainer.style.visibility !== 'visible') {          console.log("Failsafe: Forcing map adjustment.");          adjustMapContainer();        }      }, 1500); // Longer delay for failsafe    });</script></body></html>

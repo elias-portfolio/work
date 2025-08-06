@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2MAP - Flat Braille World Map 2AM</title>
+  <style>
+    body {
+      background: transparent; /* Keep background transparent */
+      color: white;
+      font-family: monospace;
+      white-space: pre;
+      margin: 0;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    .twoam {
+      color: #ff3800; /* Updated color for the map */
+    }
+    .land {
+      color: #f2eb0c; /* Change land dots to black */
+    }
+  </style>
+</head>
+<body>
+<pre id="map"></pre>
+
+<script>
+const WIDTH = 240 * 2;
+const HEIGHT = 60 * 4;
+const MIN_LON = -180;
+const MAX_LON = 180;
+const MIN_LAT = -90;
+const MAX_LAT = 90;
+
+let highResGrid = Array.from({length: HEIGHT}, () => Array(WIDTH).fill(0));
+
+fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+.then(res => res.json())
+.then(data => {
+  data.features.forEach(feature => {
+    let coordsList = feature.geometry.coordinates;
+    if (feature.geometry.type === 'Polygon') {
+      coordsList = [coordsList];
+    }
+    coordsList.forEach(polygon => {
+      polygon[0].forEach(([lon, lat]) => {
+        const x = Math.floor((lon - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+        const y = Math.floor((MAX_LAT - lat) / (MAX_LAT - MIN_LAT) * HEIGHT);
+        if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+          highResGrid[y][x] = 1; // Country pixel
+        }
+      });
+    });
+    draw2AM();
+    render();
+  });
+});
+
+function draw2AM() {
+  const now = new Date();
+  const utcHour = now.getUTCHours();
+
+  const offsetHours = (2 - utcHour + 24 + 12) % 24;
+  const targetLongitude = (offsetHours / 24) * 360 - 180;
+
+  let targetX = Math.floor((targetLongitude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+
+  // Snap to nearest even pixel (for Braille)
+  targetX = Math.floor(targetX / 2) * 2;
+
+  // 🛠 Draw a wide 2AM ZONE (not just a line!)
+  const stripeWidth = 6; // 6 pixels wide (~3 Braille blocks)
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let dx = -Math.floor(stripeWidth/2); dx <= Math.floor(stripeWidth/2); dx++) {
+      const x = targetX + dx;
+      if (x >= 0 && x < WIDTH) {
+        highResGrid[y][x] = 2;
+      }
+    }
+  }
+}
+
+function render() {
+  const mapEl = document.getElementById('map');
+  let output = '';
+
+  for (let y = 0; y < HEIGHT; y += 2) {
+    for (let x = 0; x < WIDTH; x += 1) {    
+      let has2AM = false;
+      if (highResGrid[y]?.[x] === 2) has2AM = true;
+      if (highResGrid[y+1]?.[x] === 2) has2AM = true;
+
+      if (has2AM) {
+        output += `<span class="twoam">┊</span>`;
+      } else if (highResGrid[y]?.[x] === 1 || highResGrid[y+1]?.[x] === 1) {
+        output += `<span class="land">·</span>`; // land dot is now transparent
+      } else {
+        output += ' '; // transparent ocean
+      }
+    }
+    output += '\n';
+  }
+  mapEl.innerHTML = output;
+}
+</script>
+</body>
+</html>

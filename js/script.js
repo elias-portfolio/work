@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
               
                     <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
                         <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="2amtext.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                        <iframe id="ground5-iframe" src="radio2am.html" style="width: 100%; height: 100%; border: none;"></iframe>
                     </div> 
 
             `,

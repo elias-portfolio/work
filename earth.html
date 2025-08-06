@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reykjanes Volcano Music 🌋🎶</title>
+  <script src="https://unpkg.com/tone@14.8.39/build/Tone.js"></script>
+  <style>
+    body { background: #f0f0f0; font-family: sans-serif; text-align: center; padding: 20px; }
+    canvas { background: white; border: 1px solid black; margin-top: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Reykjanes Volcano Music 🌋🎶</h1>
+  <button onclick="startMusic()">Start Music</button>
+  <p id="status">Status: Idle</p>
+  <canvas id="seismometer" width="600" height="200"></canvas>
+
+  <script>
+    let mSynth, tSynth;
+    let playing = false;
+    const canvas = document.getElementById('seismometer');
+    const ctx = canvas.getContext('2d');
+    let seismoData = [];
+
+    async function startMusic() {
+      if (playing) return;
+      playing = true;
+
+      await Tone.start();
+      console.log("AudioContext started");
+
+      const reverb = new Tone.Reverb({ decay: 6, wet: 0.7 }).toDestination();
+      mSynth = new Tone.AMSynth().connect(reverb);
+      tSynth = new Tone.AMSynth().connect(reverb);
+
+      document.getElementById("status").innerText = "Status: Playing...";
+
+      while (playing) {
+        try {
+          const startTime = getStartTimeOneHourAgo();
+          const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${startTime}&minlatitude=63.8&maxlatitude=64.1&minlongitude=-23.2&maxlongitude=-22.0&orderby=time&limit=1`;
+          
+          let response = await fetch(url);
+          let data = await response.json();
+
+          if (data.features.length > 0) {
+            let quake = data.features[0];
+            let mag = quake.properties.mag || 1;
+
+            let mNote = magnitudeToNote(mag);
+            let tNote = tintinnabuliNote(mNote);
+
+            console.log(`Playing M: ${mNote}, T: ${tNote} (Mag ${mag})`);
+
+            mSynth.triggerAttackRelease(mNote, "2n");
+            setTimeout(() => tSynth.triggerAttackRelease(tNote, "2n"), 100);
+
+            updateSeismometer(mag);
+          } else {
+            console.log("No recent quakes found.");
+          }
+
+          await sleep(7000);
+
+        } catch (err) {
+          console.error(err);
+          document.getElementById("status").innerText = "Status: Error";
+          break;
+        }
+      }
+    }
+
+    function getStartTimeOneHourAgo() {
+      const now = new Date();
+      now.setHours(now.getHours() - 1);
+      return now.toISOString();
+    }
+
+    function magnitudeToNote(magnitude) {
+      const notes = ["A4", "B4", "C5", "D5", "E5", "F5", "G5", "A5"];
+      let index = Math.min(Math.floor(magnitude * 1.2), notes.length - 1);
+      return notes[index];
+    }
+
+    function tintinnabuliNote(mNote) {
+      const triad = ["A4", "C5", "E5"];
+      let mFreq = Tone.Frequency(mNote).toFrequency();
+      let closest = triad.reduce((prev, curr) => {
+        let currFreq = Tone.Frequency(curr).toFrequency();
+        return Math.abs(currFreq - mFreq) < Math.abs(Tone.Frequency(prev).toFrequency() - mFreq) ? curr : prev;
+      });
+      return closest;
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function updateSeismometer(magnitude) {
+      let shakeStrength = magnitude * 10;
+      for (let i = 0; i < 20; i++) {
+        let noise = (Math.random() - 0.5) * shakeStrength;
+        seismoData.push(noise);
+      }
+      if (seismoData.length > canvas.width) {
+        seismoData = seismoData.slice(seismoData.length - canvas.width);
+      }
+      drawSeismometer();
+    }
+
+    function drawSeismometer() {
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height / 2);
+
+      for (let i = 0; i < seismoData.length; i++) {
+        let y = canvas.height / 2 + seismoData[i];
+        ctx.lineTo(i, y);
+      }
+
+      ctx.strokeStyle = "black";
+      ctx.stroke();
+    }
+  </script>
+</body>
+</html>

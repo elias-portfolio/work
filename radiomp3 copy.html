@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2MAP - Flat Braille World Map 2AM</title>
+  <style>
+    body {
+      background: transparent; /* Make background transparent */
+      color: white;
+      font-family: monospace;
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+    }
+    .twoam {
+      color: #ff3800; /* Updated color for the map */
+    }
+    .land {
+      color: white; /* Land dots visible in white */
+    }
+    #map {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: auto;
+    }
+    #videoBackground {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    #videoBackground iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      transform: scale(1.5);
+      transform-origin: center;
+    }
+    #audioStatus {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.5);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 20;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+<pre id="map"></pre>
+<div id="videoBackground"></div>
+<div id="audioStatus">Click to play/pause</div>
+<audio id="radioPlayer"></audio>
+
+<script>
+  const WIDTH = 240 * 2;
+  const HEIGHT = 60 * 4;
+  const MIN_LON = -180;
+  const MAX_LON = 180;
+  const MIN_LAT = -90;
+  const MAX_LAT = 90;
+  
+  const timeZoneLabels = {
+      "-12": "Deadzone",
+      "-11": "Deadzone",
+      "-10": "Deep Sea",
+      "-9": "Honolulu",
+      "-8": "Alaska",
+      "-7": "Los Angeles",
+      "-6": "Mexico City",
+      "-5": "Kingston",
+      "-4": "Montreal",
+      "-3": "Brasilia",
+      "-2": "Cabo Verde",
+      "-1": "Porto",
+      "0": "Ghana",
+      "1": "Dublin",
+      "2": "Berlin",
+      "3": "Kyiv",
+      "4": "Bethlehem",
+      "5": "Karachi",
+      "6": "Goa",
+      "7": "Jakkarta",
+      "8": "Chengdu",
+      "9": "Tokyo",
+      "10": "Melbourne",
+      "11": "Auckland",
+      "12": "Kamchatka"
+  };
+  
+  const radioStreams = {
+      "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+      "-9": "https://stream.ktuh.org:8001/stream",
+      "-8": "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/",
+      "-7": "https://dublab.out.airtime.pro/dublab_a",
+      "-6": "https://radio.mensajito.mx/nopalVentana",
+      "-5": "https://edge.mixlr.com/channel/ibrdq",
+      "-4": "https://n10as.radiocult.fm/stream",
+      "-3": "https://servidor24-1.brlogic.com:7516/live",
+      "-2": "https://stream-relay-geo.ntslive.net/stream?client=NTSWebApp&device=938467932.1747321038&t=1747321059987",
+      "-1": "https://stream.radioquantica.com:8443/stream",
+      "0": "https://oroko-radio.radiocult.fm/stream",
+      "1": "https://s107.radiolize.com:8000/radio.mp3",
+      "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+      "3": "https://20ft-radio.radiocult.fm/stream",
+      "4": "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+      "5": "https://stream-176.zeno.fm/unweahz8hc3vv",
+      "6": "http://94.130.113.214:8000/schizoid",
+      "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+      "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
+      "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+      "10": "https://radio.beshknow.com/beshknow",
+      "11": "https://stream.tbc.radio:8000/radio.mp3",
+      "12": "https://radio.kamchatkalive.ru:8103/dance"
+  };
+  
+  const backgroundStreams = {
+      "-12": "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
+      "-11": "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
+      "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
+      "-9": "https://www.youtube.com/embed/oG5zz9Sjw3E?autoplay=1&mute=1&controls=0&loop=1&playlist=oG5zz9Sjw3E&vq=hd1080",
+      "-8": "https://www.youtube.com/embed/jJI5w_RVGtQ?autoplay=1&mute=1&controls=0&loop=1&playlist=jJI5w_RVGtQ&vq=hd1080",
+      "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",
+      "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
+      "-5": "https://www.youtube.com/embed/62GDA4T7R_0?autoplay=1&mute=1&controls=0&loop=1&playlist=62GDA4T7R_0&vq=hd1080",
+      "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs&vq=hd1080",
+      "-3": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM&vq=hd1080",
+      "-2": "https://www.youtube.com/embed/PnSCgxiwtGg?autoplay=1&mute=1&controls=0&loop=1&playlist=PnSCgxiwtGg&vq=hd1080",
+      "-1": "https://www.youtube.com/embed/3QS0NMMgDNY?autoplay=1&mute=1&controls=0&loop=1&playlist=3QS0NMMgDNY&vq=hd1080",
+      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&vq=hd1080",
+      "1": "https://www.youtube.com/embed/u4UZ4UvZXrg?autoplay=1&mute=1&controls=0&loop=1&playlist=u4UZ4UvZXrg&vq=hd1080",
+      "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA&vq=hd1080",
+      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
+      "4": "https://www.youtube.com/embed/y4k2lXk1MBw?autoplay=1&mute=1&controls=0&loop=1&playlist=y4k2lXk1MBw&vq=hd1080",
+      "5": "https://www.youtube.com/embed/_CgIRFnYmHQ?autoplay=1&mute=1&controls=0&loop=1&playlist=_CgIRFnYmHQ&vq=hd1080",
+      "6": "https://www.youtube.com/embed/9IC0EfKdScI?autoplay=1&mute=1&controls=0&loop=1&playlist=9IC0EfKdScI&vq=hd1080",
+      "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ&vq=hd1080",
+      "8": "https://www.youtube.com/embed/_A_-TjdZ7lw?autoplay=1&mute=1&controls=0&loop=1&playlist=_A_-TjdZ7lw&vq=hd1080",
+      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&vq=hd1080",
+      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
+      "11": "https://www.youtube.com/embed/2_soyZW1MZg?autoplay=1&mute=1&controls=0&loop=1&playlist=2_soyZW1MZg&vq=hd1080",
+      "12": "https://www.youtube.com/embed/tUh6FqHpVRE?autoplay=1&mute=1&controls=0&loop=1&playlist=tUh6FqHpVRE&vq=hd1080"
+  };
+
+  let highResGrid = Array.from({length: HEIGHT}, () => Array(WIDTH).fill(0));
+  let isPlaying = false;
+  let current2AMTimezone = null;
+  const radioPlayer = document.getElementById('radioPlayer');
+  const audioStatusEl = document.getElementById('audioStatus');
+  const videoBackgroundEl = document.getElementById('videoBackground');
+
+  fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+    .then(res => res.json())
+    .then(data => {
+      data.features.forEach(feature => {
+        let coordsList = feature.geometry.coordinates;
+        if (feature.geometry.type === 'Polygon') {
+          coordsList = [coordsList];
+        }
+        coordsList.forEach(polygon => {
+          polygon[0].forEach(([lon, lat]) => {
+            const x = Math.floor((lon - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+            const y = Math.floor((MAX_LAT - lat) / (MAX_LAT - MIN_LAT) * HEIGHT);
+            if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+              highResGrid[y][x] = 1; // Country pixel
+            }
+          });
+        });
+        draw2AM();
+        render();
+        // Automatically set the current 2AM timezone and load its streams
+        setupAutoplay();
+      });
+    });
+
+  function draw2AM() {
+    const now = new Date();
+    const utcHour = now.getUTCHours();
+
+    const offsetHours = (2 - utcHour + 24 + 12) % 24;
+    const targetLongitude = (offsetHours / 24) * 360 - 180;
+
+    let targetX = Math.floor((targetLongitude - MIN_LON) / (MAX_LON - MIN_LON) * WIDTH);
+
+    // Snap to nearest even pixel (for Braille)
+    targetX = Math.floor(targetX / 2) * 2;
+
+    // Calculate timezone from longitude
+    current2AMTimezone = Math.round(targetLongitude / 15).toString();
+    current2AMTimezone = Math.max(-12, Math.min(12, parseInt(current2AMTimezone))).toString();
+
+    // 🛠 Draw a wide 2AM ZONE (not just a line!)
+    const stripeWidth = 6; // 6 pixels wide (~3 Braille blocks)
+    for (let y = 0; y < HEIGHT; y++) {
+      for (let dx = -Math.floor(stripeWidth / 2); dx <= Math.floor(stripeWidth / 2); dx++) {
+        const x = targetX + dx;
+        if (x >= 0 && x < WIDTH) {
+          highResGrid[y][x] = 2;
+        }
+      }
+    }
+  }
+
+  function render() {
+    const mapEl = document.getElementById('map');
+    let output = '';
+
+    for (let y = 0; y < HEIGHT; y += 2) {
+      for (let x = 0; x < WIDTH; x += 1) {    
+        let has2AM = false;
+        if (highResGrid[y]?.[x] === 2) has2AM = true;
+        if (highResGrid[y + 1]?.[x] === 2) has2AM = true;
+
+        if (has2AM) {
+          output += `<span class="twoam">┊</span>`;
+        } else if (highResGrid[y]?.[x] === 1 || highResGrid[y + 1]?.[x] === 1) {
+          output += `<span class="land">·</span>`; // land dot visible in white
+        } else {
+          output += ' '; // transparent ocean
+        }
+      }
+      output += '\n';
+    }
+
+    mapEl.innerHTML = output;
+    setupMapInteraction();
+  }
+  
+  function setupMapInteraction() {
+    const mapEl = document.getElementById('map');
+    
+    mapEl.addEventListener('click', function(e) {
+      togglePlayPause();
+    });
+  }
+  
+  function togglePlayPause() {
+    if (!current2AMTimezone) {
+      return; // No timezone selected yet
+    }
+    
+    if (isPlaying) {
+      radioPlayer.pause();
+      audioStatusEl.textContent = `Paused: ${timeZoneLabels[current2AMTimezone]}`;
+    } else {
+      radioPlayer.play().catch(e => {
+        console.error("Error playing audio:", e);
+        audioStatusEl.textContent = "Unable to play audio. Please try again.";
+      });
+      audioStatusEl.textContent = `Now playing: ${timeZoneLabels[current2AMTimezone]}`;
+    }
+    
+    isPlaying = !isPlaying;
+  }
+  
+  function setupAutoplay() {
+    if (!current2AMTimezone) return;
+    
+    // Set the background video
+    videoBackgroundEl.innerHTML = `<iframe src="${backgroundStreams[current2AMTimezone]}" frameborder="0" allowfullscreen></iframe>`;
+    
+    // Set the audio stream
+    radioPlayer.src = radioStreams[current2AMTimezone];
+    
+    // Update status text
+    audioStatusEl.textContent = `Click to play: ${timeZoneLabels[current2AMTimezone]}`;
+  }
+  
+  // Update the 2AM line position every minute
+  setInterval(() => {
+    draw2AM();
+    render();
+    setupAutoplay();
+  }, 60000);
+</script>
+</body>
+</html>
