@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Globe - Clean</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:transparent}
+    body{
+      font-family:"Courier New","Lucida Console",monospace;
+      color:#CFCFCF; overflow:hidden;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    #stage{position:fixed; inset:0; display:flex; align-items:center; justify-content:center;}
+    #map{
+      white-space:pre; line-height:1; letter-spacing:0; user-select:text;
+      font-kerning:none; font-variant-ligatures:none; font-feature-settings:"liga" 0,"calt" 0;
+      word-spacing:0;
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="map" aria-label="Random ASCII globe"></div>
+  </div>
+
+  <script>
+  const DEG = Math.PI/180;
+  const rad = d=>d*DEG;
+  const normLon = lon => ((lon + 180) % 360 + 360) % 360 - 180;
+
+  function randomFloat(min, max) { return Math.random() * (max - min) + min; }
+  function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function randomChoice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  function randomHexColor() { return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'); }
+
+  const OCEAN_CHARS = ['.', '~', '≈', '∼', '·', '○', '◦'];
+  const COAST_CHARS = ['*', '#', '@', '&', '%', '▓', '█', '▪', '■'];
+  const FILL_CHARS = ['=', '-', '+', '░', '▒', '▓', '█', ':', ';', '|'];
+  const GRID_CHARS = ['.', ':', '+', '·', '×', '▫', '▪'];
+  const LINE_CHARS = ['=', '-', '―', '━', '═', '▬'];
+
+  const COLOR_SCHEMES = [
+    { name: "Ocean Blue", ocean: "#1e3a5f", coast: "#d4af37", land1: "#228b22", land2: "#32cd32" },
+    { name: "Desert", ocean: "#4682b4", coast: "#daa520", land1: "#deb887", land2: "#f4a460" },
+    { name: "Arctic", ocean: "#191970", coast: "#87ceeb", land1: "#f0f8ff", land2: "#e0e0e0" },
+    { name: "Tropical", ocean: "#006994", coast: "#ff7f50", land1: "#228b22", land2: "#90ee90" },
+    { name: "Volcanic", ocean: "#2f4f4f", coast: "#ff4500", land1: "#8b4513", land2: "#a0522d" },
+    { name: "Cyberpunk", ocean: "#0f0f23", coast: "#ff00ff", land1: "#00ffff", land2: "#ffff00" },
+    { name: "Monochrome", ocean: "#333333", coast: "#cccccc", land1: "#666666", land2: "#999999" },
+    { name: "Retro", ocean: "#000080", coast: "#ffa500", land1: "#800080", land2: "#ff69b4" }
+  ];
+
+  function generateRandomPalette() {
+    const scheme = randomChoice(COLOR_SCHEMES);
+    return {
+      name: scheme.name,
+      oceanChar: randomChoice(OCEAN_CHARS),
+      coastChar: randomChoice(COAST_CHARS),
+      fillAChar: randomChoice(FILL_CHARS),
+      fillBChar: randomChoice(FILL_CHARS),
+      gridChar: randomChoice(GRID_CHARS),
+      equatorChar: randomChoice(LINE_CHARS),
+      primeChar: randomChoice(LINE_CHARS),
+      rimChar: randomChoice(['.', ':', '·', '○']),
+      vignChar: randomChoice(['.', ':', '·', '▫']),
+      colOcean: scheme.ocean,
+      colCoast: scheme.coast,
+      colFillA: scheme.land1,
+      colFillB: scheme.land2,
+      colGrid: randomHexColor(),
+      colEquator: randomHexColor(),
+      colPrime: randomHexColor(),
+      colRim: randomHexColor(),
+      colVign: randomHexColor(),
+      col2AM: "#ff0088"
+    };
+  }
+
+  function get2AMLongitude() {
+    const now = new Date();
+    const utc = now.getUTCHours() + now.getUTCMinutes()/60;
+    let hoursFromUTC = 2 - utc; // longitude where local time is 02:00
+    if (hoursFromUTC < -12) hoursFromUTC += 24;
+    if (hoursFromUTC > 12)  hoursFromUTC -= 24;
+    return normLon(hoursFromUTC * 15);
+  }
+
+  class RandomGlobe {
+    constructor(){
+      this.width = 128;
+      this.height = 64;
+      this.centerX = this.width/2;
+      this.centerY = this.height/2;
+      this.radius = 25;
+
+      this.luminanceRamp = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/*tfrxnvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+      this.host = document.getElementById("map");
+
+      this.randomizeSettings();
+      this.ensureSpinning();
+      this.show2AM = true; // keep the 2AM line ON
+      this.initDetailedWorldData();
+      this.recalcFontSize();
+      this.bind();
+      this.render();
+      this.loop();
+    }
+
+    randomizeSettings() {
+      this.longitude = randomFloat(-180, 180);
+      this.centerLat = randomFloat(-60, 60);
+      this.useLighting = Math.random() > 0.2;
+      this.spin = Math.random() > 0.3;
+      this.gridOver = Math.random() > 0.5;
+      this.showEquator = Math.random() > 0.6;
+      this.showPrime = Math.random() > 0.6;
+      this.show2AM = true; // ensure 2AM line persists even if randomized
+      this.cellAR = randomFloat(1.5, 2.5);
+      this.roundMode = randomChoice(["auto", "off", "manual"]);
+      this.roundManual = randomFloat(1.8, 2.2);
+      this.pal = generateRandomPalette();
+      this.spinSpeed = randomFloat(0.3, 0.8);
+    }
+
+    ensureSpinning() {
+      let attempts = 0;
+      const maxAttempts = 10;
+      while (!this.spin && attempts < maxAttempts) {
+        this.randomizeSettings();
+        attempts++;
+      }
+      if (!this.spin) {
+        this.spin = true;
+        this.spinSpeed = randomFloat(0.3, 0.8);
+      }
+    }
+
+    bind(){
+      window.addEventListener("resize", ()=>{
+        this.recalcFontSize();
+        this.render();
+      });
+    }
+
+    measureCell(){
+      const s=document.createElement("span");
+      s.textContent="M";
+      s.style.position="absolute"; s.style.visibility="hidden";
+      s.style.fontFamily="'Courier New',monospace";
+      s.style.lineHeight="1"; s.style.letterSpacing="0";
+      document.body.appendChild(s);
+      const r=s.getBoundingClientRect(); s.remove();
+      return {cw:r.width, ch:r.height};
+    }
+
+    recalcFontSize(){
+      const targetW = window.innerWidth - 16;
+      const targetH = window.innerHeight - 16;
+      let lo=6, hi=72, best=12;
+      while(lo<=hi){
+        const mid = Math.floor((lo+hi)/2);
+        this.host.style.fontSize = mid+"px";
+        const cell = this.measureCell();
+        const ok = (this.width*cell.cw <= targetW) && (this.height*cell.ch <= targetH);
+        if(ok){ best=mid; lo=mid+1; } else { hi=mid-1; }
+      }
+      this.host.style.fontSize = best+"px";
+      const cell = this.measureCell();
+      this.cellAR = cell.ch / cell.cw;
+    }
+
+    loop(){
+      this.animationId = setInterval(()=>{
+        if(this.spin){
+          this.longitude = (this.longitude + this.spinSpeed) % 360;
+          this.render();
+        }
+      }, 60);
+    }
+
+    initDetailedWorldData(){
+      this.continents = {
+        northAmerica: [[71,-156],[70,-140],[69,-133],[65,-135],[60,-135],[58,-94],[60,-64],[58,-62],[55,-57],[50,-56],[47,-58],[45,-60],[44,-67],[42,-68],[41,-70],[40,-72],[39,-74],[37,-75],[36,-76],[34,-78],[32,-81],[30,-81],[28,-82],[25,-80],[24,-81],[26,-82],[28,-84],[29,-85],[29,-87],[29,-90],[29,-94],[28,-95],[26,-97],[25,-98],[23,-106],[22,-105],[20,-105],[18,-103],[16,-95],[15,-93],[14,-92],[16,-87],[19,-96],[23,-110],[26,-112],[32,-117],[34,-118],[37,-122],[40,-124],[42,-124],[45,-124]],
+        southAmerica: [[12,-71],[11,-68],[11,-60],[8,-58],[5,-51],[3,-48],[2,-44],[0,-42],[-3,-38],[-5,-36],[-8,-35],[-12,-37],[-16,-39],[-20,-40],[-23,-43],[-26,-48],[-30,-50],[-34,-52],[-38,-58],[-42,-62],[-46,-65],[-50,-67],[-55,-68],[-54,-70],[-52,-75],[-48,-74],[-40,-73],[-33,-71],[-25,-70],[-18,-70],[-10,-75],[-5,-78],[-1,-81],[1,-84],[3,-87],[5,-85],[8,-77],[10,-74]],
+        europe: [[71,25],[70,28],[70,31],[68,30],[66,24],[64,20],[60,11],[58,8],[55,6],[51,3],[48,2],[45,-2],[43,-9],[41,-8],[38,-7],[36,-6],[38,-1],[40,0],[43,3],[45,5],[46,7],[47,12],[45,20],[46,25],[47,30],[48,35],[50,38],[52,40],[55,40],[58,38],[62,35],[65,32],[68,33]],
+        africa: [[37,-6],[35,-5],[33,0],[32,10],[32,20],[32,32],[31,34],[28,38],[22,40],[15,42],[12,45],[12,51],[8,50],[0,45],[-5,42],[-12,40],[-18,38],[-22,35],[-26,33],[-30,28],[-33,25],[-35,20],[-34,18],[-33,18],[-28,15],[-20,12],[-15,12],[-8,8],[0,5],[5,3],[10,0],[15,-17],[18,-16],[21,-17],[25,-15],[30,-10],[35,-8]],
+        asia: [[77,104],[75,120],[73,140],[70,160],[69,180],[66,-170],[62,-165],[60,-165],[58,-160],[55,-155],[50,140],[48,135],[45,132],[42,130],[38,128],[35,129],[32,125],[28,122],[24,121],[20,118],[18,109],[15,105],[10,103],[5,102],[1,104],[-5,110],[-8,115],[-6,120],[2,125],[8,120],[12,115],[15,105],[10,95],[8,77],[15,72],[20,70],[23,69],[28,70],[32,72],[37,75],[40,78],[42,80],[45,78],[50,75],[55,73],[60,70],[65,65],[68,50],[70,40],[68,33]],
+        australia: [[-10,142],[-11,143],[-12,143],[-15,145],[-20,149],[-24,153],[-28,153],[-32,152],[-35,150],[-37,148],[-39,146],[-38,143],[-37,140],[-35,137],[-33,135],[-30,133],[-26,130],[-22,114],[-20,116],[-18,122],[-15,128],[-12,130],[-11,135],[-10,140]],
+        greenland: [[83,-35],[83,-20],[82,-15],[80,-12],[78,-10],[75,-15],[70,-22],[65,-35],[60,-43],[60,-40],[62,-35],[65,-30],[70,-25],[75,-20],[80,-25],[82,-30]],
+        madagascar: [[-12,49],[-12,50],[-15,50],[-20,49],[-25,47],[-26,47],[-25,45],[-15,45]],
+        newZealandNorth: [[-34,172],[-35,175],[-37,175],[-38,174],[-37,173],[-35,172]],
+        newZealandSouth: [[-40,170],[-42,171],[-46,168],[-47,167],[-45,166],[-42,168]],
+        japan: [[45,142],[43,144],[40,140],[35,136],[33,130],[35,132],[38,135],[42,140]],
+        britain: [[59,-3],[57,-2],[55,-1],[51,1],[50,-1],[50,-5],[52,-5],[55,-4],[58,-4]]
+      };
+    }
+
+    render(){
+      const W=this.width,H=this.height;
+      const cx=this.centerX, cy=this.centerY;
+      const ar = (this.roundMode==="off") ? 1.0 : (this.roundMode==="manual" ? this.roundManual : this.cellAR);
+      this.radius = Math.floor(Math.min(W, H*ar)/2) - 5;
+      if(this.radius<10) this.radius=10;
+      const R=this.radius;
+
+      const buf = Array.from({length:H},()=>Array(W).fill(' '));
+      const typ = Array.from({length:H},()=>Array(W).fill('ocean'));
+
+      for(let y=0;y<H;y++){
+        for(let x=0;x<W;x++){
+          const dx = x - cx;
+          const dy = y - cy;
+          const dist = Math.hypot(dx, dy * ar);
+          if(dist>R){ buf[y][x]=' '; typ[y][x]='void'; continue; }
+
+          const edgeFactor = 1 - (dist/R);
+          const edgeBlend = Math.pow(edgeFactor, 0.3);
+
+          const sx = dx/R;
+          const sy = -(dy * ar)/R;
+          const z2 = 1 - sx*sx - sy*sy;
+          if(z2<0){ buf[y][x]=' '; typ[y][x]='void'; continue; }
+          const sz = Math.sqrt(z2);
+
+          const lat = Math.asin(sy)*180/Math.PI + this.centerLat;
+          const lon = normLon(Math.atan2(sx, sz)*180/Math.PI + this.longitude);
+
+          const isLand = this.isPointOnLandEnhanced(lat, lon);
+          typ[y][x] = isLand ? 'land' : 'ocean';
+
+          let L;
+          if(!isLand){
+            const oceanDepth = 0.1 + 0.2 * ( Math.sin(lat*0.05)*Math.cos(lon*0.03) + Math.sin(lat*0.1)*Math.sin(lon*0.07) );
+            L = Math.max(0, Math.min(0.3, oceanDepth));
+          }else{
+            const terrain = 0.4 + 0.4 * ( Math.sin(lat*0.1)*Math.cos(lon*0.08) + Math.sin(lat*0.15)*Math.sin(lon*0.12) );
+            L = Math.max(0.3, Math.min(0.9, terrain));
+          }
+
+          if(this.useLighting){
+            const lx=-0.4, ly=0.6, lz=0.7, Li=0.8;
+            const dot = sx*lx + sy*ly + sz*lz;
+            const light = Math.max(0.2, Math.min(1.0, 0.5 + dot*Li));
+            L *= light;
+          }
+
+          L *= edgeBlend;
+          buf[y][x] = this.lumToChar(L);
+        }
+      }
+
+      for(let y=1;y<H-1;y++){
+        for(let x=1;x<W-1;x++){
+          if(typ[y][x]==='land'){
+            if(typ[y-1][x]!=='land' || typ[y+1][x]!=='land' || typ[y][x-1]!=='land' || typ[y][x+1]!=='land'){
+              typ[y][x]='coast';
+            }
+          }
+        }
+      }
+
+      const html = this.paint(buf, typ, ar, R);
+      this.host.innerHTML = html;
+    }
+
+    project(lat, lon, ar){
+      const R=this.radius, cx=this.centerX, cy=this.centerY;
+      const dλ = rad(normLon(lon - this.longitude));
+      const φ0 = rad(this.centerLat);
+      const φ = rad(lat + this.centerLat);
+      const cosc = Math.sin(φ0)*Math.sin(φ) + Math.cos(φ0)*Math.cos(φ)*Math.cos(dλ);
+      if(cosc<0) return null;
+      const x = Math.cos(φ)*Math.sin(dλ);
+      const y = Math.cos(φ0)*Math.sin(φ) - Math.sin(φ0)*Math.cos(φ)*Math.cos(dλ);
+      return {x: Math.round(cx + x*R), y: Math.round(cy - (y*R)/ar)};
+    }
+
+    paint(buf, typ, ar, R){
+      const P=this.pal;
+      const W=this.width,H=this.height;
+      const cx=this.centerX, cy=this.centerY;
+
+      const baseColor = (t, x,y)=>{
+        if(t==='coast') return P.colCoast;
+        if(t==='land'){
+          let coast=9;
+          for(let yy=-2;yy<=2;yy++) for(let xx=-2;xx<=2;xx++){
+            const ny=y+yy,nx=x+xx;
+            if(ny>=0&&ny<H&&nx>=0&&nx<W && typ[ny][nx]==='coast'){
+              const m=Math.abs(xx)+Math.abs(yy); if(m<coast) coast=m;
+            }
+          }
+          if(coast>=3){
+            return ( (y%2===0 && (x+Math.floor(this.longitude/10))%3===0) ? P.colFillA : P.colFillB );
+          }else{
+            return P.colFillB;
+          }
+        }
+        if(t==='ocean') return P.colOcean;
+        return "#000000";
+      };
+
+      const under = Array.from({length:H},()=>Array(W).fill(null));
+      const over  = Array.from({length:H},()=>Array(W).fill(null));
+
+      const dash = (x0,y0,x1,y1,setter)=>{
+        let dx=Math.abs(x1-x0), sx=x0<x1?1:-1;
+        let dy=-Math.abs(y1-y0), sy=y0<y1?1:-1;
+        let err=dx+dy, step=0;
+        while(true){
+          const d=Math.hypot((x0-cx), (y0-cy)*ar);
+          if(d<=R && step%4<2 && x0>=0&&x0<W&&y0>=0&&y0<H) setter(x0,y0);
+          if(x0===x1 && y0===y1) break;
+          const e2=2*err;
+          if(e2>=dy){ err+=dy; x0+=sx; }
+          if(e2<=dx){ err+=dx; y0+=sy; }
+          step++;
+        }
+      };
+
+      // Grid lines
+      for(let φ=-80; φ<=80; φ+=10){
+        if(Math.abs(φ)<1) continue;
+        let prev=null;
+        for(let λ=-180; λ<=180; λ+=1){
+          const p=this.project(φ,λ,ar); if(!p){prev=null; continue;}
+          if(prev){
+            dash(prev.x,prev.y,p.x,p.y,(x,y)=>{
+              (this.gridOver?over:under)[y][x]={ch:P.gridChar, color:P.colGrid};
+            });
+          }
+          prev=p;
+        }
+      }
+      for(let λ=-180; λ<=180; λ+=15){
+        if(Math.abs(normLon(λ - this.longitude))<1) continue;
+        let prev=null;
+        for(let φ=-90; φ<=90; φ+=1){
+          const p=this.project(φ,λ,ar); if(!p){prev=null; continue;}
+          if(prev){
+            dash(prev.x,prev.y,p.x,p.y,(x,y)=>{
+              (this.gridOver?over:under)[y][x]={ch:P.gridChar, color:P.colGrid};
+            });
+          }
+          prev=p;
+        }
+      }
+
+      // Equator
+      if(this.showEquator){
+        for(let λ=-180; λ<=180; λ+=1){
+          const p=this.project(0,λ,ar); if(!p) continue;
+          if(p.y>=0&&p.y<H&&p.x>=0&&p.x<W) over[p.y][p.x]={ch:P.equatorChar, color:P.colEquator};
+          if(p.y+1<H) over[p.y+1][p.x]={ch:P.equatorChar, color:P.colEquator};
+        }
+      }
+
+      // Prime meridian
+      if(this.showPrime){
+        for(let φ=-90; φ<=90; φ+=1){
+          const p=this.project(φ,this.longitude,ar); if(!p) continue;
+          if(p.y>=0&&p.y<H&&p.x>=0&&p.x<W) over[p.y][p.x]={ch:P.primeChar, color:P.colPrime};
+          if(p.x+1<W) over[p.y][p.x+1]={ch:P.primeChar, color:P.colPrime};
+        }
+      }
+
+      // 2AM longitude line (always shown)
+      if(this.show2AM){
+        const am2Longitude = get2AMLongitude();
+        for(let φ=-90; φ<=90; φ+=1){
+          const p=this.project(φ, am2Longitude, ar); if(!p) continue;
+          if(p.y>=0&&p.y<H&&p.x>=0&&p.x<W) {
+            over[p.y][p.x]={ch:'|', color:P.col2AM};
+          }
+          if(p.x+1<W && p.y>=0&&p.y<H) {
+            over[p.y][p.x+1]={ch:'|', color:P.col2AM};
+          }
+        }
+      }
+
+      // Rim + vignette
+      for(let y=0;y<H;y++){
+        for(let x=0;x<W;x++){
+          const d=Math.hypot((x-cx),(y-cy)*ar);
+          if(d>R && d<=R+1) over[y][x]={ch:P.rimChar, color:P.colRim};
+          else if(d>R+1 && d<=R+2 && ((x+y)%3===0)) over[y][x]={ch:P.rimChar, color:P.colRim};
+          const edge = 1 - Math.min(1, d/R);
+          if(edge<0.12 && typ[y][x]!=='void'){
+            if(!over[y][x]) over[y][x]={ch:P.vignChar, color:P.colVign};
+          }
+        }
+      }
+
+      let html='';
+      for(let y=0;y<H;y++){
+        for(let x=0;x<W;x++){
+          const baseCh = buf[y][x];
+          const baseT  = typ[y][x];
+          const underLay = under[y][x];
+          const overLay  = over[y][x];
+          let ch = baseCh;
+          let color = baseColor(baseT,x,y);
+          if(underLay){ ch = underLay.ch; color = underLay.color; }
+          if(overLay){ ch = overLay.ch; color = overLay.color; }
+          html += `<span style="color:${color}">${ch}</span>`;
+        }
+        if(y<H-1) html += '<br/>';
+      }
+      return html;
+    }
+
+    isPointOnLandEnhanced(lat, lon){
+      let landCount=0; const samples=4; const offset=0.05;
+      for(let dy=-1; dy<=1; dy+=2){
+        for(let dx=-1; dx<=1; dx+=2){
+          const sLat=lat + dy*offset, sLon=lon + dx*offset;
+          if(this.isPointOnLand(sLat,sLon)) landCount++;
+        }
+      }
+      return landCount >= samples/2;
+    }
+
+    isPointOnLand(lat, lon){
+      for(const points of Object.values(this.continents)){
+        if(this.pointInPolygon(lat,lon,points)) return true;
+      }
+      return false;
+    }
+
+    pointInPolygon(lat, lon, poly){
+      let inside=false;
+      for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+        const [lat1,lon1]=poly[i], [lat2,lon2]=poly[j];
+        if(((lat1>lat)!==(lat2>lat)) && (lon < (lon2-lon1)*(lat-lat1)/(lat2-lat1) + lon1)){
+          inside=!inside;
+        }
+      }
+      return inside;
+    }
+
+    lumToChar(L){
+      const idx = Math.floor(Math.max(0,Math.min(1,L))*(this.luminanceRamp.length-1));
+      return this.luminanceRamp[idx];
+    }
+  }
+
+  const globe = new RandomGlobe();
+
+  // --- Streams by GMT offset ---
+  const radioStreams = {
+    "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+    "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+    "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+    "-9": "https://stream.ktuh.org:8001/stream",
+    "-8": "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/",
+    "-7": "https://dublab.out.airtime.pro/dublab_a",
+    "-6": "https://radio.mensajito.mx/nopalVentana",
+    "-5": "https://edge.mixlr.com/channel/ibrdq",
+    "-4": "https://n10as.radiocult.fm/stream",
+    "-3": "https://servidor24-1.brlogic.com:7516/live",
+    "-2": "http://ice-11.spilarinn.is/fmxtra",
+    "-1": "https://stream.radioquantica.com:8443/stream",
+    "0": "https://oroko-radio.radiocult.fm/stream",
+    "1": "https://s107.radiolize.com:8000/radio.mp3",
+    "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+    "3": "https://20ft-radio.radiocult.fm/stream",
+    "4": "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+    "5": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fdubtechno",
+    "6": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fschizoid",
+    "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+    "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
+    "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+    "10": "https://radio.beshknow.com/beshknow",
+    "11": "https://stream.tbc.radio:8000/radio.mp3",
+    "12": "https://radio.kamchatkalive.ru:8103/dance"
+  };
+
+  // Pick the stream for where it's currently 02:00 local time (nearest GMT offset)
+  function pick2amStream() {
+    const now = new Date();
+    const utc = now.getUTCHours() + now.getUTCMinutes()/60;
+    let offset = 2 - utc; // hours difference from UTC where it's 2AM
+    while (offset < -12) offset += 24;
+    while (offset > 12)  offset -= 24;
+
+    const keys = Object.keys(radioStreams).map(Number);
+    let bestKey = keys[0], bestDiff = Infinity;
+    for (const k of keys) {
+      const diff = Math.abs(offset - k);
+      if (diff < bestDiff) { bestDiff = diff; bestKey = k; }
+    }
+    return radioStreams[String(bestKey)];
+  }
+
+  // Play the selected stream on first click on the globe
+  const chosenStream = pick2amStream();
+  const bgAudio = new Audio();
+  bgAudio.preload = "none";
+  document.getElementById("stage").addEventListener("click", () => {
+    bgAudio.src = chosenStream;
+    bgAudio.play().catch(()=>{});
+  });
+  </script>
+</body>
+</html>

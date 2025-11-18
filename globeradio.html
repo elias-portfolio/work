@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Always 2AM — Globe + Radio</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #0b0b22;
+      color: #fff;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    /* Fullscreen globe background */
+    #globe-bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      border: 0;
+      background: transparent;
+      pointer-events: none; /* allow clicks to UI */
+      z-index: 0;
+    }
+    /* Foreground UI */
+    .ui {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 10;
+      text-align: center;
+      padding: 24px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0));
+    }
+    .title {
+      font-size: clamp(24px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    #stream-info {
+      font-size: clamp(12px, 2.2vw, 18px);
+      opacity: 0.9;
+    }
+    .controls {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+    button {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:hover { background: rgba(255,255,255,0.14); }
+
+    /* Rotate UI for portrait if desired (optional) */
+    @media screen and (orientation: portrait) {
+      /* Keep simple; no rotation */
+    }
+  </style>
+</head>
+<body>
+  <!-- Globe visual as background -->
+  <iframe id="globe-bg" src="globe.html" allow="autoplay" title="ASCII globe"></iframe>
+
+  <!-- Foreground UI -->
+  <div class="ui">
+    <div class="title">Always 2AM Radio</div>
+    <div id="stream-info">Loading…</div>
+    <div class="controls">
+      <button id="btn-toggle">Play/Pause</button>
+      <button id="btn-info">Where is it 2AM?</button>
+    </div>
+  </div>
+
+  <audio id="radio" autoplay></audio>
+
+  <script>
+    // Streams and locations by GMT offset where it's currently 2AM
+    const radioStreams = {
+      "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+      "-9":  "https://stream.ktuh.org:8001/stream",
+      "-8":  "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/",
+      "-7":  "https://dublab.out.airtime.pro/dublab_a",
+      "-6":  "https://radio.mensajito.mx/nopalVentana",
+      "-5":  "https://edge.mixlr.com/channel/ibrdq",
+      "-4":  "https://n10as.radiocult.fm/stream",
+      "-3":  "https://servidor24-1.brlogic.com:7516/live",
+      "-2":  "https://stream-relay-geo.ntslive.net/stream?client=NTSWebApp&device=938467932.1747321038&t=1747321059987",
+      "-1":  "https://stream.radioquantica.com:8443/stream",
+      "0":   "https://oroko-radio.radiocult.fm/stream",
+      "1":   "https://s107.radiolize.com:8000/radio.mp3",
+      "2":   "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+      "3":   "https://20ft-radio.radiocult.fm/stream",
+      "4":   "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+      "5":   "https://stream-176.zeno.fm/unweahz8hc3vv",
+      "6":   "http://94.130.113.214:8000/schizoid",
+      "7":   "https://stream.zeno.fm/2uhuu5hvzqzuv",
+      "8":   "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
+      "9":   "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+      "10":  "https://radio.beshknow.com/beshknow",
+      "11":  "https://stream.tbc.radio:8000/radio.mp3",
+      "12":  "https://radio.kamchatkalive.ru:8103/dance"
+    };
+
+    const streamLocations = {
+      "-12": "Deadzone",
+      "-11": "Deadzone",
+      "-10": "Deep Sea",
+      "-9":  "Honolulu",
+      "-8":  "Alaska",
+      "-7":  "Los Angeles",
+      "-6":  "Mexico City",
+      "-5":  "Kingston",
+      "-4":  "Montreal",
+      "-3":  "Brasilia",
+      "-2":  "Cabo Verde",
+      "-1":  "Porto",
+      "0":   "Ghana",
+      "1":   "Dublin",
+      "2":   "Berlin",
+      "3":   "Kyiv",
+      "4":   "Bethlehem",
+      "5":   "Karachi",
+      "6":   "Goa",
+      "7":   "Jakkarta",
+      "8":   "Chengdu",
+      "9":   "Tokyo",
+      "10":  "Melbourne",
+      "11":  "Auckland",
+      "12":  "Kamchatka"
+    };
+
+    function get2amTimezoneOffset() {
+      const utcHour = new Date().getUTCHours();
+      let offset = (2 - utcHour + 24) % 24; // number of hours east (+) or west (-) of UTC where it's 02:00
+      if (offset > 12) offset -= 24; // map to [-12, 12]
+      return offset;
+    }
+
+    function updateStream() {
+      const offset = get2amTimezoneOffset();
+      const audio = document.getElementById('radio');
+      const info = document.getElementById('stream-info');
+      const src = radioStreams[offset];
+      const where = (streamLocations[offset] || 'Unknown').toLowerCase();
+
+      if (info) info.textContent = `on air: gmt ${offset >= 0 ? '+' : ''}${offset}, ${where}`;
+      if (audio && src) {
+        if (audio.src !== src) {
+          audio.src = src;
+        }
+        audio.play().catch(()=>{/* ignored: user gesture may be required */});
+      }
+    }
+
+    function scheduleHourlyUpdate() {
+      updateStream();
+      const now = new Date();
+      const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+      setTimeout(() => {
+        updateStream();
+        setInterval(updateStream, 60 * 60 * 1000);
+      }, msUntilNextHour);
+    }
+
+    // Buttons
+    document.getElementById('btn-toggle').onclick = () => {
+      const a = document.getElementById('radio');
+      if (!a) return;
+      if (a.paused) a.play().catch(()=>{}); else a.pause();
+    };
+    document.getElementById('btn-info').onclick = () => {
+      const offset = get2amTimezoneOffset();
+      alert(`It is 2:00 AM at GMT${offset >= 0 ? '+' : ''}${offset} — ${streamLocations[offset] || 'Unknown'}`);
+    };
+
+    scheduleHourlyUpdate();
+  </script>
+</body>
+</html>

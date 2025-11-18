@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MapSCII — v8 Minimal UI (Consolidated Controls)</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:transparent}
+    body{
+      font-family: 'KzidenzGroteskBE-Bold';
+      color:#CFCFCF; overflow:hidden;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    #stage{position:fixed; inset:0; display:flex; align-items:center; justify-content:center;}
+    #map{
+      white-space:pre; line-height:1; letter-spacing:0; user-select:text;
+      font-kerning:none; font-variant-ligatures:none; font-feature-settings:"liga" 0,"calt" 0;
+      word-spacing:0;
+    }
+    /* Minimal top bar: one text button, no shading/borders/backgrounds */
+    #toolbar{
+      position:fixed; top:8px; left:8px; z-index:20;
+      display:flex; align-items:center; gap:8px;
+    }
+    #toolbar button{
+      background:transparent; color:#CFCFCF; border:none; padding:4px 6px; font-size:13px; cursor:pointer;
+    }
+    #toolbar button:hover{ text-decoration:underline; }
+
+    /* Consolidated drawer (simple, no fancy shadows) */
+    #drawer{
+      position:fixed; top:40px; left:8px; width:360px; z-index:30;
+      background:#0b0b0b; border:1px solid #222; border-radius:8px; display:none;
+      max-height: 80vh; overflow:auto;
+    }
+    #drawer header{display:flex; justify-content:space-between; align-items:center;
+      padding:8px 10px; border-bottom:1px solid #1e1e1e; color:#cfcfcf; font-weight:600; font-size:13px;}
+    #drawer .body{ padding:10px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+
+    #drawer .row{ grid-column:1/3; display:flex; align-items:center; gap:8px; }
+    #drawer label{ font-size:12px; color:#9aa; min-width:110px; }
+    #drawer select, #drawer input[type="range"], #drawer input[type="number"], #drawer button.opt{
+      width:auto; background:#121212; color:#cfcfcf; border:1px solid #2b2b2b; border-radius:6px; padding:6px 8px; font-size:12px; cursor:pointer;
+    }
+    #drawer .sp{ height:6px; grid-column:1/3; border-bottom:1px dashed #222; }
+
+    /* Palette editor (kept minimal) */
+    #panel{
+      position:fixed; top:80px; left:380px; width:340px; z-index:30;
+      background:#0b0b0b; border:1px solid #222; border-radius:8px; display:none;
+      max-height: 80vh; overflow:auto;
+    }
+    #panel header{display:flex; justify-content:space-between; align-items:center;
+      padding:8px 10px; border-bottom:1px solid #1e1e1e; color:#cfcfcf; font-weight:600; font-size:13px;}
+    #panel .body{ padding:10px; display:grid; grid-template-columns: 1fr 56px 80px; gap:8px; }
+    #panel .body label{ font-size:12px; color:#9aa; align-self:center; }
+    #panel .body input[type="text"]{ width:56px; height:28px; text-align:center; font-size:14px; color:#cfcfcf;
+      background:#131313; border:1px solid #2a2a2a; border-radius:6px; }
+    #panel .body input[type="color"]{ width:80px; height:28px; padding:2px; }
+    #panel .body .hint{ grid-column:1/4; font-size:11px; color:#7c7c7c; margin-top:6px; }
+    #panel footer{ display:flex; gap:8px; justify-content:flex-end; padding:8px 10px; border-top:1px solid #1e1e1e; }
+    #panel footer button{ padding:6px 10px; border-radius:6px; border:1px solid #2b2b2b; background:#121212; color:#cfcfcf; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="map" aria-label="ASCII globe"></div>
+  </div>
+
+  <!-- Minimal toolbar -->
+  <div id="toolbar">
+    <button id="menuBtn">☰ Menu</button>
+  </div>
+
+  <!-- Consolidated drawer -->
+  <div id="drawer" aria-hidden="true">
+    <header>
+      <span>Controls</span>
+      <button id="closeDrawer" class="opt">✕</button>
+    </header>
+    <div class="body">
+      <div class="row">
+        <label>Profile</label>
+        <select id="profileSel" title="Switch consolidated versions">
+          <option value="v2">v2 Classic</option>
+          <option value="v3">v3 Colors</option>
+          <option value="v4">v4 Full-Fit</option>
+          <option value="v6" selected>v6 Perfect Round</option>
+        </select>
+      </div>
+
+      <div class="row sp"></div>
+
+      <div class="row">
+        <label>Palette</label>
+        <button id="prev" class="opt">◀</button>
+        <div id="palLabel" style="font-size:12px; color:#a6a6a6">Palette 1/x — Minimal</div>
+        <button id="next" class="opt">▶</button>
+        <button id="customBtn" class="opt">Customize…</button>
+      </div>
+
+      <div class="row sp"></div>
+
+      <div class="row">
+        <label>Toggles</label>
+        <button id="toggleSpin" class="opt">Pause</button>
+        <button id="toggleGrid" class="opt">Grid: Under</button>
+        <button id="toggleEquator" class="opt">Equator: On</button>
+        <button id="togglePrime" class="opt">Prime: On</button>
+        <button id="toggleLighting" class="opt">Lighting: On</button>
+      </div>
+
+      <div class="row sp"></div>
+
+      <div class="row">
+        <label>Roundness</label>
+        <select id="roundMode">
+          <option value="auto">Auto (measure)</option>
+          <option value="off">Off</option>
+          <option value="manual">Manual</option>
+        </select>
+        <input id="aspectRange" type="range" min="1.00" max="3.00" step="0.01" value="2.00" style="flex:1">
+      </div>
+
+      <div class="row">
+        <label>Resolution</label>
+        <select id="resPreset">
+          <option value="160x80">160×80</option>
+          <option value="128x64">128×64</option>
+          <option value="100x50">100×50</option>
+        </select>
+        <button id="saveDefaults" class="opt">Save defaults</button>
+        <button id="helpBtn" class="opt">Help</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Palette editor -->
+  <div id="panel" aria-hidden="true">
+    <header>
+      <span>Custom Palette</span>
+      <button id="closePanel">✕</button>
+    </header>
+    <div class="body">
+      <label>Ocean</label>    <input id="inpOceanChar" type="text" maxlength="1" value=".">  <input type="color" id="colOcean" value="#4a90e2">
+      <label>Coast</label>    <input id="inpCoastChar" type="text" maxlength="1" value="*">  <input type="color" id="colCoast" value="#ffcc00">
+      <label>Fill A</label>   <input id="inpFillAChar" type="text" maxlength="1" value="=">  <input type="color" id="colFillA" value="#66cc66">
+      <label>Fill B</label>   <input id="inpFillBChar" type="text" maxlength="1" value=".">  <input type="color" id="colFillB" value="#99dd99">
+      <label>Grid</label>     <input id="inpGridChar" type="text" maxlength="1" value=".">   <input type="color" id="colGrid" value="#777777">
+      <label>Equator</label>  <input id="inpEquatorChar" type="text" maxlength="1" value="="><input type="color" id="colEquator" value="#ff6666">
+      <label>Prime</label>    <input id="inpPrimeChar" type="text" maxlength="1" value="|">  <input type="color" id="colPrime" value="#ff6666">
+      <label>Rim</label>      <input id="inpRimChar" type="text" maxlength="1" value=".">    <input type="color" id="colRim" value="#888888">
+      <label>Vignette</label> <input id="inpVignChar" type="text" maxlength="1" value=".">   <input type="color" id="colVign" value="#333333">
+      <div class="hint">Characters affect overlays; base shading uses the high-res luminance ramp.</div>
+    </div>
+    <footer>
+      <button id="saveCustom">Apply</button>
+      <button id="resetCustom">Reset</button>
+    </footer>
+  </div>
+
+  <script>
+  const DEG = Math.PI/180;
+  const rad = d=>d*DEG;
+  const normLon = lon => ((lon + 180) % 360 + 360) % 360 - 180;
+
+  // ---- Palettes ----
+  const PRESETS = [
+    { name:"Minimal", oceanChar:".", coastChar:"*", fillAChar:"=", fillBChar:".", gridChar:".", equatorChar:"=", primeChar:"|", rimChar:".", vignChar:".",
+      colOcean:"#4a90e2", colCoast:"#ffcc00", colFillA:"#66cc66", colFillB:"#99dd99", colGrid:"#777777", colEquator:"#ff6666", colPrime:"#ff6666", colRim:"#888888", colVign:"#333333" },
+    { name:"Classic", oceanChar:".", coastChar:"#", fillAChar:"+", fillBChar:":", gridChar:":", equatorChar:"=", primeChar:"|", rimChar:".", vignChar:".",
+      colOcean:"#3aa0ff", colCoast:"#ffd452", colFillA:"#55cc77", colFillB:"#9fe3ad", colGrid:"#777", colEquator:"#ff6a6a", colPrime:"#ff6a6a", colRim:"#9a9a9a", colVign:"#2c2c2c" },
+    { name:"Noir", oceanChar:".", coastChar:"@", fillAChar:"-", fillBChar:".", gridChar:"+", equatorChar:"=", primeChar:"|", rimChar:".", vignChar:".",
+      colOcean:"#8ab4f8", colCoast:"#fbb86c", colFillA:"#a1f0a1", colFillB:"#7bd17b", colGrid:"#aaaaaa", colEquator:"#ff7b7b", colPrime:"#ff7b7b", colRim:"#9d9d9d", colVign:"#1e1e1e" },
+    { name:"Terminal", oceanChar:".", coastChar:"+", fillAChar:".", fillBChar:".", gridChar:".", equatorChar:"=", primeChar:"|", rimChar:".", vignChar:".",
+      colOcean:"#49b", colCoast:"#fb0", colFillA:"#8d8", colFillB:"#6c6", colGrid:"#888", colEquator:"#f66", colPrime:"#f66", colRim:"#777", colVign:"#2a2a2a" },
+  ];
+  const DEFAULT_CUSTOM = { name:"Custom", oceanChar:".", coastChar:"*", fillAChar:"=", fillBChar:".", gridChar:".", equatorChar:"=", primeChar:"|", rimChar:".", vignChar:".",
+    colOcean:"#4a90e2", colCoast:"#ffcc00", colFillA:"#66cc66", colFillB:"#99dd99", colGrid:"#777777", colEquator:"#ff6666", colPrime:"#ff6666", colRim:"#888888", colVign:"#333333" };
+  function loadCustom(){ try{ const raw=localStorage.getItem("ascii-globe-custom-v8"); if(!raw) return {...DEFAULT_CUSTOM}; return {...DEFAULT_CUSTOM, ...JSON.parse(raw)}; }catch{ return {...DEFAULT_CUSTOM}; } }
+  function saveCustom(p){ localStorage.setItem("ascii-globe-custom-v8", JSON.stringify(p)); }
+  function loadDefaults(){ try{ const raw=localStorage.getItem("ascii-globe-defaults-v8"); if(!raw) return null; return JSON.parse(raw);}catch{ return null; } }
+  function saveDefaults(obj){ localStorage.setItem("ascii-globe-defaults-v8", JSON.stringify(obj)); }
+
+  class GlobeMinimalUI {
+    constructor(opts={}){
+      this.width = opts.width||160;
+      this.height = opts.height||80;
+      this.centerX = this.width/2;
+      this.centerY = this.height/2;
+      this.radius = 35;
+
+      this.longitude = -30;
+      this.centerLat = 0;
+      this.useLighting = true;
+      this.spin = true;
+      this.gridOver = false;
+      this.showEquator = true;
+      this.showPrime = true;
+
+      this.luminanceRamp = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/*tfrxnvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+
+      this.palettes = [...PRESETS, loadCustom()];
+      this.palIndex = 0;
+      this.pal = this.palettes[this.palIndex];
+
+      this.host = document.getElementById("map");
+      // Aspect handling
+      this.cellAR = 2.0; // ch/cw
+      this.roundMode = "auto"; // auto | off | manual
+      this.roundManual = 2.0;
+
+      // UI init
+      this.initDetailedWorldData();
+      this.recalcFontSize();
+      this.bind();
+      this.setupUI();
+      // Apply defaults if any
+      const defs = loadDefaults();
+      if(defs){ this.applyProfile(defs.profile||"v6"); this.roundMode = defs.roundMode||"auto"; this.roundManual = defs.roundManual||2.0; this.setRes(defs.res||"160x80", false); }
+      else { this.applyProfile("v6"); }
+      this.render();
+      this.loop();
+    }
+
+    setupUI(){
+      const label = document.getElementById("palLabel");
+      const prev = document.getElementById("prev");
+      const next = document.getElementById("next");
+      const spinBtn = document.getElementById("toggleSpin");
+      const gridBtn = document.getElementById("toggleGrid");
+      const equBtn  = document.getElementById("toggleEquator");
+      const primeBtn= document.getElementById("togglePrime");
+      const customBtn = document.getElementById("customBtn");
+      const panel = document.getElementById("panel");
+      const closePanel = document.getElementById("closePanel");
+      const lightingBtn = document.getElementById("toggleLighting");
+
+      const profileSel = document.getElementById("profileSel");
+      const menuBtn = document.getElementById("menuBtn");
+      const drawer = document.getElementById("drawer");
+      const closeDrawer = document.getElementById("closeDrawer");
+      const roundModeSel = document.getElementById("roundMode");
+      const aspectRange = document.getElementById("aspectRange");
+      const resPreset = document.getElementById("resPreset");
+      const saveDefaultsBtn = document.getElementById("saveDefaults");
+      const helpBtn = document.getElementById("helpBtn");
+
+      const updateLabel = ()=> label.textContent = `Palette ${this.palIndex+1}/${this.palettes.length} — ${this.pal.name}`;
+      const apply = ()=>{ this.pal = this.palettes[this.palIndex]; updateLabel(); this.render(); };
+
+      prev.onclick = ()=>{ this.palIndex=(this.palIndex-1+this.palettes.length)%this.palettes.length; apply(); };
+      next.onclick = ()=>{ this.palIndex=(this.palIndex+1)%this.palettes.length; apply(); };
+      spinBtn.onclick = ()=>{ this.spin=!this.spin; spinBtn.textContent = this.spin?"Pause":"Play"; };
+      gridBtn.onclick = ()=>{ this.gridOver=!this.gridOver; gridBtn.textContent = "Grid: "+(this.gridOver?"Over":"Under"); this.render(); };
+      equBtn.onclick = ()=>{ this.showEquator=!this.showEquator; equBtn.textContent = "Equator: " + (this.showEquator?"On":"Off"); this.render(); };
+      primeBtn.onclick = ()=>{ this.showPrime=!this.showPrime; primeBtn.textContent = "Prime: " + (this.showPrime?"On":"Off"); this.render(); };
+      lightingBtn.onclick = ()=>{ this.useLighting=!this.useLighting; lightingBtn.textContent="Lighting: " + (this.useLighting?"On":"Off"); this.render(); };
+
+      profileSel.onchange = ()=> this.applyProfile(profileSel.value);
+      menuBtn.onclick = ()=>{ drawer.style.display = drawer.style.display==="none" ? "block" : "none"; };
+      closeDrawer.onclick = ()=> drawer.style.display="none";
+      roundModeSel.onchange = ()=>{ this.roundMode = roundModeSel.value; this.render(); };
+      aspectRange.oninput = ()=>{ this.roundManual = parseFloat(aspectRange.value); this.render(); };
+      resPreset.onchange = ()=> this.setRes(resPreset.value, true);
+      saveDefaultsBtn.onclick = ()=>{
+        const obj = { profile: profileSel.value, roundMode: roundModeSel.value, roundManual: parseFloat(aspectRange.value), res: resPreset.value };
+        saveDefaults(obj);
+        alert("Defaults saved.");
+      };
+      helpBtn.onclick = ()=>{
+        alert("Shortcuts: Space=Play/Pause, E=Equator, M=Prime, L=Lighting, U=Grid layer, Arrows=Pan/Rotate");
+      };
+
+      // Palette editor
+      customBtn.onclick = ()=>{ panel.style.display = panel.style.display === "none" ? "block" : "none"; };
+      closePanel.onclick = ()=>{ panel.style.display = "none"; };
+
+      document.getElementById("saveCustom").onclick = ()=>{
+        const C = this.palettes[this.palettes.length-1];
+        C.oceanChar = document.getElementById("inpOceanChar").value || ".";
+        C.coastChar = document.getElementById("inpCoastChar").value || "*";
+        C.fillAChar = document.getElementById("inpFillAChar").value || "=";
+        C.fillBChar = document.getElementById("inpFillBChar").value || ".";
+        C.gridChar = document.getElementById("inpGridChar").value || ".";
+        C.equatorChar = document.getElementById("inpEquatorChar").value || "=";
+        C.primeChar = document.getElementById("inpPrimeChar").value || "|";
+        C.rimChar = document.getElementById("inpRimChar").value || ".";
+        C.vignChar = document.getElementById("inpVignChar").value || ".";
+        C.colOcean = document.getElementById("colOcean").value;
+        C.colCoast = document.getElementById("colCoast").value;
+        C.colFillA = document.getElementById("colFillA").value;
+        C.colFillB = document.getElementById("colFillB").value;
+        C.colGrid  = document.getElementById("colGrid").value;
+        C.colEquator = document.getElementById("colEquator").value;
+        C.colPrime = document.getElementById("colPrime").value;
+        C.colRim = document.getElementById("colRim").value;
+        C.colVign = document.getElementById("colVign").value;
+        saveCustom(C);
+        this.palIndex = this.palettes.length-1;
+        this.pal = C;
+        updateLabel();
+        panel.style.display = "none";
+        this.render();
+      };
+      document.getElementById("resetCustom").onclick = ()=>{
+        const C = {...DEFAULT_CUSTOM}; this.palettes[this.palettes.length-1] = C; saveCustom(C);
+        panel.style.display = "none"; this.render(); updateLabel();
+      };
+
+      // Initial label sync
+      updateLabel();
+      document.getElementById("toggleGrid").textContent = "Grid: " + (this.gridOver?"Over":"Under");
+      document.getElementById("toggleEquator").textContent = "Equator: " + (this.showEquator?"On":"Off");
+      document.getElementById("togglePrime").textContent = "Prime: " + (this.showPrime?"On":"Off");
+      document.getElementById("toggleLighting").textContent = "Lighting: " + (this.useLighting?"On":"Off");
+    }
+
+    bind(){
+      window.addEventListener("resize", ()=>{this.recalcFontSize(); this.render();});
+      document.addEventListener("keydown", e=>{
+        const k=e.key.toLowerCase();
+        if(k===" "){ this.spin=!this.spin; this.syncBtn("toggleSpin", this.spin?"Pause":"Play"); }
+        else if(k==="u"){ this.gridOver=!this.gridOver; this.syncBtn("toggleGrid","Grid: "+(this.gridOver?"Over":"Under")); this.render(); }
+        else if(k==="e"){ this.showEquator=!this.showEquator; this.syncBtn("toggleEquator","Equator: "+(this.showEquator?"On":"Off")); this.render(); }
+        else if(k==="m"){ this.showPrime=!this.showPrime; this.syncBtn("togglePrime","Prime: "+(this.showPrime?"On":"Off")); this.render(); }
+        else if(k==="l"){ this.useLighting=!this.useLighting; this.syncBtn("toggleLighting","Lighting: "+(this.useLighting?"On":"Off")); this.render(); }
+        else if(k==="arrowleft"){ this.longitude = (this.longitude-5+360)%360; this.render(); }
+        else if(k==="arrowright"){ this.longitude = (this.longitude+5)%360; this.render(); }
+        else if(k==="arrowup"){ this.centerLat = Math.max(-80, Math.min(80, this.centerLat+5)); this.render(); }
+        else if(k==="arrowdown"){ this.centerLat = Math.max(-80, Math.min(80, this.centerLat-5)); this.render(); }
+      });
+    }
+    syncBtn(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
+
+    // --- Profiles ---
+    applyProfile(name){
+      const profileSel = document.getElementById("profileSel");
+      if(profileSel && profileSel.value!==name) profileSel.value = name;
+      if(name==="v2"){
+        this.roundMode = "off";
+        this.useLighting = true;
+        this.spin = true;
+        this.gridOver = false;
+        this.showEquator = true; this.showPrime = true;
+      }else if(name==="v3"){
+        this.roundMode = "off";
+        this.useLighting = true;
+        this.spin = true;
+        this.gridOver = false;
+        this.showEquator = true; this.showPrime = true;
+        this.palIndex = this.palettes.length-1; this.pal = this.palettes[this.palIndex];
+      }else if(name==="v4"){
+        this.roundMode = "off";
+        this.useLighting = true;
+        this.spin = true;
+      }else{
+        this.roundMode = "auto";
+        this.useLighting = true;
+        this.spin = true;
+      }
+      this.syncBtn("toggleGrid","Grid: "+(this.gridOver?"Over":"Under"));
+      this.syncBtn("toggleEquator","Equator: "+(this.showEquator?"On":"Off"));
+      this.syncBtn("togglePrime","Prime: "+(this.showPrime?"On":"Off"));
+      this.syncBtn("toggleLighting","Lighting: "+(this.useLighting?"On":"Off"));
+      this.render();
+    }
+
+    setRes(val, rerender){
+      const [w,h] = val.split("x").map(n=>parseInt(n,10));
+      if(!w||!h) return;
+      this.width=w; this.height=h;
+      this.centerX = this.width/2;
+      this.centerY = this.height/2;
+      this.radius = Math.floor(Math.min(this.width, this.height* (this.cellAR||2))/2) - 5;
+      if(this.radius<10) this.radius=10;
+      this.recalcFontSize();
+      if(rerender) this.render();
+    }
+
+    // Sizing & aspect
+    measureCell(){
+      const s=document.createElement("span");
+      s.textContent="M";
+      s.style.position="absolute"; s.style.visibility="hidden";
+      s.style.fontFamily="'Courier New',monospace";
+      s.style.lineHeight="1"; s.style.letterSpacing="0";
+      document.body.appendChild(s);
+      const r=s.getBoundingClientRect(); s.remove();
+      return {cw:r.width, ch:r.height};
+    }
+
+    recalcFontSize(){
+      const targetW = window.innerWidth - 16;
+      const targetH = window.innerHeight - 16;
+      let lo=6, hi=72, best=12;
+      while(lo<=hi){
+        const mid = Math.floor((lo+hi)/2);
+        this.host.style.fontSize = mid+"px";
+        const cell = this.measureCell();
+        const ok = (this.width*cell.cw <= targetW) && (this.height*cell.ch <= targetH);
+        if(ok){ best=mid; lo=mid+1; } else { hi=mid-1; }
+      }
+      this.host.style.fontSize = best+"px";
+      const cell = this.measureCell();
+      this.cellAR = cell.ch / cell.cw; // ch/cw
+    }
+
+    loop(){
+      setInterval(()=>{
+        if(this.spin){
+          this.longitude = (this.longitude + 0.4) % 360;
+          this.render();
+        }
+      }, 60);
+    }
+
+    // --- World data ---
+    initDetailedWorldData(){
+      this.continents = {
+        northAmerica: [[71,-156],[70,-140],[69,-133],[65,-135],[60,-135],[58,-94],[60,-64],[58,-62],[55,-57],[50,-56],[47,-58],[45,-60],[44,-67],[42,-68],[41,-70],[40,-72],[39,-74],[37,-75],[36,-76],[34,-78],[32,-81],[30,-81],[28,-82],[25,-80],[24,-81],[26,-82],[28,-84],[29,-85],[29,-87],[29,-90],[29,-94],[28,-95],[26,-97],[25,-98],[23,-106],[22,-105],[20,-105],[18,-103],[16,-95],[15,-93],[14,-92],[16,-87],[19,-96],[23,-110],[26,-112],[32,-117],[34,-118],[37,-122],[40,-124],[42,-124],[45,-124],[49,-125],[54,-132],[58,-134],[60,-140],[65,-150],[68,-166]],
+        southAmerica: [[12,-71],[11,-68],[11,-60],[8,-58],[5,-51],[3,-48],[2,-44],[0,-42],[-3,-38],[-5,-36],[-8,-35],[-12,-37],[-16,-39],[-20,-40],[-23,-43],[-26,-48],[-30,-50],[-34,-52],[-38,-58],[-42,-62],[-46,-65],[-50,-67],[-55,-68],[-54,-70],[-52,-75],[-48,-74],[-40,-73],[-33,-71],[-25,-70],[-18,-70],[-10,-75],[-5,-78],[-1,-81],[1,-84],[3,-87],[5,-85],[8,-77],[10,-74]],
+        europe: [[71,25],[70,28],[70,31],[68,30],[66,24],[64,20],[60,11],[58,8],[55,6],[51,3],[48,2],[45,-2],[43,-9],[41,-8],[38,-7],[36,-6],[38,-1],[40,0],[43,3],[45,5],[46,7],[47,12],[45,20],[46,25],[47,30],[48,35],[50,38],[52,40],[55,40],[58,38],[62,35],[65,32],[68,33]],
+        africa: [[37,-6],[35,-5],[33,0],[32,10],[32,20],[32,32],[31,34],[28,38],[22,40],[15,42],[12,45],[12,51],[8,50],[0,45],[-5,42],[-12,40],[-18,38],[-22,35],[-26,33],[-30,28],[-33,25],[-35,20],[-34,18],[-33,18],[-28,15],[-20,12],[-15,12],[-8,8],[0,5],[5,3],[10,0],[15,-17],[18,-16],[21,-17],[25,-15],[30,-10],[35,-8]],
+        asia: [[77,104],[75,120],[73,140],[70,160],[69,180],[66,-170],[62,-165],[60,-165],[58,-160],[55,-155],[50,140],[48,135],[45,132],[42,130],[38,128],[35,129],[32,125],[28,122],[24,121],[20,118],[18,109],[15,105],[10,103],[5,102],[1,104],[-5,110],[-8,115],[-6,120],[2,125],[8,120],[12,115],[15,105],[10,95],[8,77],[15,72],[20,70],[23,69],[28,70],[32,72],[37,75],[40,78],[42,80],[45,78],[50,75],[55,73],[60,70],[65,65],[68,50],[70,40],[68,33]],
+        australia: [[-10,142],[-11,143],[-12,143],[-15,145],[-20,149],[-24,153],[-28,153],[-32,152],[-35,150],[-37,148],[-39,146],[-38,143],[-37,140],[-35,137],[-33,135],[-30,133],[-26,130],[-22,114],[-20,116],[-18,122],[-15,128],[-12,130],[-11,135],[-10,140]],
+        greenland: [[83,-35],[83,-20],[82,-15],[80,-12],[78,-10],[75,-15],[70,-22],[65,-35],[60,-43],[60,-40],[62,-35],[65,-30],[70,-25],[75,-20],[80,-25],[82,-30]],
+        madagascar: [[-12,49],[-12,50],[-15,50],[-20,49],[-25,47],[-26,47],[-25,45],[-15,45]],
+        newZealandNorth: [[-34,172],[-35,175],[-37,175],[-38,174],[-37,173],[-35,172]],
+        newZealandSouth: [[-40,170],[-42,171],[-46,168],[-47,167],[-45,166],[-42,168]],
+        japan: [[45,142],[43,144],[40,140],[35,136],[33,130],[35,132],[38,135],[42,140]],
+        britain: [[59,-3],[57,-2],[55,-1],[51,1],[50,-1],[50,-5],[52,-5],[55,-4],[58,-4]]
+      };
+    }
+
+    // Rendering (with optional AR comp)
+    render(){
+      const W=this.width,H=this.height;
+      const cx=this.centerX, cy=this.centerY;
+      const ar = (this.roundMode==="off") ? 1.0 : (this.roundMode==="manual" ? this.roundManual : this.cellAR); // ch/cw
+      this.radius = Math.floor(Math.min(W, H*ar)/2) - 5;
+      if(this.radius<10) this.radius=10;
+      const R=this.radius;
+
+      const buf = Array.from({length:H},()=>Array(W).fill(' '));
+      const typ = Array.from({length:H},()=>Array(W).fill('ocean'));
+
+      for(let y=0;y<H;y++){
+        for(let x=0;x<W;x++){
+          const dx = x - cx;
+          const dy = y - cy;
+          const dist = Math.hypot(dx, dy * ar);
+          if(dist>R){ buf[y][x]=' '; typ[y][x]='void'; continue; }
+
+          const edgeFactor = 1 - (dist/R);
+          const edgeBlend = Math.pow(edgeFactor, 0.3);
+
+          const sx = dx/R;
+          const sy = -(dy * ar)/R;
+          const z2 = 1 - sx*sx - sy*sy;
+          if(z2<0){ buf[y][x]=' '; typ[y][x]='void'; continue; }
+          const sz = Math.sqrt(z2);
+
+          const lat = Math.asin(sy)*180/Math.PI + this.centerLat;
+          const lon = normLon(Math.atan2(sx, sz)*180/Math.PI + this.longitude);
+
+          const isLand = this.isPointOnLandEnhanced(lat, lon);
+          typ[y][x] = isLand ? 'land' : 'ocean';
+
+          let L;
+          if(!isLand){
+            const oceanDepth = 0.1 + 0.2 * ( Math.sin(lat*0.05)*Math.cos(lon*0.03) + Math.sin(lat*0.1)*Math.sin(lon*0.07) );
+            L = Math.max(0, Math.min(0.3, oceanDepth));
+          }else{
+            const terrain = 0.4 + 0.4 * ( Math.sin(lat*0.1)*Math.cos(lon*0.08) + Math.sin(lat*0.15)*Math.sin(lon*0.12) );
+            L = Math.max(0.3, Math.min(0.9, terrain));
+          }
+
+          if(this.useLighting){
+            const lx=-0.4, ly=0.6, lz=0.7, Li=0.8;
+            const dot = sx*lx + sy*ly + sz*lz;
+            const light = Math.max(0.2, Math.min(1.0, 0.5 + dot*Li));
+            L *= light;
+          }
+
+          L *= edgeBlend;
+          buf[y][x] = this.lumToChar(L);
+        }
+      }
+
+      // Coastline mask
+      for(let y=1;y<H-1;y++){
+        for(let x=1;x<W-1;x++){
+          if(typ[y][x]==='land'){
+            if(typ[y-1][x]!=='land' || typ[y+1][x]!=='land' || typ[y][x-1]!=='land' || typ[y][x+1]!=='land'){
+              typ[y][x]='coast';
+            }
+          }
+        }
+      }
+
+      const html = this.paint(buf, typ, ar, R);
+      this.host.innerHTML = html;
+    }
+
+    project(lat, lon, ar){
+      const R=this.radius, cx=this.centerX, cy=this.centerY;
+      const dλ = rad(normLon(lon - this.longitude));
+      const φ0 = rad(this.centerLat);
+      const φ = rad(lat + this.centerLat);
+      const cosc = Math.sin(φ0)*Math.sin(φ) + Math.cos(φ0)*Math.cos(φ)*Math.cos(dλ);
+      if(cosc<0) return null;
+      const x = Math.cos(φ)*Math.sin(dλ);
+      const y = Math.cos(φ0)*Math.sin(φ) - Math.sin(φ0)*Math.cos(φ)*Math.cos(dλ);
+      return {x: Math.round(cx + x*R), y: Math.round(cy - (y*R)/ar)};
+    }
+
+    paint(buf, typ, ar, R){
+      const P=this.pal;
+      const W=this.width,H=this.height;
+      const cx=this.centerX, cy=this.centerY;
+
+      const baseColor = (t, x,y)=>{
+        if(t==='coast') return P.colCoast;
+        if(t==='land'){
+          let coast=9;
+          for(let yy=-2;yy<=2;yy++) for(let xx=-2;xx<=2;xx++){
+            const ny=y+yy,nx=x+xx;
+            if(ny>=0&&ny<H&&nx>=0&&nx<W && typ[ny][nx]==='coast'){
+              const m=Math.abs(xx)+Math.abs(yy); if(m<coast) coast=m;
+            }
+          }
+          if(coast>=3){
+            return ( (y%2===0 && (x+Math.floor(this.longitude/10))%3===0) ? P.colFillA : P.colFillB );
+          }else{
+            return P.colFillB;
+          }
+        }
+        if(t==='ocean') return P.colOcean;
+        return "#000000";
+      };
+
+      const under = Array.from({length:H},()=>Array(W).fill(null));
+      const over  = Array.from({length:H},()=>Array(W).fill(null));
+
+      const dash = (x0,y0,x1,y1,setter)=>{
+        let dx=Math.abs(x1-x0), sx=x0<x1?1:-1;
+        let dy=-Math.abs(y1-y0), sy=y0<y1?1:-1;
+        let err=dx+dy, step=0;
+        while(true){
+          const d=Math.hypot((x0-cx), (y0-cy)*ar);
+          if(d<=R && step%4<2 && x0>=0&&x0<W&&y0>=0&&y0<H) setter(x0,y0);
+          if(x0===x1 && y0===y1) break;
+          const e2=2*err;
+          if(e2>=dy){ err+=dy; x0+=sx; }
+          if(e2<=dx){ err+=dx; y0+=sy; }
+          step++;
+        }
+      };
+
+      // Grid
+      for(let φ=-80; φ<=80; φ+=10){
+        if(Math.abs(φ)<1) continue;
+        let prev=null;
+        for(let λ=-180; λ<=180; λ+=1){
+          const p=this.project(φ,λ,ar); if(!p){prev=null; continue;}
+          if(prev){
+            dash(prev.x,prev.y,p.x,p.y,(x,y)=>{
+              (this.gridOver?over:under)[y][x]={ch:P.gridChar, color:P.colGrid};
+            });
+          }
+          prev=p;
+        }
+      }
+      for(let λ=-180; λ<=180; λ+=15){
+        if(Math.abs(normLon(λ - this.longitude))<1) continue;
+        let prev=null;
+        for(let φ=-90; φ<=90; φ+=1){
+          const p=this.project(φ,λ,ar); if(!p){prev=null; continue;}
+          if(prev){
+            dash(prev.x,prev.y,p.x,p.y,(x,y)=>{
+              (this.gridOver?over:under)[y][x]={ch:P.gridChar, color:P.colGrid};
+            });
+          }
+          prev=p;
+        }
+      }
+
+      if(this.showEquator){
+        for(let λ=-180; λ<=180; λ+=1){
+          const p=this.project(0,λ,ar); if(!p) continue;
+          if(p.y>=0&&p.y<H&&p.x>=0&&p.x<W) over[p.y][p.x]={ch:P.equatorChar, color:P.colEquator};
+          if(p.y+1<H) over[p.y+1][p.x]={ch:P.equatorChar, color:P.colEquator};
+        }
+      }
+      if(this.showPrime){
+        for(let φ=-90; φ<=90; φ+=1){
+          const p=this.project(φ,this.longitude,ar); if(!p) continue;
+          if(p.y>=0&&p.y<H&&p.x>=0&&p.x<W) over[p.y][p.x]={ch:P.primeChar, color:P.colPrime};
+          if(p.x+1<W) over[p.y][p.x+1]={ch:P.primeChar, color:P.colPrime};
+        }
+      }
+
+      // Rim & vignette
+      for(let y=0;y<H;y++){
+        for(let x=0;x<W;x++){
+          const d=Math.hypot((x-cx),(y-cy)*ar);
+          if(d>R && d<=R+1) over[y][x]={ch:P.rimChar, color:P.colRim};
+          else if(d>R+1 && d<=R+2 && ((x+y)%3===0)) over[y][x]={ch:P.rimChar, color:P.colRim};
+          const edge = 1 - Math.min(1, d/R);
+          if(edge<0.12 && typ[y][x]!=='void'){
+            if(!over[y][x]) over[y][x]={ch:P.vignChar, color:P.colVign};
+          }
+        }
+      }
+
+      let html='';
+      for(let y=0;y<H;y++){
+        for(let x=0;x<W;x++){
+          const baseCh = buf[y][x];
+          const baseT  = typ[y][x];
+          const underLay = under[y][x];
+          const overLay  = over[y][x];
+          let ch = baseCh;
+          let color = baseColor(baseT,x,y);
+          if(underLay){ ch = underLay.ch; color = underLay.color; }
+          if(overLay){ ch = overLay.ch; color = overLay.color; }
+          html += `<span style="color:${color}">${ch}</span>`;
+        }
+        if(y<H-1) html += '<br/>';
+      }
+      return html;
+    }
+
+    isPointOnLandEnhanced(lat, lon){
+      let landCount=0; const samples=4; const offset=0.05;
+      for(let dy=-1; dy<=1; dy+=2){
+        for(let dx=-1; dx<=1; dx+=2){
+          const sLat=lat + dy*offset, sLon=lon + dx*offset;
+          if(this.isPointOnLand(sLat,sLon)) landCount++;
+        }
+      }
+      return landCount >= samples/2;
+    }
+    isPointOnLand(lat, lon){
+      for(const points of Object.values(this.continents)){
+        if(this.pointInPolygon(lat,lon,points)) return true;
+      }
+      return false;
+    }
+    pointInPolygon(lat, lon, poly){
+      let inside=false;
+      for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+        const [lat1,lon1]=poly[i], [lat2,lon2]=poly[j];
+        if(((lat1>lat)!==(lat2>lat)) && (lon < (lon2-lon1)*(lat-lat1)/(lat2-lat1) + lon1)){
+          inside=!inside;
+        }
+      }
+      return inside;
+    }
+    lumToChar(L){
+      const idx = Math.floor(Math.max(0,Math.min(1,L))*(this.luminanceRamp.length-1));
+      return this.luminanceRamp[idx];
+    }
+  }
+
+  // Instantiate
+  const globe = new GlobeMinimalUI();
+
+  </script>
+</body>
+</html>
