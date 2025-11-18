@@ -128,6 +128,7 @@ color: red;
 
 </style>
 <script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 <div id="background-container">
@@ -150,8 +151,8 @@ color: red;
       "-5": "Kingston",
       "-4": "Montreal",
       "-3": "Brasilia",
-      "-2": "Cabo Verde",
-      "-1": "Porto",
+      "-2": "Rejkavik",
+      "-1": "Capo Verde",
       "0": "Ghana",
       "1": "Dublin",
       "2": "Berlin",
@@ -178,15 +179,15 @@ color: red;
       "-5": "https://edge.mixlr.com/channel/ibrdq",
       "-4": "https://n10as.radiocult.fm/stream",
       "-3": "https://servidor24-1.brlogic.com:7516/live",
-      "-2": "https://stream-relay-geo.ntslive.net/stream?client=NTSWebApp&device=938467932.1747321038&t=1747321059987",
-      "-1": "https://stream.radioquantica.com:8443/stream",
+      "-1": "https://stream.radioquantica.com:8443/stream", // Cabo Verde now uses Porto's stream
+      "-2": "http://ice-11.spilarinn.is/fmxtra",            // Reykjavik now uses FM Xtra
       "0": "https://oroko-radio.radiocult.fm/stream",
       "1": "https://s107.radiolize.com:8000/radio.mp3",
       "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
       "3": "https://20ft-radio.radiocult.fm/stream",
       "4": "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
-      "5": "https://stream-176.zeno.fm/unweahz8hc3vv",
-      "6": "http://94.130.113.214:8000/schizoid",
+      "5": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fdubtechno",
+      "6": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fschizoid",
       "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
       "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
       "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
@@ -265,29 +266,29 @@ color: red;
   
     const backgroundStreams = {
       "-12": "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
-      "-11": "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
+      "-11": "https://www.youtube.com/embed/yf5cEJULZXk?autoplay=1&mute=1&controls=0&loop=1&playlist=yf5cEJULZXk&vq=hd1080",
       "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
-      "-9": "https://www.youtube.com/embed/B6W4QqlXoBM?autoplay=1&mute=1&controls=0&loop=1&playlist=B6W4QqlXoBM&vq=hd1080",
-      "-8": "https://www.youtube.com/embed/sTXKIz2NGvg?autoplay=1&mute=1&controls=0&loop=1&playlist=sTXKIz2NGvg&vq=hd1080",
+      "-9": "https://www.youtube.com/embed/h378-aAa224?autoplay=1&mute=1&controls=0&loop=1&playlist=h378-aAa224,VI8Wj5EwoRM&vq=hd1080",
+      "-8": "https://www.youtube.com/embed/73-EekdVVU8?autoplay=1&mute=1&controls=0&loop=1&playlist=73-EekdVVU8&vq=hd1080",
       "-7": "https://www.youtube.com/embed/3LXQWU67Ufk?autoplay=1&mute=1&controls=0&loop=1&playlist=3LXQWU67Ufk&vq=hd1080",
-      "-6": "https://www.youtube.com/embed/DDBfzu6d9Xw?autoplay=1&mute=1&controls=0&loop=1&playlist=DDBfzu6d9Xw&vq=hd1080",
-      "-5": "https://www.youtube.com/embed/VSiBuorUA_k?autoplay=1&mute=1&controls=0&loop=1&playlist=VSiBuorUA_k&vq=hd1080",
+      "-6": "https://www.youtube.com/embed/z9JpMNJYuYg?autoplay=1&mute=1&controls=0&loop=1&playlist=z9JpMNJYuYg&vq=hd1080",
+      "-5": "https://www.youtube.com/embed/XCMRy1oxDpc?autoplay=1&mute=1&controls=0&loop=1&playlist=XCMRy1oxDpc,Fjhb4nhL73o,uaI9_RZjT3Y&vq=hd1080",
       "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs&vq=hd1080",
       "-3": "https://www.youtube.com/embed/6QoLEltTzIM?autoplay=1&mute=1&controls=0&loop=1&playlist=6QoLEltTzIM&vq=hd1080",
-      "-2": "https://www.youtube.com/embed/PnSCgxiwtGg?autoplay=1&mute=1&controls=0&loop=1&playlist=PnSCgxiwtGg&vq=hd1080",
-      "-1": "https://www.youtube.com/embed/3QS0NMMgDNY?autoplay=1&mute=1&controls=0&loop=1&playlist=3QS0NMMgDNY&vq=hd1080",
+      "-1": "https://www.youtube.com/embed/3QS0NMMgDNY?autoplay=1&mute=1&controls=0&loop=1&playlist=3QS0NMMgDNY&vq=hd1080", // Cabo Verde now uses Porto's video
+      "-2": "https://www.youtube.com/embed/N78L9u89Fvc?autoplay=1&mute=1&controls=0&loop=1&playlist=N78L9u89Fvc&vq=hd1080", // Reykjavik now uses afarTV
       "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&vq=hd1080",
       "1": "https://www.youtube.com/embed/u4UZ4UvZXrg?autoplay=1&mute=1&controls=0&loop=1&playlist=u4UZ4UvZXrg&vq=hd1080",
       "2": "https://www.youtube.com/embed/a37ZDRECzIA?autoplay=1&mute=1&controls=0&loop=1&playlist=a37ZDRECzIA&vq=hd1080",
       "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
-      "4": "https://www.youtube.com/embed/y4k2lXk1MBw?autoplay=1&mute=1&controls=0&loop=1&playlist=y4k2lXk1MBw&vq=hd1080",
-      "5": "https://www.youtube.com/embed/-Wqxh3wVHqc?autoplay=1&mute=1&controls=0&loop=1&playlist=-Wqxh3wVHqc&vq=hd1080",
+      "4": "https://www.youtube.com/embed/7mnbtXqdmr0?autoplay=1&mute=1&controls=0&loop=1&playlist=7mnbtXqdmr0&vq=hd1080",
+      "5": "https://www.youtube.com/embed/YsVog8149q8?autoplay=1&mute=1&controls=0&loop=1&playlist=YsVog8149q8&vq=hd1080",
       "6": "https://www.youtube.com/embed/YsVog8149q8?autoplay=1&mute=1&controls=0&loop=1&playlist=YsVog8149q8&vq=hd1080",
       "7": "https://www.youtube.com/embed/p0Qhe4vhYLQ?autoplay=1&mute=1&controls=0&loop=1&playlist=p0Qhe4vhYLQ&vq=hd1080",
       "8": "https://www.youtube.com/embed/3szkFHfr6sA?autoplay=1&mute=1&controls=0&loop=1&playlist=3szkFHfr6sA&vq=hd1080",
       "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&vq=hd1080",
       "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080",
-      "11": "https://www.youtube.com/embed/2_soyZW1MZg?autoplay=1&mute=1&controls=0&loop=1&playlist=2_soyZW1MZg&vq=hd1080",
+      "11": "https://www.youtube.com/embed/yf5cEJULZXk?autoplay=1&mute=1&controls=0&loop=1&playlist=yf5cEJULZXk&vq=hd1080",
       "12": "shors-refresh"
     };
 
@@ -400,6 +401,40 @@ color: red;
             console.error('Video play error:', e);
             setTimeout(() => bgVideo.play().catch(console.error), 100);
           });
+        } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
+          // Handle HLS stream
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          bgVideo.muted = true;
+          // Use hls.js if needed
+          if (window.hls) {
+            window.hls.destroy();
+            window.hls = null;
+          }
+          if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
+            bgVideo.src = newBg;
+            bgVideo.load();
+            bgVideo.play().catch(console.error);
+          } else if (window.Hls) {
+            window.hls = new Hls();
+            window.hls.loadSource(newBg);
+            window.hls.attachMedia(bgVideo);
+            window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
+              bgVideo.play().catch(console.error);
+            });
+          }
         } else {
           // Handle YouTube iframe
           bgVideo.style.display = 'none';

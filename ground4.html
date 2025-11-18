@@ -25,21 +25,10 @@
             position: relative;
             white-space: pre;
         }
-        .ground-news {
-            font-family: 'UnifrakturMaguntia', serif;
-            font-size: 24px;
-        }
         .glitch {
             animation: glitch 1s infinite;
             position: relative;
             text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
-        }
-        .ascii-art {
-            font-family: monospace;
-            white-space: pre;
-            line-height: 1;
-            font-size: 4px;
-            /* Color is now applied directly with <font> tag in JS */
         }
         @keyframes glitch {
             0% { transform: translate(0) }
@@ -99,33 +88,6 @@
         the kind of pride, boldness that they need to take back our country again.
         So let's march and make America great again.
     `;
-
-    const asciiArt = `
- 7MM"""Yb. \`7MM"""YMM   .g8"""bgd   .g8""8q. \`7MM"""Yb. \`7MM"""YMM     MMP""MM""YMM \`7MMF'  \`7MMF'\`7MM"""YMM       \`7MM"""YMM  \`7MMF'      \`7MM"""YMM     .g8"""bgd MMP""MM""YMM \`7MMF' .g8""8q. \`7MN.   \`7MF'
-  MM    \`Yb. MM    \`7 .dP'     \`M .dP'    \`YM. MM    \`Yb. MM    \`7     P'    MM    \`7    MM      MM    MM    \`7       MM    \`7    MM          MM    \`7 .dP'     \`M P'    MM    \`7    MM .dP'    \`YM. MMN.    M
-  MM     \`Mb MM    d   dM'       \` dM'      \`MM MM     \`Mb MM    d             MM          MM      MM    MM    d             MM    d      MM          MM    d   dM'       \`      MM          MM dM'      \`MM M YMb    M
-  MM      MM MMmmMM   MM          MM        MM MM      MM MMmmMM             MM          MMmmmmmmMM    MMmmMM             MMmmMM      MM          MMmmMM    MM          MM          MM          MM MM        MM M \`MN. M
-  MM     ,MP MM    Y , MM.         MM.      ,MP MM     ,MP MM    Y ,           MM          MM      MM    MM    Y ,           MM    Y ,  MM     ,    MM    Y , MM.                 MM          MM MM.      ,MP M   \`MM.M
-  MM    ,dP' MM     ,M \`Mb.     ,' \`Mb.    ,dP' MM    ,dP' MM     ,M           MM          MM      MM    MM     ,M           MM     ,M  MM     ,M    MM     ,M \`Mb.     ,'       MM          MM \`Mb.    ,dP' M    \`YMM
-.JMMmmmdP' .JMMmmmmMMM   \`"bmmmd'   \`"bmmd"' .JMMmmmdP' .JMMmmmmMMM          .JMML.    .JMML.  .JMML..JMMmmmmMMM         .JMMmmmmMMM .JMMmmmmMMM .JMMmmmmMMM   \`"bmmmd'         .JMML.    .JMML. \`"bmmd"' .JML.    YM
-
-
-`;
-
-    const asciiArt3 = `
-                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                
-7MM"""Yb. \`7MM"""YMM   .g8"""bgd   .g8""8q. \`7MM"""Yb. \`7MM"""YMM     MMP""MM""YMM \`7MMF'  \`7MMF'\`7MM"""YMM       \`7MM"""YMM  \`7MMF'      \`7MM"""YMM     .g8"""bgd MMP""MM""YMM \`7MMF' .g8""8q. \`7MN.   \`7MF'
-  MM    \`Yb. MM    \`7 .dP'     \`M .dP'    \`YM. MM    \`Yb. MM    \`7     P'    MM    \`7    MM      MM    MM    \`7       MM    \`7    MM          MM    \`7 .dP'     \`M P'    MM    \`7    MM .dP'    \`YM. MMN.    M
-  MM     \`Mb MM    d   dM'       \` dM'      \`MM MM     \`Mb MM    d             MM          MM      MM    MM    d             MM    d      MM          MM    d   dM'       \`      MM          MM dM'      \`MM M YMb    M
-  MM      MM MMmmMM   MM          MM        MM MM      MM MMmmMM             MM          MMmmmmmmMM    MMmmMM             MMmmMM      MM          MMmmMM    MM          MM          MM          MM MM        MM M \`MN. M
-  MM     ,MP MM    Y , MM.         MM.      ,MP MM     ,MP MM    Y ,           MM          MM      MM    MM    Y ,           MM    Y ,  MM     ,    MM    Y , MM.                 MM          MM MM.      ,MP M   \`MM.M
-  MM    ,dP' MM     ,M \`Mb.     ,' \`Mb.    ,dP' MM    ,dP' MM     ,M           MM          MM      MM    MM     ,M           MM     ,M  MM     ,M    MM     ,M \`Mb.     ,'       MM          MM \`Mb.    ,dP' M    \`YMM
-.JMMmmmdP' .JMMmmmmMMM   \`"bmmmd'   \`"bmmd"' .JMMmmmdP' .JMMmmmmMMM          .JMML.    .JMML.  .JMML..JMMmmmmMMM         .JMMmmmmMMM .JMMmmmmMMM .JMMmmmmMMM   \`"bmmmd'         .JMML.    .JMML. \`"bmmd"' .JML.    YM
-
-
-`;
-
 
     function generateTriangle(speech, className) {
         const words = speech.split(" ");
@@ -208,14 +170,6 @@
         }).join('');
     }
 
-    function displayAsciiArt(art) {
-        const container = document.getElementById("pattern");
-        container.className = "ascii-art";
-
-        // Wrap the ASCII art in <font> tags for static green color
-        container.innerHTML = '<font color="#d6e5fa">' + art + '</font>';
-    }
-
     function displaySequence() {
         const container = document.getElementById("pattern");
         const patterns = [
@@ -225,29 +179,13 @@
             () => generateMesh(speech1, speech2),
         ];
 
-        // Define an array of ASCII art options
-        const asciiArts = [asciiArt, asciiArt3];
-
-        // Start with original word art
         container.className = "pattern noise";
         container.innerHTML = patterns[Math.floor(Math.random() * patterns.length)]();
 
-        // After 10 seconds, show a random ASCII art
+        // After 10 seconds, show a new pattern (loop instead of showing ASCII art and logo)
         setTimeout(() => {
-            const randomAsciiArt = asciiArts[Math.floor(Math.random() * asciiArts.length)];
-            displayAsciiArt(randomAsciiArt);
-
-            // After 3 seconds, show ground news
-            setTimeout(() => {
-                container.className = "pattern noise";
-                container.innerHTML = `<span class="glitch ground-news">ground news</span>`;
-
-                // After 3 seconds, reload
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
-            }, 3000);
-        }, 5000);
+            displaySequence();
+        }, 10000);
     }
 
     // Start the sequence

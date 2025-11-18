@@ -104,37 +104,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentDisplay = document.getElementById("content-display");
     const mediaArea = document.getElementById("media");
     
+    // Track current section for audio management
+    let currentSection = null;
+    let twoAmIframe = null;
+    let currentAudioStream = null;
+    
     const projectPaths = {
-        ikea: "elias",
-        ipren: "/elias",
-        spotify: "/elias",
-        diablo: "/elias",
-        f16: "/elias",
-        groundnews: "/elias",
-        kalles: "/elias",
-        europa: "/elias",
-        ecb: "/elias",
-        birthday: "/elias",
-        banned: "/elias",
-        kindle: "/elias",
-        amazonCrime: "/elias",
-		scripts: "/elias",
+    
     };
 	
 	
     // Initialize with default text (no links)
-    dynamicHeader.textContent = '/elias/'; // Change this to whatever you prefer as the default
+    dynamicHeader.textContent = '';
 
 	
     
     // Function to show content and update the dynamic header
     function showContent(section) {
+        // Store previous section
+        const previousSection = currentSection;
+        currentSection = section;
+
+        // Handle 2.am audio
+        if (previousSection === 'banned' && section !== 'banned') {
+            console.log('Leaving 2.am section - pausing stream');
+            if (currentAudioStream) {
+                currentAudioStream.pause();
+                currentAudioStream.currentTime = 0;
+            }
+        }
+
+        // Pause YouTube embeds in other sections
+        const youtubeEmbed = document.getElementById('youtubeEmbed');
+        if (youtubeEmbed && section !== 'birthday') {
+            youtubeEmbed.src = '';
+        }
+
+        const ytBgPlayer = document.getElementById('yt-bg-player');
+        if (ytBgPlayer && section !== 'spotify') {
+            ytBgPlayer.src = '';
+        }
+
         const content = {
-            banned: `
+            banned: ` 2.am is a site that only plays radio from where in the world it currently is 2am. for those who love night radio. press outside the globe to play pause. refresh the page to get a new globe
               
-                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
-                        <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="radio2am.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                    <div id="iframe-container" style="margin-top: 20px; margin-bottom: 20px; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0; overflow: visible;">
+                        <!-- Iframe directly displaying the 2amglobe.html content -->
+                        <iframe id="2am-iframe" src="2amglobe.html" style="width: 600px; height: 600px; border: none; border-radius: 8px; box-shadow: none; filter: none; allow: microphone; flex-shrink: 0;"></iframe>
                     </div> 
 
             `,
@@ -171,13 +187,28 @@ document.addEventListener("DOMContentLoaded", () => {
                
             `,
             
-			f16: `   <video id="f16-video" width="100%" controls>
+			f16: `   
+
+<video 
+    id="f16-video" 
+    width="100%" 
+    autoplay 
+    loop 
+    muted 
+    playsinline
+    style="display: block;">
+      <source src="images/f16/f16.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+This simple ad for the National Military Museum lasts as long as it takes an F-16 to fly 700 meters.
+
+
+
+<video id="f16-video" width="100%" controls>
     <source src="images/f16/f16.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 <br>	
-translation: This ad lasts as long as an F-16 takes to fly 700 meters.
-
 
 
 
@@ -187,52 +218,36 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
 <div> 
 
- The Trump vs. Kamala election might have been the most mind-scrambling, confusing, and disinformed election in American history. This campaign for Ground News, whose mission is “to help you break away from algorithms,” features confusing auto-generated, 2002 ASCII-style word art pop-up ads made from Trump and Kamala speeches. All under the concept and tagline: decode the election.
-
-    </div>
-
-
-                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
-                    <!-- Add iframe container -->
-                    <div id="iframe-container" style="margin-top: 20px; width: 100%; height: 700px; overflow: hidden;">
-                        <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="ground4.html" style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div>
-
-
-<br> <br> 
-
-
- <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif';">
-                    <!-- Add iframe container -->
-                    <div id="iframe-container" style="margin-top: 20px; width: 100%; height: 700px; overflow: hidden;">
-                        <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="ground4.html" style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div>
-
-
-
-                        
-
-    </div>
+The Trump–Kamala election was saturated with confusion and falsehoods.<br>
+Ground News answered with ASCII-style pop-up ads, built from the candidates' own words.<br>
+The decode the election campaign mirrored the bewilderment felt across the American public during the 2024 election.
 
 	
-<hr>
 
 
-<hr>
-
-
-               
-                    <div id="iframe-container" style="margin-top: 20px; width: 90%; height: 700px; overflow: hidden;">
-                        <!-- Iframe directly displaying the ground6.html content -->
-                        <iframe id="ground5-iframe" src="ground6.html" style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div>
 
 <hr>
+<div style="display: flex; align-items: stretch; gap: 20px;">
 
+    <div style="flex: 1; font-size: 16px; font-family: 'Suisse', sans-serif;">
+        <div style="width: 100%; height: 700px; overflow: hidden;">
+            <iframe src="ground4.html" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
 
-                </div>
+    <!-- Vertical separator line -->
+    <div style="width: 1px; background-color: #ccc;"></div>
+
+    <div style="flex: 1; font-size: 16px; font-family: 'Suisse', sans-serif;">
+        <div style="width: 100%; height: 700px; overflow: hidden;">
+            <iframe src="ground4.html" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
             `,
             kalles: `
                <pre>
@@ -241,18 +256,25 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
             `,
             europa: `
-                    <div id="europa-quote" onclick="fetchAndDisplayEuropaQuotation();" style="cursor: pointer;">
-                     <div style="font-family: 'Suisse'; text-align: center; padding: 20px 0;">
-  click the text to flip through the pitch or go to the exhibit using the link 
-</div>
+                <div>
+                    <p>
+                        This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Check out the full exhibit here. <br>
+                        <a href="https://europearchive.eu/country-index/" target="_blank">https://europearchive.eu/country-index/</a>
+                    </p>
+                </div>
+
+                <!-- Text frame (click to load new) placed under the link -->
+                <div id="europa-quote" onclick="fetchAndDisplayEuropaQuotation();"
+                     style="cursor: pointer; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0;">
+                    <div style="font-family: 'Suisse'; text-align: center; padding: 8px 0;">
+                        loading...
                     </div>
-                  
-              
-<div>
-                        <p>This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Check out the full exhibit here. <br>
-                            <a href="https://europearchive.eu/country-index/" target="_blank">https://europearchive.eu/country-index/</a>
-                        </p>
-                    </div>   
+                </div>
+
+                <!-- Image frame below the text frame -->
+                <div id="europa-image"
+                     style="border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0;">
+                </div>
             `,
             ikea: ` These crappy analog pictures that are either impressive or very unimpressive aren't from an archive of the early 20th century, but the result of me doing everything from making the original chemicals used, to developing them, to scanning them with a crappy Pentax camera from 2011. Kinda like this website, I love doing stuff from the ground up if possible, therefore the shittiness. 
 
@@ -271,7 +293,7 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
             `,
             ecb: ` 
-<hr>
+
              <img src="images/treo/treo-tidning-png-4.png" style="width: calc(100% - 10px); border-radius: 5px;">  
 <br>
 <hr>
@@ -375,19 +397,56 @@ translation: This ad lasts as long as an F-16 takes to fly 700 meters.
 
         // Update content display area
         if (content[section]) {
+            console.log('Loading content for section:', section);
             contentDisplay.innerHTML = content[section];
             mediaArea.style.flex = "0 0 50%"; 
             mediaArea.style.width = "50%"; 
+
+            // Auto-load a random Europa entry when the Europa section is opened
+            if (section === 'europa') {
+                console.log('Initializing Europa section');
+                setTimeout(() => {
+                    if (typeof fetchAndDisplayEuropaQuotation === 'function') {
+                        console.log('Calling fetchAndDisplayEuropaQuotation');
+                        fetchAndDisplayEuropaQuotation();
+                    } else {
+                        console.error('fetchAndDisplayEuropaQuotation function not available');
+                    }
+                }, 100);
+            }
+
+            // Special handling for 2.am section - PLAY AUDIO
+            if (section === 'banned') {
+                console.log('Initializing 2.am section - starting audio');
+                setTimeout(() => {
+                    twoAmIframe = document.getElementById('2am-iframe');
+                    if (twoAmIframe) {
+                        console.log('2.am iframe found');
+                        twoAmIframe.setAttribute('allow', 'microphone; autoplay; geolocation');
+                        
+                        // Play 2AM stream
+                        if (!currentAudioStream) {
+                            currentAudioStream = new Audio();
+                            currentAudioStream.crossOrigin = "anonymous";
+                        }
+                        const streamUrl = pick2amStream();
+                        currentAudioStream.src = streamUrl;
+                        currentAudioStream.play().catch(err => {
+                            console.log('Audio stream play failed:', err);
+                        });
+                    }
+                }, 100);
+            }
         } else {
             contentDisplay.innerHTML = "<p>No content available.</p>"; 
         }
 
         // Update dynamic header with project path if section exists
-      if (projectPaths[section]) {
-    dynamicHeader.innerHTML = `${projectPaths[section]}`;
-} else {
-    dynamicHeader.innerHTML = ''; // Clear the header if there's no section
-}
+        if (projectPaths[section]) {
+            dynamicHeader.innerHTML = `${projectPaths[section]}`;
+        } else {
+            dynamicHeader.innerHTML = '';
+        }
     }
 
     // Expose showContent globally so it can be called from HTML
@@ -466,39 +525,71 @@ const europaImages = {
 };
 
 function fetchAndDisplayEuropaQuotation() {
+    console.log('Fetching Europa quotation...');
+    
+    // Try to fetch the file - this works better with a local server
     fetch('json/europa.txt')
         .then(response => {
+            console.log('Europa fetch response:', response.status);
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`Network response was not ok: ${response.status}`);
             }
             return response.text();
         })
         .then(text => {
-            const europaQuoteElement = document.getElementById('europa-quote');
-            const entries = text.split(/\n\s*\n/); // Split text into entries by double line breaks
-            const randomIndex = Math.floor(Math.random() * entries.length);
-            const selectedEntry = entries[randomIndex].trim();
-
-            // Extract the ID from the entry text (even if it's wrapped in <strong>)
-            const entryIdMatch = selectedEntry.match(/<strong>(\d+)\./); // Match IDs like "176." within <strong> tags
-            const entryId = entryIdMatch ? entryIdMatch[1] : null;
-
-            // Check if there's a corresponding image for the ID
-            if (entryId && europaImages[entryId]) {
-                europaQuoteElement.innerHTML = `
-                    <div>
-                        <img src="${europaImages[entryId]}" alt="Europa Image ${entryId}" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-                        <p>${selectedEntry}</p>
-                    </div>
-                `;
-            } else {
-                // If no image exists, just display the text
-                europaQuoteElement.innerHTML = selectedEntry;
-            }
+            displayEuropaContent(text);
         })
         .catch(error => {
-            console.error('Fetch error:', error);
+            console.error('Europa fetch error:', error);
+            // Fallback: try alternative path or show error
+            const europaQuoteElement = document.getElementById('europa-quote');
+            if (europaQuoteElement) {
+                europaQuoteElement.innerHTML = `<div style="color: #999; font-size: 12px;">Unable to load entries. Please ensure json/europa.txt exists and you're running on a local server (not file://).</div>`;
+            }
         });
+}
+
+function displayEuropaContent(text) {
+    console.log('Europa text loaded, length:', text.length);
+    const europaQuoteElement = document.getElementById('europa-quote');
+    const europaImageElement = document.getElementById('europa-image');
+    
+    if (!europaQuoteElement || !europaImageElement) {
+        console.error('Europa elements not found');
+        return;
+    }
+    
+    const entries = text.split(/\n\s*\n/).filter(entry => entry.trim().length > 0);
+    console.log('Europa entries found:', entries.length);
+    
+    if (entries.length === 0) {
+        europaQuoteElement.innerHTML = '<div style="color: #999;">No entries found.</div>';
+        return;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * entries.length);
+    const selectedEntry = entries[randomIndex].trim();
+    console.log('Selected entry:', selectedEntry.substring(0, 100) + '...');
+
+    // Extract the ID from the entry text
+    const entryIdMatch = selectedEntry.match(/(\d+)\./);
+    const entryId = entryIdMatch ? entryIdMatch[1] : null;
+    console.log('Entry ID extracted:', entryId);
+
+    // Update text frame
+    europaQuoteElement.innerHTML = `<div>${selectedEntry}</div>`;
+    console.log('Europa quote element updated');
+
+    // Update image frame if image exists
+    if (entryId && europaImages[entryId]) {
+        europaImageElement.innerHTML = `
+            <img src="${europaImages[entryId]}" alt="Europa Image ${entryId}" style="max-width: 100%; height: auto; display: block;">
+        `;
+        console.log('Europa image updated with ID:', entryId);
+    } else {
+        europaImageElement.innerHTML = '';
+        console.log('No image found for ID:', entryId);
+    }
 }
 
 // Function to fetch and display quotations
@@ -772,5 +863,50 @@ function cycleDiabloContent() {
 }
     // Increment and loop the index
     diabloIndex = (diabloIndex + 1) % diabloTexts.length;
+}
+
+// 2.AM Radio Stream Management
+const radioStreams = {
+    "-12": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+    "-11": "https://worldwidefm.out.airtime.pro/worldwidefm_b",
+    "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+    "-9": "https://stream.ktuh.org:8001/stream",
+    "-8": "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445?0.10626689329334882/",
+    "-7": "https://dublab.out.airtime.pro/dublab_a",
+    "-6": "https://radio.mensajito.mx/nopalVentana",
+    "-5": "https://edge.mixlr.com/channel/ibrdq",
+    "-4": "https://n10as.radiocult.fm/stream",
+    "-3": "https://servidor24-1.brlogic.com:7516/live",
+    "-2": "http://ice-11.spilarinn.is/fmxtra",
+    "-1": "https://stream.radioquantica.com:8443/stream",
+    "0": "https://oroko-radio.radiocult.fm/stream",
+    "1": "https://s107.radiolize.com:8000/radio.mp3",
+    "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+    "3": "https://20ft-radio.radiocult.fm/stream",
+    "4": "https://n09.radiojar.com/78cxy6wkxtzuv?1742491576=&rj-ttl=5&rj-tok=AAABlmp-uzoAGwSgsdWpww34qA",
+    "5": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fdubtechno",
+    "6": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fschizoid",
+    "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+    "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
+    "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+    "10": "https://radio.beshknow.com/beshknow",
+    "11": "https://stream.tbc.radio:8000/radio.mp3",
+    "12": "https://radio.kamchatkalive.ru:8103/dance"
+};
+
+function pick2amStream() {
+    const now = new Date();
+    const utc = now.getUTCHours() + now.getUTCMinutes() / 60;
+    let offset = 2 - utc;
+    while (offset < -12) offset += 24;
+    while (offset > 12) offset -= 24;
+
+    const keys = Object.keys(radioStreams).map(Number);
+    let bestKey = keys[0], bestDiff = Infinity;
+    for (const k of keys) {
+        const diff = Math.abs(offset - k);
+        if (diff < bestDiff) { bestDiff = diff; bestKey = k; }
+    }
+    return radioStreams[String(bestKey)];
 }
 
