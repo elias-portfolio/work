@@ -194,7 +194,7 @@
       this.recalcFontSize();
       this.bind();
       document.body.style.background = "#ffffff";
-      this.updateBackground(this.videoKeys[0]);
+      document.getElementById("videoBg").classList.add("hidden");
       this.render();
       this.loop();
     }
@@ -243,6 +243,8 @@
         else if(e.key === "ArrowRight"){
           this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videoKeys.length;
           this.updateBackground(this.videoKeys[this.currentVideoIndex]);
+          this.showVideo = true;
+          document.getElementById("videoBg").classList.remove("hidden");
         }
         else if(e.key === "ArrowLeft"){
           this.pal = generateRandomPalette();
@@ -251,7 +253,6 @@
         else if(e.key === "ArrowUp"){
           this.voidColor = randomHexColor();
           document.getElementById("background-container").style.background = this.voidColor;
-          this.render();
         }
         else if(e.key === "ArrowDown"){
           this.pal.oceanChar = randomChoice(OCEAN_CHARS);
@@ -269,6 +270,9 @@
           this.showVideo = !this.showVideo;
           const bgFrame = document.getElementById("videoBg");
           bgFrame.classList.toggle("hidden");
+          if(this.showVideo && !bgFrame.src){
+            this.updateBackground(this.videoKeys[this.currentVideoIndex]);
+          }
         }
       });
     }
@@ -545,7 +549,7 @@
           let bgColor = '';
           if(underLay){ ch = underLay.ch; color = underLay.color; }
           if(overLay){ ch = overLay.ch; color = overLay.color; }
-          if(isOutside) { ch = '\u00A0'; bgColor = `background-color:${this.voidColor};`; }
+          if(isOutside && !this.showVideo) { ch = '\u00A0'; bgColor = `background-color:${this.voidColor};`; }
           html += `<span style="color:${color};${bgColor}">${ch}</span>`;
         }
         if(y<H-1) html += '<br/>';
