@@ -196,6 +196,11 @@ color: red;
       "12": "https://radio.kamchatkalive.ru:8103/dance"
     };
 
+    // Video architecture: online page renders one hosted local video-only source iframe.
+    // This keeps background rendering offloaded from the online page.
+    const HOSTED_VIDEO_SOURCE_URL = "https://eliass-macbook-air.tail278fee.ts.net/2amvideo-source.html";
+
+
     const placeholderCities = [
       "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",
       "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi", "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",
@@ -265,31 +270,31 @@ color: red;
     }
   
     const backgroundStreams = {
-      "-12": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-11": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-10": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-9": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-8": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-7": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-6": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-5": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-4": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-3": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-2": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "-1": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "0": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "1": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "2": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "3": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "4": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "5": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "6": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "7": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "8": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "9": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "10": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "11": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"],
-      "12": ["./css/trim3.mp4", "./css/trim4.mp4", "./css/trim5.mp4"]
+      "-12": "external-video-source",
+      "-11": "external-video-source",
+      "-10": "external-video-source",
+      "-9": "external-video-source",
+      "-8": "external-video-source",
+      "-7": "external-video-source",
+      "-6": "external-video-source",
+      "-5": "external-video-source",
+      "-4": "external-video-source",
+      "-3": "external-video-source",
+      "-2": "external-video-source",
+      "-1": "external-video-source",
+      "0": "external-video-source",
+      "1": "external-video-source",
+      "2": "external-video-source",
+      "3": "external-video-source",
+      "4": "external-video-source",
+      "5": "external-video-source",
+      "6": "external-video-source",
+      "7": "external-video-source",
+      "8": "external-video-source",
+      "9": "external-video-source",
+      "10": "external-video-source",
+      "11": "external-video-source",
+      "12": "external-video-source"
     };
 
     let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
@@ -297,178 +302,29 @@ color: red;
 
     // Add this variable to track current video index
     let currentVideoIndex = 0;
+    let ytPlayer = null;
 
     function updateBackground(offset) {
-      const newBg = backgroundStreams[offset];
       const bgFrame = document.getElementById("bg-frame");
       const bgVideo = document.getElementById("bg-video");
-      
-      // Stop previous image refresh if switching away
-      clearInterval(window._shorsImageInterval);
-      document.getElementById("shors-cam-img")?.remove();
-      
-      if (newBg === "shors-refresh") {
-        bgFrame.style.display = 'none';
-        bgVideo.style.display = 'none';
 
-        let img = document.getElementById("shors-cam-img");
-        if (!img) {
-          img = document.createElement("img");
-          img.id = "shors-cam-img";
-          img.style.position = "absolute";
-          img.style.top = "50%";
-          img.style.left = "50%";
-          img.style.width = "177.77777778vh";
-          img.style.height = "100vh";
-          img.style.transform = "translate(-50%, -50%) scale(1.5)";
-          img.style.transformOrigin = "center center";
-          img.style.pointerEvents = "none";
-          img.style.opacity = "1";
-          img.style.zIndex = "0";
-          img.style.objectFit = "cover";
-          document.querySelector(".video-bg").appendChild(img);
-        }
-
-        // Set up auto-refreshing background
-        function refreshImage() {
-          const timestamp = new Date().getTime(); // prevent caching
-          img.src = `https://www.shors.ru/images/camera/image96.jpg?${timestamp}`;
-        }
-
-        // Refresh immediately and then every minute
-        refreshImage();
+      // Single-source hosted iframe background.
+      if (HOSTED_VIDEO_SOURCE_URL) {
         clearInterval(window._shorsImageInterval);
-        window._shorsImageInterval = setInterval(refreshImage, 60000);
-      } else if (newBg) {
-        if (Array.isArray(newBg)) {
-          // Handle multiple video files
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          
-          // Set up video ended event handler if not already set
-          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
-            bgVideo.addEventListener('ended', function() {
-              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
-              bgVideo.src = newBg[currentVideoIndex];
-              bgVideo.play().catch(console.error);
-            });
-            bgVideo.setAttribute('data-rotation-initialized', 'true');
-          }
-          
-          // Start with current video in rotation if not already playing it
-          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
-            bgVideo.src = newBg[currentVideoIndex];
-            bgVideo.load();
-            bgVideo.play().catch(e => {
-              console.error('Video play error:', e);
-              setTimeout(() => bgVideo.play().catch(console.error), 100);
-            });
-          }
-        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
-          // Handle single video file
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          
-          if (bgVideo.src !== newBg) {
-            bgVideo.src = newBg;
-            bgVideo.load();
-          }
-          bgVideo.play().catch(e => {
-            console.error('Video play error:', e);
-            setTimeout(() => bgVideo.play().catch(console.error), 100);
-          });
-        } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
-          // Handle HLS stream
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          bgVideo.muted = true;
-          // Use hls.js if needed
-          if (window.hls) {
-            window.hls.destroy();
-            window.hls = null;
-          }
-          if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
-            bgVideo.src = newBg;
-            bgVideo.load();
-            bgVideo.play().catch(console.error);
-          } else if (window.Hls) {
-            window.hls = new Hls();
-            window.hls.loadSource(newBg);
-            window.hls.attachMedia(bgVideo);
-            window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
-              bgVideo.play().catch(console.error);
-            });
-          }
-        } else {
-          // Handle YouTube iframe
+        document.getElementById("shors-cam-img")?.remove();
+
+        if (bgVideo) {
+          try { bgVideo.pause(); } catch (e) {}
           bgVideo.style.display = 'none';
-          bgFrame.style.display = 'block';
-          if (bgFrame.src !== newBg) {
-            // Use postMessage API for additional muting control
-            bgFrame.src = newBg + "&enablejsapi=1";
-            
-            // Try to initialize YouTube API control when frame loads
-            bgFrame.onload = function() {
-              try {
-                if (window.YT && window.YT.Player) {
-                  if (ytPlayer) {
-                    ytPlayer.destroy();
-                  }
-                  ytPlayer = new YT.Player(bgFrame.id, {
-                    events: {
-                      'onReady': function(event) {
-                        event.target.mute();
-                        event.target.setPlaybackQuality('hd1080');
-                      },
-                      'onStateChange': function(event) {
-                        // Ensure video stays muted during state changes (like when ads start)
-                        event.target.mute();
-                      }
-                    }
-                  });
-                }
-              } catch(e) {
-                console.error("YouTube API error:", e);
-              }
-            };
-          }
         }
+
+        bgFrame.style.display = 'block';
+        const sep = HOSTED_VIDEO_SOURCE_URL.includes('?') ? '&' : '?';
+        const desiredSrc = `${HOSTED_VIDEO_SOURCE_URL}${sep}offset=${offset}&v=${Date.now()}`;
+        if (bgFrame.src !== desiredSrc) {
+          bgFrame.src = desiredSrc;
+        }
+        return;
       }
     }
 
@@ -515,16 +371,6 @@ color: red;
         }
       }
     });
-
-    // Update all YouTube URLs to include API parameters
-    for (const key in backgroundStreams) {
-      if (typeof backgroundStreams[key] === 'string' && backgroundStreams[key].includes('youtube.com/embed/')) {
-        // Make sure API is enabled and additional mute parameter is set
-        if (!backgroundStreams[key].includes('enablejsapi=1')) {
-          backgroundStreams[key] += (backgroundStreams[key].includes('?') ? '&' : '?') + 'enablejsapi=1';
-        }
-      }
-    }
 
     function testVideo() {
       const videoElement = document.createElement('video');
