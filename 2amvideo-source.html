@@ -50,6 +50,67 @@
 
     let currentVideoIndex = 0;
     let ytPlayer = null;
+    
+    // YouTube Player API functions
+    function initYouTubePlayer(videoUrl) {
+      const videoId = extractYouTubeId(videoUrl);
+      if (!videoId) return null;
+      
+      if (window.YT && window.YT.Player) {
+        // Player already exists, just load new video
+        if (ytPlayer) {
+          ytPlayer.loadVideoById(videoId);
+          return ytPlayer;
+        }
+        
+        // Create new player
+        ytPlayer = new YT.Player('bg-frame', {
+          videoId: videoId,
+          playerVars: {
+            'autoplay': 1,
+            'mute': 1,
+            'controls': 0,
+            'loop': 1,
+            'playlist': videoId,
+            'origin': window.location.origin,
+            'enablejsapi': 1,
+            'rel': 0,
+            'showinfo': 0,
+            'modestbranding': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+        return ytPlayer;
+      }
+      return null;
+    }
+    
+    function onPlayerReady(event) {
+      // Try to play immediately
+      event.target.playVideo();
+      
+      // Fallback: simulate interaction after delay
+      setTimeout(() => {
+        try {
+          document.getElementById('bg-frame').click();
+          event.target.playVideo();
+        } catch(e) {}
+      }, 1000);
+    }
+    
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        event.target.playVideo(); // Restart if ended
+      }
+    }
+    
+    function extractYouTubeId(url) {
+      const match = url.match(/embed\/([a-zA-Z0-9_-]+)/);
+      return match ? match[1] : '';
+    }
 
     function getOffset() {
       const params = new URLSearchParams(window.location.search);
@@ -111,7 +172,22 @@
       // default: iframe source (YouTube/webcam)
       bgVideo.style.display = 'none';
       bgFrame.style.display = 'block';
-      if (bgFrame.src !== newBg) bgFrame.src = newBg;
+      
+      // Use YouTube Player API for YouTube embeds
+      if (newBg.includes('youtube.com/embed/')) {
+        const videoId = extractYouTubeId(newBg);
+        if (videoId) {
+          if (window.YT && window.YT.Player) {
+            initYouTubePlayer(newBg);
+          } else {
+            // Fallback to regular iframe if API not loaded yet
+            if (bgFrame.src !== newBg) bgFrame.src = newBg;
+          }
+        }
+      } else {
+        // Non-YouTube content (webcam, etc.)
+        if (bgFrame.src !== newBg) bgFrame.src = newBg;
+      }
     }
 
     let currentOffset = null;
