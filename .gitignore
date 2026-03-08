@@ -1,3 +1,7 @@
 reports/
 scripts/__pycache__/
 *.pyc
+hls-temp/
+test_iframe.html
+test_ffmpeg.sh
+test_streams.sh
