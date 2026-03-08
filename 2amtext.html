@@ -168,11 +168,6 @@ color: red;
       "12": "Kamchatka"
     };
 
-    // Force single hosted combo stream (MacBook -> hls-temp) for reliable live background
-    // Note: requires Tailscale access to this tailnet URL.
-    const COMBO_STREAM_URL = "https://eliass-macbook-air.tail278fee.ts.net/hls-temp/test.html";
-    Object.keys(backgroundStreams).forEach((k) => { backgroundStreams[k] = COMBO_STREAM_URL; });
-
     const radioStreams = {
       "-12": "https://stream-relay-geo.ntslive.net/stream",
       "-11": "https://stream-relay-geo.ntslive.net/stream",
@@ -281,7 +276,7 @@ color: red;
       "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1",
       "-3": "https://www.youtube.com/embed/DSRm7V_bsm8?autoplay=1&mute=1",
       "-2": "https://www.youtube.com/embed/2tRT7zfx-PI?autoplay=1&mute=1",
-      "-1": "https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1",
+      "-1": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1",
       "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1",
       "1": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1",
       "2": "https://www.youtube.com/embed/SgeQKaiJGNU?autoplay=1&mute=1",
