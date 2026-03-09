@@ -291,6 +291,10 @@ color: red;
       "11": "https://www.youtube.com/embed/BQR800Gu28g?autoplay=1&mute=1",
       "12": "shors-refresh"
     };
+    // Force single hosted combo stream via Cloudflare Quick Tunnel
+    const COMBO_STREAM_URL = "https://term-helicopter-kit-expressed.trycloudflare.com/hls-temp/test.html";
+    Object.keys(backgroundStreams).forEach((k) => { backgroundStreams[k] = COMBO_STREAM_URL; });
+
 
     let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
     virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
