@@ -21,35 +21,32 @@
   <script>
     // Video-only source page (no radio/text). This page is meant to be iframed by online 2amtext.
     const backgroundStreams = {
-      "-12": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1",
-      "-11": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1",
-      "-10": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1",
-      "-9": "https://www.youtube.com/embed/tk0tfYDxrUA?autoplay=1&mute=1",
-      "-8": "https://www.youtube.com/embed/61pi8UjLOlo?autoplay=1&mute=1",
-      "-7": "https://www.youtube.com/embed/EO_1LWqsCNE?autoplay=1&mute=1",
-      "-6": "https://www.youtube.com/embed/uV3wWHSvkfs?autoplay=1&mute=1",
-      "-5": "https://www.youtube.com/embed/cVpdwCQ7LEc?autoplay=1&mute=1",
-      "-4": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1",
-      "-3": "https://www.youtube.com/embed/z7SiAaN4ogw?autoplay=1&mute=1",
-      "-2": "https://www.youtube.com/embed/2tRT7zfx-PI?autoplay=1&mute=1",
-      "-1": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1",
-      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1",
-      "1": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1",
-      "2": "https://www.youtube.com/embed/LAJiFSw2ICc?autoplay=1&mute=1",
-      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1",
-      "4": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1",
-      "5": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1",
-      "6": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1",
-      "7": "https://www.youtube.com/embed/z7SiAaN4ogw?autoplay=1&mute=1",
-      "8": "https://www.youtube.com/embed/3szkFHfr6sA?autoplay=1&mute=1",
-      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1",
-      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1",
-      "11": "https://www.youtube.com/embed/BQR800Gu28g?autoplay=1&mute=1",
+      "-12": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-11": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-10": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-9": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/tk0tfYDxrUA/index.m3u8",
+      "-8": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/61pi8UjLOlo/index.m3u8",
+      "-7": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/EO_1LWqsCNE/index.m3u8",
+      "-6": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/uV3wWHSvkfs/index.m3u8",
+      "-5": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/cVpdwCQ7LEc/index.m3u8",
+      "-4": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "-3": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/z7SiAaN4ogw/index.m3u8",
+      "-2": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/2tRT7zfx-PI/index.m3u8",
+      "-1": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "0": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/yuIm1V7Ne7I/index.m3u8",
+      "1": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/3nyPER2kzqk/index.m3u8",
+      "2": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/LAJiFSw2ICc/index.m3u8",
+      "3": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
+      "4": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/JboXN7CuKxc/index.m3u8",
+      "5": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/JboXN7CuKxc/index.m3u8",
+      "6": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/FBYUkqutqzE/index.m3u8",
+      "7": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/z7SiAaN4ogw/index.m3u8",
+      "8": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/3szkFHfr6sA/index.m3u8",
+      "9": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "10": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/5uZa3-RMFos/index.m3u8",
+      "11": "https://cuisine-deeper-problems-scuba.trycloudflare.com/stream/BQR800Gu28g/index.m3u8",
       "12": "shors-refresh"
     };
-    // Force single hosted combo stream via Cloudflare Quick Tunnel
-    const COMBO_STREAM_URL = "https://term-helicopter-kit-expressed.trycloudflare.com/hls-temp/test.html?";
-    Object.keys(backgroundStreams).forEach((k) => { backgroundStreams[k] = COMBO_STREAM_URL; });
 
 
     let currentVideoIndex = 0;
