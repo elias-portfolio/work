@@ -300,6 +300,23 @@ color: red;
     // Add this variable to track current video index
     let currentVideoIndex = 0;
 
+    function getAutoOffset() {
+      let offset = (2 - new Date().getUTCHours() + 24) % 24;
+      return offset > 12 ? offset - 24 : offset;
+    }
+
+    function syncStationToOffset(offset) {
+      const newStream = radioStreams[offset];
+      if (newStream && audio.src !== newStream) {
+        audio.src = newStream;
+        audio.load();
+        audio.play().catch(console.error);
+      }
+
+      updateBackground(offset);
+      updateHighlights(offset);
+    }
+
     function updateBackground(offset) {
       let newBg = backgroundStreams[offset];
 
@@ -543,29 +560,20 @@ color: red;
 
     function updateClock() {
       const now = new Date();
+
+      if (!manualOffset) {
+        const autoOffset = getAutoOffset();
+        if (virtualOffset !== autoOffset) {
+          virtualOffset = autoOffset;
+          syncStationToOffset(virtualOffset);
+        }
+      }
+
       // Calculate time in the selected timezone: UTC + virtualOffset
       const utcHours = now.getUTCHours();
       const timezoneHours = (utcHours + virtualOffset + 24) % 24;
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const seconds = now.getSeconds().toString().padStart(2, '0');
-      
-      // Only auto-update virtualOffset if user hasn't manually changed it
-      // AND we're not already showing 2 AM in the current timezone
-      if (minutes === "59" && seconds === "59" && !manualOffset && timezoneHours !== 2) {
-        setTimeout(() => {
-          virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
-          virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
-          
-          const newStream = radioStreams[virtualOffset];
-          if (newStream) {
-            audio.src = newStream;
-            audio.play().catch(console.error);
-          }
-          
-          updateBackground(virtualOffset);
-          updateHighlights(virtualOffset);
-        }, 1000);
-      }
       
       // Show time in the selected timezone
       const hours = timezoneHours.toString().padStart(2, '0');
@@ -677,10 +685,15 @@ color: red;
 
     // Add hide UI functionality
     document.getElementById("hideUI").addEventListener("click", () => {
+      const hideUIButton = document.getElementById("hideUI");
       const zones = document.querySelectorAll('.zone:not(#hideUI)');
+      const isHidden = Array.from(zones).every(zone => zone.style.display === 'none');
+
       zones.forEach(zone => {
-        zone.style.display = zone.style.display === 'none' ? '' : 'none';
+        zone.style.display = isHidden ? '' : 'none';
       });
+
+      hideUIButton.textContent = isHidden ? 'hide text' : 'show text';
     });
 
     // Add clock mode functionality
