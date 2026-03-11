@@ -302,12 +302,6 @@ color: red;
 
     function updateBackground(offset) {
       let newBg = backgroundStreams[offset];
-      
-      // COMBO_STREAM_URL OVERRIDE
-      const COMBO_STREAM_URL = "https://existing-themselves-bathrooms-inclusive.trycloudflare.com/hls-temp/test.html?";
-      if (COMBO_STREAM_URL) {
-        newBg = COMBO_STREAM_URL;
-      }
 
       const bgFrame = document.getElementById("bg-frame");
       const bgVideo = document.getElementById("bg-video");
