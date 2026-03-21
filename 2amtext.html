@@ -396,7 +396,7 @@ color: red;
               setTimeout(() => bgVideo.play().catch(console.error), 100);
             });
           }
-        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4') || newBg.endsWith('.m3u8')) {
+        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
           // Handle single video file
           bgFrame.style.display = 'none';
           bgVideo.style.display = 'block';
