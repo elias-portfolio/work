@@ -437,7 +437,7 @@ color: red;
           bgVideo.style.border = "none";
           bgVideo.style.zIndex = "0";
           bgVideo.style.objectFit = "cover";
-          bgVideo.muted = true;
+          bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
           // Use hls.js if needed
           if (window.hls) {
             window.hls.destroy();
@@ -499,7 +499,7 @@ color: red;
       
       // Force HTML5 video to be muted
       if (bgVideo && bgVideo.style.display !== 'none') {
-        bgVideo.muted = true;
+        bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
       }
       
       // Force YouTube iframe to be muted using both API and postMessage
