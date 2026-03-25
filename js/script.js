@@ -888,7 +888,7 @@ const radioStreams = {
     "6": "https://www.muso.fm/api/proxy-stream?url=http%3A%2F%2F94.130.113.214%3A8000%2Fschizoid",
     "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
     "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
-    "9": "https://uk5.internet-radio.com/proxy/mmr?mp=/stream",
+    "9": "https://kathy.torontocast.com:3330/;",
     "10": "https://radio.beshknow.com/beshknow",
     "11": "https://stream.tbc.radio:8000/radio.mp3",
     "12": "https://radio.kamchatkalive.ru:8103/dance"
