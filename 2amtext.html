@@ -173,7 +173,7 @@ color: red;
       "-11": "https://stream-relay-geo.ntslive.net/stream",
       "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
       "-9": "https://stream.ktuh.org:8001/stream",
-      "-8": "https://clothes-major-municipal-backgrounds.trycloudflare.com/radio-proxy?url=http://s26.myradiostream.com:17824/",
+      "-8": "https://contrary-teacher-judicial-reflected.trycloudflare.com/radio-proxy?url=http://s26.myradiostream.com:17824/",
       "-7": "https://dublab.out.airtime.pro/dublab_a",
       "-6": "https://radio.mensajito.mx/nopalVentana",
       "-5": "https://edge.mixlr.com/channel/ibrdq",
@@ -182,18 +182,46 @@ color: red;
       "-2": "https://live.visir.is/hls-radio/fm957/playlist.m3u8",
       "-1": "https://listen.radioking.com/radio/281506/stream/327253",
       "0": "https://oroko-radio.radiocult.fm/stream",
-      "1": "https://clothes-major-municipal-backgrounds.trycloudflare.com/radio-proxy?url=http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
+      "1": "https://contrary-teacher-judicial-reflected.trycloudflare.com/radio-proxy?url=http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
       "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
       "3": "https://20ft-radio.radiocult.fm/stream",
       "4": "https://stream.radiojar.com/78cxy6wkxtzuv",
-      "5": "https://clothes-major-municipal-backgrounds.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/dubtechno",
-      "6": "https://clothes-major-municipal-backgrounds.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/schizoid",
+      "5": "https://contrary-teacher-judicial-reflected.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/dubtechno",
+      "6": "https://contrary-teacher-judicial-reflected.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/schizoid",
       "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
       "8": "https://listen.belowground.fm/radio/8000/radio.mp3",
       "9": "https://shonanbeachfm.out.airtime.pro/shonanbeachfm_a",
       "10": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
       "11": "https://stream.tbc.radio:8000/radio.mp3",
       "12": "https://radio.kamchatkalive.ru:8103/dance"
+    };
+
+    const streamAliases = {
+      "-12": "NTS",
+      "-11": "NTS",
+      "-10": "divine",
+      "-9": "ktuh",
+      "-8": "aurora",
+      "-7": "dublab",
+      "-6": "mensajito",
+      "-5": "yard",
+      "-4": "radiocult",
+      "-3": "brlogic",
+      "-2": "fm957",
+      "-1": "radioking",
+      "0": "oroko",
+      "1": "RTÉ 1",
+      "2": "cashmere",
+      "3": "20ft",
+      "4": "radiojar",
+      "5": "schizoid dub",
+      "6": "schizoid psy",
+      "7": "zeno",
+      "8": "belowground",
+      "9": "shonan",
+      "10": "3CR",
+      "11": "TBC",
+      "12": "dance"
     };
 
     const placeholderCities = [
@@ -220,7 +248,7 @@ color: red;
 
     const grid = document.getElementById("radio-zones");
     const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
-    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url })));
+    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url, label: streamAliases[key] || 'signal' })));
     const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
     const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
 
@@ -240,7 +268,7 @@ color: red;
         html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
       } else if (block.type === 'stream') {
         if (parseInt(block.key) === adjustedOffset) className += ' stream';
-        html = `${block.url}`;
+        html = `${block.label}`;
       } else if (block.type === 'location') {
         if (block.key === String(adjustedOffset)) className += ' location';
         html = `${block.name}`;
@@ -250,6 +278,8 @@ color: red;
 
       const div = document.createElement('div');
       div.className = className;
+      div.dataset.blockType = block.type;
+      if (block.key !== undefined) div.dataset.key = block.key;
       div.innerHTML = html;
       grid.appendChild(div);
     });
@@ -265,30 +295,30 @@ color: red;
     }
   
     const backgroundStreams = {
-      "-12": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
-      "-11": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
-      "-10": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/zPH5KtjJFaQ/index.m3u8",
-      "-9": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/gXKuUyKt8mc/index.m3u8",
-      "-8": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/61pi8UjLOlo/index.m3u8",
-      "-7": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/EO_1LWqsCNE/index.m3u8",
-      "-6": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/uV3wWHSvkfs/index.m3u8",
-      "-5": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/cVpdwCQ7LEc/index.m3u8",
-      "-4": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/AGCEEBwRUc0/index.m3u8",
-      "-3": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/ykwaa3bprM8/index.m3u8",
-      "-2": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
-      "-1": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
-      "0": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/yuIm1V7Ne7I/index.m3u8",
-      "1": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/3nyPER2kzqk/index.m3u8",
-      "2": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/IRqboacDNFg/index.m3u8",
-      "3": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
-      "4": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/jW1iafrSouA/index.m3u8",
-      "5": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/Ud4Eptg01gc/index.m3u8",
-      "6": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/FBYUkqutqzE/index.m3u8",
-      "7": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/DSRm7V_bsm8/index.m3u8",
-      "8": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
-      "9": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
-      "10": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/5uZa3-RMFos/index.m3u8",
-      "11": "https://clothes-major-municipal-backgrounds.trycloudflare.com/stream/BQR800Gu28g/index.m3u8",
+      "-12": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-11": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-10": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/zPH5KtjJFaQ/index.m3u8",
+      "-9": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/gXKuUyKt8mc/index.m3u8",
+      "-8": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/61pi8UjLOlo/index.m3u8",
+      "-7": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/EO_1LWqsCNE/index.m3u8",
+      "-6": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/uV3wWHSvkfs/index.m3u8",
+      "-5": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/cVpdwCQ7LEc/index.m3u8",
+      "-4": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/AGCEEBwRUc0/index.m3u8",
+      "-3": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/ykwaa3bprM8/index.m3u8",
+      "-2": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "-1": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "0": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/yuIm1V7Ne7I/index.m3u8",
+      "1": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/3nyPER2kzqk/index.m3u8",
+      "2": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/IRqboacDNFg/index.m3u8",
+      "3": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
+      "4": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/jW1iafrSouA/index.m3u8",
+      "5": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/Ud4Eptg01gc/index.m3u8",
+      "6": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/FBYUkqutqzE/index.m3u8",
+      "7": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/DSRm7V_bsm8/index.m3u8",
+      "8": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "9": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "10": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/5uZa3-RMFos/index.m3u8",
+      "11": "https://contrary-teacher-judicial-reflected.trycloudflare.com/stream/BQR800Gu28g/index.m3u8",
       "12": "shors-refresh"
     };
 
@@ -604,13 +634,13 @@ color: red;
       });
 
       document.querySelectorAll('#radio-zones .zone').forEach(zone => {
-        if (zone.textContent.startsWith('gmt')) {
-          if (zone.textContent.includes(`${offset >= 0 ? '+' : ''}${offset}`)) {
+        if (zone.dataset.blockType === 'gmt') {
+          if (zone.dataset.key === String(offset)) {
             zone.classList.add('gmt');
           }
-        } else if (radioStreams[offset] && zone.textContent.includes(radioStreams[offset])) {
+        } else if (zone.dataset.blockType === 'stream' && zone.dataset.key === String(offset)) {
           zone.classList.add('stream');
-        } else if (streamLocations[offset] && zone.textContent === streamLocations[offset]) {
+        } else if (zone.dataset.blockType === 'location' && zone.dataset.key === String(offset)) {
           zone.classList.add('location');
         }
       });
