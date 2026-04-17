@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2AM RADIO Admin</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0a0a;
+      --fg: #f4f0e8;
+      --muted: #9d9688;
+      --line: rgba(255,255,255,0.12);
+      --panel: #141414;
+      --accent: #f2eb0c;
+      --accent-2: #ff3800;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 1.1fr) minmax(300px, 0.9fr);
+      min-height: 100vh;
+    }
+
+    .viewer {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      background: #000;
+      border-right: 1px solid var(--line);
+    }
+
+    .viewer iframe,
+    .viewer img {
+      width: 100%;
+      height: 100vh;
+      border: 0;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .panel-wrap {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 16px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 40px);
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .meta,
+    .nav,
+    .link-grid,
+    .picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button,
+    select,
+    a.link,
+    .meta-pill {
+      border: 1px solid var(--line);
+      background: #1d1d1d;
+      color: var(--fg);
+      padding: 9px 12px;
+      text-decoration: none;
+      font: inherit;
+    }
+
+    button { cursor: pointer; }
+    button:hover, a.link:hover { border-color: var(--accent-2); }
+
+    .highlight {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      color: #fff;
+    }
+
+    .muted { color: var(--muted); }
+
+    audio {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      border-top: 1px solid var(--line);
+      padding: 10px 8px;
+      vertical-align: top;
+    }
+
+    tr.active-row {
+      background: rgba(255, 56, 0, 0.12);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tiny {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .viewer {
+        position: relative;
+        min-height: 48vh;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .viewer iframe,
+      .viewer img {
+        height: 48vh;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+  <main class="layout">
+    <section class="viewer" id="viewer"></section>
+
+    <section class="panel-wrap">
+      <section class="panel">
+        <div class="eyebrow">Admin direct mode</div>
+        <h1 id="title">Loading…</h1>
+        <div class="meta" id="meta"></div>
+        <audio id="audio" controls preload="none"></audio>
+        <p class="tiny" id="status">Resolving stream data…</p>
+      </section>
+
+      <section class="panel">
+        <h2>Browse</h2>
+        <div class="nav">
+          <button id="prevBtn">Previous</button>
+          <button id="currentBtn">Jump to current 2AM</button>
+          <button id="nextBtn">Next</button>
+        </div>
+        <div class="picker" style="margin-top: 10px;">
+          <select id="offsetPicker"></select>
+          <button id="loadBtn" class="highlight">Load slot</button>
+          <a class="link" href="./2amtext.html">Open public one-stream view</a>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Direct links</h2>
+        <div class="link-grid" id="linkGrid"></div>
+        <p class="tiny">Each selection only mounts one video and one audio source. That was the whole point.</p>
+      </section>
+
+      <section class="panel">
+        <h2>All zones</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Zone</th>
+              <th>City</th>
+              <th>Station</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="zoneTable"></tbody>
+        </table>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const viewerEl = document.getElementById('viewer');
+    const titleEl = document.getElementById('title');
+    const metaEl = document.getElementById('meta');
+    const statusEl = document.getElementById('status');
+    const audioEl = document.getElementById('audio');
+    const offsetPickerEl = document.getElementById('offsetPicker');
+    const linkGridEl = document.getElementById('linkGrid');
+    const zoneTableEl = document.getElementById('zoneTable');
+
+    let data = null;
+    let selectedOffset = null;
+    let hlsInstance = null;
+
+    function getCurrentOffset() {
+      const utcHour = new Date().getUTCHours();
+      const raw = (2 - utcHour + 24) % 24;
+      return raw > 12 ? raw - 24 : raw;
+    }
+
+    function offsetLabel(offset) {
+      return `GMT ${offset >= 0 ? '+' : ''}${offset}`;
+    }
+
+    function zoneTime(offset) {
+      const now = new Date();
+      const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+      const zoneDate = new Date(utcMs + offset * 3600000);
+      return zoneDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function videoWatchUrl(video) {
+      if (!video) return null;
+      if (video.type === 'youtube' && video.id) return `https://www.youtube.com/watch?v=${video.id}`;
+      return video.url || video.embed_url || null;
+    }
+
+    function attachAudio(stream) {
+      if (hlsInstance) {
+        hlsInstance.destroy();
+        hlsInstance = null;
+      }
+
+      audioEl.pause();
+      audioEl.removeAttribute('src');
+      audioEl.load();
+
+      if (!stream?.url) return;
+
+      const isHls = stream.format === 'hls' || stream.url.includes('.m3u8');
+      if (isHls && window.Hls && Hls.isSupported()) {
+        hlsInstance = new Hls();
+        hlsInstance.loadSource(stream.url);
+        hlsInstance.attachMedia(audioEl);
+      } else {
+        audioEl.src = stream.url;
+      }
+
+      audioEl.play().then(() => {
+        statusEl.textContent = 'Live. Manual browse, but still only one loaded slot.';
+      }).catch(() => {
+        statusEl.textContent = 'Loaded. Press play if autoplay gets precious.';
+      });
+    }
+
+    function renderViewer(video) {
+      viewerEl.innerHTML = '';
+      window.clearInterval(window.__adminImageRefreshInterval);
+
+      if (!video) return;
+
+      if (video.type === 'youtube' && video.embed_url) {
+        const iframe = document.createElement('iframe');
+        iframe.src = video.embed_url;
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        viewerEl.appendChild(iframe);
+        return;
+      }
+
+      if (video.type === 'image_refresh' && video.url) {
+        const image = document.createElement('img');
+        const refresh = () => {
+          image.src = `${video.url}${video.url.includes('?') ? '&' : '?'}t=${Date.now()}`;
+        };
+        refresh();
+        viewerEl.appendChild(image);
+        if (video.refresh_interval_ms) {
+          window.__adminImageRefreshInterval = window.setInterval(refresh, video.refresh_interval_ms);
+        }
+      }
+    }
+
+    function renderMeta(offset, city, audio, video) {
+      const bits = [
+        offsetLabel(offset),
+        `${zoneTime(offset)} local`,
+        city,
+        audio?.station || 'No station',
+        video?.title || 'No video metadata'
+      ];
+      metaEl.innerHTML = bits.map(bit => `<span class="meta-pill">${bit}</span>`).join('');
+    }
+
+    function renderLinks(offset, audio, video) {
+      const direct = [
+        { label: 'Audio direct', href: audio?.url },
+        { label: 'Video direct', href: videoWatchUrl(video) },
+        { label: 'Embed URL', href: video?.embed_url },
+        { label: 'This slot permalink', href: `?offset=${offset}` }
+      ].filter(item => item.href);
+
+      linkGridEl.innerHTML = direct
+        .map(item => `<a class="link" href="${item.href}" target="_blank" rel="noreferrer">${item.label}</a>`)
+        .join('');
+    }
+
+    function renderTable() {
+      const offsets = Object.keys(data.streamLocations).map(Number).sort((a, b) => a - b);
+      zoneTableEl.innerHTML = offsets.map(offset => {
+        const key = String(offset);
+        const city = data.streamLocations[key] || 'Unknown';
+        const audio = data.audioStreams[key];
+        const video = data.videoStreams[key];
+        const active = offset === selectedOffset ? 'active-row' : '';
+        return `
+          <tr class="${active}">
+            <td>${offsetLabel(offset)}</td>
+            <td>${city}</td>
+            <td>${audio?.station || '—'}</td>
+            <td>
+              <div class="table-actions">
+                <button data-offset="${offset}">Load</button>
+                ${audio?.url ? `<a class="link" href="${audio.url}" target="_blank" rel="noreferrer">Audio</a>` : ''}
+                ${videoWatchUrl(video) ? `<a class="link" href="${videoWatchUrl(video)}" target="_blank" rel="noreferrer">Video</a>` : ''}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      zoneTableEl.querySelectorAll('button[data-offset]').forEach(button => {
+        button.addEventListener('click', () => loadOffset(Number(button.dataset.offset)));
+      });
+    }
+
+    function populatePicker() {
+      const offsets = Object.keys(data.streamLocations).map(Number).sort((a, b) => a - b);
+      offsetPickerEl.innerHTML = offsets.map(offset => {
+        const city = data.streamLocations[String(offset)] || 'Unknown';
+        return `<option value="${offset}">${offsetLabel(offset)} · ${city}</option>`;
+      }).join('');
+    }
+
+    function updateUrl(offset) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('offset', offset);
+      history.replaceState({}, '', url);
+    }
+
+    function loadOffset(offset) {
+      selectedOffset = offset;
+      offsetPickerEl.value = String(offset);
+      updateUrl(offset);
+
+      const key = String(offset);
+      const city = data.streamLocations[key] || 'Unknown';
+      const audio = data.audioStreams[key];
+      const video = data.videoStreams[key];
+
+      titleEl.textContent = city;
+      renderMeta(offset, city, audio, video);
+      renderLinks(offset, audio, video);
+      renderViewer(video);
+      attachAudio(audio);
+      renderTable();
+    }
+
+    async function boot() {
+      const response = await fetch('./stream-data.json');
+      data = await response.json();
+      populatePicker();
+
+      const requested = Number(new URLSearchParams(window.location.search).get('offset'));
+      const initialOffset = Number.isFinite(requested) ? requested : getCurrentOffset();
+      loadOffset(initialOffset);
+
+      document.getElementById('prevBtn').addEventListener('click', () => loadOffset(Math.max(-12, selectedOffset - 1)));
+      document.getElementById('nextBtn').addEventListener('click', () => loadOffset(Math.min(12, selectedOffset + 1)));
+      document.getElementById('currentBtn').addEventListener('click', () => loadOffset(getCurrentOffset()));
+      document.getElementById('loadBtn').addEventListener('click', () => loadOffset(Number(offsetPickerEl.value)));
+    }
+
+    boot().catch(error => {
+      console.error(error);
+      titleEl.textContent = 'Admin view unavailable';
+      statusEl.textContent = 'Could not load stream metadata.';
+    });
+  </script>
+</body>
+</html>

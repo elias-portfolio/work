@@ -1,0 +1,338 @@
+{
+  "metadata": {
+    "project": "2AM RADIO",
+    "description": "Timezone-based web radio showing live streams from cities where it's 2AM",
+    "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
+    "generated_at": "2026-04-16",
+    "version": "resurrection-scaffold-v1"
+  },
+  "streamLocations": {
+    "-12": "Deadzone",
+    "-11": "Deadzone",
+    "-10": "Deep Sea",
+    "-9": "Honolulu",
+    "-8": "Alaska",
+    "-7": "Los Angeles",
+    "-6": "Mexico City",
+    "-5": "Kingston",
+    "-4": "Montreal",
+    "-3": "Brasilia",
+    "-2": "Rejkavik",
+    "-1": "Capo Verde",
+    "0": "Ghana",
+    "1": "Dublin",
+    "2": "Berlin",
+    "3": "Kyiv",
+    "4": "Bethlehem",
+    "5": "Karachi",
+    "6": "Goa",
+    "7": "Jakkarta",
+    "8": "Chengdu",
+    "9": "Tokyo",
+    "10": "Melbourne",
+    "11": "Auckland",
+    "12": "Kamchatka"
+  },
+  "audioStreams": {
+    "-12": {
+      "url": "https://stream-relay-geo.ntslive.net/stream",
+      "status": "working",
+      "station": "NTS Live"
+    },
+    "-11": {
+      "url": "https://stream-relay-geo.ntslive.net/stream",
+      "status": "working",
+      "station": "NTS Live"
+    },
+    "-10": {
+      "url": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+      "status": "working",
+      "station": "Divine Radio London"
+    },
+    "-9": {
+      "url": "http://178.159.3.22:8307/stream",
+      "status": "working",
+      "station": "Unknown Hawaii"
+    },
+    "-8": {
+      "url": "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445",
+      "status": "working",
+      "station": "MyRadioStream"
+    },
+    "-7": {
+      "url": "https://dublab.out.airtime.pro/dublab_a",
+      "status": "working",
+      "station": "Dublab"
+    },
+    "-6": {
+      "url": "https://s2.mexside.net/8020/stream",
+      "status": "working",
+      "station": "Mexside"
+    },
+    "-5": {
+      "url": "https://edge.mixlr.com/channel/ibrdq",
+      "status": "working",
+      "station": "Mixlr Channel"
+    },
+    "-4": {
+      "url": "https://n10as.radiocult.fm/stream",
+      "status": "working",
+      "station": "N10AS"
+    },
+    "-3": {
+      "url": "https://servidor24-1.brlogic.com:7516/live",
+      "status": "working",
+      "station": "Brlogic"
+    },
+    "-2": {
+      "url": "https://live.visir.is/hls-radio/fm957/playlist.m3u8",
+      "status": "working",
+      "station": "FM957 Iceland (HLS)",
+      "format": "hls"
+    },
+    "-1": {
+      "url": "https://listen.radioking.com/radio/281506/stream/327253",
+      "status": "working",
+      "station": "RadioKing"
+    },
+    "0": {
+      "url": "https://oroko-radio.radiocult.fm/stream",
+      "status": "working",
+      "station": "Oroko Radio"
+    },
+    "1": {
+      "url": "http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
+      "status": "working",
+      "station": "RTE 1 Ireland"
+    },
+    "2": {
+      "url": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+      "status": "working",
+      "station": "Cashmere Radio"
+    },
+    "3": {
+      "url": "https://20ft-radio.radiocult.fm/stream",
+      "status": "working",
+      "station": "20ft Radio"
+    },
+    "4": {
+      "url": "https://www.radioalhara.net/stream",
+      "status": "working",
+      "station": "Radio Alhara"
+    },
+    "5": {
+      "url": "https://whmsonic.radio.gov.pk:7003/stream",
+      "status": "working",
+      "station": "Radio Pakistan"
+    },
+    "6": {
+      "url": "http://ice1.somafm.com/suburbsofgoa-128-mp3",
+      "status": "working",
+      "station": "SomaFM Suburbs of Goa"
+    },
+    "7": {
+      "url": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+      "status": "working",
+      "station": "Zeno FM Jakarta"
+    },
+    "8": {
+      "url": "http://ngcdn002.cnr.cn/live/jjzs/index.m3u8",
+      "status": "working",
+      "station": "CNR China (HLS)",
+      "format": "hls"
+    },
+    "9": {
+      "url": "https://jenny.torontocast.com:2000/stream/J1HITS",
+      "status": "working",
+      "station": "J1 Hits Tokyo"
+    },
+    "10": {
+      "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
+      "status": "working",
+      "station": "3CR Melbourne"
+    },
+    "11": {
+      "url": "https://stream.tbc.radio:8000/radio.mp3",
+      "status": "working",
+      "station": "TBC Radio"
+    },
+    "12": {
+      "url": "https://radio.kamchatkalive.ru:8103/dance",
+      "status": "working",
+      "station": "Kamchatka Live"
+    }
+  },
+  "videoStreams": {
+    "-12": {
+      "type": "youtube",
+      "id": "og8bbxl0iW8",
+      "title": "Shark Cam powered by EXPLORE.org",
+      "embed_url": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080&enablejsapi=1"
+    },
+    "-11": {
+      "type": "youtube",
+      "id": "og8bbxl0iW8",
+      "title": "Shark Cam powered by EXPLORE.org",
+      "embed_url": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080&enablejsapi=1"
+    },
+    "-10": {
+      "type": "youtube",
+      "id": "og8bbxl0iW8",
+      "title": "Shark Cam powered by EXPLORE.org",
+      "embed_url": "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080"
+    },
+    "-9": {
+      "type": "youtube",
+      "id": "tk0tfYDxrUA",
+      "title": "Kīlauea volcano, Hawaii",
+      "embed_url": "https://www.youtube.com/embed/tk0tfYDxrUA?autoplay=1&mute=1&controls=0&loop=1&playlist=tk0tfYDxrUA&vq=hd1080"
+    },
+    "-8": {
+      "type": "youtube",
+      "id": "61pi8UjLOlo",
+      "title": "Alaska live cam (replaced)",
+      "embed_url": "https://www.youtube.com/embed/61pi8UjLOlo?autoplay=1&mute=1&controls=0&loop=1&playlist=61pi8UjLOlo&vq=hd1080&enablejsapi=1",
+      "replaced": true
+    },
+    "-7": {
+      "type": "youtube",
+      "id": "EO_1LWqsCNE",
+      "title": "Los Angeles live cam (replaced)",
+      "embed_url": "https://www.youtube.com/embed/EO_1LWqsCNE?autoplay=1&mute=1&controls=0&loop=1&playlist=EO_1LWqsCNE&vq=hd1080&enablejsapi=1",
+      "replaced": true
+    },
+    "-6": {
+      "type": "youtube",
+      "id": "uV3wWHSvkfs",
+      "title": "Mexico City live cam (replaced)",
+      "embed_url": "https://www.youtube.com/embed/uV3wWHSvkfs?autoplay=1&mute=1&controls=0&loop=1&playlist=uV3wWHSvkfs&vq=hd1080&enablejsapi=1",
+      "replaced": true
+    },
+    "-5": {
+      "type": "youtube",
+      "id": "cVpdwCQ7LEc",
+      "title": "Kingston/Jamaica",
+      "embed_url": "https://www.youtube.com/embed/cVpdwCQ7LEc?autoplay=1&mute=1&controls=0&loop=1&playlist=cVpdwCQ7LEc&vq=hd1080&enablejsapi=1"
+    },
+    "-4": {
+      "type": "youtube",
+      "id": "fIMbMz2P7Bs",
+      "title": "Revelstoke Train Camera",
+      "embed_url": "https://www.youtube.com/embed/fIMbMz2P7Bs?autoplay=1&mute=1&controls=0&loop=1&playlist=fIMbMz2P7Bs&vq=hd1080"
+    },
+    "-3": {
+      "type": "youtube",
+      "id": "z7SiAaN4ogw",
+      "title": "Brasilia",
+      "embed_url": "https://www.youtube.com/embed/z7SiAaN4ogw?autoplay=1&mute=1&controls=0&loop=1&playlist=z7SiAaN4ogw&vq=hd1080&enablejsapi=1"
+    },
+    "-2": {
+      "type": "youtube",
+      "id": "9GZNvSw3kMg",
+      "title": "Reykjavik",
+      "embed_url": "https://www.youtube.com/embed/9GZNvSw3kMg?autoplay=1&mute=1&controls=0&loop=1&playlist=9GZNvSw3kMg&vq=hd1080&enablejsapi=1"
+    },
+    "-1": {
+      "type": "youtube",
+      "id": "loHbMM9JfCs",
+      "title": "Cape Verde",
+      "embed_url": "https://www.youtube.com/embed/loHbMM9JfCs?autoplay=1&mute=1&controls=0&loop=1&playlist=loHbMM9JfCs&vq=hd1080&enablejsapi=1"
+    },
+    "0": {
+      "type": "youtube",
+      "id": "yuIm1V7Ne7I",
+      "title": "Onguma Waterhole - Namibia",
+      "embed_url": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&vq=hd1080"
+    },
+    "1": {
+      "type": "youtube",
+      "id": "3nyPER2kzqk",
+      "title": "Dublin (replaced)",
+      "embed_url": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080&enablejsapi=1",
+      "replaced": true
+    },
+    "2": {
+      "type": "youtube",
+      "id": "IRqboacDNFg",
+      "title": "Berlin (replaced)",
+      "embed_url": "https://www.youtube.com/embed/IRqboacDNFg?autoplay=1&mute=1&controls=0&loop=1&playlist=IRqboacDNFg&vq=hd1080&enablejsapi=1",
+      "replaced": true
+    },
+    "3": {
+      "type": "youtube",
+      "id": "e2gC37ILQmk",
+      "title": "Ukraine live cam multiple cities",
+      "embed_url": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080"
+    },
+    "4": {
+      "type": "youtube",
+      "id": "RaNgtybeMAM",
+      "title": "Bethlehem",
+      "embed_url": "https://www.youtube.com/embed/RaNgtybeMAM?autoplay=1&mute=1&controls=0&loop=1&playlist=RaNgtybeMAM&vq=hd1080&enablejsapi=1"
+    },
+    "5": {
+      "type": "youtube",
+      "id": "FBYUkqutqzE",
+      "title": "Karachi/Goa (shared)",
+      "embed_url": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080&enablejsapi=1"
+    },
+    "6": {
+      "type": "youtube",
+      "id": "FBYUkqutqzE",
+      "title": "Karachi/Goa (shared)",
+      "embed_url": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080&enablejsapi=1"
+    },
+    "7": {
+      "type": "youtube",
+      "id": "z7SiAaN4ogw",
+      "title": "Jakarta (shared with -3)",
+      "embed_url": "https://www.youtube.com/embed/z7SiAaN4ogw?autoplay=1&mute=1&controls=0&loop=1&playlist=z7SiAaN4ogw&vq=hd1080&enablejsapi=1"
+    },
+    "8": {
+      "type": "youtube",
+      "id": "3szkFHfr6sA",
+      "title": "Wolong Grove Panda Cam",
+      "embed_url": "https://www.youtube.com/embed/3szkFHfr6sA?autoplay=1&mute=1&controls=0&loop=1&playlist=3szkFHfr6sA&vq=hd1080"
+    },
+    "9": {
+      "type": "youtube",
+      "id": "DjdUEyjx8GM",
+      "title": "Tokyo Shinjuku Kabukicho Live",
+      "embed_url": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&vq=hd1080"
+    },
+    "10": {
+      "type": "youtube",
+      "id": "5uZa3-RMFos",
+      "title": "WebcamSydney Harbour",
+      "embed_url": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&vq=hd1080"
+    },
+    "11": {
+      "type": "youtube",
+      "id": "BQR800Gu28g",
+      "title": "Auckland (replaced)",
+      "embed_url": "https://www.youtube.com/embed/BQR800Gu28g?autoplay=1&mute=1&controls=0&loop=1&playlist=BQR800Gu28g&vq=hd1080&enablejsapi=1",
+      "replaced": true
+    },
+    "12": {
+      "type": "image_refresh",
+      "url": "https://www.shors.ru/images/camera/image96.jpg",
+      "title": "Kamchatka Shors Camera",
+      "refresh_interval_ms": 60000,
+      "note": "Auto-refreshing static image instead of YouTube"
+    }
+  },
+  "placeholderCities": [
+    "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva",
+    "Hanoi", "Istanbul", "Jakarta", "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi",
+    "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran", "Vienna",
+    "Warsaw", "Zagreb", "Amsterdam", "Belgrade", "Copenhagen", "Dublin", "Helsinki",
+    "Jerusalem", "Lima", "Manila", "Ottawa", "Reykjavik", "Singapore", "Tallinn",
+    "Valencia", "Wellington", "Xi'an", "Yerevan", "Zurich", "Bangkok", "Cape Town",
+    "Cologne", "Damascus", "Edmonton", "Frankfurt", "Guadalajara", "Hamburg",
+    "Islamabad", "Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples",
+    "Osaka", "Perth", "Quito", "Rome", "Seoul", "Toronto", "Vancouver", "Xiamen",
+    "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
+    "Kathmandu", "Luxembourg", "Marseille", "Nicosia", "Panama City", "Rabat",
+    "Sarajevo", "Tunis", "Ulaanbaatar"
+  ]
+}
