@@ -29,7 +29,8 @@
 
     #background,
     #background iframe,
-    #background img {
+    #background img,
+    #background video {
       position: fixed;
       inset: 0;
       width: 100%;
@@ -171,7 +172,7 @@
       <div class="panel">
         <div class="eyebrow">Direct access</div>
         <div class="links" id="links"></div>
-        <p class="tiny">This build streams one zone at a time. No tunnel. No ffmpeg fanfare. Just the active 2AM slot.</p>
+        <p class="tiny">This build streams one zone at a time through the tunnel. Admin still lives next door.</p>
       </div>
     </section>
   </main>
@@ -187,7 +188,10 @@
     const zoneStripEl = document.getElementById('zoneStrip');
     const linksEl = document.getElementById('links');
 
+    const TUNNEL_BASE = 'https://identification-sodium-letters-complicated.trycloudflare.com';
+
     let hlsInstance = null;
+    let bgHlsInstance = null;
 
     function getCurrentOffset() {
       const utcHour = new Date().getUTCHours();
@@ -212,9 +216,73 @@
       return video.url || video.embed_url || null;
     }
 
+    function tunnelVideoUrl(video) {
+      if (!video || video.type !== 'youtube' || !video.id || !TUNNEL_BASE) return null;
+      return `${TUNNEL_BASE}/stream/${video.id}/index.m3u8`;
+    }
+
+    function resolvedAudioUrl(stream) {
+      if (!stream?.url) return null;
+
+      const isInsecure = stream.url.startsWith('http://');
+      const isHls = stream.format === 'hls' || stream.url.includes('.m3u8');
+
+      if (isInsecure && !isHls && TUNNEL_BASE) {
+        return `${TUNNEL_BASE}/radio-proxy?url=${encodeURIComponent(stream.url)}`;
+      }
+
+      return stream.url;
+    }
+
     function setBackground(video) {
+      if (bgHlsInstance) {
+        bgHlsInstance.destroy();
+        bgHlsInstance = null;
+      }
+
+      window.clearInterval(window.__imageRefreshInterval);
       backgroundEl.innerHTML = '';
       if (!video) return;
+
+      const proxiedVideo = tunnelVideoUrl(video);
+      if (proxiedVideo) {
+        const media = document.createElement('video');
+        media.autoplay = true;
+        media.muted = true;
+        media.loop = true;
+        media.playsInline = true;
+        media.preload = 'auto';
+        media.setAttribute('aria-hidden', 'true');
+        backgroundEl.appendChild(media);
+
+        const playMedia = () => media.play().catch(() => {});
+
+        if (window.Hls && Hls.isSupported()) {
+          bgHlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true });
+          bgHlsInstance.loadSource(proxiedVideo);
+          bgHlsInstance.attachMedia(media);
+          bgHlsInstance.on(Hls.Events.MANIFEST_PARSED, playMedia);
+          bgHlsInstance.on(Hls.Events.ERROR, (_, data) => {
+            if (data?.fatal && video.embed_url) {
+              if (bgHlsInstance) {
+                bgHlsInstance.destroy();
+                bgHlsInstance = null;
+              }
+              backgroundEl.innerHTML = '';
+              const iframe = document.createElement('iframe');
+              iframe.src = video.embed_url;
+              iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+              iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+              backgroundEl.appendChild(iframe);
+            }
+          });
+        } else {
+          media.src = proxiedVideo;
+          playMedia();
+        }
+
+        return;
+      }
 
       if (video.type === 'youtube' && video.embed_url) {
         const iframe = document.createElement('iframe');
@@ -233,7 +301,6 @@
         refresh();
         backgroundEl.appendChild(image);
         if (video.refresh_interval_ms) {
-          window.clearInterval(window.__imageRefreshInterval);
           window.__imageRefreshInterval = window.setInterval(refresh, video.refresh_interval_ms);
         }
       }
@@ -249,19 +316,20 @@
       audioEl.removeAttribute('src');
       audioEl.load();
 
-      if (!stream || !stream.url) return;
+      const audioUrl = resolvedAudioUrl(stream);
+      if (!audioUrl) return;
 
-      const isHls = stream.format === 'hls' || stream.url.includes('.m3u8');
+      const isHls = stream.format === 'hls' || stream.url.includes('.m3u8') || audioUrl.includes('.m3u8');
       if (isHls && window.Hls && Hls.isSupported()) {
         hlsInstance = new Hls();
-        hlsInstance.loadSource(stream.url);
+        hlsInstance.loadSource(audioUrl);
         hlsInstance.attachMedia(audioEl);
       } else {
-        audioEl.src = stream.url;
+        audioEl.src = audioUrl;
       }
 
       audioEl.play().then(() => {
-        statusEl.textContent = 'Live now. One zone, one stream, no tunnel.';
+        statusEl.textContent = 'Live now. One zone through the tunnel.';
       }).catch(() => {
         statusEl.textContent = 'Ready. Press play if the browser blocks autoplay.';
       });
@@ -280,6 +348,7 @@
       const items = [
         { label: 'admin view', href: './admin.html' },
         audio?.url ? { label: 'audio direct', href: audio.url } : null,
+        tunnelVideoUrl(video) ? { label: 'video via tunnel', href: tunnelVideoUrl(video) } : null,
         directVideoUrl(video) ? { label: 'video direct', href: directVideoUrl(video) } : null
       ].filter(Boolean);
 
