@@ -1,388 +1,751 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>2AM RADIO</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #050505;
-      --fg: #f5f1e8;
-      --muted: #9a9488;
-      --accent: #f2eb0c;
-      --accent-2: #ff3800;
-      --line: rgba(255,255,255,0.14);
-      --panel: rgba(0,0,0,0.62);
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>2AM RADIO</title>
+<style>
+    @font-face {
+      font-family: 'Suisse';
+      src: url('./css/suisse.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
     }
+#background-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background: black;
+}
 
-    * { box-sizing: border-box; }
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.77vh; /* 100 * (16/9) */
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* lets clicks pass through */
+  background: black;
+}
 
+#bg-frame,
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.77777778vh;
+  height: 100vh;
+  transform: translate(-50%, -50%) scale(1.5);
+  transform-origin: center center;
+  pointer-events: none;
+  opacity: 1;
+  border: none;
+  z-index: 0;
+}
+
+#bg-video {
+  object-fit: cover;
+}
     body {
+      
+      color: white;
+      font-family: 'Suisse', sans-serif;
+      font-size: 14px;
       margin: 0;
-      min-height: 100vh;
-      font-family: Inter, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      overflow: hidden;
-    }
-
-    #background,
-    #background iframe,
-    #background img,
-    #background video {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      object-fit: cover;
-      background: #000;
-    }
-
-    #background::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.24), rgba(0,0,0,0.62));
-      pointer-events: none;
-    }
-
-    .shell {
-      position: relative;
-      min-height: 100vh;
+      padding: 10px;
+      text-transform: lowercase;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px;
-      z-index: 1;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
-    .panel {
-      width: min(760px, 100%);
-      background: var(--panel);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--line);
-      padding: 16px 18px;
-    }
-
-    .eyebrow {
-      color: var(--accent);
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: clamp(30px, 5vw, 56px);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-    }
-
-    .meta,
-    .status,
-    .links,
-    .zone-strip {
+    .grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
+      align-content: flex-start;
+      line-height: 1.3;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      box-sizing: border-box;
     }
 
-    .pill,
-    .zone-chip,
-    .link-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--line);
-      padding: 6px 10px;
-      font-size: 13px;
-      color: var(--fg);
-      text-decoration: none;
-      background: rgba(255,255,255,0.04);
+    .zone {
+      margin: 0 8px 0 0;
+      padding: 0;
+
+      white-space: nowrap;
     }
 
-    .zone-chip.active {
-      background: var(--accent-2);
-      border-color: var(--accent-2);
-      color: #fff;
+    .gmt {
+      background-color: #359395;
+      color: white;
+      font-weight: bold;
     }
 
-    .muted { color: var(--muted); }
-
-    .status {
-      margin-top: 12px;
-      font-size: 14px;
+    .location {
+      background-color: #f2eb0c;
+      color: black;
+      font-weight: bold;
     }
 
-    audio {
-      width: min(520px, 100%);
-      margin-top: 16px;
-      filter: saturate(0.9);
+    .stream {
+      background-color: #ff3800;
+      color: white;
+      font-weight: bold;
     }
+  
+.neon-clock {
+color: red;
+	font-size: 14px;
+	animation: pulse 1.5s infinite alternate;
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: 'tnum';
+	font-family: 'Suisse', monospace;
+}
+	
+	
 
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: end;
-    }
+.clock-container {
+  position: fixed;
+  
+}
+.rewind {
+  cursor: pointer;
+  
+}
 
-    .tiny {
-      font-size: 12px;
-      color: var(--muted);
-    }
+.zone img {
+  height: 15px;
+  vertical-align: middle;
+}
 
-    @media (max-width: 720px) {
-      body { overflow: auto; }
-      .shell { min-height: 100dvh; }
-      .footer {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</style>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
-  <div id="background"></div>
+<div id="background-container">
+<div class="video-bg">
+<iframe id="bg-frame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen frameborder="0" playsinline></iframe>
+<video id="bg-video" loop muted playsinline style="display: none"></video>
+</div>
+</div>
+<div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone" id="fullscreen">fullscreen</div><div class="zone" id="hideUI">hide text</div><div class="zone" id="clockMode">clock mode</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
+<audio id="radio-player"></audio>
+<script>
+    const streamLocations = {
+      "-12": "Deadzone",
+      "-11": "Deadzone",
+      "-10": "NASA ISS",
+      "-9": "Honolulu",
+      "-8": "Alaska",
+      "-7": "Los Ángeles",
+      "-6": "Ciudad de México",
+      "-5": "Kingston",
+      "-4": "Montréal",
+      "-3": "Brasília",
+      "-2": "Reykjavík",
+      "-1": "Cabo Verde",
+      "0": "Ghana",
+      "1": "Baile Átha Cliath",
+      "2": "Berlin",
+      "3": "Київ",
+      "4": "بيت لحم",
+      "5": "کشمیر",
+      "6": "गोवा",
+      "7": "Jakarta",
+      "8": "成都",
+      "9": "東京",
+      "10": "Melbourne",
+      "11": "Tāmaki Makaurau",
+      "12": "Камчатка"
+    };
 
-  <main class="shell">
-    <section class="panel">
-      <div class="eyebrow">2AM RADIO</div>
-      <h1 id="headline">Loading current 2AM zone…</h1>
-      <div class="meta">
-        <span class="pill" id="offsetPill">GMT</span>
-        <span class="pill" id="timePill">Local time</span>
-        <span class="pill" id="stationPill">Station</span>
-      </div>
-      <div class="status" id="status">Resolving stream data…</div>
-      <audio id="audio" controls preload="none"></audio>
-    </section>
+    const radioStreams = {
+      "-12": "https://stream-relay-geo.ntslive.net/stream",
+      "-11": "https://stream-relay-geo.ntslive.net/stream",
+      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+      "-9": "https://stream.ktuh.org:8001/stream",
+      "-8": "https://identification-sodium-letters-complicated.trycloudflare.com/radio-proxy?url=http://s26.myradiostream.com:17824/",
+      "-7": "https://dublab.out.airtime.pro/dublab_a",
+      "-6": "https://radio.mensajito.mx/nopalVentana",
+      "-5": "https://edge.mixlr.com/channel/ibrdq",
+      "-4": "https://n10as.radiocult.fm/stream",
+      "-3": "https://servidor24-1.brlogic.com:7516/live",
+      "-2": "https://live.visir.is/hls-radio/fm957/playlist.m3u8",
+      "-1": "https://listen.radioking.com/radio/281506/stream/327253",
+      "0": "https://oroko-radio.radiocult.fm/stream",
+      "1": "https://identification-sodium-letters-complicated.trycloudflare.com/radio-proxy?url=http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
+      "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+      "3": "https://20ft-radio.radiocult.fm/stream",
+      "4": "https://stream.radiojar.com/78cxy6wkxtzuv",
+      "5": "https://identification-sodium-letters-complicated.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/dubtechno",
+      "6": "https://identification-sodium-letters-complicated.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/schizoid",
+      "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+      "8": "https://listen.belowground.fm/radio/8000/radio.mp3",
+      "9": "https://shonanbeachfm.out.airtime.pro/shonanbeachfm_a",
+      "10": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
+      "11": "https://stream.tbc.radio:8000/radio.mp3",
+      "12": "https://radio.kamchatkalive.ru:8103/dance"
+    };
 
-    <section class="footer">
-      <div class="panel">
-        <div class="eyebrow">Zones</div>
-        <div class="zone-strip" id="zoneStrip"></div>
-      </div>
+    const streamAliases = {
+      "-12": "NTS",
+      "-11": "NTS",
+      "-10": "divine",
+      "-9": "ktuh",
+      "-8": "aurora",
+      "-7": "dublab",
+      "-6": "mensajito",
+      "-5": "yard",
+      "-4": "radiocult",
+      "-3": "brlogic",
+      "-2": "fm957",
+      "-1": "radioking",
+      "0": "oroko",
+      "1": "RTÉ 1",
+      "2": "cashmere",
+      "3": "20ft",
+      "4": "radiojar",
+      "5": "schizoid dub",
+      "6": "schizoid psy",
+      "7": "zeno",
+      "8": "belowground",
+      "9": "shonan",
+      "10": "3CR",
+      "11": "TBC",
+      "12": "dance"
+    };
 
-      <div class="panel">
-        <div class="eyebrow">Direct access</div>
-        <div class="links" id="links"></div>
-        <p class="tiny">This build streams one zone at a time through the tunnel. Admin still lives next door.</p>
-      </div>
-    </section>
-  </main>
+    const placeholderCities = [
+      "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",
+      "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi", "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",
+      "Vienna", "Warsaw", "Zagreb", "Amsterdam", "Belgrade", "Copenhagen", "Dublin", "Helsinki", "Jerusalem", "Lima",
+      "Manila", "Ottawa", "Reykjavik", "Singapore", "Tallinn", "Valencia", "Wellington", "Xi'an", "Yerevan", "Zurich",
+      "Bangkok", "Cape Town", "Cologne", "Damascus", "Edmonton", "Frankfurt", "Guadalajara", "Hamburg", "Islamabad",
+      "Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples", "Osaka", "Perth", "Quito", "Rome", "Seoul",
+      "Toronto", "Vancouver", "Xiamen", "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
+      "Kathmandu", "Luxembourg", "Marseille", "Nicosia", "Panama City", "Rabat", "Sarajevo", "Tunis", "Ulaanbaatar"
+    ];
 
-  <script>
-    const backgroundEl = document.getElementById('background');
-    const audioEl = document.getElementById('audio');
-    const headlineEl = document.getElementById('headline');
-    const statusEl = document.getElementById('status');
-    const offsetPillEl = document.getElementById('offsetPill');
-    const timePillEl = document.getElementById('timePill');
-    const stationPillEl = document.getElementById('stationPill');
-    const zoneStripEl = document.getElementById('zoneStrip');
-    const linksEl = document.getElementById('links');
+    const offset = (2 - new Date().getUTCHours() + 24) % 24;
+    const adjustedOffset = offset > 12 ? offset - 24 : offset;
 
-    const TUNNEL_BASE = 'https://identification-sodium-letters-complicated.trycloudflare.com';
-
-    let hlsInstance = null;
-    let bgHlsInstance = null;
-
-    function getCurrentOffset() {
-      const utcHour = new Date().getUTCHours();
-      const raw = (2 - utcHour + 24) % 24;
-      return raw > 12 ? raw - 24 : raw;
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
     }
 
-    function offsetLabel(offset) {
-      return `GMT ${offset >= 0 ? '+' : ''}${offset}`;
+    const grid = document.getElementById("radio-zones");
+    const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
+    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url, label: streamAliases[key] || 'signal' })));
+    const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
+    const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
+
+    const allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];
+    while (allBlocks.length < 150) {
+      allBlocks.push({ type: 'placeholder', name: placeholderCities[Math.floor(Math.random() * placeholderCities.length)] });
     }
 
-    function localTimeForOffset(offset) {
-      const now = new Date();
-      const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
-      const zoneTime = new Date(utcMs + offset * 3600000);
-      return zoneTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
+    const layout = shuffle(allBlocks).slice(0, 150);
 
-    function directVideoUrl(video) {
-      if (!video) return null;
-      if (video.type === 'youtube' && video.id) return `https://www.youtube.com/watch?v=${video.id}`;
-      return video.url || video.embed_url || null;
-    }
+    layout.forEach(block => {
+      let html = '';
+      let className = 'zone';
 
-    function tunnelVideoUrl(video) {
-      if (!video || video.type !== 'youtube' || !video.id || !TUNNEL_BASE) return null;
-      return `${TUNNEL_BASE}/stream/${video.id}/index.m3u8`;
-    }
-
-    function resolvedAudioUrl(stream) {
-      if (!stream?.url) return null;
-
-      const isInsecure = stream.url.startsWith('http://');
-      const isHls = stream.format === 'hls' || stream.url.includes('.m3u8');
-
-      if (isInsecure && !isHls && TUNNEL_BASE) {
-        return `${TUNNEL_BASE}/radio-proxy?url=${encodeURIComponent(stream.url)}`;
+      if (block.type === 'gmt') {
+        if (parseInt(block.key) === adjustedOffset) className += ' gmt';
+        html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
+      } else if (block.type === 'stream') {
+        if (parseInt(block.key) === adjustedOffset) className += ' stream';
+        html = `${block.label}`;
+      } else if (block.type === 'location') {
+        if (block.key === String(adjustedOffset)) className += ' location';
+        html = `${block.name}`;
+      } else if (block.type === 'placeholder') {
+        html = `${block.name}`;
       }
 
-      return stream.url;
+      const div = document.createElement('div');
+      div.className = className;
+      div.dataset.blockType = block.type;
+      if (block.key !== undefined) div.dataset.key = block.key;
+      div.innerHTML = html;
+      grid.appendChild(div);
+    });
+
+    const audio = document.getElementById("radio-player");
+    const currentStream = radioStreams[adjustedOffset];
+    if (currentStream) {
+      audio.src = currentStream;
+      audio.load();
+      audio.play().catch(error => {
+        console.log('Auto-play prevented:', error);
+      });
+    }
+  
+    const backgroundStreams = {
+      "-12": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-11": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/og8bbxl0iW8/index.m3u8",
+      "-10": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/zPH5KtjJFaQ/index.m3u8",
+      "-9": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/gXKuUyKt8mc/index.m3u8",
+      "-8": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/61pi8UjLOlo/index.m3u8",
+      "-7": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/EO_1LWqsCNE/index.m3u8",
+      "-6": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/uV3wWHSvkfs/index.m3u8",
+      "-5": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/cVpdwCQ7LEc/index.m3u8",
+      "-4": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/AGCEEBwRUc0/index.m3u8",
+      "-3": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/ykwaa3bprM8/index.m3u8",
+      "-2": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "-1": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "0": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/yuIm1V7Ne7I/index.m3u8",
+      "1": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/3nyPER2kzqk/index.m3u8",
+      "2": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/IRqboacDNFg/index.m3u8",
+      "3": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
+      "4": "https://share.earthcam.net/tJ90CoLmq7TzrY396Yd88FszUBQXSsaa2UfVVJUL4rU!.tJ90CoLmq7TzrY396Yd88Oz5cQ2aIzlk7JZQa_rfG-I!/aish_hatorah_western_wall_webcam/western_wall_cam/live",
+      "5": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
+      "6": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/FBYUkqutqzE/index.m3u8",
+      "7": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/DSRm7V_bsm8/index.m3u8",
+      "8": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "9": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "10": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/5uZa3-RMFos/index.m3u8",
+      "11": "https://identification-sodium-letters-complicated.trycloudflare.com/stream/BQR800Gu28g/index.m3u8",
+      "12": "shors-refresh"
+    };
+
+
+    let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
+    virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
+    let manualOffset = false; // Flag to track if user manually changed offset
+
+    // Add this variable to track current video index
+    let currentVideoIndex = 0;
+
+    function getAutoOffset() {
+      let offset = (2 - new Date().getUTCHours() + 24) % 24;
+      return offset > 12 ? offset - 24 : offset;
     }
 
-    function setBackground(video) {
-      if (bgHlsInstance) {
-        bgHlsInstance.destroy();
-        bgHlsInstance = null;
+    function syncStationToOffset(offset) {
+      const newStream = radioStreams[offset];
+      if (newStream && audio.src !== newStream) {
+        audio.src = newStream;
+        audio.load();
+        audio.play().catch(console.error);
       }
 
-      window.clearInterval(window.__imageRefreshInterval);
-      backgroundEl.innerHTML = '';
-      if (!video) return;
+      updateBackground(offset);
+      updateHighlights(offset);
+    }
 
-      const proxiedVideo = tunnelVideoUrl(video);
-      if (proxiedVideo) {
-        const media = document.createElement('video');
-        media.autoplay = true;
-        media.muted = true;
-        media.loop = true;
-        media.playsInline = true;
-        media.preload = 'auto';
-        media.setAttribute('aria-hidden', 'true');
-        backgroundEl.appendChild(media);
+    function updateBackground(offset) {
+      let newBg = backgroundStreams[offset];
 
-        const playMedia = () => media.play().catch(() => {});
+      const bgFrame = document.getElementById("bg-frame");
+      const bgVideo = document.getElementById("bg-video");
+      
+      // Stop previous image refresh if switching away
+      clearInterval(window._shorsImageInterval);
+      document.getElementById("shors-cam-img")?.remove();
+      
+      if (newBg === "shors-refresh") {
+        bgFrame.style.display = 'none';
+        bgVideo.style.display = 'none';
 
-        if (window.Hls && Hls.isSupported()) {
-          bgHlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true });
-          bgHlsInstance.loadSource(proxiedVideo);
-          bgHlsInstance.attachMedia(media);
-          bgHlsInstance.on(Hls.Events.MANIFEST_PARSED, playMedia);
-          bgHlsInstance.on(Hls.Events.ERROR, (_, data) => {
-            if (data?.fatal && video.embed_url) {
-              if (bgHlsInstance) {
-                bgHlsInstance.destroy();
-                bgHlsInstance = null;
-              }
-              backgroundEl.innerHTML = '';
-              const iframe = document.createElement('iframe');
-              iframe.src = video.embed_url;
-              iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-              iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-              backgroundEl.appendChild(iframe);
-            }
+        let img = document.getElementById("shors-cam-img");
+        if (!img) {
+          img = document.createElement("img");
+          img.id = "shors-cam-img";
+          img.style.position = "absolute";
+          img.style.top = "50%";
+          img.style.left = "50%";
+          img.style.width = "177.77777778vh";
+          img.style.height = "100vh";
+          img.style.transform = "translate(-50%, -50%) scale(1.5)";
+          img.style.transformOrigin = "center center";
+          img.style.pointerEvents = "none";
+          img.style.opacity = "1";
+          img.style.zIndex = "0";
+          img.style.objectFit = "cover";
+          document.querySelector(".video-bg").appendChild(img);
+        }
+
+        // Set up auto-refreshing background
+        function refreshImage() {
+          const timestamp = new Date().getTime(); // prevent caching
+          img.src = `https://www.shors.ru/images/camera/image96.jpg?${timestamp}`;
+        }
+
+        // Refresh immediately and then every minute
+        refreshImage();
+        clearInterval(window._shorsImageInterval);
+        window._shorsImageInterval = setInterval(refreshImage, 60000);
+      } else if (newBg) {
+        if (Array.isArray(newBg)) {
+          // Handle multiple video files
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          
+          // Set up video ended event handler if not already set
+          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
+            bgVideo.addEventListener('ended', function() {
+              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
+              bgVideo.src = newBg[currentVideoIndex];
+              bgVideo.play().catch(console.error);
+            });
+            bgVideo.setAttribute('data-rotation-initialized', 'true');
+          }
+          
+          // Start with current video in rotation if not already playing it
+          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
+            bgVideo.src = newBg[currentVideoIndex];
+            bgVideo.load();
+            bgVideo.play().catch(e => {
+              console.error('Video play error:', e);
+              setTimeout(() => bgVideo.play().catch(console.error), 100);
+            });
+          }
+        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
+          // Handle single video file
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          
+          if (bgVideo.src !== newBg) {
+            bgVideo.src = newBg;
+            bgVideo.load();
+          }
+          bgVideo.play().catch(e => {
+            console.error('Video play error:', e);
+            setTimeout(() => bgVideo.play().catch(console.error), 100);
           });
+        } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
+          // Handle HLS stream
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
+          // Use hls.js if needed
+          if (window.hls) {
+            window.hls.destroy();
+            window.hls = null;
+          }
+          if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
+            bgVideo.src = newBg;
+            bgVideo.load();
+            bgVideo.play().catch(console.error);
+          } else if (window.Hls) {
+            window.hls = new Hls();
+            window.hls.loadSource(newBg);
+            window.hls.attachMedia(bgVideo);
+            window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
+              bgVideo.play().catch(console.error);
+            });
+          }
         } else {
-          media.src = proxiedVideo;
-          playMedia();
-        }
-
-        return;
-      }
-
-      if (video.type === 'youtube' && video.embed_url) {
-        const iframe = document.createElement('iframe');
-        iframe.src = video.embed_url;
-        iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-        backgroundEl.appendChild(iframe);
-        return;
-      }
-
-      if (video.type === 'image_refresh' && video.url) {
-        const image = document.createElement('img');
-        const refresh = () => {
-          image.src = `${video.url}${video.url.includes('?') ? '&' : '?'}t=${Date.now()}`;
-        };
-        refresh();
-        backgroundEl.appendChild(image);
-        if (video.refresh_interval_ms) {
-          window.__imageRefreshInterval = window.setInterval(refresh, video.refresh_interval_ms);
+          // Handle YouTube iframe
+          bgVideo.style.display = 'none';
+          bgFrame.style.display = 'block';
+          if (bgFrame.src !== newBg) {
+            // Use postMessage API for additional muting control
+            bgFrame.src = newBg + "&enablejsapi=1";
+            
+            // Try to initialize YouTube API control when frame loads
+            bgFrame.onload = function() {
+              try {
+                if (window.YT && window.YT.Player) {
+                  if (ytPlayer) {
+                    ytPlayer.destroy();
+                  }
+                  ytPlayer = new YT.Player(bgFrame.id, {
+                    events: {
+                      'onReady': function(event) {
+                        event.target.mute();
+                        event.target.setPlaybackQuality('hd1080');
+                      },
+                      'onStateChange': function(event) {
+                        // Ensure video stays muted during state changes (like when ads start)
+                        event.target.mute();
+                      }
+                    }
+                  });
+                }
+              } catch(e) {
+                console.error("YouTube API error:", e);
+              }
+            };
+          }
         }
       }
     }
 
-    function loadAudio(stream) {
-      if (hlsInstance) {
-        hlsInstance.destroy();
-        hlsInstance = null;
+    // Force muting function - runs periodically
+    function enforceMuting() {
+      const bgFrame = document.getElementById("bg-frame");
+      const bgVideo = document.getElementById("bg-video");
+      
+      // Force HTML5 video to be muted
+      if (bgVideo && bgVideo.style.display !== 'none') {
+        bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
+      }
+      
+      // Force YouTube iframe to be muted using both API and postMessage
+      if (bgFrame && bgFrame.style.display !== 'none') {
+        // Use YouTube API if available
+        if (ytPlayer && typeof ytPlayer.mute === 'function') {
+          ytPlayer.mute();
+        }
+        
+        // Backup: Use postMessage API directly
+        try {
+          bgFrame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+        } catch(e) {
+          // Ignore errors from cross-origin frames
+        }
+      }
+    }
+
+    // Run mute enforcement every second
+    setInterval(enforceMuting, 1000);
+
+    // Add event listener for messages from YouTube iframe
+    window.addEventListener('message', function(event) {
+      // Listen for YouTube events and ensure muting
+      if (event.data && typeof event.data === 'string') {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.event === 'onStateChange' || data.event === 'infoDelivery') {
+            enforceMuting();
+          }
+        } catch(e) {
+          // Ignore parsing errors
+        }
+      }
+    });
+
+    // Update all YouTube URLs to include API parameters
+    for (const key in backgroundStreams) {
+      if (typeof backgroundStreams[key] === 'string' && backgroundStreams[key].includes('youtube.com/embed/')) {
+        // Make sure API is enabled and additional mute parameter is set
+        if (!backgroundStreams[key].includes('enablejsapi=1')) {
+          backgroundStreams[key] += (backgroundStreams[key].includes('?') ? '&' : '?') + 'enablejsapi=1';
+        }
+      }
+    }
+
+    function testVideo() {
+      const videoElement = document.createElement('video');
+      videoElement.src = './css/backround.mp4';
+      videoElement.autoplay = true;
+      videoElement.loop = true;
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      videoElement.style.cssText = 'width: 100px; height: 100px; position: fixed; top: 10px; left: 10px; z-index: 9999;';
+      document.body.appendChild(videoElement);
+      videoElement.play().catch(e => console.error('Test video play failed:', e));
+    }
+
+    function updateClock() {
+      const now = new Date();
+
+      if (!manualOffset) {
+        const autoOffset = getAutoOffset();
+        if (virtualOffset !== autoOffset) {
+          virtualOffset = autoOffset;
+          syncStationToOffset(virtualOffset);
+        }
       }
 
-      audioEl.pause();
-      audioEl.removeAttribute('src');
-      audioEl.load();
+      // Calculate time in the selected timezone: UTC + virtualOffset
+      const utcHours = now.getUTCHours();
+      const timezoneHours = (utcHours + virtualOffset + 24) % 24;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      
+      // Show time in the selected timezone
+      const hours = timezoneHours.toString().padStart(2, '0');
+      document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
+    }
 
-      const audioUrl = resolvedAudioUrl(stream);
-      if (!audioUrl) return;
+    setInterval(updateClock, 1000);
+    updateClock();
 
-      const isHls = stream.format === 'hls' || stream.url.includes('.m3u8') || audioUrl.includes('.m3u8');
-      if (isHls && window.Hls && Hls.isSupported()) {
-        hlsInstance = new Hls();
-        hlsInstance.loadSource(audioUrl);
-        hlsInstance.attachMedia(audioEl);
-      } else {
-        audioEl.src = audioUrl;
-      }
+    // Update the tick function to always show uppercase AM
+    function tick() {
+      const now = new Date();
+      // Calculate time in the selected timezone: UTC + virtualOffset
+      const utcHours = now.getUTCHours();
+      const timezoneHours = (utcHours + virtualOffset + 24) % 24;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      
+      const hours = timezoneHours.toString().padStart(2, '0');
+      const ampm = timezoneHours >= 12 ? 'PM' : 'AM';
+      const displayHours = timezoneHours % 12 || 12;
+      document.getElementById("clock").textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+    }
 
-      audioEl.play().then(() => {
-        statusEl.textContent = 'Live now. One zone through the tunnel.';
-      }).catch(() => {
-        statusEl.textContent = 'Ready. Press play if the browser blocks autoplay.';
+    function updateHighlights(offset) {
+      document.querySelectorAll('.gmt, .stream, .location').forEach(el => {
+        el.classList.remove('gmt', 'stream', 'location');
+      });
+
+      document.querySelectorAll('#radio-zones .zone').forEach(zone => {
+        if (zone.dataset.blockType === 'gmt') {
+          if (zone.dataset.key === String(offset)) {
+            zone.classList.add('gmt');
+          }
+        } else if (zone.dataset.blockType === 'stream' && zone.dataset.key === String(offset)) {
+          zone.classList.add('stream');
+        } else if (zone.dataset.blockType === 'location' && zone.dataset.key === String(offset)) {
+          zone.classList.add('location');
+        }
       });
     }
 
-    function renderZoneStrip(activeOffset, data) {
-      const offsets = Object.keys(data.streamLocations).map(Number).sort((a, b) => a - b);
-      zoneStripEl.innerHTML = offsets.map(offset => {
-        const city = data.streamLocations[String(offset)] || 'Unknown';
-        const active = offset === activeOffset ? ' active' : '';
-        return `<span class="zone-chip${active}">${offsetLabel(offset)} · ${city}</span>`;
-      }).join('');
-    }
+    // Add global click handler for play/pause right after audio setup
+    document.body.addEventListener("click", (e) => {
+      const clickedText = e.target.closest(".zone");
+      const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
+      const clickedClock = e.target.id === "clock" || e.target.closest("#clock");
+      const clickedHideUI = e.target.id === "hideUI" || e.target.closest("#hideUI");
+      const clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
+      const clickedFullscreen = e.target.id === "fullscreen" || e.target.closest("#fullscreen");
 
-    function renderLinks(audio, video) {
-      const items = [
-        { label: 'admin view', href: './admin.html' },
-        audio?.url ? { label: 'audio direct', href: audio.url } : null,
-        tunnelVideoUrl(video) ? { label: 'video via tunnel', href: tunnelVideoUrl(video) } : null,
-        directVideoUrl(video) ? { label: 'video direct', href: directVideoUrl(video) } : null
-      ].filter(Boolean);
-
-      linksEl.innerHTML = items
-        .map(item => `<a class="link-pill" href="${item.href}" target="_blank" rel="noreferrer">${item.label}</a>`)
-        .join('');
-    }
-
-    async function boot() {
-      const response = await fetch('./stream-data.json');
-      const data = await response.json();
-      const activeOffset = getCurrentOffset();
-      const offsetKey = String(activeOffset);
-      const city = data.streamLocations[offsetKey] || 'Unknown location';
-      const audio = data.audioStreams[offsetKey];
-      const video = data.videoStreams[offsetKey];
-
-      headlineEl.textContent = city;
-      offsetPillEl.textContent = offsetLabel(activeOffset);
-      timePillEl.textContent = `${localTimeForOffset(activeOffset)} local`;
-      stationPillEl.textContent = audio?.station || 'No station mapped';
-      statusEl.textContent = 'Preparing live stream…';
-
-      renderZoneStrip(activeOffset, data);
-      renderLinks(audio, video);
-      setBackground(video);
-      loadAudio(audio);
-    }
-
-    boot().catch(error => {
-      console.error(error);
-      headlineEl.textContent = '2AM stream unavailable';
-      statusEl.textContent = 'Could not load stream data for the simplified build.';
+      // If the click is NOT on any interactive/text element
+      if (!clickedText && !clickedRewind && !clickedClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
+        if (audio.paused) {
+          audio.play().catch(console.error);
+        } else {
+          audio.pause();
+        }
+      }
     });
-  </script>
+
+    document.getElementById("rewind").addEventListener("click", () => {
+      const oldOffset = virtualOffset;
+      virtualOffset = virtualOffset - 1;
+      if (virtualOffset < -12) virtualOffset = 12;
+      
+      // Set manual flag to prevent auto-reset
+      manualOffset = true;
+      
+      // Reset video index when leaving Hawaii timezone
+      if (oldOffset === -9) {
+        currentVideoIndex = 0;
+      }
+
+      const newStream = radioStreams[virtualOffset];
+      if (newStream) {
+        audio.src = newStream;
+        audio.play().catch(console.error);
+      }
+      
+      updateBackground(virtualOffset);
+      updateHighlights(virtualOffset);
+      
+      // Test video if we're at GMT-9
+      if (virtualOffset === -9) {
+        testVideo();
+      }
+    });
+
+    document.getElementById("playPause").addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          document.getElementById("playPause").textContent = "pause";
+        }).catch(console.error);
+      } else {
+        audio.pause();
+        document.getElementById("playPause").textContent = "play";
+      }
+    });
+
+    // Update play/pause text when audio state changes
+    audio.addEventListener("play", () => {
+      document.getElementById("playPause").textContent = "pause";
+    });
+
+    audio.addEventListener("pause", () => {
+      document.getElementById("playPause").textContent = "play";
+    });
+
+    // Add hide UI functionality
+    document.getElementById("hideUI").addEventListener("click", () => {
+      const hideUIButton = document.getElementById("hideUI");
+      const zones = document.querySelectorAll('.zone:not(#hideUI)');
+      const isHidden = Array.from(zones).every(zone => zone.style.display === 'none');
+
+      zones.forEach(zone => {
+        zone.style.display = isHidden ? '' : 'none';
+      });
+
+      hideUIButton.textContent = isHidden ? 'hide text' : 'show text';
+    });
+
+    // Add clock mode functionality
+    document.getElementById("clockMode").addEventListener("click", () => {
+      window.location.href = './radiomp3.html';
+    });
+
+    // Add fullscreen functionality
+    document.getElementById("fullscreen").addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(console.error);
+      } else {
+        document.exitFullscreen().catch(console.error);
+      }
+    });
+
+    // Add this to the end of your script to ensure initial state is correct
+    document.addEventListener('DOMContentLoaded', function() {
+      const offset = virtualOffset;
+      updateBackground(offset);
+      enforceMuting();
+    });
+</script>
 </body>
 </html>
