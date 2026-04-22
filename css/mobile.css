@@ -26,6 +26,17 @@ body.mobile-prototype {
     background: #ffffff;
 }
 
+body.mobile-prototype,
+body.mobile-prototype #app,
+body.mobile-prototype #app * {
+    font-family: 'Suisse', 'sans-serif' !important;
+}
+
+body.mobile-prototype strong {
+    font-family: 'Suisse', 'sans-serif' !important;
+    font-weight: 700;
+}
+
 body.mobile-prototype .header {
     width: 100%;
     height: auto;
