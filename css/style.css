@@ -82,7 +82,8 @@ body2 {
 
 .diablo-video {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 16 / 9;
+    height: auto;
     display: block;
     border: none;
     margin: 0 auto;
@@ -181,12 +182,14 @@ body2 {
     font-size: 16px; /* Adjust size for readability */
     text-transform: none; /* Avoid forcing all lowercase */
     line-height: 2; /* Increase line height for better spacing */
-    color: #black; /* Slightly softer black for reduced eye strain */
+    color: black; /* Slightly softer black for reduced eye strain */
    
 
     padding: 20px; /* More padding for cleaner layout */
-    max-width: 800px; /* Limit width for better readability */
-    margin: 5px auto; /* Center element horizontally with space around it */
+    max-width: calc(100% - 12px);
+    width: calc(100% - 12px);
+    margin: 5px 0 0 12px;
+    box-sizing: border-box;
     border: 2px solid #000; /* Bold border for structure */
     border-radius: 0px; /* Add rounded corners for aesthetics */
     background-color: #FFFFFF; /* Light background for better contrast */
@@ -207,14 +210,33 @@ body2 {
     color: black;
   
     word-wrap: break-word;
-    padding: 1px;
     width: 100%;
+    min-height: 120px;
+    box-sizing: border-box;
     border: 2px solid black;
     text-align: left;
     cursor: pointer;
 	 margin: 0;
     padding: 0;
   
+}
+
+#europa-image {
+    width: 100%;
+    min-height: 320px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#europa-image img {
+    max-width: 100%;
+    max-height: 460px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
 }
 
 .europa-next-indicator {

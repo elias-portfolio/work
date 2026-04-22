@@ -167,24 +167,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `,
             diablo: `
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5;">
+                    <p><strong>Brief:</strong><br>Create a launch campaign that breaks through culture in a way unique to Diablo.</p>
 
-<div id="diablo" onclick="cycleDiabloContent()">
-    click the text to flip through the pitch or check the case below 
-    <a href="#" onclick="openPopup('https://www.youtube.com/embed/qxbl1RnUT-c?modestbranding=1&rel=0&autoplay=0'); return false;">https://www.youtube.com/watch?v=qxbl1RnUT-c</a>
-    <div class="animation-container">
-        <img src="images/Diablo/animation.gif" alt="Diablo Animation" class="animated-gif">
-    </div>
-</div>
+                    <p><strong>Background:</strong><br>Diablo is set in an underworld inspired by Hell. An underworld like our "hell" is not a concept unique to the West, and neither is being scared shitless by it.</p>
 
+                    <p><strong>Background:</strong><br>Across the world, we’ve been gearing up for one final quest through the kingdom of death, packing our coffins with badass shit like spellbooks, weapons, maps, and coins.</p>
 
+                    <p><strong>Unique insight:</strong><br>Turns out that some of the demon slaying gear has made its way back to the living. In museums around the world it lies, thirsting for the foul taste of demon blood once more.</p>
 
+                    <p><strong>Solution:</strong><br>Let’s Gear 4 Hell by looting and wielding the same gear used by our ancestors when slaying demons in the afterlife.</p>
 
+                    <div style="font-size: 12px; line-height: 1.5; margin: 0 0 22px 0; max-width: 720px; text-transform: none;">
+                        <sup>1</sup>For instance, in ancient Greece, it was customary to place a coin in or on the mouth of the deceased as payment for <a href="https://en.wikipedia.org/wiki/Charon%27s_obol" target="_blank">Charon</a>, the ferryman who transported souls across the river dividing the living from the dead.<br>
+                        <sup>2</sup>Similarly, ancient Egyptians included the <a href="https://en.wikipedia.org/wiki/Book_of_the_Dead" target="_blank">Book of the Dead</a>, a collection of spells intended to guide and protect the deceased in the afterlife, within their burial practices.<br>
+                        <sup>3</sup>In Norse traditions, Vikings honored their dead by burying them with grave goods such as weapons, jewelry, and tools, reflecting their status and beliefs. Notably, some Viking burials included <a href="https://en.wikipedia.org/wiki/Norse_funeral" target="_blank">ship burials</a>, where the deceased were placed in boats along with their possessions, symbolizing their journey to the afterlife.<br>
+                        <sup>4</sup>Likewise, in ancient China, it was common to include <a href="https://en.wikipedia.org/wiki/Mingqi" target="_blank">mingqi</a>, or "spirit goods," in burials. These items ranged from everyday objects to elaborate models of servants and animals, intended to serve and accompany the deceased in the afterlife.
+                    </div>
 
+                    <div style="margin: 0 0 10px 0;">case film:</div>
+                    <iframe class="diablo-video" src="https://www.youtube.com/embed/qxbl1RnUT-c?modestbranding=1&rel=0&autoplay=0" title="Diablo case film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-                <div id="diablo-insight" style="display: none;">
-
-                    <!-- Content will be dynamically added here -->
-               
+                    <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 18px;">
+                        <img src="images/Diablo/render.gif" alt="Diablo render" class="diablo-image">
+                        <img src="images/Diablo/korea.gif" alt="Diablo Korea" class="diablo-image">
+                        <img src="images/Diablo/skelett.gif" alt="Diablo skeleton" class="diablo-image">
+                    </div>
+                </div>
             `,
             
 			f16: `   
@@ -361,14 +370,12 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 </div>
             `,
             kindle: `
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 14px 12px; max-width: calc(100% - 12px);">
+                    The last page: this is a eulogy for all broken kindles, each one permanently open at its last page forever.
+                </div>
                 <div id="quotation" onclick="fetchAndDisplayQuotation();">
-              this is a eulogy for all broken kindles, each one permanently open at its last page. click to flip through.
-
-
-
-
-
-
+                    click to flip through.
+                </div>
             `,
             kindleStacked: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
@@ -511,7 +518,7 @@ function initializeEuropaQuote() {
     const europaQuoteElement = document.getElementById('europa-quote');
     if (initialLoadEuropa && europaQuoteElement) {
         europaQuoteElement.textContent =
-            "This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Click the box to flip through some of the work.";
+            "This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Click the box or next to flip through some of the work.";
     }
 }
 const europaImages = {
