@@ -75,7 +75,7 @@ body.mobile-prototype #media {
     position: static;
     width: 100%;
     height: auto;
-    padding: 16px 12px 24px;
+    padding: 8px 12px 24px;
     box-sizing: border-box;
     overflow: visible;
     border-top: 1px solid #e5e5e5;
@@ -85,6 +85,10 @@ body.mobile-prototype #content-display {
     padding: 0;
     font-size: 15px;
     line-height: 1.45;
+}
+
+body.mobile-prototype #content-display > :first-child {
+    margin-top: 0 !important;
 }
 
 body.mobile-prototype #content-display * {
@@ -101,8 +105,62 @@ body.mobile-prototype #content-display pre {
     max-width: 100%;
 }
 
+body.mobile-prototype #content-display p,
+body.mobile-prototype #content-display h1,
+body.mobile-prototype #content-display h2,
+body.mobile-prototype #content-display h3,
+body.mobile-prototype #content-display pre {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+body.mobile-prototype #content-display a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 body.mobile-prototype #content-display hr {
-    margin: 16px 0;
+    margin: 12px 0;
+}
+
+body.mobile-prototype #content-display img[style],
+body.mobile-prototype #content-display iframe,
+body.mobile-prototype #content-display video,
+body.mobile-prototype #content-display #iframe-container,
+body.mobile-prototype #content-display > div[style] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+body.mobile-prototype #content-display img[style] {
+    display: block;
+    height: auto !important;
+    margin-bottom: 16px !important;
+}
+
+body.mobile-prototype #content-display iframe {
+    display: block;
+    margin-bottom: 16px;
+}
+
+body.mobile-prototype #content-display form {
+    display: block !important;
+}
+
+body.mobile-prototype #content-display input,
+body.mobile-prototype #content-display button {
+    font-size: 16px !important;
+}
+
+body.mobile-prototype #content-display input[type="date"],
+body.mobile-prototype #content-display input[type="number"],
+body.mobile-prototype #content-display button {
+    display: block;
+    width: 100% !important;
+    max-width: 280px;
+    margin: 0 0 8px 0 !important;
 }
 
 body.mobile-prototype #yt-bg-player,

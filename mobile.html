@@ -114,8 +114,10 @@ function showMobileContent(section) {
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.showContent === 'function') {
         const params = new URLSearchParams(window.location.search);
-        const defaultSection = params.get('section') || 'europa';
-        window.showContent(defaultSection);
+        const section = params.get('section');
+        if (section) {
+            window.showContent(section);
+        }
     }
 });
 </script>
