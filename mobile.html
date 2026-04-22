@@ -17,20 +17,6 @@
         <div id="list">
             <div class="list-view">
                 <div class="list-item">
-                    <a href="#" onclick="return false;" aria-hidden="true">
-                        <span class="year">&nbsp;</span>
-                        <span class="title">&nbsp;</span>
-                        <span class="category">&nbsp;</span>
-                    </a>
-                </div>
-                <div class="list-item">
-                    <a href="#" onclick="return false;" aria-hidden="true">
-                        <span class="year">&nbsp;</span>
-                        <span class="title">&nbsp;</span>
-                        <span class="category">&nbsp;</span>
-                    </a>
-                </div>
-                <div class="list-item">
                     <a href="#" onclick="showMobileContent('europa'); return false;">
                         <span class="year">2024</span>
                         <span class="title">Europa Archive</span>
@@ -113,6 +99,9 @@
 function showMobileContent(section) {
     if (typeof window.showContent === 'function') {
         window.showContent(section);
+        const url = new URL(window.location.href);
+        url.searchParams.set('section', section);
+        window.history.replaceState({}, '', url);
         const media = document.getElementById('media');
         if (media) {
             requestAnimationFrame(() => {
@@ -124,7 +113,9 @@ function showMobileContent(section) {
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.showContent === 'function') {
-        window.showContent('europa');
+        const params = new URLSearchParams(window.location.search);
+        const defaultSection = params.get('section') || 'europa';
+        window.showContent(defaultSection);
     }
 });
 </script>

@@ -7,8 +7,8 @@ body.mobile-prototype {
 body.mobile-prototype .header {
     width: 100%;
     height: auto;
-    min-height: 40px;
-    padding: 10px 12px;
+    min-height: 0;
+    padding: 8px 12px;
     position: sticky;
     top: 0;
     left: 0;
@@ -18,7 +18,8 @@ body.mobile-prototype .header {
 }
 
 body.mobile-prototype #dynamic-header {
-    min-height: 20px;
+    min-height: 0;
+    line-height: 1.2;
 }
 
 body.mobile-prototype .website-view {
@@ -29,7 +30,7 @@ body.mobile-prototype .website-view {
 
 body.mobile-prototype #list {
     width: 100%;
-    padding: 12px;
+    padding: 4px 12px 12px;
     box-sizing: border-box;
     overflow: visible;
 }
@@ -44,24 +45,29 @@ body.mobile-prototype .list-item {
 }
 
 body.mobile-prototype .list-item a {
-    align-items: flex-start;
-    gap: 8px;
-    padding: 4px 0;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 10px;
+    padding: 5px 0;
+    font-size: 14px;
+    line-height: 1.25;
 }
 
 body.mobile-prototype .year {
-    margin-right: 16px;
-    min-width: 52px;
+    margin-right: 0;
+    min-width: 0;
 }
 
 body.mobile-prototype .title {
-    flex: 1;
-    margin-right: 8px;
+    flex: initial;
+    margin-right: 0;
+    min-width: 0;
 }
 
 body.mobile-prototype .category {
-    flex: 0 0 auto;
-    min-width: 88px;
+    flex: initial;
+    min-width: 72px;
     text-align: right;
 }
 
@@ -69,7 +75,7 @@ body.mobile-prototype #media {
     position: static;
     width: 100%;
     height: auto;
-    padding: 12px;
+    padding: 16px 12px 24px;
     box-sizing: border-box;
     overflow: visible;
     border-top: 1px solid #e5e5e5;
@@ -77,6 +83,26 @@ body.mobile-prototype #media {
 
 body.mobile-prototype #content-display {
     padding: 0;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+body.mobile-prototype #content-display * {
+    box-sizing: border-box;
+}
+
+body.mobile-prototype #content-display p,
+body.mobile-prototype #content-display div,
+body.mobile-prototype #content-display form,
+body.mobile-prototype #content-display h1,
+body.mobile-prototype #content-display h2,
+body.mobile-prototype #content-display h3,
+body.mobile-prototype #content-display pre {
+    max-width: 100%;
+}
+
+body.mobile-prototype #content-display hr {
+    margin: 16px 0;
 }
 
 body.mobile-prototype #yt-bg-player,
@@ -85,6 +111,7 @@ body.mobile-prototype .diablo-video {
     width: 100% !important;
     max-width: 100% !important;
     height: 220px !important;
+    display: block;
 }
 
 body.mobile-prototype #2am-iframe {
@@ -107,4 +134,21 @@ body.mobile-prototype img,
 body.mobile-prototype video,
 body.mobile-prototype iframe {
     max-width: 100%;
+}
+
+body.mobile-prototype video {
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 420px) {
+    body.mobile-prototype .list-item a {
+        grid-template-columns: 48px minmax(0, 1fr) 92px;
+        column-gap: 8px;
+        font-size: 13px;
+    }
+
+    body.mobile-prototype .category {
+        min-width: 0;
+    }
 }
