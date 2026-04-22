@@ -373,13 +373,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 14px 12px; max-width: calc(100% - 12px);">
                     The last page: this is a eulogy for all broken kindles, each one permanently open at its last page forever.
                 </div>
-                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px);">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-01.png" alt="Dead Kindle Tribute image 1" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-03.png" alt="Dead Kindle Tribute image 3" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-04.png" alt="Dead Kindle Tribute image 4" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-05.png" alt="Dead Kindle Tribute image 5" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-06.png" alt="Dead Kindle Tribute image 6" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-07.png" alt="Dead Kindle Tribute image 7" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
+                <div id="quotation" onclick="fetchAndDisplayQuotation();">
+                    click to flip through.
                 </div>
             `,
             kindleStacked: `
