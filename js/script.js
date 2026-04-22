@@ -146,11 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const content = {
-            banned: ` 2.am is a site that only plays radio from where in the world it currently is 2am. for those who love night radio. press outside the globe to play pause. refresh the page to get a new globe
+            banned: ` 2.am is a site that only plays radio from where in the world it currently is 2am. for those who love night radio.
               
                     <div id="iframe-container" style="margin-top: 20px; margin-bottom: 20px; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0; overflow: visible;">
-                        <!-- Iframe directly displaying the 2amglobe.html content -->
-                        <iframe id="2am-iframe" src="2amglobe.html" style="width: 600px; height: 600px; border: none; border-radius: 8px; box-shadow: none; filter: none; allow: microphone; flex-shrink: 0;"></iframe>
+                        <!-- Old globe prototype kept in repo, but the portfolio now shows the canonical 2amtext.html view -->
+                        <iframe id="2am-iframe" src="2amtext.html" style="width: 100%; height: 900px; border: none; border-radius: 8px; box-shadow: none; filter: none; flex-shrink: 0;"></iframe>
                     </div> 
 
             `,
