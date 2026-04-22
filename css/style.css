@@ -217,6 +217,28 @@ body2 {
   
 }
 
+.europa-next-indicator {
+    display: inline-block;
+    margin: 0 0 14px 0;
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 16px;
+    line-height: 1.2;
+    text-transform: lowercase;
+    color: rgb(0, 0, 238);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.europa-next-indicator:hover {
+    opacity: 0.8;
+}
+
+.europa-next-indicator:focus-visible {
+    outline: 1px solid rgb(0, 0, 238);
+    outline-offset: 2px;
+}
+
 #diablo {
     font-family: 'Suisse', 'sans-serif';
     font-size: 16px;

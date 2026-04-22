@@ -271,10 +271,15 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <!-- Text frame (click to load new) placed under the link -->
                 <div id="europa-quote" onclick="fetchAndDisplayEuropaQuotation();"
-                     style="cursor: pointer; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0;">
+                     style="cursor: pointer; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0 4px 0;">
                     <div style="font-family: 'Suisse'; text-align: center; padding: 8px 0;">
                         loading...
                     </div>
+                </div>
+
+                <div class="europa-next-indicator" onclick="fetchAndDisplayEuropaQuotation();" role="button" tabindex="0"
+                     onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fetchAndDisplayEuropaQuotation(); }">
+                    next →
                 </div>
 
                 <!-- Image frame below the text frame -->
