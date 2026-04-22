@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elias Portfolio Mobile Prototype</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+</head>
+<body class="mobile-prototype">
+<header class="header">
+    <div id="dynamic-header"></div>
+</header>
+
+<main id="app">
+    <section class="website-view">
+        <div id="list">
+            <div class="list-view">
+                <div class="list-item">
+                    <a href="#" onclick="return false;" aria-hidden="true">
+                        <span class="year">&nbsp;</span>
+                        <span class="title">&nbsp;</span>
+                        <span class="category">&nbsp;</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="return false;" aria-hidden="true">
+                        <span class="year">&nbsp;</span>
+                        <span class="title">&nbsp;</span>
+                        <span class="category">&nbsp;</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('europa'); return false;">
+                        <span class="year">2024</span>
+                        <span class="title">Europa Archive</span>
+                        <span class="category">exhibit</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('banned'); return false;">
+                        <span class="year">2025</span>
+                        <span class="title">2.am</span>
+                        <span class="category">radio</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('spotify'); return false;">
+                        <span class="year">2025</span>
+                        <span class="title">spotify</span>
+                        <span class="category">campaign</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('ecb'); return false;">
+                        <span class="year">2024</span>
+                        <span class="title">Treo</span>
+                        <span class="category">newspaper ad</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('f16'); return false;">
+                        <span class="year">2024</span>
+                        <span class="title">F-16 Jet</span>
+                        <span class="category">campaign</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('diablo'); return false;">
+                        <span class="year">2023</span>
+                        <span class="title">Diablo</span>
+                        <span class="category">campaign</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('birthday'); return false;">
+                        <span class="year">2024</span>
+                        <span class="title">your real birthday song</span>
+                        <span class="category">diy</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('edmon'); return false;">
+                        <span class="year">2024</span>
+                        <span class="title">Edmon</span>
+                        <span class="category">placeholder</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('kindle'); return false;">
+                        <span class="year">2022</span>
+                        <span class="title">Dead Kindle Tribute</span>
+                        <span class="category">images</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" onclick="showMobileContent('scripts'); return false;">
+                        <span class="year">2022</span>
+                        <span class="title">Scripts</span>
+                        <span class="category">ads and movies</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="media">
+            <div id="content-display"></div>
+        </div>
+    </section>
+</main>
+
+<script src="./js/script.js"></script>
+<script>
+function showMobileContent(section) {
+    if (typeof window.showContent === 'function') {
+        window.showContent(section);
+        const media = document.getElementById('media');
+        if (media) {
+            requestAnimationFrame(() => {
+                media.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.showContent === 'function') {
+        window.showContent('europa');
+    }
+});
+</script>
+</body>
+</html>

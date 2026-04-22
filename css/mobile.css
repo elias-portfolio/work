@@ -1,0 +1,110 @@
+body.mobile-prototype {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+body.mobile-prototype .header {
+    width: 100%;
+    height: auto;
+    min-height: 40px;
+    padding: 10px 12px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 1000;
+}
+
+body.mobile-prototype #dynamic-header {
+    min-height: 20px;
+}
+
+body.mobile-prototype .website-view {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+body.mobile-prototype #list {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+body.mobile-prototype .list-view {
+    display: flex;
+    flex-direction: column;
+}
+
+body.mobile-prototype .list-item {
+    white-space: normal;
+}
+
+body.mobile-prototype .list-item a {
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+body.mobile-prototype .year {
+    margin-right: 16px;
+    min-width: 52px;
+}
+
+body.mobile-prototype .title {
+    flex: 1;
+    margin-right: 8px;
+}
+
+body.mobile-prototype .category {
+    flex: 0 0 auto;
+    min-width: 88px;
+    text-align: right;
+}
+
+body.mobile-prototype #media {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: visible;
+    border-top: 1px solid #e5e5e5;
+}
+
+body.mobile-prototype #content-display {
+    padding: 0;
+}
+
+body.mobile-prototype #yt-bg-player,
+body.mobile-prototype #youtubeEmbed,
+body.mobile-prototype .diablo-video {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 220px !important;
+}
+
+body.mobile-prototype #2am-iframe {
+    height: 520px !important;
+}
+
+body.mobile-prototype #ground5-iframe {
+    height: 640px !important;
+}
+
+body.mobile-prototype #europa-image {
+    min-height: 220px;
+}
+
+body.mobile-prototype #europa-image img {
+    max-height: 320px;
+}
+
+body.mobile-prototype img,
+body.mobile-prototype video,
+body.mobile-prototype iframe {
+    max-width: 100%;
+}
