@@ -421,25 +421,19 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 }, 100);
             }
 
-            // Special handling for 2.am section - PLAY AUDIO
+            // Special handling for 2.am section - let the embedded canonical 2amtext.html page own audio playback
             if (section === 'banned') {
-                console.log('Initializing 2.am section - starting audio');
+                console.log('Initializing 2.am section - iframe handles audio');
                 setTimeout(() => {
                     twoAmIframe = document.getElementById('2am-iframe');
                     if (twoAmIframe) {
                         console.log('2.am iframe found');
-                        twoAmIframe.setAttribute('allow', 'microphone; autoplay; geolocation');
-                        
-                        // Play 2AM stream
-                        if (!currentAudioStream) {
-                            currentAudioStream = new Audio();
-                            currentAudioStream.crossOrigin = "anonymous";
-                        }
-                        const streamUrl = pick2amStream();
-                        currentAudioStream.src = streamUrl;
-                        currentAudioStream.play().catch(err => {
-                            console.log('Audio stream play failed:', err);
-                        });
+                        twoAmIframe.setAttribute('allow', 'autoplay; fullscreen');
+                    }
+                    if (currentAudioStream) {
+                        currentAudioStream.pause();
+                        currentAudioStream.currentTime = 0;
+                        currentAudioStream.src = '';
                     }
                 }, 100);
             }
