@@ -371,7 +371,6 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 </div>
                 <div style="margin-top: 20px; width: 100%;">
                     <img src="images/kindle-tribute-stacked/kindle-tribute-01.png" alt="Dead Kindle Tribute image 1" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-02.png" alt="Dead Kindle Tribute image 2" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
                     <img src="images/kindle-tribute-stacked/kindle-tribute-03.png" alt="Dead Kindle Tribute image 3" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
                     <img src="images/kindle-tribute-stacked/kindle-tribute-04.png" alt="Dead Kindle Tribute image 4" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
                     <img src="images/kindle-tribute-stacked/kindle-tribute-05.png" alt="Dead Kindle Tribute image 5" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
