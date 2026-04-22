@@ -332,30 +332,12 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <iframe id="youtubeEmbed" width="100%" height="315" src="" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
                 </div>
             `,
-           spotify: ` <div style="position: absolute; top: 0; width: 100%; padding: 10px;">
+           spotify: `
+  <div style="width: 100%; padding: 10px 10px 0 10px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 20px;">
 
-
-
-  <!-- YouTube iframe (clean background style) -->
-   <iframe 
-    id="yt-bg-player"
-    src="https://www.youtube.com/embed/Fi_V9lzc5BE?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=Fi_V9lzc5BE" 
-    frameborder="0" 
-    allow="autoplay; encrypted-media" 
-    allowfullscreen 
-    style="width: 100%; height: 300px; border-radius: 5px;">
-  </iframe>
-
- 
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
-
-    
-    <div style="max-width: 800px; width: 100%;">
-      <img src="images/Spotify/spotooh2.png" style="width: 100%; height: auto; border-radius: 8px;">
-    </div>
-
-   
     <div style="max-width: 800px; width: 100%; font-family: 'Suisse', sans-serif; text-transform: lowercase; color: black; font-size: 14px; line-height: 1.3; padding: 1px;">
+      <p><strong>Gold Pen winner.</strong></p>
+
       <p><strong>Brief:</strong><br>
         market audiobooks to young adults and teenagers.</p>
 
@@ -366,8 +348,20 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
         audiobooks that pause when you sleep.</p>
     </div>
 
+    <iframe 
+      id="yt-bg-player"
+      src="https://www.youtube.com/embed/Fi_V9lzc5BE?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=Fi_V9lzc5BE" 
+      frameborder="0" 
+      allow="autoplay; encrypted-media" 
+      allowfullscreen 
+      style="width: 100%; max-width: 800px; height: 300px; border-radius: 5px;">
+    </iframe>
+
+    <div style="max-width: 800px; width: 100%;">
+      <img src="images/Spotify/spotooh2.png" style="width: 100%; height: auto; border-radius: 8px;">
+    </div>
+
   </div>
-</div>
             `,
             kindle: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 14px 12px; max-width: calc(100% - 12px);">
