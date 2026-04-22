@@ -376,19 +376,6 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <img src="images/kindle-tribute-stacked/kindle-tribute-07.png" alt="Dead Kindle Tribute image 7" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
                 </div>
             `,
-            kindleStacked: `
-                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 14px 12px; max-width: calc(100% - 12px);">
-                    The last page: this is a eulogy for all broken kindles, each one permanently open at its last page forever.
-                </div>
-                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px);">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-01.png" alt="Dead Kindle Tribute image 1" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-03.png" alt="Dead Kindle Tribute image 3" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-04.png" alt="Dead Kindle Tribute image 4" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-05.png" alt="Dead Kindle Tribute image 5" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-06.png" alt="Dead Kindle Tribute image 6" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-07.png" alt="Dead Kindle Tribute image 7" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                </div>
-            `,
 			scripts: ` 
 
                        <div id="iframe-container" style="margin-top: 20px; width: 100%;  overflow: hidden;">
@@ -510,7 +497,6 @@ function openPopup(url) {
 }
 // Global variables for loading
 let initialLoadEuropa = true;
-let initialLoad = true;
 
 // Function to initialize the Europa content
 function initializeEuropaQuote() {
@@ -615,69 +601,6 @@ function displayEuropaContent(text) {
         console.log('No image found for ID:', entryId);
     }
 }
-
-// Function to fetch and display quotations
-function fetchAndDisplayQuotation() {
-    fetch('texter/annotations.txt')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(text => {
-            console.log('Fetched Text:', text);
-
-            // Split entries by blank lines (double line breaks) and filter out entries with 3 words or less
-            const quotations = text
-                .split(/\n\s*\n/) // Split into entries by blank lines
-                .map(entry => entry.trim()) // Trim extra whitespace
-                .filter(entry => entry.split(/\s+/).length > 3); // Filter entries with more than 3 words
-            
-            console.log('Filtered Quotations:', quotations);
-
-            const quotationElement = document.getElementById('quotation');
-
-            if (!quotationElement) {
-                console.error('Quotation element not found in the DOM.');
-                return;
-            }
-
-            if (quotations.length === 0) {
-                // Handle the case where all entries are skipped
-                console.warn('No valid quotations available.');
-                quotationElement.innerHTML = `
-                    <div style="color: red;">
-                        No valid quotations to display. Please check the text file.
-                    </div>
-                `;
-                return;
-            }
-
-            // Select a random entry
-            const randomQuotation = quotations[Math.floor(Math.random() * quotations.length)];
-            console.log('Selected Quotation:', randomQuotation);
-
-            // Update the quotation element
-            quotationElement.innerHTML = `
-                <div>${randomQuotation}</div>
-            `;
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-
-            const quotationElement = document.getElementById('quotation');
-            if (quotationElement) {
-                quotationElement.innerHTML = `
-                    <div style="color: red;">
-                        Could not load quotations. Please try again.
-                    </div>
-                `;
-            }
-        });
-}
-
-
 
 // Function to load Ground 5 content
 function loadGround5Content() {
