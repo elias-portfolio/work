@@ -365,6 +365,20 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
 
             `,
+            kindleStacked: `
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: lowercase; color: black; line-height: 1.5;">
+                    dead kindle tribute.
+                </div>
+                <div style="margin-top: 20px; width: 100%;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-01.png" alt="Dead Kindle Tribute image 1" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-02.png" alt="Dead Kindle Tribute image 2" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-03.png" alt="Dead Kindle Tribute image 3" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-04.png" alt="Dead Kindle Tribute image 4" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-05.png" alt="Dead Kindle Tribute image 5" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-06.png" alt="Dead Kindle Tribute image 6" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                    <img src="images/kindle-tribute-stacked/kindle-tribute-07.png" alt="Dead Kindle Tribute image 7" style="width: calc(100% - 10px); border-radius: 5px; display: block; margin-bottom: 18px;">
+                </div>
+            `,
 			scripts: ` 
 
                        <div id="iframe-container" style="margin-top: 20px; width: 100%;  overflow: hidden;">
