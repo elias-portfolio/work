@@ -214,6 +214,12 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
 
             `,
+            edmon: `
+
+<div>
+    edmon placeholder. ai-assisted postproduction, logging, search, rough cuts, the whole machine. proper case, materials, and a cleaner write-up are coming.
+</div>
+            `,
             groundnews: `
 
 <div> 
@@ -351,7 +357,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             `,
             kindle: `
                 <div id="quotation" onclick="fetchAndDisplayQuotation();">
-              this is a eulogy for my dead Kindle, composed of random, out-of-context fragments salvaged from its drive. click to flip through.
+              this is a eulogy for all broken kindles, each one permanently open at its last page. click to flip through.
 
 
 
