@@ -19,25 +19,34 @@
     font-style: normal;
 }
 
-body.mobile-prototype {
+:root {
+    --mobile-inline-padding: 12px;
+}
+
+body.mobile-prototype,
+body.is-mobile {
     margin: 0;
     padding: 0;
-    --mobile-inline-padding: 12px;
     background: #ffffff;
 }
 
 body.mobile-prototype,
 body.mobile-prototype #app,
-body.mobile-prototype #app * {
+body.mobile-prototype #app *,
+body.is-mobile,
+body.is-mobile #app,
+body.is-mobile #app * {
     font-family: 'Suisse', 'sans-serif' !important;
 }
 
-body.mobile-prototype strong {
+body.mobile-prototype strong,
+body.is-mobile strong {
     font-family: 'Suisse', 'sans-serif' !important;
     font-weight: 700;
 }
 
-body.mobile-prototype .header {
+body.mobile-prototype .header,
+body.is-mobile .header {
     width: 100%;
     height: auto;
     min-height: 0;
@@ -50,34 +59,45 @@ body.mobile-prototype .header {
     z-index: 1000;
 }
 
-body.mobile-prototype #dynamic-header {
+body.mobile-prototype #dynamic-header,
+body.is-mobile #dynamic-header {
     min-height: 0;
     line-height: 1.2;
 }
 
-body.mobile-prototype .website-view {
+body.mobile-prototype .website-view,
+body.is-mobile .website-view {
     display: block;
     width: 100%;
     height: auto;
 }
 
-body.mobile-prototype #list {
+body.mobile-prototype #list,
+body.is-mobile #list {
     width: 100%;
     padding: 4px var(--mobile-inline-padding) 12px;
     box-sizing: border-box;
     overflow: visible;
 }
 
-body.mobile-prototype .list-view {
+body.mobile-prototype .list-view,
+body.is-mobile .list-view {
     display: flex;
     flex-direction: column;
 }
 
-body.mobile-prototype .list-item {
+body.mobile-prototype .list-item,
+body.is-mobile .list-item {
     white-space: normal;
 }
 
-body.mobile-prototype .list-item a {
+body.mobile-prototype .list-item.placeholder,
+body.is-mobile .list-item.placeholder {
+    display: none;
+}
+
+body.mobile-prototype .list-item a,
+body.is-mobile .list-item a {
     display: grid;
     grid-template-columns: 52px minmax(0, 1fr) auto;
     align-items: start;
@@ -87,24 +107,28 @@ body.mobile-prototype .list-item a {
     line-height: 1.25;
 }
 
-body.mobile-prototype .year {
+body.mobile-prototype .year,
+body.is-mobile .year {
     margin-right: 0;
     min-width: 0;
 }
 
-body.mobile-prototype .title {
+body.mobile-prototype .title,
+body.is-mobile .title {
     flex: initial;
     margin-right: 0;
     min-width: 0;
 }
 
-body.mobile-prototype .category {
+body.mobile-prototype .category,
+body.is-mobile .category {
     flex: initial;
     min-width: 72px;
     text-align: right;
 }
 
-body.mobile-prototype #media {
+body.mobile-prototype #media,
+body.is-mobile #media {
     position: static;
     width: 100% !important;
     height: auto;
@@ -115,17 +139,20 @@ body.mobile-prototype #media {
     scroll-margin-top: 60px;
 }
 
-body.mobile-prototype #content-display {
+body.mobile-prototype #content-display,
+body.is-mobile #content-display {
     padding: 0;
     font-size: 15px;
     line-height: 1.45;
 }
 
-body.mobile-prototype #content-display > :first-child {
+body.mobile-prototype #content-display > :first-child,
+body.is-mobile #content-display > :first-child {
     margin-top: 0 !important;
 }
 
-body.mobile-prototype #content-display * {
+body.mobile-prototype #content-display *,
+body.is-mobile #content-display * {
     box-sizing: border-box;
     max-width: 100%;
 }
@@ -136,7 +163,14 @@ body.mobile-prototype #content-display form,
 body.mobile-prototype #content-display h1,
 body.mobile-prototype #content-display h2,
 body.mobile-prototype #content-display h3,
-body.mobile-prototype #content-display pre {
+body.mobile-prototype #content-display pre,
+body.is-mobile #content-display p,
+body.is-mobile #content-display div,
+body.is-mobile #content-display form,
+body.is-mobile #content-display h1,
+body.is-mobile #content-display h2,
+body.is-mobile #content-display h3,
+body.is-mobile #content-display pre {
     width: 100%;
 }
 
@@ -144,14 +178,20 @@ body.mobile-prototype #content-display p,
 body.mobile-prototype #content-display h1,
 body.mobile-prototype #content-display h2,
 body.mobile-prototype #content-display h3,
-body.mobile-prototype #content-display pre {
+body.mobile-prototype #content-display pre,
+body.is-mobile #content-display p,
+body.is-mobile #content-display h1,
+body.is-mobile #content-display h2,
+body.is-mobile #content-display h3,
+body.is-mobile #content-display pre {
     overflow-wrap: anywhere;
     word-break: break-word;
     margin-top: 0;
     margin-bottom: 12px;
 }
 
-body.mobile-prototype #content-display a {
+body.mobile-prototype #content-display a,
+body.is-mobile #content-display a {
     overflow-wrap: anywhere;
     word-break: break-word;
     display: inline-block;
@@ -159,10 +199,13 @@ body.mobile-prototype #content-display a {
     line-height: 1.35;
 }
 
-body.mobile-prototype #content-display p a {
+body.mobile-prototype #content-display p a,
+body.is-mobile #content-display p a {
     font-size: 14px;
 }
-body.mobile-prototype #content-display hr {
+
+body.mobile-prototype #content-display hr,
+body.is-mobile #content-display hr {
     margin: 12px 0;
 }
 
@@ -170,42 +213,56 @@ body.mobile-prototype #content-display img[style],
 body.mobile-prototype #content-display iframe,
 body.mobile-prototype #content-display video,
 body.mobile-prototype #content-display #iframe-container,
-body.mobile-prototype #content-display > div[style] {
+body.mobile-prototype #content-display > div[style],
+body.is-mobile #content-display img[style],
+body.is-mobile #content-display iframe,
+body.is-mobile #content-display video,
+body.is-mobile #content-display #iframe-container,
+body.is-mobile #content-display > div[style] {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
 
-body.mobile-prototype #content-display #iframe-container {
+body.mobile-prototype #content-display #iframe-container,
+body.is-mobile #content-display #iframe-container {
     padding: 0 !important;
     overflow: visible !important;
     margin-top: 14px !important;
 }
 
-body.mobile-prototype #content-display img[style] {
+body.mobile-prototype #content-display img[style],
+body.is-mobile #content-display img[style] {
     display: block;
     height: auto !important;
     margin-bottom: 16px !important;
 }
 
-body.mobile-prototype #content-display iframe {
+body.mobile-prototype #content-display iframe,
+body.is-mobile #content-display iframe {
     display: block;
     margin-bottom: 16px;
 }
 
-body.mobile-prototype #content-display form {
+body.mobile-prototype #content-display form,
+body.is-mobile #content-display form {
     display: block !important;
 }
 
 body.mobile-prototype #content-display input,
-body.mobile-prototype #content-display button {
+body.mobile-prototype #content-display button,
+body.is-mobile #content-display input,
+body.is-mobile #content-display button {
     font-size: 16px !important;
 }
 
 body.mobile-prototype #content-display input[type="date"],
 body.mobile-prototype #content-display input[type="number"],
-body.mobile-prototype #content-display button {
+body.mobile-prototype #content-display button,
+body.is-mobile #content-display input[type="date"],
+body.is-mobile #content-display input[type="number"],
+body.is-mobile #content-display button {
     display: block;
     width: 100% !important;
     max-width: 280px;
@@ -214,14 +271,18 @@ body.mobile-prototype #content-display button {
 
 body.mobile-prototype #yt-bg-player,
 body.mobile-prototype #youtubeEmbed,
-body.mobile-prototype .diablo-video {
+body.mobile-prototype .diablo-video,
+body.is-mobile #yt-bg-player,
+body.is-mobile #youtubeEmbed,
+body.is-mobile .diablo-video {
     width: 100% !important;
     max-width: 100% !important;
     height: 220px !important;
     display: block;
 }
 
-body.mobile-prototype #\32 am-iframe {
+body.mobile-prototype #\32 am-iframe,
+body.is-mobile #\32 am-iframe {
     width: 100% !important;
     height: clamp(360px, 72vh, 540px) !important;
     min-height: 360px !important;
@@ -229,7 +290,8 @@ body.mobile-prototype #\32 am-iframe {
     margin: 0 auto !important;
 }
 
-body.mobile-prototype #ground5-iframe {
+body.mobile-prototype #ground5-iframe,
+body.is-mobile #ground5-iframe {
     min-height: 480px;
     height: clamp(420px, 78vh, 980px) !important;
     width: 100% !important;
@@ -237,49 +299,61 @@ body.mobile-prototype #ground5-iframe {
     margin: 0 auto 16px !important;
 }
 
-body.mobile-prototype #europa-image {
+body.mobile-prototype #europa-image,
+body.is-mobile #europa-image {
     min-height: 220px;
 }
 
-body.mobile-prototype #europa-image img {
+body.mobile-prototype #europa-image img,
+body.is-mobile #europa-image img {
     max-height: 320px;
 }
 
 body.mobile-prototype img,
 body.mobile-prototype video,
-body.mobile-prototype iframe {
+body.mobile-prototype iframe,
+body.is-mobile img,
+body.is-mobile video,
+body.is-mobile iframe {
     max-width: 100%;
 }
 
-body.mobile-prototype video {
+body.mobile-prototype video,
+body.is-mobile video {
     width: 100%;
     height: auto;
 }
 
-body.mobile-prototype #content-display #f16-video {
+body.mobile-prototype #content-display #f16-video,
+body.is-mobile #content-display #f16-video {
     margin: 0 0 16px 0 !important;
     border-radius: 6px;
     border: 0;
 }
 
 body.mobile-prototype #content-display .f16-caption,
-body.mobile-prototype #content-display .f16-text {
+body.mobile-prototype #content-display .f16-text,
+body.is-mobile #content-display .f16-caption,
+body.is-mobile #content-display .f16-text {
     display: block;
     margin: 0 0 16px 0;
 }
 
 @media (max-width: 420px) {
-    body.mobile-prototype .list-item a {
+    body.mobile-prototype .list-item a,
+    body.is-mobile .list-item a {
         grid-template-columns: 48px minmax(0, 1fr) 92px;
         column-gap: 8px;
         font-size: 13px;
     }
 
-    body.mobile-prototype .category {
+    body.mobile-prototype .category,
+    body.is-mobile .category {
         min-width: 0;
     }
 
-    body.mobile-prototype #media {
+    body.mobile-prototype #media,
+    body.is-mobile #media {
         padding-left: 11px;
         padding-right: 11px;
     }

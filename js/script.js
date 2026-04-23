@@ -103,6 +103,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const dynamicHeader = document.getElementById("dynamic-header");
     const contentDisplay = document.getElementById("content-display");
     const mediaArea = document.getElementById("media");
+    const isMobileViewport = () => window.matchMedia('(max-width: 900px)').matches;
+    const syncSectionParam = (section) => {
+        try {
+            const url = new URL(window.location.href);
+            if (section) {
+                url.searchParams.set('section', section);
+            } else {
+                url.searchParams.delete('section');
+            }
+            window.history.replaceState({}, '', url);
+        } catch (error) {
+            console.warn('Failed to sync section param', error);
+        }
+    };
+    const applyViewportMode = () => {
+        const mobile = isMobileViewport();
+        document.body.classList.toggle('is-mobile', mobile);
+        if (mediaArea) {
+            mediaArea.style.flex = mobile ? '1 1 auto' : '0 0 50%';
+            mediaArea.style.width = mobile ? '100%' : '50%';
+        }
+    };
+    const scrollMediaIntoViewIfNeeded = () => {
+        if (!isMobileViewport() || !mediaArea) return;
+        requestAnimationFrame(() => {
+            mediaArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    };
     
     // Track current section for audio management
     let currentSection = null;
@@ -416,8 +444,9 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
         if (content[section]) {
             console.log('Loading content for section:', section);
             contentDisplay.innerHTML = content[section];
-            mediaArea.style.flex = "0 0 50%"; 
-            mediaArea.style.width = "50%"; 
+            mediaArea.style.flex = isMobileViewport() ? "1 1 auto" : "0 0 50%";
+            mediaArea.style.width = isMobileViewport() ? "100%" : "50%";
+            syncSectionParam(section);
 
             // Auto-load a random Europa entry when the Europa section is opened
             if (section === 'europa') {
@@ -448,6 +477,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     }
                 }, 100);
             }
+
+            scrollMediaIntoViewIfNeeded();
         } else {
             contentDisplay.innerHTML = "<p>No content available.</p>"; 
         }
@@ -462,6 +493,16 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
     // Expose showContent globally so it can be called from HTML
     window.showContent = showContent;
+
+    applyViewportMode();
+
+    const params = new URLSearchParams(window.location.search);
+    const initialSection = params.get('section');
+    if (initialSection) {
+        showContent(initialSection);
+    }
+
+    window.addEventListener('resize', applyViewportMode);
 
     // Additional function to open a new window
     function openWindowWithSize(url) {
