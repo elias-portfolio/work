@@ -91,11 +91,6 @@ body.is-mobile .list-item {
     white-space: normal;
 }
 
-body.mobile-prototype .list-item.placeholder,
-body.is-mobile .list-item.placeholder {
-    display: none;
-}
-
 body.mobile-prototype .list-item a,
 body.is-mobile .list-item a {
     display: grid;
