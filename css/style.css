@@ -109,6 +109,7 @@ body2 {
     grid-column: 1 / 2;
     box-sizing: border-box;
     overflow-y: auto;
+    padding-top: 44px;
     padding-left: 10px;
 }
 
