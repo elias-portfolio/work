@@ -270,11 +270,11 @@
       "embed_url": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1&controls=0&loop=1&playlist=JboXN7CuKxc&vq=hd1080&enablejsapi=1"
     },
     "5": {
-      "type": "youtube",
-      "id": "rIz4cF0jBnA",
-      "title": "City21 LIVE — Karachi news/live city feed",
-      "embed_url": "https://www.youtube.com/embed/rIz4cF0jBnA?autoplay=1&mute=1&controls=0&loop=1&playlist=rIz4cF0jBnA&vq=hd1080&enablejsapi=1",
-      "note": "Karachi-specific local live channel, replacing incorrect Ukraine fallback."
+      "type": "youtube_video",
+      "id": "FvEQn4mvoPc",
+      "title": "Karachi City — visual city/coast tour",
+      "embed_url": "https://www.youtube.com/embed/FvEQn4mvoPc?autoplay=1&mute=1&controls=0&loop=1&playlist=FvEQn4mvoPc&vq=hd1080&enablejsapi=1",
+      "note": "Curated Karachi visual primary. A true embeddable live Karachi webcam was not available; live Karachi/Pakistan feeds remain as fallbacks."
     },
     "6": {
       "type": "youtube",
@@ -537,6 +537,12 @@
       }
     ],
     "5": [
+      {
+        "type": "youtube",
+        "id": "rIz4cF0jBnA",
+        "title": "City21 LIVE — Karachi local live fallback",
+        "embed_url": "https://www.youtube.com/embed/rIz4cF0jBnA?autoplay=1&mute=1&controls=0&loop=1&playlist=rIz4cF0jBnA&vq=hd1080&enablejsapi=1"
+      },
       {
         "type": "youtube",
         "id": "d5vNLHS5b6M",

@@ -62,7 +62,7 @@ def capture_url_frame(url: str, out_path: Path, timeout: int = 35) -> tuple[bool
     return False, (p.stderr or p.stdout or "ffmpeg failed")[:220]
 
 
-def check_youtube(video_id: str, out_path: Path, capture_frames: bool) -> tuple[bool, dict[str, Any]]:
+def check_youtube(video_id: str, out_path: Path, capture_frames: bool, require_live: bool = True) -> tuple[bool, dict[str, Any]]:
     yt_dlp = shutil.which("yt-dlp")
     if not yt_dlp:
         return False, {"reason": "yt-dlp missing"}
@@ -73,16 +73,17 @@ def check_youtube(video_id: str, out_path: Path, capture_frames: bool) -> tuple[
         return False, {"reason": (p.stderr or p.stdout or "yt-dlp metadata failed")[:220]}
 
     meta = json.loads(p.stdout)
-    ok_meta = meta.get("live_status") == "is_live" and meta.get("playable_in_embed") is True
+    ok_meta = meta.get("playable_in_embed") is True and (not require_live or meta.get("live_status") == "is_live")
     evidence: dict[str, Any] = {
         "id": video_id,
         "title": meta.get("title"),
         "channel": meta.get("channel"),
         "live_status": meta.get("live_status"),
         "playable_in_embed": meta.get("playable_in_embed"),
+        "require_live": require_live,
     }
     if not ok_meta:
-        evidence["reason"] = "not live+embeddable"
+        evidence["reason"] = "not embeddable" if not require_live else "not live+embeddable"
         return False, evidence
 
     if capture_frames:
@@ -130,9 +131,10 @@ def check_source(offset: str, idx: int, source: Any, capture_frames: bool) -> tu
         ev["kind"] = "image-refresh"
         return ok, ev
 
-    video_id = source.get("id") if isinstance(source, dict) and source.get("type") == "youtube" else (yt_id_from_url(url or ""))
+    video_id = source.get("id") if isinstance(source, dict) and source.get("type") in {"youtube", "youtube_video"} else (yt_id_from_url(url or ""))
     if video_id:
-        ok, ev = check_youtube(video_id, out_path, capture_frames)
+        require_live = not (isinstance(source, dict) and source.get("type") == "youtube_video")
+        ok, ev = check_youtube(video_id, out_path, capture_frames, require_live=require_live)
         ev["kind"] = "youtube"
         return ok, ev
 
