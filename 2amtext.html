@@ -126,6 +126,10 @@ color: red;
   vertical-align: middle;
 }
 
+.zone-note {
+  opacity: 0.72;
+}
+
 </style>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -141,9 +145,9 @@ color: red;
 <audio id="radio-player"></audio>
 <script>
     const streamLocations = {
-      "-12": "Deadzone",
-      "-11": "Deadzone",
-      "-10": "NASA ISS",
+      "-12": "Habitless Zone",
+      "-11": "Habitless Zone",
+      "-10": "Habitless Zone",
       "-9": "Honolulu",
       "-8": "Alaska",
       "-7": "Los Ángeles",
@@ -166,6 +170,12 @@ color: red;
       "10": "Melbourne",
       "11": "Tāmaki Makaurau",
       "12": "Камчатка"
+    };
+
+    const zonePopulationNotes = {
+      "-12": "UTC−12 · population 0 · no settled civil timezone, so World Radio carries the night",
+      "-11": "UTC−11 · population ≈50k · too sparse for a stable 2AM local stream slot",
+      "-10": "UTC−10 · ocean/orbital relay · World Radio fills the gap when the map runs out of city"
     };
 
     const radioStreams = {
@@ -271,7 +281,8 @@ color: red;
         html = `${block.label}`;
       } else if (block.type === 'location') {
         if (block.key === String(adjustedOffset)) className += ' location';
-        html = `${block.name}`;
+        const note = zonePopulationNotes[block.key];
+        html = note ? `${block.name} <span class="zone-note">(${note})</span>` : `${block.name}`;
       } else if (block.type === 'placeholder') {
         html = `${block.name}`;
       }
@@ -295,31 +306,40 @@ color: red;
     }
   
     const backgroundStreams = {
-      "-12": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/vytmBNhc9ig/index.m3u8",
-      "-11": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/vytmBNhc9ig/index.m3u8",
-      "-10": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/zPH5KtjJFaQ/index.m3u8",
-      "-9": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/iIERsg9nAT0/index.m3u8",
-      "-8": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/61pi8UjLOlo/index.m3u8",
-      "-7": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/EO_1LWqsCNE/index.m3u8",
-      "-6": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/uV3wWHSvkfs/index.m3u8",
-      "-5": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/_BMi3usEwi8/index.m3u8",
-      "-4": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/AGCEEBwRUc0/index.m3u8",
-      "-3": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/ykwaa3bprM8/index.m3u8",
-      "-2": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
-      "-1": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
-      "0": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/yuIm1V7Ne7I/index.m3u8",
-      "1": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/3nyPER2kzqk/index.m3u8",
-      "2": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/IRqboacDNFg/index.m3u8",
-      "3": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
-      "4": "https://share.earthcam.net/tJ90CoLmq7TzrY396Yd88FszUBQXSsaa2UfVVJUL4rU!.tJ90CoLmq7TzrY396Yd88Oz5cQ2aIzlk7JZQa_rfG-I!/aish_hatorah_western_wall_webcam/western_wall_cam/live",
-      "5": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
-      "6": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/FBYUkqutqzE/index.m3u8",
-      "7": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/DSRm7V_bsm8/index.m3u8",
-      "8": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
-      "9": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
-      "10": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/5uZa3-RMFos/index.m3u8",
-      "11": "https://squad-soldier-separate-scripting.trycloudflare.com/stream/BQR800Gu28g/index.m3u8",
+      "-12": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080",
+      "-11": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080",
+      "-10": "https://www.youtube.com/embed/zPH5KtjJFaQ?autoplay=1&mute=1&controls=0&loop=1&playlist=zPH5KtjJFaQ&vq=hd1080",
+      "-9": "https://www.youtube.com/embed/8waVy4wM1tM?autoplay=1&mute=1&controls=0&loop=1&playlist=8waVy4wM1tM&vq=hd1080",
+      "-8": "https://www.youtube.com/embed/61pi8UjLOlo?autoplay=1&mute=1&controls=0&loop=1&playlist=61pi8UjLOlo&vq=hd1080",
+      "-7": "https://www.youtube.com/embed/EO_1LWqsCNE?autoplay=1&mute=1&controls=0&loop=1&playlist=EO_1LWqsCNE&vq=hd1080",
+      "-6": "https://www.youtube.com/embed/uV3wWHSvkfs?autoplay=1&mute=1&controls=0&loop=1&playlist=uV3wWHSvkfs&vq=hd1080",
+      "-5": "https://www.youtube.com/embed/_BMi3usEwi8?autoplay=1&mute=1&controls=0&loop=1&playlist=_BMi3usEwi8&vq=hd1080",
+      "-4": "https://www.youtube.com/embed/waDFkGGIIdA?autoplay=1&mute=1&controls=0&loop=1&playlist=waDFkGGIIdA&vq=hd1080",
+      "-3": "https://www.youtube.com/embed/asziETEK8J8?autoplay=1&mute=1&controls=0&loop=1&playlist=asziETEK8J8&vq=hd1080",
+      "-2": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080",
+      "-1": { type: "image-refresh", url: "https://cdn.skylinewebcams.com/live3606.jpg", intervalMs: 60000 },
+      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&loop=1&playlist=yuIm1V7Ne7I&vq=hd1080",
+      "1": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080",
+      "2": "https://www.youtube.com/embed/LAJiFSw2ICc?autoplay=1&mute=1&controls=0&loop=1&playlist=LAJiFSw2ICc&vq=hd1080",
+      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
+      "4": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1&controls=0&loop=1&playlist=JboXN7CuKxc&vq=hd1080",
+      "5": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
+      "6": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080",
+      "7": "https://www.youtube.com/embed/DSRm7V_bsm8?autoplay=1&mute=1&controls=0&loop=1&playlist=DSRm7V_bsm8&vq=hd1080",
+      "8": "https://www.youtube.com/embed/SUXPnIEpbn4?autoplay=1&mute=1&controls=0&loop=1&playlist=SUXPnIEpbn4&vq=hd1080",
+      "9": "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080",
+      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&loop=1&playlist=5uZa3-RMFos&vq=hd1080",
+      "11": "https://www.youtube.com/embed/BQR800Gu28g?autoplay=1&mute=1&controls=0&loop=1&playlist=BQR800Gu28g&vq=hd1080",
       "12": "shors-refresh"
+    };
+
+    const backgroundFallbackStreams = {
+      "-9": ["https://www.youtube.com/embed/hm9iAviOZ20?autoplay=1&mute=1&controls=0&loop=1&playlist=hm9iAviOZ20&vq=hd1080"],
+      "-4": ["https://www.youtube.com/embed/C6eSiTr3SE8?autoplay=1&mute=1&controls=0&loop=1&playlist=C6eSiTr3SE8&vq=hd1080", "https://www.youtube.com/embed/Sr_jX-yYkNY?autoplay=1&mute=1&controls=0&loop=1&playlist=Sr_jX-yYkNY&vq=hd1080"],
+      "-3": ["https://www.youtube.com/embed/8GjxwU0F84M?autoplay=1&mute=1&controls=0&loop=1&playlist=8GjxwU0F84M&vq=hd1080", "https://www.youtube.com/embed/qyoZi1EbRO4?autoplay=1&mute=1&controls=0&loop=1&playlist=qyoZi1EbRO4&vq=hd1080"],
+      "-2": ["https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080", "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080"],
+      "8": ["https://www.youtube.com/embed/UKkc40WQm0c?autoplay=1&mute=1&controls=0&loop=1&playlist=UKkc40WQm0c&vq=hd1080", "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"],
+      "9": ["https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&loop=1&playlist=DjdUEyjx8GM&vq=hd1080"]
     };
 
 
@@ -329,6 +349,33 @@ color: red;
 
     // Add this variable to track current video index
     let currentVideoIndex = 0;
+    let currentBackgroundAttempt = 0;
+
+    function backgroundCandidates(offset) {
+      const primary = backgroundStreams[offset];
+      const fallbacks = backgroundFallbackStreams[offset] || [];
+      return [primary, ...fallbacks].filter(Boolean);
+    }
+
+    function backgroundKey(bg) {
+      return typeof bg === 'string' ? bg : JSON.stringify(bg || {});
+    }
+
+    function armBackgroundFallback(offset, attempt, label) {
+      clearTimeout(window._bgFallbackTimer);
+      const candidates = backgroundCandidates(offset);
+      if (attempt >= candidates.length - 1) return;
+      window._bgFallbackTimer = setTimeout(() => {
+        if (virtualOffset === offset && currentBackgroundAttempt === attempt) {
+          console.warn(`background ${label || 'stream'} slow; trying fallback`, { offset, attempt: attempt + 1 });
+          updateBackground(offset, attempt + 1);
+        }
+      }, 18000);
+    }
+
+    function disarmBackgroundFallback() {
+      clearTimeout(window._bgFallbackTimer);
+    }
 
     function getAutoOffset() {
       let offset = (2 - new Date().getUTCHours() + 24) % 24;
@@ -347,8 +394,10 @@ color: red;
       updateHighlights(offset);
     }
 
-    function updateBackground(offset) {
-      let newBg = backgroundStreams[offset];
+    function updateBackground(offset, attempt = 0) {
+      const candidates = backgroundCandidates(offset);
+      let newBg = candidates[attempt];
+      currentBackgroundAttempt = attempt;
 
       const bgFrame = document.getElementById("bg-frame");
       const bgVideo = document.getElementById("bg-video");
@@ -357,9 +406,10 @@ color: red;
       clearInterval(window._shorsImageInterval);
       document.getElementById("shors-cam-img")?.remove();
       
-      if (newBg === "shors-refresh") {
+      if (newBg === "shors-refresh" || (newBg && typeof newBg === 'object' && newBg.type === "image-refresh")) {
         bgFrame.style.display = 'none';
         bgVideo.style.display = 'none';
+        armBackgroundFallback(offset, attempt, 'image');
 
         let img = document.getElementById("shors-cam-img");
         if (!img) {
@@ -382,13 +432,16 @@ color: red;
         // Set up auto-refreshing background
         function refreshImage() {
           const timestamp = new Date().getTime(); // prevent caching
-          img.src = `https://www.shors.ru/images/camera/image96.jpg?${timestamp}`;
+          const imageUrl = newBg === "shors-refresh" ? "https://www.shors.ru/images/camera/image96.jpg" : newBg.url;
+          img.onload = disarmBackgroundFallback;
+          img.onerror = () => updateBackground(offset, attempt + 1);
+          img.src = `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}${timestamp}`;
         }
 
         // Refresh immediately and then every minute
         refreshImage();
         clearInterval(window._shorsImageInterval);
-        window._shorsImageInterval = setInterval(refreshImage, 60000);
+        window._shorsImageInterval = setInterval(refreshImage, (newBg.intervalMs || 60000));
       } else if (newBg) {
         if (Array.isArray(newBg)) {
           // Handle multiple video files
@@ -453,6 +506,7 @@ color: red;
           });
         } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
           // Handle HLS stream
+          armBackgroundFallback(offset, attempt, 'hls');
           bgFrame.style.display = 'none';
           bgVideo.style.display = 'block';
           bgVideo.style.position = "absolute";
@@ -473,6 +527,9 @@ color: red;
             window.hls.destroy();
             window.hls = null;
           }
+          bgVideo.onerror = () => updateBackground(offset, attempt + 1);
+          bgVideo.onplaying = disarmBackgroundFallback;
+          bgVideo.oncanplay = disarmBackgroundFallback;
           if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
             bgVideo.src = newBg;
             bgVideo.load();
@@ -484,17 +541,24 @@ color: red;
             window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
               bgVideo.play().catch(console.error);
             });
+            window.hls.on(Hls.Events.ERROR, function(event, data) {
+              if (data && data.fatal) updateBackground(offset, attempt + 1);
+            });
           }
         } else {
-          // Handle YouTube iframe
+          // Handle YouTube/external iframe
+          armBackgroundFallback(offset, attempt, 'iframe');
           bgVideo.style.display = 'none';
           bgFrame.style.display = 'block';
           if (bgFrame.src !== newBg) {
             // Use postMessage API for additional muting control
-            bgFrame.src = newBg + "&enablejsapi=1";
+            const iframeJoiner = newBg.includes('?') ? '&' : '?';
+            const iframeSrc = newBg.includes('enablejsapi=1') ? newBg : newBg + iframeJoiner + "enablejsapi=1";
+            bgFrame.src = iframeSrc;
             
             // Try to initialize YouTube API control when frame loads
             bgFrame.onload = function() {
+              disarmBackgroundFallback();
               try {
                 if (window.YT && window.YT.Player) {
                   if (ytPlayer) {

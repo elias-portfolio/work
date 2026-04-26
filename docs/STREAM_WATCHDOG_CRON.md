@@ -1,33 +1,20 @@
 # Stream watchdog cron
 
-## What it does
-- Fetches online `2amtext.html` (Pages first, raw GitHub fallback)
-- Extracts `radioStreams`
-- Tests each stream with GET/range (not HEAD-only)
-- Optional ffprobe confidence check
-- Writes reports:
-  - `reports/stream_watchdog_latest.json`
-  - `reports/stream_watchdog_latest.md`
+The old audio-only watchdog remains, but the current preferred entrypoint is:
 
-## Run manually
 ```bash
-cd /Users/eliaskarlsson/.openclaw/workspace/work
-./scripts/stream_watchdog_run.sh
+cd /Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work
+./scripts/audio_heartbeat_run.sh
 ```
+
+See `docs/STREAM_HEARTBEATS.md`.
+
+Current audio heartbeat outputs:
+
+- `reports/audio_heartbeat_latest.json`
+- `reports/audio_heartbeat_latest.md`
 
 Exit code:
-- `0` = all streams OK
-- `2` = one or more broken streams
 
-## Kimi cron job prompt pattern
-Use a Kimi isolated cron with a message like:
-
-```text
-Run:
-cd /Users/eliaskarlsson/.openclaw/workspace/work && ./scripts/stream_watchdog_run.sh
-
-If broken_count > 0:
-- return short alert with broken offsets + URLs
-If all OK:
-- return exactly: STREAMS_OK
-```
+- `0`: all configured audio streams responded
+- `2`: one or more audio streams failed
