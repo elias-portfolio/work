@@ -231,11 +231,13 @@
       "embed_url": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080&enablejsapi=1"
     },
     "-1": {
-      "type": "iframe",
-      "id": "webcamcaboverde-sal-odjo-dagua",
-      "title": "Santa Maria, Sal, Cabo Verde | Hotel Odjo d’Água",
-      "embed_url": "https://ip.webcamcaboverde.com/54a71dcb-628c-4915-906c-f4a8bed4585b.html?autoplay=true&mute=true",
-      "source_url": "https://webcamcaboverde.com/sal-island-webcam-live-djadsal-cabo-verde/"
+      "type": "image-refresh",
+      "id": "webcamcaboverde-sal-odjo-dagua-still",
+      "title": "Santa Maria, Sal, Cabo Verde live still — Hotel Odjo d’Água",
+      "url": "https://ip.webcamcaboverde.com/memfs/54a71dcb-628c-4915-906c-f4a8bed4585b.jpg",
+      "source_url": "https://webcamcaboverde.com/sal-island-webcam-live-djadsal-cabo-verde/",
+      "intervalMs": 60000,
+      "note": "HLS endpoint is currently 404; use the provider’s live-refreshing poster image so the slot stays visible."
     },
     "0": {
       "type": "youtube",
@@ -269,9 +271,10 @@
     },
     "5": {
       "type": "youtube",
-      "id": "e2gC37ILQmk",
-      "title": "Ukraine multi-city live fallback for Karachi slot",
-      "embed_url": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080&enablejsapi=1"
+      "id": "rIz4cF0jBnA",
+      "title": "City21 LIVE — Karachi news/live city feed",
+      "embed_url": "https://www.youtube.com/embed/rIz4cF0jBnA?autoplay=1&mute=1&controls=0&loop=1&playlist=rIz4cF0jBnA&vq=hd1080&enablejsapi=1",
+      "note": "Karachi-specific local live channel, replacing incorrect Ukraine fallback."
     },
     "6": {
       "type": "youtube",
@@ -529,8 +532,16 @@
         "type": "image-refresh",
         "id": "skyline-live3606",
         "title": "Cape Verde - Praia da Cruz live still fallback",
-        "image_url": "https://cdn.skylinewebcams.com/live3606.jpg",
+        "url": "https://cdn.skylinewebcams.com/live3606.jpg",
         "intervalMs": 60000
+      }
+    ],
+    "5": [
+      {
+        "type": "youtube",
+        "id": "d5vNLHS5b6M",
+        "title": "Geo News English — Pakistan live fallback",
+        "embed_url": "https://www.youtube.com/embed/d5vNLHS5b6M?autoplay=1&mute=1&controls=0&loop=1&playlist=d5vNLHS5b6M&vq=hd1080&enablejsapi=1"
       }
     ]
   }

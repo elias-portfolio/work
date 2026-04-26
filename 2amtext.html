@@ -317,13 +317,13 @@ color: red;
       "-4": "https://www.youtube.com/embed/waDFkGGIIdA?autoplay=1&mute=1&controls=0&loop=1&playlist=waDFkGGIIdA&vq=hd1080",
       "-3": "https://www.youtube.com/embed/asziETEK8J8?autoplay=1&mute=1&controls=0&loop=1&playlist=asziETEK8J8&vq=hd1080",
       "-2": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080",
-      "-1": "https://ip.webcamcaboverde.com/54a71dcb-628c-4915-906c-f4a8bed4585b.html?autoplay=true&mute=true",
+      "-1": { type: "image-refresh", url: "https://ip.webcamcaboverde.com/memfs/54a71dcb-628c-4915-906c-f4a8bed4585b.jpg", intervalMs: 60000 },
       "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&loop=1&playlist=yuIm1V7Ne7I&vq=hd1080",
       "1": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080",
       "2": "https://www.youtube.com/embed/LAJiFSw2ICc?autoplay=1&mute=1&controls=0&loop=1&playlist=LAJiFSw2ICc&vq=hd1080",
       "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
       "4": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1&controls=0&loop=1&playlist=JboXN7CuKxc&vq=hd1080",
-      "5": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
+      "5": "https://www.youtube.com/embed/rIz4cF0jBnA?autoplay=1&mute=1&controls=0&loop=1&playlist=rIz4cF0jBnA&vq=hd1080",
       "6": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080",
       "7": "https://www.youtube.com/embed/DSRm7V_bsm8?autoplay=1&mute=1&controls=0&loop=1&playlist=DSRm7V_bsm8&vq=hd1080",
       "8": "https://www.youtube.com/embed/SUXPnIEpbn4?autoplay=1&mute=1&controls=0&loop=1&playlist=SUXPnIEpbn4&vq=hd1080",
@@ -338,6 +338,8 @@ color: red;
       "-4": ["https://www.youtube.com/embed/C6eSiTr3SE8?autoplay=1&mute=1&controls=0&loop=1&playlist=C6eSiTr3SE8&vq=hd1080", "https://www.youtube.com/embed/Sr_jX-yYkNY?autoplay=1&mute=1&controls=0&loop=1&playlist=Sr_jX-yYkNY&vq=hd1080"],
       "-3": ["https://www.youtube.com/embed/8GjxwU0F84M?autoplay=1&mute=1&controls=0&loop=1&playlist=8GjxwU0F84M&vq=hd1080", "https://www.youtube.com/embed/qyoZi1EbRO4?autoplay=1&mute=1&controls=0&loop=1&playlist=qyoZi1EbRO4&vq=hd1080"],
       "-2": ["https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080", "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080"],
+      "-1": [{ type: "image-refresh", url: "https://cdn.skylinewebcams.com/live3606.jpg", intervalMs: 60000 }],
+      "5": ["https://www.youtube.com/embed/d5vNLHS5b6M?autoplay=1&mute=1&controls=0&loop=1&playlist=d5vNLHS5b6M&vq=hd1080"],
       "8": ["https://www.youtube.com/embed/UKkc40WQm0c?autoplay=1&mute=1&controls=0&loop=1&playlist=UKkc40WQm0c&vq=hd1080", "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"],
       "9": ["https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"]
     };
@@ -432,7 +434,7 @@ color: red;
         // Set up auto-refreshing background
         function refreshImage() {
           const timestamp = new Date().getTime(); // prevent caching
-          const imageUrl = newBg === "shors-refresh" ? "https://www.shors.ru/images/camera/image96.jpg" : newBg.url;
+          const imageUrl = newBg === "shors-refresh" ? "https://www.shors.ru/images/camera/image96.jpg" : (newBg.url || newBg.image_url);
           img.onload = disarmBackgroundFallback;
           img.onerror = () => updateBackground(offset, attempt + 1);
           img.src = `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}${timestamp}`;
