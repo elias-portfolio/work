@@ -4,7 +4,7 @@
     "description": "Timezone-based web radio showing live streams from active 2AM cities and habitless fallback zones",
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
-    "version": "resurrection-scaffold-v2-heartbeats-fallbacks",
+    "version": "resurrection-scaffold-v3-japan-caboverde-cron",
     "updated_at": "2026-04-26"
   },
   "streamLocations": {
@@ -231,11 +231,11 @@
       "embed_url": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080&enablejsapi=1"
     },
     "-1": {
-      "type": "image-refresh",
-      "id": "skyline-live3606",
-      "title": "Cape Verde - Praia da Cruz live still",
-      "image_url": "https://cdn.skylinewebcams.com/live3606.jpg",
-      "intervalMs": 60000
+      "type": "iframe",
+      "id": "webcamcaboverde-sal-odjo-dagua",
+      "title": "Santa Maria, Sal, Cabo Verde | Hotel Odjo d’Água",
+      "embed_url": "https://ip.webcamcaboverde.com/54a71dcb-628c-4915-906c-f4a8bed4585b.html?autoplay=true&mute=true",
+      "source_url": "https://webcamcaboverde.com/sal-island-webcam-live-djadsal-cabo-verde/"
     },
     "0": {
       "type": "youtube",
@@ -293,9 +293,9 @@
     },
     "9": {
       "type": "youtube",
-      "id": "Y1XxYLwpJy4",
-      "title": "Kyoto Japan live camera",
-      "embed_url": "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080&enablejsapi=1"
+      "id": "DjdUEyjx8GM",
+      "title": "Tokyo Shinjuku Kabukicho Live",
+      "embed_url": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&loop=1&playlist=DjdUEyjx8GM&vq=hd1080&enablejsapi=1"
     },
     "10": {
       "type": "youtube",
@@ -519,9 +519,18 @@
     "9": [
       {
         "type": "youtube",
-        "id": "DjdUEyjx8GM",
-        "title": "Tokyo Shinjuku fallback",
-        "embed_url": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&loop=1&playlist=DjdUEyjx8GM&vq=hd1080&enablejsapi=1"
+        "id": "Y1XxYLwpJy4",
+        "title": "Kyoto Japan live camera fallback",
+        "embed_url": "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080&enablejsapi=1"
+      }
+    ],
+    "-1": [
+      {
+        "type": "image-refresh",
+        "id": "skyline-live3606",
+        "title": "Cape Verde - Praia da Cruz live still fallback",
+        "image_url": "https://cdn.skylinewebcams.com/live3606.jpg",
+        "intervalMs": 60000
       }
     ]
   }

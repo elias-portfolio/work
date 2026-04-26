@@ -281,8 +281,7 @@ color: red;
         html = `${block.label}`;
       } else if (block.type === 'location') {
         if (block.key === String(adjustedOffset)) className += ' location';
-        const note = zonePopulationNotes[block.key];
-        html = note ? `${block.name} <span class="zone-note">(${note})</span>` : `${block.name}`;
+        html = `${block.name}`;
       } else if (block.type === 'placeholder') {
         html = `${block.name}`;
       }
@@ -291,6 +290,7 @@ color: red;
       div.className = className;
       div.dataset.blockType = block.type;
       if (block.key !== undefined) div.dataset.key = block.key;
+      if (block.type === 'location') div.dataset.name = block.name;
       div.innerHTML = html;
       grid.appendChild(div);
     });
@@ -317,7 +317,7 @@ color: red;
       "-4": "https://www.youtube.com/embed/waDFkGGIIdA?autoplay=1&mute=1&controls=0&loop=1&playlist=waDFkGGIIdA&vq=hd1080",
       "-3": "https://www.youtube.com/embed/asziETEK8J8?autoplay=1&mute=1&controls=0&loop=1&playlist=asziETEK8J8&vq=hd1080",
       "-2": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080",
-      "-1": { type: "image-refresh", url: "https://cdn.skylinewebcams.com/live3606.jpg", intervalMs: 60000 },
+      "-1": "https://ip.webcamcaboverde.com/54a71dcb-628c-4915-906c-f4a8bed4585b.html?autoplay=true&mute=true",
       "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&loop=1&playlist=yuIm1V7Ne7I&vq=hd1080",
       "1": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080",
       "2": "https://www.youtube.com/embed/LAJiFSw2ICc?autoplay=1&mute=1&controls=0&loop=1&playlist=LAJiFSw2ICc&vq=hd1080",
@@ -327,7 +327,7 @@ color: red;
       "6": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080",
       "7": "https://www.youtube.com/embed/DSRm7V_bsm8?autoplay=1&mute=1&controls=0&loop=1&playlist=DSRm7V_bsm8&vq=hd1080",
       "8": "https://www.youtube.com/embed/SUXPnIEpbn4?autoplay=1&mute=1&controls=0&loop=1&playlist=SUXPnIEpbn4&vq=hd1080",
-      "9": "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080",
+      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&loop=1&playlist=DjdUEyjx8GM&vq=hd1080",
       "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&loop=1&playlist=5uZa3-RMFos&vq=hd1080",
       "11": "https://www.youtube.com/embed/BQR800Gu28g?autoplay=1&mute=1&controls=0&loop=1&playlist=BQR800Gu28g&vq=hd1080",
       "12": "shors-refresh"
@@ -339,7 +339,7 @@ color: red;
       "-3": ["https://www.youtube.com/embed/8GjxwU0F84M?autoplay=1&mute=1&controls=0&loop=1&playlist=8GjxwU0F84M&vq=hd1080", "https://www.youtube.com/embed/qyoZi1EbRO4?autoplay=1&mute=1&controls=0&loop=1&playlist=qyoZi1EbRO4&vq=hd1080"],
       "-2": ["https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080", "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080"],
       "8": ["https://www.youtube.com/embed/UKkc40WQm0c?autoplay=1&mute=1&controls=0&loop=1&playlist=UKkc40WQm0c&vq=hd1080", "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"],
-      "9": ["https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&loop=1&playlist=DjdUEyjx8GM&vq=hd1080"]
+      "9": ["https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"]
     };
 
 
@@ -704,11 +704,16 @@ color: red;
           }
         } else if (zone.dataset.blockType === 'stream' && zone.dataset.key === String(offset)) {
           zone.classList.add('stream');
-        } else if (zone.dataset.blockType === 'location' && zone.dataset.key === String(offset)) {
-          zone.classList.add('location');
+        } else if (zone.dataset.blockType === 'location') {
+          const isActive = zone.dataset.key === String(offset);
+          const note = isActive ? zonePopulationNotes[zone.dataset.key] : null;
+          zone.innerHTML = note ? `${zone.dataset.name} <span class="zone-note">(${note})</span>` : zone.dataset.name;
+          if (isActive) zone.classList.add('location');
         }
       });
     }
+
+    updateHighlights(virtualOffset);
 
     // Add global click handler for play/pause right after audio setup
     document.body.addEventListener("click", (e) => {

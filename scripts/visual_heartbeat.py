@@ -109,6 +109,16 @@ def check_image(url: str, out_path: Path) -> tuple[bool, dict[str, Any]]:
         return False, {"url": url, "reason": str(exc)}
 
 
+def check_iframe(url: str) -> tuple[bool, dict[str, Any]]:
+    try:
+        r = requests.get(url, headers={"User-Agent": "2am-radio-visual-heartbeat/1.0"}, timeout=20)
+        ctype = r.headers.get("content-type", "")
+        ok = r.status_code == 200 and ("html" in ctype.lower() or len(r.content) > 1000)
+        return ok, {"url": url, "status": r.status_code, "content_type": ctype, "bytes": len(r.content)}
+    except Exception as exc:
+        return False, {"url": url, "reason": str(exc)}
+
+
 def check_source(offset: str, idx: int, source: Any, capture_frames: bool) -> tuple[bool, dict[str, Any]]:
     safe_offset = offset.replace("-", "minus")
     out_path = FRAME_DIR / f"offset-{safe_offset}-candidate-{idx}.jpg"
@@ -132,6 +142,11 @@ def check_source(offset: str, idx: int, source: Any, capture_frames: bool) -> tu
 
     if url == "shors-refresh":
         return check_image("https://www.shors.ru/images/camera/image96.jpg", out_path)
+
+    if url and source_type in {"iframe", "generic"}:
+        ok, ev = check_iframe(url)
+        ev["kind"] = source_type
+        return ok, ev
 
     return False, {"kind": "unknown", "url": url, "reason": "no visual checker for this source"}
 
