@@ -5,7 +5,9 @@
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
-    "updated_at": "2026-04-26"
+    "updated_at": "2026-04-27",
+    "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
+    "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source."
   },
   "streamLocations": {
     "-12": "Habitless Zone",
@@ -220,15 +222,17 @@
     },
     "-3": {
       "type": "youtube",
-      "id": "asziETEK8J8",
-      "title": "Brazil live cam fallback: Rio de Janeiro Christ the Redeemer",
-      "embed_url": "https://www.youtube.com/embed/asziETEK8J8?autoplay=1&mute=1&controls=0&loop=1&playlist=asziETEK8J8&vq=hd1080&enablejsapi=1"
+      "id": "tMYtrEBNVAU",
+      "title": "Brazil Santos port entrance live cam",
+      "embed_url": "https://www.youtube.com/embed/tMYtrEBNVAU?autoplay=1&mute=1&controls=0&loop=1&playlist=tMYtrEBNVAU&vq=hd1080&enablejsapi=1",
+      "note": "Replaces dead Brasilia/Rio primary as UTC-3 Brazil atmospheric harbor visual. Verified 2026-04-27: live_status=is_live, playable_in_embed=true, frame captured."
     },
     "-2": {
-      "type": "youtube",
-      "id": "tYgGEC-ESTw",
-      "title": "Reykjavik Iceland live cam",
-      "embed_url": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080&enablejsapi=1"
+      "type": "image_refresh",
+      "url": "https://livefromiceland.is/wp-content/uploads/2025/11/reykjavikurtjorn.jpg",
+      "title": "Reykjavíkurtjörn live image — Live From Iceland",
+      "refresh_interval_ms": 60000,
+      "note": "Replaces YouTube tYgGEC-ESTw because captured frame showed camera startup/no-signal. Verified 2026-04-27: HTTP 200 image/jpeg 512x288 real Reykjavík pond/city view."
     },
     "-1": {
       "type": "image-refresh",
