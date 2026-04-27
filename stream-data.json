@@ -8,8 +8,9 @@
     "updated_at": "2026-04-27",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
     "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source.",
-    "pakistan_audio_repair_note": "Offset +5 audio changed from generic Radio Pakistan to Radio One FM91 Pakistan after direct ffprobe validation: mp3 128 kbps.",
-    "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated."
+    "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
+    "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated.",
+    "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo: Palmera Blanca Daystream audio + Astana city live video after yt-dlp/embed/frame and ffprobe validation."
   },
   "streamLocations": {
     "-12": "Habitless Zone",
@@ -29,7 +30,7 @@
     "2": "Berlin",
     "3": "Kyiv",
     "4": "Bethlehem",
-    "5": "Karachi",
+    "5": "Astana",
     "6": "Goa",
     "7": "Jakkarta",
     "8": "Chengdu",
@@ -126,11 +127,11 @@
       "station": "Radio Alhara"
     },
     "5": {
-      "url": "https://cc.vmakerhost.com/proxy/karachi?mp=/stream",
+      "url": "https://daystream.palmerablanca.com/daystream-128.mp3",
       "status": "working",
-      "station": "Radio One FM91 Pakistan",
+      "station": "Palmera Blanca Daystream Kazakhstan",
       "format": "mp3",
-      "note": "Direct stream verified 2026-04-27 with ffprobe: mp3, 128 kbps. Chosen as a stronger Pakistan/UTC+5 match than generic public radio."
+      "note": "Kazakhstan UTC+5 candidate. Verified 2026-04-28 with ffprobe: MP3 128 kbps. Radio-browser tags: chill/downtempo/lo-fi/retrowave/synthwave."
     },
     "6": {
       "url": "http://ice1.somafm.com/suburbsofgoa-128-mp3",
@@ -278,11 +279,11 @@
       "embed_url": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1&controls=0&loop=1&playlist=JboXN7CuKxc&vq=hd1080&enablejsapi=1"
     },
     "5": {
-      "type": "youtube_video",
-      "id": "FvEQn4mvoPc",
-      "title": "Karachi City — visual city/coast tour",
-      "embed_url": "https://www.youtube.com/embed/FvEQn4mvoPc?autoplay=1&mute=1&controls=0&loop=1&playlist=FvEQn4mvoPc&vq=hd1080&enablejsapi=1",
-      "note": "Curated Karachi visual primary. A true embeddable live Karachi webcam was not available; live Karachi/Pakistan feeds remain as fallbacks."
+      "type": "youtube",
+      "id": "aSZT76rBQyw",
+      "title": "Kazakhstan Live — Astana City View 24/7",
+      "embed_url": "https://www.youtube.com/embed/aSZT76rBQyw?autoplay=1&mute=1&controls=0&loop=1&playlist=aSZT76rBQyw&vq=hd1080&enablejsapi=1",
+      "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; frame captured, night city boulevard view."
     },
     "6": {
       "type": "youtube",
@@ -547,15 +548,10 @@
     "5": [
       {
         "type": "youtube",
-        "id": "rIz4cF0jBnA",
-        "title": "City21 LIVE — Karachi local live fallback",
-        "embed_url": "https://www.youtube.com/embed/rIz4cF0jBnA?autoplay=1&mute=1&controls=0&loop=1&playlist=rIz4cF0jBnA&vq=hd1080&enablejsapi=1"
-      },
-      {
-        "type": "youtube",
-        "id": "d5vNLHS5b6M",
-        "title": "Geo News English — Pakistan live fallback",
-        "embed_url": "https://www.youtube.com/embed/d5vNLHS5b6M?autoplay=1&mute=1&controls=0&loop=1&playlist=d5vNLHS5b6M&vq=hd1080&enablejsapi=1"
+        "id": "MmlDKqnfEpY",
+        "title": "Grand Tawn, Almaty — GEONET IP camera live",
+        "embed_url": "https://www.youtube.com/embed/MmlDKqnfEpY?autoplay=1&mute=1&controls=0&loop=1&playlist=MmlDKqnfEpY&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; monochrome night city frame captured."
       }
     ]
   }
