@@ -7,7 +7,9 @@
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
     "updated_at": "2026-04-27",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
-    "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source."
+    "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source.",
+    "pakistan_audio_repair_note": "Offset +5 audio changed from generic Radio Pakistan to Radio One FM91 Pakistan after direct ffprobe validation: mp3 128 kbps.",
+    "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated."
   },
   "streamLocations": {
     "-12": "Habitless Zone",
@@ -124,9 +126,11 @@
       "station": "Radio Alhara"
     },
     "5": {
-      "url": "https://whmsonic.radio.gov.pk:7003/stream",
+      "url": "https://cc.vmakerhost.com/proxy/karachi?mp=/stream",
       "status": "working",
-      "station": "Radio Pakistan"
+      "station": "Radio One FM91 Pakistan",
+      "format": "mp3",
+      "note": "Direct stream verified 2026-04-27 with ffprobe: mp3, 128 kbps. Chosen as a stronger Pakistan/UTC+5 match than generic public radio."
     },
     "6": {
       "url": "http://ice1.somafm.com/suburbsofgoa-128-mp3",
@@ -321,7 +325,7 @@
       "url": "https://www.shors.ru/images/camera/image96.jpg",
       "title": "Kamchatka Shors Camera",
       "refresh_interval_ms": 60000,
-      "note": "Auto-refreshing static image instead of YouTube"
+      "note": "Auto-refreshing static image instead of YouTube. Held as current source until multiple alternative Kamchatka webcams are validated."
     }
   },
   "placeholderCities": [
