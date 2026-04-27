@@ -1,0 +1,400 @@
+{
+  "created_at": "2026-04-27T20:06:37.488961+00:00",
+  "slot": {
+    "offset": "-3",
+    "city": "Brasilia",
+    "timezone_label": "",
+    "failed_id": "asziETEK8J8",
+    "fallback_id": "8GjxwU0F84M",
+    "failure": "primary failed: This live stream recording is not available; fallback candidate works"
+  },
+  "queries": [
+    "Brasilia live webcam YouTube embeddable city night stream",
+    "Brasilia ao vivo câmera YouTube live webcam",
+    "site:youtube.com/watch Brasilia ao vivo câmera cidade live",
+    "Brasilia live cam city traffic skyline YouTube live",
+    "Brazil live webcam Brasilia city YouTube live stream",
+    "Brasília ao vivo câmera cidade YouTube live",
+    "Brasília DF webcam ao vivo trânsito cidade",
+    "site:youtube.com/watch Brasília DF ao vivo live cam",
+    "replacement for failed YouTube live stream asziETEK8J8 Brasilia live webcam"
+  ],
+  "runs": [
+    {
+      "query": "Brasilia live webcam YouTube embeddable city night stream",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/01-brasilia-live-webcam-youtube-embeddable-city-night-stream.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "No direct YouTube embeddable live city night streams for Brasilia were found. The provided results are live webcams from dedicated webcam platforms, but are not explicitly YouTube embeddable and it is currently daytime in Brasilia.",
+      "results": [
+        {
+          "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+          "url": "https://www.skyline-webcams.com/en/webcam/brazil/federal-district/brasilia/brasilia.html",
+          "snippet": "Panoramic live view of Brasilia, showing city landmarks, though video playback may have issues.",
+          "source_kind": "original",
+          "decision_hint": "needs_review"
+        },
+        {
+          "title": "Brasília - Panoramic view, Brazil - Webcams - WorldCam",
+          "url": "https://www.climaaovivo.com.br/",
+          "snippet": "Live panoramic view of Brasilia from Centro de Eventos e Convenções Brasil 21.",
+          "source_kind": "original",
+          "decision_hint": "needs_review"
+        }
+      ],
+      "grounding_chunks": 2
+    },
+    {
+      "query": "Brasilia ao vivo câmera YouTube live webcam",
+      "returncode": 1,
+      "stderr_tail": "Error: Vertex request failed. Check auth, project access, billing, and API enablement.\nSuggested commands:\n  gcloud auth login --update-adc\n  gcloud config set project openclaweliaskarlssoon\n  gcloud services enable aiplatform.googleapis.com --project openclaweliaskarlssoon\n",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/02-brasilia-ao-vivo-c-mera-youtube-live-webcam.json",
+      "http_status": 429,
+      "ok": false,
+      "partial": false,
+      "results": [],
+      "grounding_chunks": 0
+    },
+    {
+      "query": "site:youtube.com/watch Brasilia ao vivo câmera cidade live",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/03-site-youtube-com-watch-brasilia-ao-vivo-c-mera-cidade-live.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "No direct YouTube links matching 'site:youtube.com/watch Brasilia ao vivo câmera cidade live' were found in the search results. The provided results are from dedicated live webcam websites.",
+      "results": [
+        {
+          "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+          "url": "https://www.skylinewebcams.com/en/webcam/brasil/distrito-federal/brasilia/brasilia.html",
+          "snippet": "Panoramic live view of Brasília city, featuring iconic landmarks like the National Congress.",
+          "source_kind": "original",
+          "decision_hint": "needs_review"
+        },
+        {
+          "title": "Câmera ao Vivo Eixo Monumental, Brasília-DF | Câmeras do Mundo",
+          "url": "https://www.camerasdomundo.com/camera-ao-vivo-eixo-monumental-brasilia-df/",
+          "snippet": "Real-time view of Brasília's main avenue, Eixo Monumental, showcasing modern architecture.",
+          "source_kind": "original",
+          "decision_hint": "needs_review"
+        },
+        {
+          "title": "Clima ao Vivo em Brasília | Câmera do tempo - veja agora",
+          "url": "https://www.climaaovivo.com.br/br/df/brasilia",
+          "snippet": "Live weather camera in Brasília, showing real-time conditions and city views.",
+          "source_kind": "original",
+          "decision_hint": "needs_review"
+        }
+      ],
+      "grounding_chunks": 3
+    },
+    {
+      "query": "Brasilia live cam city traffic skyline YouTube live",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/04-brasilia-live-cam-city-traffic-skyline-youtube-live.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "No active 24/7 YouTube live cams for Brasilia city traffic or skyline were found in the search results. The provided result is for a YouTube channel that hosts a scheduled live program about traffic, not a continuous live cam.",
+      "results": [
+        {
+          "title": "Jornal de Brasília - Radar Urbano",
+          "url": "https://www.youtube.com/@JornaldeBrasilia",
+          "snippet": "YouTube channel for a program featuring real-time traffic images from Brasília.",
+          "source_kind": "original",
+          "decision_hint": "needs_review"
+        }
+      ],
+      "grounding_chunks": 1
+    },
+    {
+      "query": "Brazil live webcam Brasilia city YouTube live stream",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/05-brazil-live-webcam-brasilia-city-youtube-live-stream.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "Two YouTube live streams of the Brasilia bus station were found. No other continuous city webcam YouTube live streams were clearly identified in the search results.",
+      "results": [
+        {
+          "title": "Live at the bus station in Brasília #live - YouTube",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "snippet": "Live stream from Brasilia's bus station, showing ongoing activity and bus movements.",
+          "source_kind": "original",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "LIVE at the Brasília Bus Station #live - YouTube",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "snippet": "Another live stream capturing the daily operations at the Brasilia bus terminal.",
+          "source_kind": "original",
+          "decision_hint": "active_opening"
+        }
+      ],
+      "grounding_chunks": 0
+    },
+    {
+      "query": "Brasília ao vivo câmera cidade YouTube live",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/06-bras-lia-ao-vivo-c-mera-cidade-youtube-live.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "",
+      "results": [
+        {
+          "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+          "url": "https://www.skylinewebcams.com/en/webcam/brazil/federal-district/brasilia/brasilia.html",
+          "snippet": "Panoramic view of Brasília city, including National Congress and Cathedral.",
+          "source_kind": "original",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "Clima ao Vivo em Brasília | Câmera do tempo - veja agora",
+          "url": "https://www.climaaovivo.com.br/br/df/brasilia",
+          "snippet": "Live weather camera showing real-time conditions in Brasília.",
+          "source_kind": "original",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "GAZETA AGORA - YouTube",
+          "url": "https://www.youtube.com/@GazetadoPovo",
+          "snippet": "Live news program from Gazeta do Povo with analysis and Brasília coverage.",
+          "source_kind": "original",
+          "decision_hint": "active_opening"
+        }
+      ],
+      "grounding_chunks": 4
+    },
+    {
+      "query": "Brasília DF webcam ao vivo trânsito cidade",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/07-bras-lia-df-webcam-ao-vivo-tr-nsito-cidade.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "The official DER-DF website lists camera locations but does not provide direct live feeds. Therefore, third-party aggregators offering live streams were prioritized.",
+      "results": [
+        {
+          "title": "Câmera ao Vivo Eixo Monumental, Brasília-DF | Câmeras do Mundo",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGK31Yjx2NnBp9K_ejiV-Fir3xJYRhbtkUAClUanwobQWCx7xpoQNujglD5tZ5h2TPstB_8HDefwPXBIswUc1ZCdZiGu7iCneHfkqbkoPL5SluRSyGYwl68EDI1TVROk_TNkUkAO_CVslhy7r1xyzoqk5OJADlnNzCvB4WCrZuGZQ==",
+          "snippet": "Live camera showing real-time traffic on Brasília's Eixo Monumental, transmitted by Clima ao Vivo.",
+          "source_kind": "third_party",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "Brasilia, Distrito Federal, BR Live Traffic Cameras & Local Road Conditions - WeatherBug",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHjWQPumeUYxiQMP5LzUTlvv3Cn0ICphyJcAdFoKhZoQRG3_bw6HroSu6OLsuJ5gLD8OPgEom9_RpqQWw55EvTgSFbhCHBpT9BOGYlozLqkhw84bCsqkGjvp9dOHQo41NJT-WbgSR3-9BRKWK9QkPipxqblOA2Y5ZCTdYVLxQ==",
+          "snippet": "Access live traffic cameras and road conditions for Brasília, Distrito Federal, through WeatherBug.",
+          "source_kind": "third_party",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqnYO_otj6VBbmXRvVbtgzN26QWixJkkfxdw7i_4ZSABFQfJOhBDP4p0sIxr3bAbjeEk9EDwjq7BUtI5HFq9RcBuHL8JpKUQ6dMwryECnwCjKyTofIWyx-muiUsJYaR1sQsMrRMUXPfgSaFDnBC9VSo3pYhB8554t_lHm8xyFCfIlrGFok6E57FH0d1jxcGkTV",
+          "snippet": "Live panoramic view of Brasília city, including major landmarks, from SkylineWebcams.",
+          "source_kind": "third_party",
+          "decision_hint": "active_opening"
+        }
+      ],
+      "grounding_chunks": 4
+    },
+    {
+      "query": "site:youtube.com/watch Brasília DF ao vivo live cam",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/08-site-youtube-com-watch-bras-lia-df-ao-vivo-live-cam.json",
+      "http_status": 200,
+      "ok": false,
+      "partial": true,
+      "notes": "No direct 'youtube.com/watch' URLs were found in the search results for live webcams in Brasília, DF, as per the 'site:youtube.com/watch' query constraint. The search results provided links to third-party webcam aggregator sites or redirects, not direct YouTube video pages.",
+      "results": [],
+      "grounding_chunks": 0
+    },
+    {
+      "query": "replacement for failed YouTube live stream asziETEK8J8 Brasilia live webcam",
+      "returncode": 0,
+      "stderr_tail": "",
+      "raw_path": "/Users/eliaskarlsson/openclaw/workspaces/projects/elias-portfolio-work/reports/visual_repair_scout/20260427T200347Z-offset-3-brasilia/raw/09-replacement-for-failed-youtube-live-stream-aszietek8j8-brasilia-live-webcam.json",
+      "http_status": 200,
+      "ok": true,
+      "partial": false,
+      "notes": "Found multiple live webcam streams for Brasilia. Prioritized direct webcam links or prominent webcam platforms. Clima ao Vivo appears to be a direct provider for some cameras.",
+      "results": [
+        {
+          "title": "Webcam Brasilia - Brazil - SkylineWebcams",
+          "url": "https://www.skylinewebcams.com/en/webcam/brazil/federal-district/brasilia/brasilia.html",
+          "snippet": "Live panoramic view of Brasilia, showing iconic landmarks like the National Congress twin towers.",
+          "source_kind": "third_party",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "Brasília - Panoramic view, Brazil - Webcams - WorldCam",
+          "url": "https://www.worldcam.eu/webcams/south-america/brazil/federal-district/brasilia-panoramic-view/1000000000",
+          "snippet": "Live view from Centro de Eventos e Convenções Brasil 21 towards Arena BRB Mané Garrincha.",
+          "source_kind": "third_party",
+          "decision_hint": "active_opening"
+        },
+        {
+          "title": "Clima ao Vivo - Combo Livre - Brasil 21 - Esplanada",
+          "url": "https://www.climaaovivo.com.br/df/brasilia/combo-livre-brasil-21-esplanada",
+          "snippet": "Live weather camera from Esplanada in Brasilia, provided by Clima ao Vivo.",
+          "source_kind": "third_party",
+          "decision_hint": "active_opening"
+        }
+      ],
+      "grounding_chunks": 0
+    }
+  ],
+  "candidates": [
+    {
+      "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+      "url": "https://www.skyline-webcams.com/en/webcam/brazil/federal-district/brasilia/brasilia.html",
+      "snippet": "Panoramic live view of Brasilia, showing city landmarks, though video playback may have issues.",
+      "source_kind": "original",
+      "decision_hint": "needs_review",
+      "query": "Brasilia live webcam YouTube embeddable city night stream",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Brasília - Panoramic view, Brazil - Webcams - WorldCam",
+      "url": "https://www.climaaovivo.com.br/",
+      "snippet": "Live panoramic view of Brasilia from Centro de Eventos e Convenções Brasil 21.",
+      "source_kind": "original",
+      "decision_hint": "needs_review",
+      "query": "Brasilia live webcam YouTube embeddable city night stream",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+      "url": "https://www.skylinewebcams.com/en/webcam/brasil/distrito-federal/brasilia/brasilia.html",
+      "snippet": "Panoramic live view of Brasília city, featuring iconic landmarks like the National Congress.",
+      "source_kind": "original",
+      "decision_hint": "needs_review",
+      "query": "site:youtube.com/watch Brasilia ao vivo câmera cidade live",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Câmera ao Vivo Eixo Monumental, Brasília-DF | Câmeras do Mundo",
+      "url": "https://www.camerasdomundo.com/camera-ao-vivo-eixo-monumental-brasilia-df/",
+      "snippet": "Real-time view of Brasília's main avenue, Eixo Monumental, showcasing modern architecture.",
+      "source_kind": "original",
+      "decision_hint": "needs_review",
+      "query": "site:youtube.com/watch Brasilia ao vivo câmera cidade live",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Clima ao Vivo em Brasília | Câmera do tempo - veja agora",
+      "url": "https://www.climaaovivo.com.br/br/df/brasilia",
+      "snippet": "Live weather camera in Brasília, showing real-time conditions and city views.",
+      "source_kind": "original",
+      "decision_hint": "needs_review",
+      "query": "site:youtube.com/watch Brasilia ao vivo câmera cidade live",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Jornal de Brasília - Radar Urbano",
+      "url": "https://www.youtube.com/@JornaldeBrasilia",
+      "snippet": "YouTube channel for a program featuring real-time traffic images from Brasília.",
+      "source_kind": "original",
+      "decision_hint": "needs_review",
+      "query": "Brasilia live cam city traffic skyline YouTube live",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Live at the bus station in Brasília #live - YouTube",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "snippet": "Live stream from Brasilia's bus station, showing ongoing activity and bus movements.",
+      "source_kind": "original",
+      "decision_hint": "active_opening",
+      "query": "Brazil live webcam Brasilia city YouTube live stream",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+      "url": "https://www.skylinewebcams.com/en/webcam/brazil/federal-district/brasilia/brasilia.html",
+      "snippet": "Panoramic view of Brasília city, including National Congress and Cathedral.",
+      "source_kind": "original",
+      "decision_hint": "active_opening",
+      "query": "Brasília ao vivo câmera cidade YouTube live",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "GAZETA AGORA - YouTube",
+      "url": "https://www.youtube.com/@GazetadoPovo",
+      "snippet": "Live news program from Gazeta do Povo with analysis and Brasília coverage.",
+      "source_kind": "original",
+      "decision_hint": "active_opening",
+      "query": "Brasília ao vivo câmera cidade YouTube live",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Câmera ao Vivo Eixo Monumental, Brasília-DF | Câmeras do Mundo",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGK31Yjx2NnBp9K_ejiV-Fir3xJYRhbtkUAClUanwobQWCx7xpoQNujglD5tZ5h2TPstB_8HDefwPXBIswUc1ZCdZiGu7iCneHfkqbkoPL5SluRSyGYwl68EDI1TVROk_TNkUkAO_CVslhy7r1xyzoqk5OJADlnNzCvB4WCrZuGZQ==",
+      "snippet": "Live camera showing real-time traffic on Brasília's Eixo Monumental, transmitted by Clima ao Vivo.",
+      "source_kind": "third_party",
+      "decision_hint": "active_opening",
+      "query": "Brasília DF webcam ao vivo trânsito cidade",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Brasilia, Distrito Federal, BR Live Traffic Cameras & Local Road Conditions - WeatherBug",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHjWQPumeUYxiQMP5LzUTlvv3Cn0ICphyJcAdFoKhZoQRG3_bw6HroSu6OLsuJ5gLD8OPgEom9_RpqQWw55EvTgSFbhCHBpT9BOGYlozLqkhw84bCsqkGjvp9dOHQo41NJT-WbgSR3-9BRKWK9QkPipxqblOA2Y5ZCTdYVLxQ==",
+      "snippet": "Access live traffic cameras and road conditions for Brasília, Distrito Federal, through WeatherBug.",
+      "source_kind": "third_party",
+      "decision_hint": "active_opening",
+      "query": "Brasília DF webcam ao vivo trânsito cidade",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Live Cam Brasilia - Brazil - SkylineWebcams",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqnYO_otj6VBbmXRvVbtgzN26QWixJkkfxdw7i_4ZSABFQfJOhBDP4p0sIxr3bAbjeEk9EDwjq7BUtI5HFq9RcBuHL8JpKUQ6dMwryECnwCjKyTofIWyx-muiUsJYaR1sQsMrRMUXPfgSaFDnBC9VSo3pYhB8554t_lHm8xyFCfIlrGFok6E57FH0d1jxcGkTV",
+      "snippet": "Live panoramic view of Brasília city, including major landmarks, from SkylineWebcams.",
+      "source_kind": "third_party",
+      "decision_hint": "active_opening",
+      "query": "Brasília DF webcam ao vivo trânsito cidade",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Brasília - Panoramic view, Brazil - Webcams - WorldCam",
+      "url": "https://www.worldcam.eu/webcams/south-america/brazil/federal-district/brasilia-panoramic-view/1000000000",
+      "snippet": "Live view from Centro de Eventos e Convenções Brasil 21 towards Arena BRB Mané Garrincha.",
+      "source_kind": "third_party",
+      "decision_hint": "active_opening",
+      "query": "replacement for failed YouTube live stream asziETEK8J8 Brasilia live webcam",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    },
+    {
+      "title": "Clima ao Vivo - Combo Livre - Brasil 21 - Esplanada",
+      "url": "https://www.climaaovivo.com.br/df/brasilia/combo-livre-brasil-21-esplanada",
+      "snippet": "Live weather camera from Esplanada in Brasilia, provided by Clima ao Vivo.",
+      "source_kind": "third_party",
+      "decision_hint": "active_opening",
+      "query": "replacement for failed YouTube live stream asziETEK8J8 Brasilia live webcam",
+      "status": "UNVERIFIED",
+      "verification_needed": "run yt-dlp/embed/frame validation before editing stream-data.json"
+    }
+  ],
+  "guardrail": "Candidates are UNVERIFIED. Do not edit stream-data.json until local validation passes."
+}
