@@ -5,12 +5,12 @@
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
-    "updated_at": "2026-04-27",
+    "updated_at": "2026-04-28",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
     "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source.",
     "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
     "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated.",
-    "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo: Palmera Blanca Daystream audio + Astana city live video after yt-dlp/embed/frame and ffprobe validation."
+    "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo. On 2026-04-28, dead Astana Atameken live id aSZT76rBQyw was replaced by GEONET Almaty live mountain/city IP camera MmlDKqnfEpY after yt-dlp validation."
   },
   "streamLocations": {
     "-12": "Habitless Zone",
@@ -30,7 +30,7 @@
     "2": "Berlin",
     "3": "Kyiv",
     "4": "Bethlehem",
-    "5": "Astana",
+    "5": "Almaty",
     "6": "Goa",
     "7": "Jakkarta",
     "8": "Chengdu",
@@ -280,10 +280,10 @@
     },
     "5": {
       "type": "youtube",
-      "id": "aSZT76rBQyw",
-      "title": "Kazakhstan Live — Astana City View 24/7",
-      "embed_url": "https://www.youtube.com/embed/aSZT76rBQyw?autoplay=1&mute=1&controls=0&loop=1&playlist=aSZT76rBQyw&vq=hd1080&enablejsapi=1",
-      "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; frame captured, night city boulevard view."
+      "id": "MmlDKqnfEpY",
+      "title": "GEONET Almaty mountains live IP camera",
+      "embed_url": "https://www.youtube.com/embed/MmlDKqnfEpY?autoplay=1&mute=1&controls=0&loop=1&playlist=MmlDKqnfEpY&vq=hd1080&enablejsapi=1",
+      "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; view of the Trans-Ili Alatau from Almaty. Promoted from fallback after Astana Atameken id aSZT76rBQyw became unavailable."
     },
     "6": {
       "type": "youtube",
@@ -317,9 +317,10 @@
     },
     "11": {
       "type": "youtube",
-      "id": "BQR800Gu28g",
-      "title": "Auckland harbour live cam",
-      "embed_url": "https://www.youtube.com/embed/BQR800Gu28g?autoplay=1&mute=1&controls=0&loop=1&playlist=BQR800Gu28g&vq=hd1080&enablejsapi=1"
+      "id": "5_oIqOhtfD8",
+      "title": "Auckland Viaduct Harbour 4K live cam",
+      "embed_url": "https://www.youtube.com/embed/5_oIqOhtfD8?autoplay=1&mute=1&controls=0&loop=1&playlist=5_oIqOhtfD8&vq=hd1080&enablejsapi=1",
+      "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; replaces unavailable BQR800Gu28g."
     },
     "12": {
       "type": "image_refresh",
@@ -514,6 +515,15 @@
         "embed_url": "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080&enablejsapi=1"
       }
     ],
+    "11": [
+      {
+        "type": "youtube",
+        "id": "Ql7graq0I9M",
+        "title": "SurveillanceMap Sky Tower and Auckland Harbour live",
+        "embed_url": "https://www.youtube.com/embed/Ql7graq0I9M?autoplay=1&mute=1&controls=0&loop=1&playlist=Ql7graq0I9M&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; fallback for Tāmaki Makaurau / Auckland."
+      }
+    ],
     "8": [
       {
         "type": "youtube",
@@ -543,15 +553,6 @@
         "title": "Cape Verde - Praia da Cruz live still fallback",
         "url": "https://cdn.skylinewebcams.com/live3606.jpg",
         "intervalMs": 60000
-      }
-    ],
-    "5": [
-      {
-        "type": "youtube",
-        "id": "MmlDKqnfEpY",
-        "title": "Grand Tawn, Almaty — GEONET IP camera live",
-        "embed_url": "https://www.youtube.com/embed/MmlDKqnfEpY?autoplay=1&mute=1&controls=0&loop=1&playlist=MmlDKqnfEpY&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; monochrome night city frame captured."
       }
     ]
   }
