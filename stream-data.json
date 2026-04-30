@@ -317,10 +317,10 @@
     },
     "11": {
       "type": "youtube",
-      "id": "5_oIqOhtfD8",
-      "title": "Auckland Viaduct Harbour 4K live cam",
-      "embed_url": "https://www.youtube.com/embed/5_oIqOhtfD8?autoplay=1&mute=1&controls=0&loop=1&playlist=5_oIqOhtfD8&vq=hd1080&enablejsapi=1",
-      "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; replaces unavailable BQR800Gu28g."
+      "id": "Ql7graq0I9M",
+      "title": "SurveillanceMap LIVE · Sky Tower and Auckland Harbour · New Zealand",
+      "embed_url": "https://www.youtube.com/embed/Ql7graq0I9M?autoplay=1&mute=1&controls=0&loop=1&playlist=Ql7graq0I9M&vq=hd1080&enablejsapi=1",
+      "note": "Verified 2026-04-30: live_status=is_live, playable_in_embed=true, frame captured. Replaces private/unavailable 5_oIqOhtfD8."
     },
     "12": {
       "type": "image_refresh",
@@ -515,15 +515,7 @@
         "embed_url": "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080&enablejsapi=1"
       }
     ],
-    "11": [
-      {
-        "type": "youtube",
-        "id": "Ql7graq0I9M",
-        "title": "SurveillanceMap Sky Tower and Auckland Harbour live",
-        "embed_url": "https://www.youtube.com/embed/Ql7graq0I9M?autoplay=1&mute=1&controls=0&loop=1&playlist=Ql7graq0I9M&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-04-28: live_status=is_live, playable_in_embed=true; fallback for Tāmaki Makaurau / Auckland."
-      }
-    ],
+    "11": [],
     "8": [
       {
         "type": "youtube",
