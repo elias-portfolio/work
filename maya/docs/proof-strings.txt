@@ -1,0 +1,10 @@
+# Maya Font proof strings, stage 0/1
+# These are for review once drawings exist. They are not implementation output.
+
+HHH HOH OHO HnH HaH
+OOO HOH OHO
+nnn non nan HnH minimum
+ooo non ono noon nono
+aaa nan ana non noa
+adhesion adhesion adhesion
+Maya Maya Maya

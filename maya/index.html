@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maya Font, phase 1 prototype</title>
+  <style>
+    @font-face { font-family: MayaVectorSeed; src: url('./assets/MayaVectorSeed.ttf') format('truetype'); }
+    :root { --bg:#0d0c0a; --fg:#e8dfcf; --muted:#9d9487; --line:#393128; --gold:#d5aa62; --red:#bc654f; --green:#9fb982; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(circle at top left,#211a13,#0d0c0a 42%); color:var(--fg); font:16px/1.5 Georgia, 'Times New Roman', serif; }
+    main { max-width:980px; margin:0 auto; padding:56px 22px 80px; }
+    header { border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:32px; }
+    h1 { font-size:clamp(40px,8vw,92px); line-height:.9; margin:0 0 14px; letter-spacing:-.055em; font-weight:400; }
+    h2 { color:var(--gold); margin-top:42px; font-weight:400; letter-spacing:.02em; }
+    h3 { color:var(--fg); margin-top:26px; }
+    p.lede { font-size:20px; max-width:720px; color:#f1e6d3; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .card { border:1px solid var(--line); background:rgba(255,255,255,.035); padding:18px; border-radius:14px; }
+    .status { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--green); color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:.08em; }
+    .warn { border-color:var(--red); color:#e8b19f; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { white-space:pre-wrap; border:1px solid var(--line); background:#090807; padding:16px; border-radius:12px; overflow:auto; }
+    a { color:var(--gold); }
+    .specimen { font-size:clamp(34px,7vw,84px); line-height:1.05; letter-spacing:-.045em; margin:18px 0; }
+    .maya-seed { font-family:MayaVectorSeed, Georgia, serif; font-size:60px; letter-spacing:0; }
+    .muted { color:var(--muted); }
+    ul { padding-left:1.2rem; }
+    .footer { margin-top:54px; color:var(--muted); border-top:1px solid var(--line); padding-top:18px; }
+  </style>
+</head>
+<body>
+<main>
+<header>
+  <div class="status">Phase 1 pipeline prototype</div>
+  <h1>Maya Font</h1>
+  <p class="lede">A Glass-led SpecDD type project. Current recommendation: use <strong>adhesion</strong> as the first design-DNA set and keep <strong>H/O/n/o/a</strong> as proof controls.</p>
+  <p class="muted">Generated 2026-05-05 18:45 CEST from local pipeline receipts. This is a review prototype, not a finished font.</p>
+</header>
+
+<section class="grid">
+  <div class="card"><h2>Pipeline</h2><p><span class="status">PASS</span></p><p><code>make doctor</code> passes.</p></div>
+  <div class="card"><h2>Design DNA</h2><p class="specimen">adhesion</p><p>First lowercase system: bowl, arch, ascender, aperture, stem, round, spacing.</p></div>
+  <div class="card"><h2>Control set</h2><p class="specimen">H O n o a</p><p>Kept for proofing verticals, rounds, spacing and counter logic.</p></div>
+</section>
+
+<h2>Where we are</h2>
+<ul>
+  <li>SpecDD skeleton exists and validates.</li>
+  <li>Pipeline can generate research snapshot, implementation brief, validation report and empty UFO shell.</li>
+  <li>No generated Latin glyph outlines yet. That remains a separate approval gate.</li>
+  <li>Legacy MayaVectorSeed font is included only as recovered prior work.</li>
+</ul>
+
+<h2>Recommended phase 1</h2>
+<ol>
+  <li>Promote <code>adhesion</code> into the first real glyph-spec set: <code>a d h e s i o n</code>.</li>
+  <li>Keep existing <code>H O n o a</code> specs as control/proof glyphs.</li>
+  <li>Create/adjust local <code>.sdd</code> contracts, proof strings and validation rules.</li>
+  <li>Still do not draw final outlines until the design gate is approved.</li>
+</ol>
+
+<h2>Proof strings</h2>
+<pre># Maya Font proof strings, stage 0/1
+# These are for review once drawings exist. They are not implementation output.
+
+HHH HOH OHO HnH HaH
+OOO HOH OHO
+nnn non nan HnH minimum
+ooo non ono noon nono
+aaa nan ana non noa
+adhesion adhesion adhesion
+Maya Maya Maya
+</pre>
+
+<h2>Recovered seed font</h2>
+<p>The old Mayan hieroglyph/OpenType work produced this tiny seed font. It is archived here for review, not merged into the Latin design direction.</p>
+<p><a href="./assets/MayaVectorSeed.ttf">Download MayaVectorSeed.ttf</a> · <a href="./assets/MayaVectorSeed.fea">OpenType feature file</a></p>
+<p class="maya-seed">&#xe000; &#xe001; &#xe002;</p>
+
+<h2>Receipts</h2>
+<ul>
+  <li><a href="./docs/doctor.md">doctor.md</a></li>
+  <li><a href="./docs/validate.json">validate.json</a></li>
+  <li><a href="./docs/pipeline.md">PIPELINE.md</a></li>
+  <li><a href="./docs/glass-subagent-implementation-brief.md">Glass implementation brief</a></li>
+  <li><a href="./docs/proof-strings.txt">proof strings</a></li>
+</ul>
+
+<h2>Tool readiness caveat</h2>
+<p>Current machine has HarfBuzz/WOFF2 tools, but still lacks Python font packages such as fontTools, fontmake, fontbakery, defcon and ufoLib2. This blocks final font build work, not phase-1 SpecDD planning.</p>
+
+<div class="footer">Maya Font, review prototype. Built for Elias, not for the noise.</div>
+</main>
+</body>
+</html>

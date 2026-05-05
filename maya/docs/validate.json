@@ -1,0 +1,252 @@
+{
+  "ok": true,
+  "timestamp": "2026-05-05T17:32:52+02:00",
+  "root": "/Users/eliaskarlsson/openclaw/workspaces/projects/maya-font",
+  "errors": [],
+  "warnings": [],
+  "specs": [
+    {
+      "path": "design-principles.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "masters/regular.sdd",
+          "ok": true,
+          "detail": "masters/regular.sdd"
+        },
+        {
+          "dep": "metrics/spacing.sdd",
+          "ok": true,
+          "detail": "metrics/spacing.sdd"
+        },
+        {
+          "dep": "metrics/kerning.sdd",
+          "ok": true,
+          "detail": "metrics/kerning.sdd"
+        },
+        {
+          "dep": "glyphs/latin/",
+          "ok": true,
+          "detail": "glyphs/latin/"
+        }
+      ]
+    },
+    {
+      "path": "exports/build-spec.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "../research/prompts/deep-research-prompts.md",
+          "ok": true,
+          "detail": "../research/prompts/deep-research-prompts.md"
+        },
+        {
+          "dep": "../masters/regular.sdd",
+          "ok": true,
+          "detail": "../masters/regular.sdd"
+        },
+        {
+          "dep": "../design-principles.sdd",
+          "ok": true,
+          "detail": "../design-principles.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/H.cap.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../masters/regular.sdd",
+          "ok": true,
+          "detail": "../../masters/regular.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/O.cap.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "H.cap.sdd",
+          "ok": true,
+          "detail": "H.cap.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/a.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "o.lower.sdd",
+          "ok": true,
+          "detail": "o.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/n.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../masters/regular.sdd",
+          "ok": true,
+          "detail": "../../masters/regular.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/o.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "masters/regular.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "../design-principles.sdd",
+          "ok": true,
+          "detail": "../design-principles.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/*.sdd",
+          "ok": true,
+          "detail": "glob ../glyphs/latin/*.sdd -> 5"
+        }
+      ]
+    },
+    {
+      "path": "metrics/kerning.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "spacing.sdd",
+          "ok": true,
+          "detail": "spacing.sdd"
+        },
+        {
+          "dep": "../design-principles.sdd",
+          "ok": true,
+          "detail": "../design-principles.sdd"
+        }
+      ]
+    },
+    {
+      "path": "metrics/spacing.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "../design-principles.sdd",
+          "ok": true,
+          "detail": "../design-principles.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/H.cap.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/H.cap.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/O.cap.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/O.cap.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/n.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/n.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/o.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/o.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/a.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/a.lower.sdd"
+        }
+      ]
+    }
+  ],
+  "tools": {
+    "bins": {
+      "fontmake": null,
+      "ttx": null,
+      "fontbakery": null,
+      "hb-shape": "/opt/homebrew/bin/hb-shape",
+      "hb-view": "/opt/homebrew/bin/hb-view",
+      "woff2_compress": "/opt/homebrew/bin/woff2_compress",
+      "ufolint": null
+    },
+    "python_modules": {
+      "fontTools": false,
+      "fontmake": false,
+      "fontbakery": false,
+      "defcon": false,
+      "ufoLib2": false
+    }
+  }
+}

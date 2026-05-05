@@ -1,0 +1,22 @@
+@bases = [maya.main.WAK.experimental];
+@marks = [maya.mark.CHAAN_wa_AJAW.experimental];
+@ligatures = [maya.block.WAK_CHAAN_wa_AJAW];
+
+table GDEF {
+  GlyphClassDef @bases, @ligatures, @marks, ;
+} GDEF;
+
+feature liga {
+  sub maya.main.WAK.experimental maya.mark.CHAAN_wa_AJAW.experimental by maya.block.WAK_CHAAN_wa_AJAW;
+} liga;
+
+feature mark {
+  markClass maya.mark.CHAAN_wa_AJAW.experimental
+    <anchor 500 520> @mark_class_infix;
+
+  lookup MarkToBase_infix {
+    pos base maya.main.WAK.experimental
+      <anchor 500 640> mark @mark_class_infix;
+  } MarkToBase_infix;
+
+} mark;
