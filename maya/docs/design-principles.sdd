@@ -1,0 +1,60 @@
+# Maya Font — design-principles.sdd
+
+Scope: root font-family contract.
+
+## Intent
+
+Maya should be designed as a converter-font product, not a normal Latin alphabet with Maya styling. The first prototype must prove that Latin input can become Maya visual output through a repeatable mapping layer.
+
+Reference posture for now: recovered Maya/hieroglyph material first; Latin is input, not the visual target. The output should behave like a Maya sign system or sign-sequence renderer, while remaining usable enough for typed text experiments.
+
+## Must
+
+- Define conversion decisions before glyph-specific deviations.
+- Keep a visible relationship between Latin input tokens and Maya output signs, compounds, or substitutions.
+- Make sign composition, infix/affix behavior, and glyph sequencing part of the design language.
+- Treat spacing/layout of Maya output signs as design, not post-processing.
+- Keep machine-checkable rules measurable where possible: input tokens, mapping tables, substitution rules, glyph naming, UPM, anchors, vertical metrics, export targets, outline validity.
+- Keep non-measurable qualities under explicit human review: grace, tension, personality, density, silhouette, and whether the thing is alive.
+
+## Must not
+
+- Let early glyphs become isolated Latin drawings.
+- Hide aesthetic uncertainty behind fake numeric precision.
+- Collapse Maya output back into generic Latin readability.
+- Accept generated mappings or outlines without visual/review evidence.
+
+## Owns
+
+- Product name, encoding model, and naming rules.
+- Latin-input scope and Maya-output scope for the prototype.
+- Root mapping, sign composition, rhythm, contrast, and spacing principles.
+- Global validation expectations.
+
+## Depends on
+
+- `masters/regular.sdd`
+- `metrics/spacing.sdd`
+- `metrics/kerning.sdd`
+- mapping specs under `mapping/`
+- Maya-output glyph/sign specs under `glyphs/maya/`
+- Latin-input proof specs where needed under `glyphs/latin/`
+
+## Forbids
+
+- Mapping specs that contradict the product definition without declaring an exception.
+- Kerning used to compensate for broken sign composition or mapping.
+- Export settings that change design metrics silently.
+
+## Done when
+
+- The first Latin input strings can be converted into Maya output and reviewed visually.
+- Root decisions are specific enough to guide mapping/sign work, but not so rigid that they erase visual discovery.
+- Elias can reject or approve the direction by looking at converted Maya output, not implementation files.
+
+## Open aesthetic questions
+
+- Is the converter phonetic, syllabic, glyph-name based, ligature-driven, or an invented mapping?
+- How literal should the Maya/hieroglyph reference be?
+- Should Latin text convert one character at a time, by digraph/syllable, or by word-shaped clusters?
+- What is the minimum proof phrase that demonstrates the product?

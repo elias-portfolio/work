@@ -39,10 +39,14 @@
 
 ## Gate Decision
 
-**Can expand beyond n/o?** `yes`
+**Can expand beyond n/o?** `no, superseded by Maya visual north-star gate`
 
-The core letterforms are solid and readable. The remaining artifact on `n` is minor polish, not a blocking structural issue. The `o` is production-ready. Proceed to draw additional glyphs (a, d, e, g as planned) while noting the junction smoothing fix for next revision.
+The core letterforms are solid and readable. The remaining artifact on `n` is minor polish, not a blocking structural issue. The `o` is production-ready. Do not proceed to additional glyphs from this criterion alone. This inspection judged Latin legibility, not Maya design fit.
 
 ---
 *Inspection timestamp: 2026-05-05*  
 *Inspector: Kimi Visual Gate (Second Pass)*
+
+
+## Correction after Elias review
+This is a technical render smoke, not a Maya design pass. The gate confirms that `n/o` can render legibly as SVG, but it does not approve the design direction. Expansion beyond `n/o` is paused until a Maya visual north-star gate is defined.

@@ -1,0 +1,48 @@
+# latin-to-maya.sdd
+
+Scope: first conversion contract from Latin input text to Maya visual output.
+
+## Must
+
+- Treat Latin as input encoding, not the visual design target.
+- Define a small first proof mapping before any broad alphabet work.
+- Record whether each mapping is character-based, digraph-based, syllable-like, word-like, or arbitrary prototype mapping.
+- Keep output glyph/sign names separate from Latin glyph names.
+- Produce visual proof output that can be inspected against Maya reference material.
+- Preserve a deterministic mapping table so the same Latin input gives the same Maya output.
+
+## Must not
+
+- Call generic Latin letter drawings a Maya design pass.
+- Expand to full A-Z before the first proof mapping is approved.
+- Mix recovered hieroglyph assets into Latin output silently.
+- Pretend the mapping is historically/linguistically authentic unless that has been researched and approved.
+- Let `adhesion`, `n/o`, or any Latin proof word become the product definition.
+
+## Owns
+
+- First Latin input token inventory.
+- First Maya output sign/glyph inventory.
+- Mapping table semantics.
+- Proof strings for conversion demos.
+- Gate between render-smoke and Maya-design approval.
+
+## Depends on
+
+- `../project-charter.md`
+- `../design-principles.sdd`
+- `../docs/maya-visual-north-star.md`
+- recovered Maya reference material under `../recovered/source-snapshot/`
+
+## Forbids
+
+- Treating Latin readability as sufficient visual approval.
+- Adding more Latin lowercase outline work without mapping justification.
+- Shipping a binary font that only contains ordinary Latin glyphs under the Maya name.
+
+## Done when
+
+- A tiny Latin input set is mapped to named Maya output signs/sequences.
+- The converted proof output is rendered.
+- Visual inspection confirms the output reads as Maya-project output, not generic Latin.
+- Elias can approve or reject the conversion direction from the proof image.

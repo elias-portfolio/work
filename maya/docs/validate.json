@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "timestamp": "2026-05-05T19:46:02+02:00",
+  "timestamp": "2026-05-05T19:57:52+02:00",
   "root": "/Users/eliaskarlsson/openclaw/workspaces/projects/maya-font",
   "errors": [],
   "warnings": [],
@@ -23,6 +23,16 @@
           "dep": "metrics/kerning.sdd",
           "ok": true,
           "detail": "metrics/kerning.sdd"
+        },
+        {
+          "dep": "mapping/",
+          "ok": true,
+          "detail": "mapping/"
+        },
+        {
+          "dep": "glyphs/maya/",
+          "ok": true,
+          "detail": "glyphs/maya/"
         },
         {
           "dep": "glyphs/latin/",
@@ -294,6 +304,32 @@
           "dep": "../../metrics/spacing.sdd",
           "ok": true,
           "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "mapping/latin-to-maya.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "../project-charter.md",
+          "ok": true,
+          "detail": "../project-charter.md"
+        },
+        {
+          "dep": "../design-principles.sdd",
+          "ok": true,
+          "detail": "../design-principles.sdd"
+        },
+        {
+          "dep": "../docs/maya-visual-north-star.md",
+          "ok": true,
+          "detail": "../docs/maya-visual-north-star.md"
+        },
+        {
+          "dep": "../recovered/source-snapshot/",
+          "ok": true,
+          "detail": "../recovered/source-snapshot/"
         }
       ]
     },
