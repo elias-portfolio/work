@@ -1,0 +1,42 @@
+# H.cap.sdd
+
+Scope: Latin uppercase H prototype glyph.
+
+## Must
+
+- Establish uppercase stem weight.
+- Establish cap height behavior.
+- Provide a straight-sided control glyph for spacing comparisons.
+- Keep the crossbar position reviewable as a family-level rhythm decision.
+
+## Must not
+
+- Carry decorative ideas not already permitted by `design-principles.sdd`.
+- Solve spacing through kerning.
+
+## Owns
+
+- Uppercase vertical stem logic.
+- Cap-height straight-form sidebearings.
+- Crossbar weight and placement proposal.
+
+## Depends on
+
+- `../../design-principles.sdd`
+- `../../masters/regular.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Asymmetric sidebearings unless explicitly justified by drawing logic.
+
+## Done when
+
+- H works in `HHH`, `HOH`, `OHO`, `HnH`, and `HaH` proof strings.
+- Human review accepts stem weight and crossbar placement as a usable control point.
+
+## Proof-Control Note
+
+- This spec is retained as a legacy proof control for SpecDD system integrity.
+- Primary design-DNA for Phase 1 is now `adhesion` (`a d h e s i o n`).
+- `H/O/n/o/a` remain as cross-project controls during early validation.

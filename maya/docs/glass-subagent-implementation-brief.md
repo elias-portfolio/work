@@ -1,6 +1,6 @@
 # Maya Font — Glass-led implementation brief
 
-Generated: 2026-05-05T18:45:21+02:00
+Generated: 2026-05-05T18:53:24+02:00
 Host: Eliass-MacBook-Air.local
 Mode: Glass-led subagents. Codex is not the default builder.
 
@@ -112,10 +112,63 @@ Mode: Glass-led subagents. Codex is not the default builder.
 - Decide, or explicitly defer, single-storey versus double-storey construction.
 - Test bowl, terminal, aperture, and counter logic against n and o.
 - Make clear which parts are family logic and which parts are glyph-specific character.
+- Keep this glyph as part of the `adhesion` prototype set.
 
 ### Done when
 - a works in `aaa`, `nan`, `ana`, `non`, `noa`, and `Maya` test strings once M/y exist.
+- a is judged compatible with `adhesion` rhythm (`ad`, `da`, `na`, `oa`) before any phase expansion.
 - Human review accepts its personality as compatible with the family direction.
+
+## glyphs/latin/d.lower.sdd
+
+### Must
+- Establish a lowercase ascender-gated form that pairs cleanly with `n.lower.sdd` stem logic.
+- Derive bowl width and stroke logic from `o.lower.sdd` without copying it directly.
+- Keep the stem-counter relationship stable when paired with straight and round letters.
+- Define the first lowercase ascender rhythm for later `h` and potential `p/b/q` decisions.
+
+### Done when
+- d works in `ad`, `da`, `dd`, `do`, `od`, `de`, and `non`-style transitions without kerning.
+- Human review accepts `d` as a stable ascender model for future `b/p/q` family members.
+- The ascender-bowl join is visually consistent with `h.lower.sdd` and does not collapse sidebearings in `proof/strings.txt`.
+
+## glyphs/latin/e.lower.sdd
+
+### Must
+- Define a readable, high-frequency body form with stable eye and counter behavior.
+- Set crossbar position so it can be reused for rhythm checks with `H`/`O` control families.
+- Keep the e-curve weight relationship coherent with `o.lower.sdd` while preserving a distinct e identity.
+- Establish open/closed counter behavior for future e-like variants.
+
+### Done when
+- e works in `he`, `de`, `se`, `es`, `le`-style transitions (`adhesion` family context), and `Maya`-style mixed-case rhythm checks.
+- Human review accepts the openness and stress of the e-counter as clean and repeatable.
+- `e` remains readable at text size in `proof/strings.txt` without requiring kerning.
+
+## glyphs/latin/h.lower.sdd
+
+### Must
+- Carry the `n.lower.sdd` stem weight into a sustained ascender rhythm.
+- Use the same stem-arch tension scale as `n.lower.sdd` while increasing width for a clear ascender identity.
+- Set the shoulder-to-stem transition as a repeatable pattern for later arches (`m.lower`, `u.lower`, `r.lower` in later phases).
+
+### Done when
+- h works in `ha`, `hh`, `ho`, `ah`, `nh`, and `sh` contexts in proof strings.
+- Human review accepts ascender rhythm as coherent with `d.lower.sdd` and `n.lower.sdd`.
+- The shoulder remains stable in repeated stems (`hhn`, `hho`) without kerning support.
+
+## glyphs/latin/i.lower.sdd
+
+### Must
+- Establish minimal lowercase stem logic for single-stroke glyphs.
+- Keep stem width and x-height alignment compatible with `n.lower.sdd`.
+- Define dot position as a spacing-aware visual anchor, not an afterthought.
+- Clarify whether the dot remains a separate component or integrated stroke rhythm in a future phase.
+
+### Done when
+- i works in `ii`, `si`, `is`, `hi`, `ni`, and `ie` contexts in proof strings.
+- Dot placement reads clearly at intended proof size without visual drift in repeated use (`iii`).
+- Human review accepts dot policy as intentional and consistent for the phase.
 
 ## glyphs/latin/n.lower.sdd
 
@@ -124,10 +177,12 @@ Mode: Glass-led subagents. Codex is not the default builder.
 - Establish x-height behavior.
 - Establish arch logic for related glyphs: h, m, u, r.
 - Provide the primary lowercase spacing control.
+- Anchor the `adhesion` rhythm for straight and arch alternation.
 
 ### Done when
 - n works in `nnn`, `non`, `nan`, `HnH`, and `minimum`-style rhythm strings.
 - Human review accepts the arch as a repeatable family gesture.
+- n supports initial `adhesion` sets like `on`, `na`, and `sn` without kerning.
 
 ## glyphs/latin/o.lower.sdd
 
@@ -136,10 +191,25 @@ Mode: Glass-led subagents. Codex is not the default builder.
 - Establish lowercase counter logic.
 - Pair with n as the first rhythm test.
 - Expose whether the design wants calligraphic stress, geometric balance, or a hybrid.
+- Carry the round-half of `adhesion` rhythm contracts.
 
 ### Done when
 - o works in `ooo`, `non`, `ono`, `noon`, and `nono`.
 - Human review accepts counter, stress, overshoot, and spacing behavior.
+- o supports `adhesion` rhythm checks in `on`, `so`, and `ho` contexts.
+
+## glyphs/latin/s.lower.sdd
+
+### Must
+- Define the first asymmetrical lower-case transition glyph in the adhesion set.
+- Balance top and bottom stress while preserving a readable two-lobe flow.
+- Set terminal and curve tension such that `s` can join to straight, round, and ascender forms without distortion.
+- Expose a testable rhythm marker for later serif/contrast choices.
+
+### Done when
+- s works in `ss`, `sh`, `so`, `is`, `si`, `ns`, `os`, and `shed shed` style sequences in `proof/strings.txt`.
+- Human review accepts `adhesion` readability and personality without decorative treatment.
+- Phase 1 spacing remains stable without kerning in repeated s patterns.
 
 ## masters/regular.sdd
 
@@ -166,7 +236,7 @@ Mode: Glass-led subagents. Codex is not the default builder.
 
 ### Must
 - Treat spacing as drawing logic, not cleanup.
-- Establish sidebearing behavior first with H, O, n, o, a.
+- Establish sidebearing behavior with `adhesion` as the primary family rhythm and H/O/n/o/a as integrity controls.
 - Use proof strings before kerning is introduced.
 - Keep every spacing change tied to a glyph spec, proof, or review note.
 

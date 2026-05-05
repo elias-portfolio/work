@@ -1,0 +1,42 @@
+# s.lower.sdd
+
+Scope: Latin lowercase s prototype glyph.
+
+## Must
+
+- Define the first asymmetrical lower-case transition glyph in the adhesion set.
+- Balance top and bottom stress while preserving a readable two-lobe flow.
+- Set terminal and curve tension such that `s` can join to straight, round, and ascender forms without distortion.
+- Expose a testable rhythm marker for later serif/contrast choices.
+
+## Must not
+
+- Treat `s` as mechanically identical to a simplified `c`; it must keep its own rhythm.
+- Use descender-adjacent proportions to fake depth.
+- Resolve spacing instability in repeated words with kerning during Phase 1.
+
+## Owns
+
+- Asymmetrical lowercase rhythm and terminal behavior for adhesion test strings.
+- Transition tension between curved and linear glyphs (`sh`, `os`, `is`, `so`).
+- Early personality baseline for later complex cursive-like alternates.
+
+## Depends on
+
+- `n.lower.sdd`
+- `o.lower.sdd`
+- `i.lower.sdd`
+- `../../design-principles.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Excessively short middle transition that reads like noise at `sss` scale.
+- Flat, unbalanced extrema that destroy continuity between `on` and `no` rhythm variants.
+- Unresolved stem-thickness collapse at the top entry or bottom exit.
+
+## Done when
+
+- s works in `ss`, `sh`, `so`, `is`, `si`, `ns`, `os`, and `shed shed` style sequences in `proof/strings.txt`.
+- Human review accepts `adhesion` readability and personality without decorative treatment.
+- Phase 1 spacing remains stable without kerning in repeated s patterns.

@@ -1,0 +1,42 @@
+# O.cap.sdd
+
+Scope: Latin uppercase O prototype glyph.
+
+## Must
+
+- Establish uppercase round-form overshoot.
+- Establish relationship between outer curve and counter.
+- Test contrast logic against H.
+- Make sidebearings visibly compatible with H without flattening the roundness.
+
+## Must not
+
+- Become a perfect geometric oval unless that is later chosen as the design direction.
+- Hide optical correction decisions.
+
+## Owns
+
+- Uppercase round-form logic.
+- Round overshoot proposal.
+- Counter shape proposal for uppercase rounds.
+
+## Depends on
+
+- `H.cap.sdd`
+- `../../design-principles.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Round sidebearings copied mechanically from straight glyphs.
+
+## Done when
+
+- O works in `OOO`, `HOH`, `OHO`, and mixed uppercase/lowercase proof strings.
+- Human review accepts its roundness, counter tension, and overshoot behavior.
+
+## Proof-Control Note
+
+- This spec is retained as a legacy proof control for SpecDD system integrity.
+- Primary design-DNA for Phase 1 is now `adhesion` (`a d h e s i o n`).
+- `H/O/n/o/a` remain as cross-project controls while Phase 1 builds new `adhesion` control glyphs.

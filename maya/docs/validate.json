@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "timestamp": "2026-05-05T17:32:52+02:00",
+  "timestamp": "2026-05-05T18:53:24+02:00",
   "root": "/Users/eliaskarlsson/openclaw/workspaces/projects/maya-font",
   "errors": [],
   "warnings": [],
@@ -121,6 +121,110 @@
       ]
     },
     {
+      "path": "glyphs/latin/d.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "o.lower.sdd",
+          "ok": true,
+          "detail": "o.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../masters/regular.sdd",
+          "ok": true,
+          "detail": "../../masters/regular.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/e.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "o.lower.sdd",
+          "ok": true,
+          "detail": "o.lower.sdd"
+        },
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/h.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../masters/regular.sdd",
+          "ok": true,
+          "detail": "../../masters/regular.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
+      "path": "glyphs/latin/i.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
       "path": "glyphs/latin/n.lower.sdd",
       "missing_sections": [],
       "deps": [
@@ -163,6 +267,37 @@
       ]
     },
     {
+      "path": "glyphs/latin/s.lower.sdd",
+      "missing_sections": [],
+      "deps": [
+        {
+          "dep": "n.lower.sdd",
+          "ok": true,
+          "detail": "n.lower.sdd"
+        },
+        {
+          "dep": "o.lower.sdd",
+          "ok": true,
+          "detail": "o.lower.sdd"
+        },
+        {
+          "dep": "i.lower.sdd",
+          "ok": true,
+          "detail": "i.lower.sdd"
+        },
+        {
+          "dep": "../../design-principles.sdd",
+          "ok": true,
+          "detail": "../../design-principles.sdd"
+        },
+        {
+          "dep": "../../metrics/spacing.sdd",
+          "ok": true,
+          "detail": "../../metrics/spacing.sdd"
+        }
+      ]
+    },
+    {
       "path": "masters/regular.sdd",
       "missing_sections": [],
       "deps": [
@@ -174,7 +309,7 @@
         {
           "dep": "../glyphs/latin/*.sdd",
           "ok": true,
-          "detail": "glob ../glyphs/latin/*.sdd -> 5"
+          "detail": "glob ../glyphs/latin/*.sdd -> 10"
         }
       ]
     },
@@ -227,6 +362,31 @@
           "dep": "../glyphs/latin/a.lower.sdd",
           "ok": true,
           "detail": "../glyphs/latin/a.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/d.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/d.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/e.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/e.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/h.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/h.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/i.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/i.lower.sdd"
+        },
+        {
+          "dep": "../glyphs/latin/s.lower.sdd",
+          "ok": true,
+          "detail": "../glyphs/latin/s.lower.sdd"
         }
       ]
     }

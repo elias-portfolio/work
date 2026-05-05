@@ -1,0 +1,45 @@
+# n.lower.sdd
+
+Scope: Latin lowercase n prototype glyph.
+
+## Must
+
+- Establish lowercase stem weight.
+- Establish x-height behavior.
+- Establish arch logic for related glyphs: h, m, u, r.
+- Provide the primary lowercase spacing control.
+- Anchor the `adhesion` rhythm for straight and arch alternation.
+
+## Must not
+
+- Let the arch be an afterthought attached to a stem.
+- Use kerning to repair base rhythm.
+
+## Owns
+
+- Lowercase straight-plus-arch construction.
+- x-height stem sidebearings.
+- Exit and entry rhythm for lowercase text.
+- First-phase straight-arch tension model for `adhesion`.
+
+## Depends on
+
+- `../../design-principles.sdd`
+- `../../masters/regular.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- A mechanically symmetrical arch if optical rhythm demands otherwise.
+
+## Done when
+
+- n works in `nnn`, `non`, `nan`, `HnH`, and `minimum`-style rhythm strings.
+- Human review accepts the arch as a repeatable family gesture.
+- n supports initial `adhesion` sets like `on`, `na`, and `sn` without kerning.
+
+## Proof-Control Note
+
+- This spec is maintained as a core control in the `adhesion` set.
+- It also functions as a cross-check control for legacy Phase-0 `H/O/n/o/a` review expectations.
+- Primary design-DNA set is `adhesion` (`a d h e s i o n`).

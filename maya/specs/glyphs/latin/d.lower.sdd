@@ -1,0 +1,42 @@
+# d.lower.sdd
+
+Scope: Latin lowercase d prototype glyph.
+
+## Must
+
+- Establish a lowercase ascender-gated form that pairs cleanly with `n.lower.sdd` stem logic.
+- Derive bowl width and stroke logic from `o.lower.sdd` without copying it directly.
+- Keep the stem-counter relationship stable when paired with straight and round letters.
+- Define the first lowercase ascender rhythm for later `h` and potential `p/b/q` decisions.
+
+## Must not
+
+- Introduce a descender or any lower-side projection in Phase 1.
+- Reinterpret baseline or x-height from this glyph; reuse family defaults from `masters/regular.sdd`.
+- Use this glyph to solve spacing problems that should be addressed in `metrics/spacing.sdd`.
+
+## Owns
+
+- Lowercase ascender-and-bowl interface.
+- Sidebearing contract for stem-to-round transitions (`dn`, `do`, `od`, `ad`).
+- First explicit prototype for ascender carry in Phase 1 prototype set.
+
+## Depends on
+
+- `n.lower.sdd`
+- `o.lower.sdd`
+- `../../design-principles.sdd`
+- `../../masters/regular.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Descender-like bowls.
+- A bowl that closes with blunt optical weight at the top while appearing lighter at the entry.
+- Any asymmetry that makes `dd` or `od` rhythm feel unbalanced.
+
+## Done when
+
+- d works in `ad`, `da`, `dd`, `do`, `od`, `de`, and `non`-style transitions without kerning.
+- Human review accepts `d` as a stable ascender model for future `b/p/q` family members.
+- The ascender-bowl join is visually consistent with `h.lower.sdd` and does not collapse sidebearings in `proof/strings.txt`.

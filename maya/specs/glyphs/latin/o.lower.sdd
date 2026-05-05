@@ -1,0 +1,45 @@
+# o.lower.sdd
+
+Scope: Latin lowercase o prototype glyph.
+
+## Must
+
+- Establish lowercase round-form overshoot.
+- Establish lowercase counter logic.
+- Pair with n as the first rhythm test.
+- Expose whether the design wants calligraphic stress, geometric balance, or a hybrid.
+- Carry the round-half of `adhesion` rhythm contracts.
+
+## Must not
+
+- Merely scale down uppercase O.
+- Flatten sidebearings into a generic sans rhythm.
+
+## Owns
+
+- Lowercase round shape.
+- Lowercase counter shape.
+- Round-form spacing against n and a.
+- Round-straight alternation for `adhesion` and legacy controls.
+
+## Depends on
+
+- `n.lower.sdd`
+- `../../design-principles.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Treating overshoot as a build default rather than a visible design choice.
+
+## Done when
+
+- o works in `ooo`, `non`, `ono`, `noon`, and `nono`.
+- Human review accepts counter, stress, overshoot, and spacing behavior.
+- o supports `adhesion` rhythm checks in `on`, `so`, and `ho` contexts.
+
+## Proof-Control Note
+
+- This spec is maintained as a dual-role control: it belongs to `adhesion` and is part of legacy proof control checks.
+- Primary design-DNA set is `adhesion` (`a d h e s i o n`).
+- Legacy proof controls (`H/O/n/o/a`) remain for system integrity cross-checking.

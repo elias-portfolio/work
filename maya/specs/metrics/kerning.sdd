@@ -1,0 +1,33 @@
+# kerning.sdd
+
+Scope: kerning contract for later prototype stages.
+
+## Must
+
+- Start only after base spacing has passed review.
+- Prefer class-based kerning once enough glyphs exist.
+- Keep kerning exceptions explicit and reviewable.
+
+## Must not
+
+- Begin during the start phase.
+- Fix systematic spacing failures with pair exceptions.
+
+## Owns
+
+- Kerning start gate.
+- Pair/class distinction.
+- Exception review policy.
+
+## Depends on
+
+- `spacing.sdd`
+- `../design-principles.sdd`
+
+## Forbids
+
+- Any kerning implementation before approval of the initial skeleton.
+
+## Done when
+
+- Not applicable in start phase. This file is a guardrail placeholder until spacing passes.

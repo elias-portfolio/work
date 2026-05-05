@@ -1,0 +1,41 @@
+# e.lower.sdd
+
+Scope: Latin lowercase e prototype glyph.
+
+## Must
+
+- Define a readable, high-frequency body form with stable eye and counter behavior.
+- Set crossbar position so it can be reused for rhythm checks with `H`/`O` control families.
+- Keep the e-curve weight relationship coherent with `o.lower.sdd` while preserving a distinct e identity.
+- Establish open/closed counter behavior for future e-like variants.
+
+## Must not
+
+- Let the bowl become a decorative loop detached from lowercase rhythm.
+- Copy uppercase ideas from `O.cap.sdd` without adjustment for x-height scale.
+- Add descender structures or sidebearing hacks to compensate for spacing.
+
+## Owns
+
+- Lowercase e counter logic and crossbar placement.
+- First explicit relationship between round form and horizontal stroke in Phase 1.
+- Proof behavior for mixed round-stroke transitions (`es`, `eo`, `ne`).
+
+## Depends on
+
+- `o.lower.sdd`
+- `n.lower.sdd`
+- `../../design-principles.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Vertical crossbar anchoring that conflicts with x-height rhythm.
+- Symmetrical crossbar treatment that flattens the visual weight of `ne` or `en` combinations.
+- Counter narrowing that collapses in `eee` or `eee`-adjacent strings.
+
+## Done when
+
+- e works in `he`, `de`, `se`, `es`, `le`-style transitions (`adhesion` family context), and `Maya`-style mixed-case rhythm checks.
+- Human review accepts the openness and stress of the e-counter as clean and repeatable.
+- `e` remains readable at text size in `proof/strings.txt` without requiring kerning.

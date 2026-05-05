@@ -1,0 +1,40 @@
+# h.lower.sdd
+
+Scope: Latin lowercase h prototype glyph.
+
+## Must
+
+- Carry the `n.lower.sdd` stem weight into a sustained ascender rhythm.
+- Use the same stem-arch tension scale as `n.lower.sdd` while increasing width for a clear ascender identity.
+- Set the shoulder-to-stem transition as a repeatable pattern for later arches (`m.lower`, `u.lower`, `r.lower` in later phases).
+
+## Must not
+
+- Let ascender height drift above the n-cap family relationship.
+- Use kerning in place of base sidebearing balance.
+- Add a descender in this phase.
+
+## Owns
+
+- Lowercase ascender timing and exit rhythm.
+- Shoulder geometry and stress handoff from vertical to arch.
+- Sidebearing consistency for straight-arch pairings.
+
+## Depends on
+
+- `n.lower.sdd`
+- `../../design-principles.sdd`
+- `../../masters/regular.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Mechanical continuation of the n arch without checking rhythm balance.
+- Overly compressed shoulder that makes `hn` or `ho` feel cramped.
+- Any descender-influenced structure in `h` at this stage.
+
+## Done when
+
+- h works in `ha`, `hh`, `ho`, `ah`, `nh`, and `sh` contexts in proof strings.
+- Human review accepts ascender rhythm as coherent with `d.lower.sdd` and `n.lower.sdd`.
+- The shoulder remains stable in repeated stems (`hhn`, `hho`) without kerning support.

@@ -1,0 +1,49 @@
+# spacing.sdd
+
+Scope: base spacing contract for the first prototype.
+
+## Must
+
+- Treat spacing as drawing logic, not cleanup.
+- Establish sidebearing behavior with `adhesion` as the primary family rhythm and H/O/n/o/a as integrity controls.
+- Use proof strings before kerning is introduced.
+- Keep every spacing change tied to a glyph spec, proof, or review note.
+
+## Must not
+
+- Use kerning to hide bad base spacing.
+- Optimize for one word, including `Maya`, at the expense of the typeface.
+
+## Owns
+
+- Base sidebearing rules.
+- Initial proof string list.
+- Spacing review criteria.
+
+## Depends on
+
+- `../design-principles.sdd`
+- `../glyphs/latin/H.cap.sdd`
+- `../glyphs/latin/O.cap.sdd`
+- `../glyphs/latin/n.lower.sdd`
+- `../glyphs/latin/o.lower.sdd`
+- `../glyphs/latin/a.lower.sdd`
+- `../glyphs/latin/d.lower.sdd`
+- `../glyphs/latin/e.lower.sdd`
+- `../glyphs/latin/h.lower.sdd`
+- `../glyphs/latin/i.lower.sdd`
+- `../glyphs/latin/s.lower.sdd`
+
+## Forbids
+
+- Kerning pairs before base spacing review passes.
+
+## Done when
+
+- The prototype glyphs can form readable rhythm strings without kerning.
+- Human review marks the rhythm as coherent enough for the next glyph wave.
+
+## Notes
+
+- Proof controls: H/O/n/o/a verify SpecDD system integrity.
+- Primary prototype context this phase is `adhesion` (`a d h e s i o n`).

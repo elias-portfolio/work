@@ -1,0 +1,46 @@
+# a.lower.sdd
+
+Scope: Latin lowercase a prototype glyph.
+
+## Must
+
+- Provide the first high-personality lowercase glyph.
+- Decide, or explicitly defer, single-storey versus double-storey construction.
+- Test bowl, terminal, aperture, and counter logic against n and o.
+- Make clear which parts are family logic and which parts are glyph-specific character.
+- Keep this glyph as part of the `adhesion` prototype set.
+
+## Must not
+
+- Become decorative before the core rhythm is stable.
+- Contradict o-counter logic without an explicit exception.
+
+## Owns
+
+- Lowercase personality test.
+- Aperture and terminal behavior.
+- Relationship between bowl logic and family round forms.
+- Primary lower-round entry rhythm for the `adhesion` set.
+
+## Depends on
+
+- `n.lower.sdd`
+- `o.lower.sdd`
+- `../../design-principles.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Choosing single-storey/double-storey by generator convenience.
+
+## Done when
+
+- a works in `aaa`, `nan`, `ana`, `non`, `noa`, and `Maya` test strings once M/y exist.
+- a is judged compatible with `adhesion` rhythm (`ad`, `da`, `na`, `oa`) before any phase expansion.
+- Human review accepts its personality as compatible with the family direction.
+
+## Proof-Control Note
+
+- This spec is maintained as an `adhesion` control and phase-1 proof point.
+- It also participates in legacy cross-checks with uppercase/legacy controls (`H/O/n/o`) while the project direction remains anchored to the `adhesion` set.
+- Primary design-DNA set is `adhesion` (`a d h e s i o n`).

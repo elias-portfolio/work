@@ -1,0 +1,40 @@
+# i.lower.sdd
+
+Scope: Latin lowercase i prototype glyph.
+
+## Must
+
+- Establish minimal lowercase stem logic for single-stroke glyphs.
+- Keep stem width and x-height alignment compatible with `n.lower.sdd`.
+- Define dot position as a spacing-aware visual anchor, not an afterthought.
+- Clarify whether the dot remains a separate component or integrated stroke rhythm in a future phase.
+
+## Must not
+
+- Inflate body or dot width beyond its role as a narrow connector glyph.
+- Let dot placement be copied blindly from existing roman defaults.
+- Add descender-influenced treatment in a no-descender phase.
+
+## Owns
+
+- Lowercase single-stem vertical rhythm for `i/j` family in later phases.
+- Dot placement and its spacing impact in short strings.
+- Neutral entry/exit behavior for minimal-width combinations.
+
+## Depends on
+
+- `n.lower.sdd`
+- `../../design-principles.sdd`
+- `../../metrics/spacing.sdd`
+
+## Forbids
+
+- Dot touching the top of a body stem in any phase-internal setting.
+- Overly rounded thin stems that visually weaken `nn` rhythm when paired with i.
+- Manual micro-adjustments to compensate for absent prototype-level spacing rules.
+
+## Done when
+
+- i works in `ii`, `si`, `is`, `hi`, `ni`, and `ie` contexts in proof strings.
+- Dot placement reads clearly at intended proof size without visual drift in repeated use (`iii`).
+- Human review accepts dot policy as intentional and consistent for the phase.

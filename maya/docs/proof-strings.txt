@@ -1,10 +1,30 @@
 # Maya Font proof strings, stage 0/1
 # These are for review once drawings exist. They are not implementation output.
 
+# H/O/n/o/a proof controls (legacy, maintained)
 HHH HOH OHO HnH HaH
 OOO HOH OHO
 nnn non nan HnH minimum
 ooo non ono noon nono
 aaa nan ana non noa
+
+# adhesion proof strings (Phase 1)
 adhesion adhesion adhesion
+ad ad ad
+he he he
+on on on
+de de de
+ion ion ion
+sh sh sh
+si si si
+is is is
+so so so
+os os os
+his his his
+shed shed shed
+side side side
+hide hide hide
+nose nose nose
+ash ash ash
+
 Maya Maya Maya

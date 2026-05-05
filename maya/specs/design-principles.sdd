@@ -1,0 +1,58 @@
+# Maya Font — design-principles.sdd
+
+Scope: root font-family contract.
+
+## Intent
+
+Maya should be designed as a typeface, not as a logo alphabet. The first prototype must establish rhythm before ornament.
+
+Reference posture for now: humanist construction under disciplined constraint. Think less generic neo-grotesk, more calligraphic memory translated into a contemporary text/display system. This is a working reference, not an imposed style.
+
+## Must
+
+- Define family-wide decisions before glyph-specific deviations.
+- Keep a visible relationship between straight, round, and arched forms.
+- Make counters part of the design language, not leftover holes.
+- Treat spacing as design, not post-processing.
+- Keep machine-checkable rules measurable where possible: UPM, naming, sidebearings, anchors, vertical metrics, export targets, outline validity.
+- Keep non-measurable qualities under explicit human review: grace, tension, personality, density, silhouette, and whether the thing is alive.
+
+## Must not
+
+- Let early glyphs become isolated drawings.
+- Hide aesthetic uncertainty behind fake numeric precision.
+- Normalize every interesting irregularity out of the design.
+- Accept generated outlines without redraw/review.
+
+## Owns
+
+- Family name and naming rules.
+- Writing-system scope for the prototype.
+- Root rhythm, contrast, counter, and spacing principles.
+- Global validation expectations.
+
+## Depends on
+
+- `masters/regular.sdd`
+- `metrics/spacing.sdd`
+- `metrics/kerning.sdd`
+- glyph-level specs under `glyphs/latin/`
+
+## Forbids
+
+- Glyph specs that contradict root rhythm without declaring an exception.
+- Kerning used to compensate for broken base spacing.
+- Export settings that change design metrics silently.
+
+## Done when
+
+- The first prototype glyphs can be reviewed together in proof strings.
+- Root decisions are specific enough to guide glyph work, but not so rigid that they erase visual discovery.
+- Elias can reject or approve the direction without needing to inspect implementation files.
+
+## Open aesthetic questions
+
+- Is Maya primarily text, display, or a hybrid optical direction?
+- Serif, sans, semi-serif, or something more calligraphic?
+- How warm should the humanist influence be?
+- Should the name Maya imply softness, architecture, ritual geometry, or stay merely a working label?
