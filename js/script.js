@@ -393,8 +393,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             `,
             kindle: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
-                    <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 14px 0; text-transform: none;">World’s First Maya Font</h2>
-                    <p style="margin: 0 0 14px 0;">A first product frame for a Latin-input to Maya-output converter font.</p>
+                    <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 14px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
                 </div>
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: flex; flex-direction: column; gap: 18px;">
@@ -410,17 +409,6 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         <li>OpenType <code>liga</code>/<code>clig</code> substitutions and mark/<code>mkmk</code> positioning.</li>
                         <li>Maya hieroglyphic output, block/composite sign logic.</li>
                     </ul>
-
-                    <h3 style="font-size: 16px; font-weight: normal; margin: 18px 0 8px 0;">What is rejected</h3>
-                    <ul style="margin-top: 0; padding-left: 18px;">
-                        <li>More Latin lowercase glyphs as product progress.</li>
-                        <li>“Maya-flavoured Latin”.</li>
-                        <li>Full adhesion expansion.</li>
-                        <li>A PASS that only says “it looks Latin”.</li>
-                    </ul>
-
-                    <h3 style="font-size: 16px; font-weight: normal; margin: 18px 0 8px 0;">Reference material</h3>
-                    <p style="margin: 0;">These are the eyes of the project, not the Latin n/o proof.</p>
                 </div>
             `,
 			scripts: ` 
