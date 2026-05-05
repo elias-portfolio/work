@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="900" viewBox="0 0 640 900">
+  <title>Phase-1 a prototype</title>
+  <rect x="0" y="0" width="640" height="900" fill="#fff"/>
+  <g transform="translate(40,780) scale(1,-1)">
+    <path d="M 110 120 L 420 120 L 520 230 L 520 490 L 450 620 L 130 620 L 90 520 L 90 120 Z M 170 240 L 270 240 L 340 320 L 340 390 L 270 470 L 170 470 L 150 390 L 150 280 L 170 240 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+  <text x="40" y="40" font-size="18" fill="#666" font-family="Arial, sans-serif">Prototype-only proof: a</text>
+</svg>

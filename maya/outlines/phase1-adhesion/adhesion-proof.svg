@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="4800" height="1900" viewBox="0 0 4800 1900">
+  <title>adhesion prototype proof (Phase 1)</title>
+  <defs><symbol id="g-a" viewBox="0 0 560 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 110 120 L 420 120 L 520 230 L 520 490 L 450 620 L 130 620 L 90 520 L 90 120 Z M 170 240 L 270 240 L 340 320 L 340 390 L 270 470 L 170 470 L 150 390 L 150 280 L 170 240 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-d" viewBox="0 0 580 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 140 120 L 250 120 L 250 620 L 520 620 L 590 540 L 590 220 L 520 120 L 140 120 Z M 210 190 L 320 190 L 390 260 L 390 490 L 320 560 L 210 560 L 180 500 L 180 250 L 210 190 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-e" viewBox="0 0 560 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 110 180 L 500 180 L 580 260 L 580 360 L 500 430 L 160 430 L 160 250 L 220 250 L 430 250 L 430 280 L 220 280 L 220 370 L 420 370 L 480 330 L 480 470 L 110 470 L 110 180 Z M 170 300 L 300 300 L 300 260 L 230 260 L 230 340 L 310 340 L 310 390 L 170 390 L 170 300 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-h" viewBox="0 0 620 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 130 120 L 230 120 L 230 360 L 320 370 L 390 520 L 450 620 L 560 620 L 560 120 L 460 120 L 460 390 L 360 380 L 300 520 L 230 520 L 230 120 Z M 240 420 L 330 420 L 390 500 L 420 620 L 340 620 L 300 540 L 240 460 L 240 420 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-i" viewBox="0 0 260 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 110 120 L 190 120 L 190 620 L 110 620 Z M 100 700 L 200 700 L 200 780 L 100 780 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-n" viewBox="0 0 560 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 120 120 L 220 120 L 220 380 L 300 500 L 390 620 L 510 620 L 510 120 L 410 120 L 410 390 L 340 500 L 260 560 L 220 520 L 220 120 Z M 235 390 L 300 465 L 360 540 L 410 540 L 410 620 L 330 620 L 270 540 L 235 460 L 235 390 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-o" viewBox="0 0 560 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 110 180 L 450 180 L 530 270 L 530 530 L 450 620 L 110 620 L 90 560 L 90 250 L 110 180 Z M 170 260 L 390 260 L 450 320 L 450 480 L 390 540 L 170 540 L 120 480 L 120 320 L 170 260 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol><symbol id="g-s" viewBox="0 0 530 900" overflow="visible">
+  <g transform="translate(0,760) scale(1,-1)">
+    <path d="M 470 190 L 390 130 L 160 130 L 100 190 L 100 250 L 190 300 L 380 340 L 470 410 L 470 500 L 390 570 L 130 570 L 80 520 L 80 440 L 170 380 L 390 350 L 450 320 L 450 250 L 390 200 L 130 200 L 80 250 L 80 370 L 150 430 L 430 430 L 430 520 L 300 590 L 120 590 L 70 540 L 70 240 L 170 150 L 460 150 L 520 220 L 520 250 L 470 300 L 250 300 L 250 350 L 470 350 L 470 190 Z" fill="#111" fill-rule="evenodd"/>
+  </g>
+</symbol>
+  </defs>
+  <rect width="4800" height="1900" fill="#fff"/>
+  <text x="60" y="60" font-size="24" font-family="Arial, sans-serif" fill="#222">Phase 1 adhesion proof (prototype only, no final font export)</text>
+
+  <text x="60" y="120" font-size="18" font-family="Arial, sans-serif" fill="#666">Primary glyph set: a d h e s i o n</text>
+
+  <g transform="translate(0,0)">
+    <g><use href="#g-a" x="60" y="940" width="560" height="900"/>
+<use href="#g-d" x="644" y="940" width="580" height="900"/>
+<use href="#g-h" x="1248" y="940" width="620" height="900"/>
+<use href="#g-e" x="1892" y="940" width="560" height="900"/>
+<use href="#g-s" x="2476" y="940" width="530" height="900"/>
+<use href="#g-i" x="3030" y="940" width="260" height="900"/>
+<use href="#g-o" x="3314" y="940" width="560" height="900"/>
+<use href="#g-n" x="3898" y="940" width="560" height="900"/></g>
+<g><use href="#g-a" x="60" y="760" width="560" height="900"/>
+<use href="#g-d" x="644" y="760" width="580" height="900"/>
+<use href="#g-h" x="1288" y="760" width="620" height="900"/>
+<use href="#g-e" x="1932" y="760" width="560" height="900"/>
+<use href="#g-s" x="2556" y="760" width="530" height="900"/>
+<use href="#g-o" x="3110" y="760" width="560" height="900"/></g>
+<g><use href="#g-n" x="60" y="580" width="560" height="900"/>
+<use href="#g-o" x="644" y="580" width="560" height="900"/>
+<use href="#g-n" x="1228" y="580" width="560" height="900"/></g>
+<g><use href="#g-s" x="60" y="400" width="530" height="900"/>
+<use href="#g-h" x="614" y="400" width="620" height="900"/>
+<use href="#g-s" x="1298" y="400" width="530" height="900"/>
+<use href="#g-i" x="1852" y="400" width="260" height="900"/>
+<use href="#g-d" x="2136" y="400" width="580" height="900"/>
+<use href="#g-e" x="2740" y="400" width="560" height="900"/></g>
+<g><use href="#g-i" x="60" y="220" width="260" height="900"/>
+<use href="#g-o" x="384" y="220" width="560" height="900"/>
+<use href="#g-n" x="968" y="220" width="560" height="900"/></g>
+  </g>
+
+  <g transform="translate(0,0)" opacity="0.9">
+    <text x="60" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">a</text>
+<use href="#g-a" x="60" y="-320" width="560" height="900"/>
+<text x="650" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">d</text>
+<use href="#g-d" x="650" y="-320" width="580" height="900"/>
+<text x="1260" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">e</text>
+<use href="#g-e" x="1260" y="-320" width="560" height="900"/>
+<text x="1850" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">h</text>
+<use href="#g-h" x="1850" y="-320" width="620" height="900"/>
+<text x="2500" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">i</text>
+<use href="#g-i" x="2500" y="-320" width="260" height="900"/>
+<text x="2790" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">n</text>
+<use href="#g-n" x="2790" y="-320" width="560" height="900"/>
+<text x="3380" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">o</text>
+<use href="#g-o" x="3380" y="-320" width="560" height="900"/>
+<text x="3970" y="230" font-size="16" fill="#777" font-family="Arial, sans-serif">s</text>
+<use href="#g-s" x="3970" y="-320" width="530" height="900"/>
+  </g>
+
+  <g transform="translate(0,0)">
+    <text x="60" y="620" font-size="20" fill="#555" font-family="Arial, sans-serif">HHH HOH OHO HnH HaH</text>
+<text x="60" y="594" font-size="20" fill="#555" font-family="Arial, sans-serif">OOO HOH OHO</text>
+<text x="60" y="568" font-size="20" fill="#555" font-family="Arial, sans-serif">nnn non nan HnH minimum</text>
+<text x="60" y="542" font-size="20" fill="#555" font-family="Arial, sans-serif">aaa nan ana non noa</text>
+  </g>
+
+  <text x="60" y="1880" font-size="14" fill="#888" font-family="Arial, sans-serif">NOTE: Glyph paths are coarse prototypes for visual review only.</text>
+</svg>

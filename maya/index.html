@@ -3,22 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maya Font, phase 1 adhesion</title>
+  <title>Maya Font, phase 1 outline proof</title>
   <style>
     @font-face { font-family: MayaVectorSeed; src: url('./assets/MayaVectorSeed.ttf') format('truetype'); }
     :root { --bg:#0d0c0a; --fg:#e8dfcf; --muted:#9d9487; --line:#393128; --gold:#d5aa62; --red:#bc654f; --green:#9fb982; }
     * { box-sizing:border-box; }
     body { margin:0; background:radial-gradient(circle at top left,#211a13,#0d0c0a 42%); color:var(--fg); font:16px/1.5 Georgia, 'Times New Roman', serif; }
-    main { max-width:1080px; margin:0 auto; padding:56px 22px 80px; }
+    main { max-width:1120px; margin:0 auto; padding:56px 22px 80px; }
     header { border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:32px; }
     h1 { font-size:clamp(42px,9vw,108px); line-height:.88; margin:0 0 14px; letter-spacing:-.06em; font-weight:400; }
     h2 { color:var(--gold); margin-top:42px; font-weight:400; letter-spacing:.02em; }
-    h3 { color:var(--fg); margin-top:26px; }
-    p.lede { font-size:20px; max-width:780px; color:#f1e6d3; }
+    p.lede { font-size:20px; max-width:820px; color:#f1e6d3; }
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
     .card { border:1px solid var(--line); background:rgba(255,255,255,.035); padding:18px; border-radius:14px; }
     .status { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--green); color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:.08em; }
-    .warn { border-color:var(--red); color:#e8b19f; }
     code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     pre { white-space:pre-wrap; border:1px solid var(--line); background:#090807; padding:16px; border-radius:12px; overflow:auto; }
     a { color:var(--gold); }
@@ -28,23 +26,32 @@
     ul { padding-left:1.2rem; }
     .pillrow { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
     .pill { border:1px solid var(--line); padding:6px 10px; border-radius:999px; background:#100e0b; }
+    .proof { width:100%; border:1px solid var(--line); border-radius:14px; background:#fff; margin-top:16px; }
     .footer { margin-top:54px; color:var(--muted); border-top:1px solid var(--line); padding-top:18px; }
   </style>
 </head>
 <body>
 <main>
 <header>
-  <div class="status">Phase 1 adhesion contracts</div>
+  <div class="status">Phase 1 outline proof</div>
   <h1>Maya Font</h1>
-  <p class="lede">The first real design-DNA set is now <strong>adhesion</strong>. The original <strong>H/O/n/o/a</strong> set remains as proof control. This page is a live review table, not a finished font.</p>
-  <p class="muted">Generated 2026-05-05 18:54 CEST from local pipeline receipts. `make doctor` passes.</p>
+  <p class="lede">First controlled outline prototype for <strong>adhesion</strong>. Coarse, proof-only vectors. Not a final font export.</p>
+  <p class="muted">Generated 2026-05-05 19:24 CEST from local pipeline receipts. `make outline-proof`, `make validate`, and `make doctor` pass.</p>
 </header>
 
 <section class="grid">
-  <div class="card"><h2>Pipeline</h2><p><span class="status">PASS</span></p><p><code>make validate</code> and <code>make doctor</code> pass.</p></div>
-  <div class="card"><h2>Design DNA</h2><p class="specimen">adhesion</p><p>Primary glyph contracts: a d h e s i o n.</p></div>
-  <div class="card"><h2>Control set</h2><p class="specimen">H O n o a</p><p>Maintained for vertical, round, arch and spacing checks.</p></div>
+  <div class="card"><h2>Pipeline</h2><p><span class="status">PASS</span></p><p><code>make outline-proof</code>, <code>make validate</code>, <code>make doctor</code> pass.</p></div>
+  <div class="card"><h2>Design DNA</h2><p class="specimen">adhesion</p><p>Outline prototypes exist for a d h e s i o n.</p></div>
+  <div class="card"><h2>Control set</h2><p class="specimen">H O n o a</p><p>Maintained as proof controls and text notes.</p></div>
 </section>
+
+<h2>Outline proof</h2>
+<p>This is the artifact to inspect first. It is intentionally rough. If it has a pulse, we refine. If it smells generic, we cut deeper.</p>
+<object class="proof" data="./outlines/phase1-adhesion/adhesion-proof.svg" type="image/svg+xml" height="520"><a href="./outlines/phase1-adhesion/adhesion-proof.svg">Open adhesion-proof.svg</a></object>
+<p><a href="./outlines/phase1-adhesion/adhesion-proof.svg">Open full SVG proof</a></p>
+
+<h2>Individual outline SVGs</h2>
+<div class="pillrow"><a class="pill" href="./outlines/phase1-adhesion/a.svg">a</a><a class="pill" href="./outlines/phase1-adhesion/d.svg">d</a><a class="pill" href="./outlines/phase1-adhesion/h.svg">h</a><a class="pill" href="./outlines/phase1-adhesion/e.svg">e</a><a class="pill" href="./outlines/phase1-adhesion/s.svg">s</a><a class="pill" href="./outlines/phase1-adhesion/i.svg">i</a><a class="pill" href="./outlines/phase1-adhesion/o.svg">o</a><a class="pill" href="./outlines/phase1-adhesion/n.svg">n</a></div>
 
 <h2>Phase 1 glyph contracts</h2>
 <div class="pillrow"><a class="pill" href="./specs/glyphs/latin/H.cap.sdd">H.cap.sdd</a><a class="pill" href="./specs/glyphs/latin/O.cap.sdd">O.cap.sdd</a><a class="pill" href="./specs/glyphs/latin/a.lower.sdd">a.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/d.lower.sdd">d.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/e.lower.sdd">e.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/h.lower.sdd">h.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/i.lower.sdd">i.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/n.lower.sdd">n.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/o.lower.sdd">o.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/s.lower.sdd">s.lower.sdd</a></div>
@@ -57,10 +64,10 @@
 
 <h2>Where we are</h2>
 <ul>
-  <li>Phase 1 contracts are written for <code>adhesion</code>.</li>
-  <li>No glyph outlines have been generated.</li>
+  <li>Phase 1 contracts and outline proof are present.</li>
+  <li>UFO `.glif` files exist for `a d h e s i o n`.</li>
+  <li>No final font export has been produced.</li>
   <li>No descender glyphs were added.</li>
-  <li>SpecDD validation passes with no errors or warnings.</li>
   <li>Recovered MayaVectorSeed remains prior work, not the Latin Maya font.</li>
 </ul>
 
@@ -99,14 +106,13 @@ Maya Maya Maya
 
 <h2>Receipts</h2>
 <ul>
+  <li><a href="./docs/outline-phase1.md">Outline phase doc</a></li>
+  <li><a href="./docs/outline-phase1-report.md">Outline phase report</a></li>
   <li><a href="./docs/phase1-adhesion.md">Phase 1 adhesion state</a></li>
   <li><a href="./docs/phase1-executor.md">Phase 1 executor report</a></li>
-  <li><a href="./docs/phase1-adhesion-architecture.md">Architecture report</a></li>
   <li><a href="./docs/doctor.md">doctor.md</a></li>
   <li><a href="./docs/validate.json">validate.json</a></li>
   <li><a href="./docs/pipeline.md">PIPELINE.md</a></li>
-  <li><a href="./docs/glass-subagent-implementation-brief.md">Glass implementation brief</a></li>
-  <li><a href="./docs/proof-strings.txt">proof strings</a></li>
 </ul>
 
 <h2>Recovered seed font</h2>
@@ -115,9 +121,9 @@ Maya Maya Maya
 <p class="maya-seed">&#xe000; &#xe001; &#xe002;</p>
 
 <h2>Tool readiness caveat</h2>
-<p>HarfBuzz/WOFF2 tools exist locally. Python font packages are still missing: fontTools, fontmake, fontbakery, defcon, ufoLib2, ufolint. This blocks real font build/QA, not Phase 1 contracts.</p>
+<p>HarfBuzz/WOFF2 tools exist locally. Python font packages are still missing: fontTools, fontmake, fontbakery, defcon, ufoLib2, ufolint. This blocks real font build/QA, not this proof.</p>
 
-<div class="footer">Maya Font, Phase 1. Contract first, outline later.</div>
+<div class="footer">Maya Font, outline proof. Contract first, pulse second, polish later.</div>
 </main>
 </body>
 </html>

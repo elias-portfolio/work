@@ -1,6 +1,6 @@
 # Maya Font — Glass-led implementation brief
 
-Generated: 2026-05-05T18:53:24+02:00
+Generated: 2026-05-05T19:23:12+02:00
 Host: Eliass-MacBook-Air.local
 Mode: Glass-led subagents. Codex is not the default builder.
 
