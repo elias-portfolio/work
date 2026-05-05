@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+  <title>Maya visual gate: n/o proof</title>
+  <style>
+  .bg { fill: #fff; }
+  .ink { fill: #111; }
+  .counter { fill: #fff; }
+  .guide { stroke: #d7d7d7; stroke-width: 2; stroke-dasharray: 10 8; }
+  .box { fill: none; stroke: #e7b666; stroke-width: 2; opacity: .8; }
+  .label { fill: #555; font: 24px Arial, sans-serif; }
+  .small { fill: #777; font: 18px Arial, sans-serif; }
+</style>
+  <rect class="bg" width="1400" height="760"/>
+  <text class="label" x="60" y="60">Maya Phase 1 Visual Gate, n/o only</text>
+  <text class="small" x="60" y="92">Previous adhesion outline proof is FAILED. This is the minimal legibility gate before expansion.</text>
+
+  <line class="guide" x1="60" x2="1260" y1="560" y2="560"/>
+  <text class="small" x="1268" y="566">baseline</text>
+
+  
+    <g id="glyph-n" transform="translate(120,120)">
+      <rect class="box" x="0" y="0" width="360" height="460"/>
+      <rect class="ink" x="36" y="120" width="86" height="320" rx="16"/>
+      <rect class="ink" x="260" y="210" width="86" height="230" rx="16"/>
+      <path class="ink" d="M 92 210 C 122 135, 210 112, 282 158 C 334 191, 354 246, 346 312 L 260 312 C 266 271, 253 239, 226 220 C 185 190, 134 204, 118 244 Z"/>
+      <text class="small" x="0" y="500">n, canary glyph</text>
+    </g>
+
+  
+    <g id="glyph-o" transform="translate(520,120)">
+      <rect class="box" x="0" y="0" width="360" height="460"/>
+      <ellipse class="ink" cx="180" cy="280" rx="145" ry="170"/>
+      <ellipse class="counter" cx="180" cy="280" rx="70" ry="86"/>
+      <text class="small" x="0" y="500">o, counter + rhythm</text>
+    </g>
+
+
+  <g transform="translate(900,120)">
+    <text class="label" x="0" y="42">word proof</text>
+    <g transform="translate(0,70) scale(.72)">
+      
+    <g id="glyph-n" transform="translate(0,0)">
+      <rect class="box" x="0" y="0" width="360" height="460"/>
+      <rect class="ink" x="36" y="120" width="86" height="320" rx="16"/>
+      <rect class="ink" x="260" y="210" width="86" height="230" rx="16"/>
+      <path class="ink" d="M 92 210 C 122 135, 210 112, 282 158 C 334 191, 354 246, 346 312 L 260 312 C 266 271, 253 239, 226 220 C 185 190, 134 204, 118 244 Z"/>
+      <text class="small" x="0" y="500">n, canary glyph</text>
+    </g>
+
+      
+    <g id="glyph-o" transform="translate(390,0)">
+      <rect class="box" x="0" y="0" width="360" height="460"/>
+      <ellipse class="ink" cx="180" cy="280" rx="145" ry="170"/>
+      <ellipse class="counter" cx="180" cy="280" rx="70" ry="86"/>
+      <text class="small" x="0" y="500">o, counter + rhythm</text>
+    </g>
+
+    </g>
+    <text class="small" x="0" y="440">Read target: “no” / “on”.</text>
+    <text class="small" x="0" y="470">Stop if this does not read instantly.</text>
+  </g>
+
+  <text class="small" x="60" y="710">Prototype proof only. No final font export. No descender expansion. No full adhesion until n/o passes visual inspection.</text>
+</svg>

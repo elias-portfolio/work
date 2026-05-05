@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maya Font, phase 1 outline proof</title>
+  <title>Maya Font, visual outline gate</title>
   <style>
-    @font-face { font-family: MayaVectorSeed; src: url('./assets/MayaVectorSeed.ttf') format('truetype'); }
     :root { --bg:#0d0c0a; --fg:#e8dfcf; --muted:#9d9487; --line:#393128; --gold:#d5aa62; --red:#bc654f; --green:#9fb982; }
     * { box-sizing:border-box; }
     body { margin:0; background:radial-gradient(circle at top left,#211a13,#0d0c0a 42%); color:var(--fg); font:16px/1.5 Georgia, 'Times New Roman', serif; }
@@ -14,116 +13,144 @@
     h1 { font-size:clamp(42px,9vw,108px); line-height:.88; margin:0 0 14px; letter-spacing:-.06em; font-weight:400; }
     h2 { color:var(--gold); margin-top:42px; font-weight:400; letter-spacing:.02em; }
     p.lede { font-size:20px; max-width:820px; color:#f1e6d3; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
     .card { border:1px solid var(--line); background:rgba(255,255,255,.035); padding:18px; border-radius:14px; }
     .status { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--green); color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:.08em; }
+    .fail { border-color:var(--red); color:#e8a08c; }
     code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    pre { white-space:pre-wrap; border:1px solid var(--line); background:#090807; padding:16px; border-radius:12px; overflow:auto; }
+    pre { white-space:pre-wrap; border:1px solid var(--line); background:#090807; padding:16px; border-radius:12px; overflow:auto; max-height:360px; }
     a { color:var(--gold); }
-    .specimen { font-size:clamp(34px,7vw,90px); line-height:1.05; letter-spacing:-.045em; margin:18px 0; }
-    .maya-seed { font-family:MayaVectorSeed, Georgia, serif; font-size:60px; letter-spacing:0; }
+    .proof { width:100%; border:1px solid var(--line); border-radius:14px; background:#fff; margin-top:16px; }
+    .proof-img { width:100%; border:1px solid var(--line); border-radius:14px; background:#fff; }
     .muted { color:var(--muted); }
     ul { padding-left:1.2rem; }
-    .pillrow { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
-    .pill { border:1px solid var(--line); padding:6px 10px; border-radius:999px; background:#100e0b; }
-    .proof { width:100%; border:1px solid var(--line); border-radius:14px; background:#fff; margin-top:16px; }
     .footer { margin-top:54px; color:var(--muted); border-top:1px solid var(--line); padding-top:18px; }
   </style>
 </head>
 <body>
 <main>
 <header>
-  <div class="status">Phase 1 outline proof</div>
+  <div class="status">Visual gate active</div>
   <h1>Maya Font</h1>
-  <p class="lede">First controlled outline prototype for <strong>adhesion</strong>. Coarse, proof-only vectors. Not a final font export.</p>
-  <p class="muted">Generated 2026-05-05 19:24 CEST from local pipeline receipts. `make outline-proof`, `make validate`, and `make doctor` pass.</p>
+  <p class="lede">We stopped pretending the full `adhesion` outline proof was useful. It failed visual inspection. The project now advances through a rendered Kimi-inspected visual gate, starting with <strong>n/o</strong>.</p>
+  <p class="muted">Generated 2026-05-05 19:48 CEST. Structural checks still pass, but visual gate now controls outline expansion.</p>
 </header>
 
 <section class="grid">
-  <div class="card"><h2>Pipeline</h2><p><span class="status">PASS</span></p><p><code>make outline-proof</code>, <code>make validate</code>, <code>make doctor</code> pass.</p></div>
-  <div class="card"><h2>Design DNA</h2><p class="specimen">adhesion</p><p>Outline prototypes exist for a d h e s i o n.</p></div>
-  <div class="card"><h2>Control set</h2><p class="specimen">H O n o a</p><p>Maintained as proof controls and text notes.</p></div>
+  <div class="card"><h2>Structural pipeline</h2><p><span class="status">PASS</span></p><p><code>make validate</code> and <code>make doctor</code> pass.</p></div>
+  <div class="card"><h2>Old full adhesion proof</h2><p><span class="status fail">VISUAL FAIL</span></p><p>Overlap, coordinate/fill problems, illegible glyphs.</p></div>
+  <div class="card"><h2>Minimal n/o gate</h2><p><span class="status">VISUAL PASS</span></p><p>`n` and `o` read instantly. Minor n-junction artifact remains.</p></div>
 </section>
 
-<h2>Outline proof</h2>
-<p>This is the artifact to inspect first. It is intentionally rough. If it has a pulse, we refine. If it smells generic, we cut deeper.</p>
-<object class="proof" data="./outlines/phase1-adhesion/adhesion-proof.svg" type="image/svg+xml" height="520"><a href="./outlines/phase1-adhesion/adhesion-proof.svg">Open adhesion-proof.svg</a></object>
-<p><a href="./outlines/phase1-adhesion/adhesion-proof.svg">Open full SVG proof</a></p>
+<h2>Current proof to inspect</h2>
+<object class="proof" data="./outlines/phase1-visual-gate/no-proof.svg" type="image/svg+xml" height="520"><a href="./outlines/phase1-visual-gate/no-proof.svg">Open n/o visual gate SVG</a></object>
+<p><a href="./outlines/phase1-visual-gate/no-proof.svg">Open n/o gate SVG</a> · <a href="./outlines/phase1-visual-gate/n.svg">n.svg</a> · <a href="./outlines/phase1-visual-gate/o.svg">o.svg</a></p>
 
-<h2>Individual outline SVGs</h2>
-<div class="pillrow"><a class="pill" href="./outlines/phase1-adhesion/a.svg">a</a><a class="pill" href="./outlines/phase1-adhesion/d.svg">d</a><a class="pill" href="./outlines/phase1-adhesion/h.svg">h</a><a class="pill" href="./outlines/phase1-adhesion/e.svg">e</a><a class="pill" href="./outlines/phase1-adhesion/s.svg">s</a><a class="pill" href="./outlines/phase1-adhesion/i.svg">i</a><a class="pill" href="./outlines/phase1-adhesion/o.svg">o</a><a class="pill" href="./outlines/phase1-adhesion/n.svg">n</a></div>
-
-<h2>Phase 1 glyph contracts</h2>
-<div class="pillrow"><a class="pill" href="./specs/glyphs/latin/H.cap.sdd">H.cap.sdd</a><a class="pill" href="./specs/glyphs/latin/O.cap.sdd">O.cap.sdd</a><a class="pill" href="./specs/glyphs/latin/a.lower.sdd">a.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/d.lower.sdd">d.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/e.lower.sdd">e.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/h.lower.sdd">h.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/i.lower.sdd">i.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/n.lower.sdd">n.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/o.lower.sdd">o.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/s.lower.sdd">s.lower.sdd</a></div>
-
-<h2>Adhesion set</h2>
-<div class="pillrow"><a class="pill" href="./specs/glyphs/latin/a.lower.sdd">a.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/d.lower.sdd">d.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/h.lower.sdd">h.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/e.lower.sdd">e.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/s.lower.sdd">s.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/i.lower.sdd">i.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/o.lower.sdd">o.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/n.lower.sdd">n.lower.sdd</a></div>
-
-<h2>Proof controls</h2>
-<div class="pillrow"><a class="pill" href="./specs/glyphs/latin/H.cap.sdd">H.cap.sdd</a><a class="pill" href="./specs/glyphs/latin/O.cap.sdd">O.cap.sdd</a><a class="pill" href="./specs/glyphs/latin/n.lower.sdd">n.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/o.lower.sdd">o.lower.sdd</a><a class="pill" href="./specs/glyphs/latin/a.lower.sdd">a.lower.sdd</a></div>
-
-<h2>Where we are</h2>
+<h2>What changed</h2>
 <ul>
-  <li>Phase 1 contracts and outline proof are present.</li>
-  <li>UFO `.glif` files exist for `a d h e s i o n`.</li>
-  <li>No final font export has been produced.</li>
-  <li>No descender glyphs were added.</li>
-  <li>Recovered MayaVectorSeed remains prior work, not the Latin Maya font.</li>
+  <li>Full `adhesion` is no longer treated as an outline success.</li>
+  <li>Visual inspection is now a required gate.</li>
+  <li>Next expansion starts from readable `n/o`, not from bureaucratic proof strings.</li>
+  <li>Recommended next glyphs: `h` and `i`, after smoothing the `n` arch junction.</li>
 </ul>
 
-<h2>Proof strings</h2>
-<pre># Maya Font proof strings, stage 0/1
-# These are for review once drawings exist. They are not implementation output.
+<h2>Kimi inspection, failed full adhesion</h2>
+<pre># Kimi Visual Inspection — Maya Outline Proof
 
-# H/O/n/o/a proof controls (legacy, maintained)
-HHH HOH OHO HnH HaH
-OOO HOH OHO
-nnn non nan HnH minimum
-ooo non ono noon nono
-aaa nan ana non noa
+## Verdict
+**FAIL** — The proof reads as visual gibberish/noise, not a coherent Latin type prototype. Glyphs overlap, intersect, and lack recognizable letterform structure.
 
-# adhesion proof strings (Phase 1)
-adhesion adhesion adhesion
-ad ad ad
-he he he
-on on on
-de de de
-ion ion ion
-sh sh sh
-si si si
-is is is
-so so so
-os os os
-his his his
-shed shed shed
-side side side
-hide hide hide
-nose nose nose
-ash ash ash
+## Visual Findings
+- **Severe overlap/intersection**: Glyphs are stacked on top of each other both horizontally and vertically, creating illegible black masses with random white cutouts.
+- **Broken counter-spaces**: The `evenodd` fill-rule combined with overlapping paths creates unexpected holes and islands instead of proper letterform counters.
+- **Unrecognizable letterforms**: Individual glyphs (a, d, e, h, i, n, o, s) do not read as Latin letters—their proportions and geometry are too abstract/distorted.
+- **Coordinate inversion artifacts**: The Y-axis flip (`scale(1,-1)`) combined with positive Y translations causes glyphs to render at wrong positions, stacking upward instead of baseline-aligned.
+- **No spacing discipline**: No sidebearings or metrics are visible; glyphs collide immediately.
+- **Path direction chaos**: Intersecting subpaths within single glyphs suggest incorrect winding order, causing the renderer to subtract instead of add shapes.
 
-Maya Maya Maya
+## Pipeline Diagnosis
+- **SVG transform stack is broken**: The `translate(0,760) scale(1,-1)` pattern in each glyph symbol is fighting with the outer `&lt;use&gt;` positioning, creating double-inversion and wrong Y coordinates.
+- **Path data quality poor**: Glyph paths appear procedurally generated or hand-coded without bezier curves—too angular, self-intersecting, and lacking optical corrections.
+- **No proof layout logic**: The proof simply dumps glyphs at hardcoded X/Y positions without baseline alignment, word spacing, or line metrics.
+- **&quot;Adhesion&quot; word choice is a red herring**: The word itself is fine (standard font-testing word), but the pipeline is not producing readable glyphs to evaluate.
+
+## Minimal Correction Plan
+1. **Fix coordinate system**: Remove the per-glyph `scale(1,-1)` transform; draw paths in correct Cartesian orientation (Y-up or Y-down consistently, not mixed).
+2. **Separate glyphs spatially**: Position each glyph with proper sidebearings so they don&#x27;t overlap—aim for 100+ units between glyphs minimum.
+3. **Fix path winding order**: Ensure outer contours are clockwise and inner counters are counter-clockwise (or vice versa) so `evenodd` fill works predictably.
+4. **Simplify to basic shapes first**: Redraw &#x27;n&#x27; and &#x27;o&#x27; as simple rectangles + stroke outlines to verify the pipeline works before adding detail.
+5. **Add baseline alignment**: All glyphs should sit on a common baseline (y=0 or consistent offset), not float at arbitrary Y positions.
+6. **Generate a single-word proof first**: Just &quot;no&quot; or &quot;on&quot; with proper spacing—if those two glyphs don&#x27;t read, the pipeline isn&#x27;t ready for longer strings.
+
+## Stop Rules
+- **STOP if glyphs overlap** — spacing is as important as shape.
+- **STOP if &#x27;n&#x27; and &#x27;o&#x27; don&#x27;t read instantly** — these are the canary glyphs for Latin type.
+- **STOP adding new glyphs until &#x27;adhesion&#x27; renders legibly** — more glyphs won&#x27;t fix broken fundamentals.
+- **STOP using evenodd fill until winding order is verified** — use nonzero fill rule for predictable behavior.
+</pre>
+
+<h2>Kimi inspection, n/o gate</h2>
+<pre># Kimi Visual Inspection — n/o Gate
+
+## Verdict
+**PASS** — Both glyphs read instantly as Latin-ish lowercase n/o; minimal non-blocking artifacts remain.
+
+## Visual Findings
+
+### Glyph `n` (Canary)
+- **Recognition**: Instantly readable as lowercase Latin &quot;n&quot; — two-stem structure with connecting arch is clear
+- **Structure**: 
+  - Left stem: clean vertical rectangle (36,120 to 122,440)
+  - Right stem: clean vertical rectangle (260,210 to 346,440)
+  - Arch: Bézier curve connecting stems
+- **Artifacts**:
+  - **Right stem junction**: Subtle ridge/bump visible where arch meets right stem (at x≈260, y≈210)
+  - Curve appears to have slight tangent discontinuity or overlap at connection point
+  - Left stem junction appears smoother but should be verified
+- **No fill errors**: Black areas solid, no gaps
+
+### Glyph `o` (Counter + Rhythm)
+- **Recognition**: Instantly readable as lowercase Latin &quot;o&quot;
+- **Structure**: 
+  - Outer ellipse: 145×170 vertical oval
+  - Inner counter: 70×86 vertical oval
+  - Clean, consistent stroke weight
+- **Artifacts**: None visible — solid construction
+
+### Word Proof (&quot;no&quot;)
+- At 0.72× scale, both glyphs remain clearly legible
+- Spacing between n and o (30px gap in SVG) reads naturally
+
+## Next Corrections
+
+1. **Smooth the right stem junction on `n`** — The arch-to-right-stem connection has a visible ridge/bump. Adjust the Bézier control points (currently `C 334 191, 354 246, 346 312`) to ensure tangent continuity with the stem edge. May need to shorten curve end or adjust stem top position.
+
+2. **Verify left stem junction smoothness** — While appearing cleaner than the right, confirm the arch connection at x=92, y=210 blends seamlessly with the left stem&#x27;s rounded top (rx=16).
+
+3. **Harmonize stem weights** — Left stem width is 86px, right stem is 86px (good), but verify optical consistency given the arch connection differences. Consider if right stem needs slight weight adjustment after junction fix.
+
+## Gate Decision
+
+**Can expand beyond n/o?** `yes`
+
+The core letterforms are solid and readable. The remaining artifact on `n` is minor polish, not a blocking structural issue. The `o` is production-ready. Proceed to draw additional glyphs (a, d, e, g as planned) while noting the junction smoothing fix for next revision.
+
+---
+*Inspection timestamp: 2026-05-05*  
+*Inspector: Kimi Visual Gate (Second Pass)*
 </pre>
 
 <h2>Receipts</h2>
 <ul>
-  <li><a href="./docs/outline-phase1.md">Outline phase doc</a></li>
-  <li><a href="./docs/outline-phase1-report.md">Outline phase report</a></li>
-  <li><a href="./docs/phase1-adhesion.md">Phase 1 adhesion state</a></li>
-  <li><a href="./docs/phase1-executor.md">Phase 1 executor report</a></li>
+  <li><a href="./docs/visual-gate-policy.md">Visual gate policy</a></li>
+  <li><a href="./docs/kimi-visual-inspection.md">Kimi visual inspection, adhesion FAIL</a></li>
+  <li><a href="./docs/kimi-no-gate-inspection.md">Kimi n/o inspection, PASS</a></li>
+  <li><a href="./docs/visual-gate-no.md">n/o gate report</a></li>
   <li><a href="./docs/doctor.md">doctor.md</a></li>
   <li><a href="./docs/validate.json">validate.json</a></li>
-  <li><a href="./docs/pipeline.md">PIPELINE.md</a></li>
 </ul>
 
-<h2>Recovered seed font</h2>
-<p>Old Mayan hieroglyph/OpenType material, included as archive/proof of prior work.</p>
-<p><a href="./assets/MayaVectorSeed.ttf">Download MayaVectorSeed.ttf</a> · <a href="./assets/MayaVectorSeed.fea">OpenType feature file</a></p>
-<p class="maya-seed">&#xe000; &#xe001; &#xe002;</p>
-
-<h2>Tool readiness caveat</h2>
-<p>HarfBuzz/WOFF2 tools exist locally. Python font packages are still missing: fontTools, fontmake, fontbakery, defcon, ufoLib2, ufolint. This blocks real font build/QA, not this proof.</p>
-
-<div class="footer">Maya Font, outline proof. Contract first, pulse second, polish later.</div>
+<div class="footer">Maya Font, now with eyes before ceremony.</div>
 </main>
 </body>
 </html>

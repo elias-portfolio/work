@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="640" viewBox="0 0 560 640">
+  <title>Maya visual gate glyph o</title>
+  <style>
+  .bg { fill: #fff; }
+  .ink { fill: #111; }
+  .counter { fill: #fff; }
+  .guide { stroke: #d7d7d7; stroke-width: 2; stroke-dasharray: 10 8; }
+  .box { fill: none; stroke: #e7b666; stroke-width: 2; opacity: .8; }
+  .label { fill: #555; font: 24px Arial, sans-serif; }
+  .small { fill: #777; font: 18px Arial, sans-serif; }
+</style>
+  <rect class="bg" width="560" height="640"/>
+  
+    <g id="glyph-o" transform="translate(80,80)">
+      <rect class="box" x="0" y="0" width="360" height="460"/>
+      <ellipse class="ink" cx="180" cy="280" rx="145" ry="170"/>
+      <ellipse class="counter" cx="180" cy="280" rx="70" ry="86"/>
+      <text class="small" x="0" y="500">o, counter + rhythm</text>
+    </g>
+
+  <text class="small" x="80" y="600">Prototype-only visual gate glyph o</text>
+</svg>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="640" viewBox="0 0 560 640">
+  <title>Maya visual gate glyph n</title>
+  <style>
+  .bg { fill: #fff; }
+  .ink { fill: #111; }
+  .counter { fill: #fff; }
+  .guide { stroke: #d7d7d7; stroke-width: 2; stroke-dasharray: 10 8; }
+  .box { fill: none; stroke: #e7b666; stroke-width: 2; opacity: .8; }
+  .label { fill: #555; font: 24px Arial, sans-serif; }
+  .small { fill: #777; font: 18px Arial, sans-serif; }
+</style>
+  <rect class="bg" width="560" height="640"/>
+  
+    <g id="glyph-n" transform="translate(80,80)">
+      <rect class="box" x="0" y="0" width="360" height="460"/>
+      <rect class="ink" x="36" y="120" width="86" height="320" rx="16"/>
+      <rect class="ink" x="260" y="210" width="86" height="230" rx="16"/>
+      <path class="ink" d="M 92 210 C 122 135, 210 112, 282 158 C 334 191, 354 246, 346 312 L 260 312 C 266 271, 253 239, 226 220 C 185 190, 134 204, 118 244 Z"/>
+      <text class="small" x="0" y="500">n, canary glyph</text>
+    </g>
+
+  <text class="small" x="80" y="600">Prototype-only visual gate glyph n</text>
+</svg>
