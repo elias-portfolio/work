@@ -392,16 +392,35 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
   </div>
             `,
             kindle: `
-                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 14px 12px; max-width: calc(100% - 12px);">
-                    The last page: this is a eulogy for all broken kindles, each one permanently open at its last page forever.
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
+                    <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 14px 0; text-transform: none;">World’s First Maya Font</h2>
+                    <p style="margin: 0 0 14px 0;">A first product frame for a Latin-input to Maya-output converter font.</p>
                 </div>
-                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px);">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-01.png" alt="Dead Kindle Tribute image 1" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-03.png" alt="Dead Kindle Tribute image 3" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-04.png" alt="Dead Kindle Tribute image 4" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-05.png" alt="Dead Kindle Tribute image 5" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-06.png" alt="Dead Kindle Tribute image 6" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
-                    <img src="images/kindle-tribute-stacked/kindle-tribute-07.png" alt="Dead Kindle Tribute image 7" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 18px;">
+
+                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: flex; flex-direction: column; gap: 18px;">
+                    <img src="maya/references/maya_ref.jpg" alt="Maya reference material" style="width: 100%; border-radius: 5px; display: block;">
+                    <img src="maya/references/font_render_test.png" alt="Maya font render test" style="width: 100%; border-radius: 5px; display: block; background: white;">
+                </div>
+
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 22px 0 0 12px; max-width: calc(100% - 12px);">
+                    <h3 style="font-size: 16px; font-weight: normal; margin: 0 0 8px 0;">What we are building</h3>
+                    <ul style="margin-top: 0; padding-left: 18px;">
+                        <li>Latin/transliteration input.</li>
+                        <li>Mapping table to Maya signs/components.</li>
+                        <li>OpenType <code>liga</code>/<code>clig</code> substitutions and mark/<code>mkmk</code> positioning.</li>
+                        <li>Maya hieroglyphic output, block/composite sign logic.</li>
+                    </ul>
+
+                    <h3 style="font-size: 16px; font-weight: normal; margin: 18px 0 8px 0;">What is rejected</h3>
+                    <ul style="margin-top: 0; padding-left: 18px;">
+                        <li>More Latin lowercase glyphs as product progress.</li>
+                        <li>“Maya-flavoured Latin”.</li>
+                        <li>Full adhesion expansion.</li>
+                        <li>A PASS that only says “it looks Latin”.</li>
+                    </ul>
+
+                    <h3 style="font-size: 16px; font-weight: normal; margin: 18px 0 8px 0;">Reference material</h3>
+                    <p style="margin: 0;">These are the eyes of the project, not the Latin n/o proof.</p>
                 </div>
             `,
 			scripts: ` 
