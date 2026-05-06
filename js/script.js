@@ -408,24 +408,24 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
                     <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-glyph-03-source.jpg" alt="Third Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
+                        <img src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Third Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
                     </figure>
                     <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-glyph-03-vectorized.jpg" alt="Vectorized third Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
+                        <img src="maya/references/dresden-codex-glyph-03-vectorized.jpg?v=clean-20260506" alt="Vectorized third Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Vectorized font drawing</figcaption>
                     </figure>
                     <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-source.jpg" alt="Low-resolution Maya sign reference from the Dresden Codex" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
+                        <img src="maya/references/dresden-codex-source.jpg?v=clean-20260506" alt="Low-resolution Maya sign reference from the Dresden Codex" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
                     </figure>
                     <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-vectorized.jpg" alt="Vectorized Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
+                        <img src="maya/references/dresden-codex-vectorized.jpg?v=clean-20260506" alt="Vectorized Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
                     </figure>
                     <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-glyph-02-source.jpg" alt="Second Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
+                        <img src="maya/references/dresden-codex-glyph-02-source.jpg?v=clean-20260506" alt="Second Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
                     </figure>
                     <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-glyph-02-vectorized.jpg" alt="Vectorized second Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
+                        <img src="maya/references/dresden-codex-glyph-02-vectorized.jpg?v=clean-20260506" alt="Vectorized second Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
                     </figure>
                 </div>
 
