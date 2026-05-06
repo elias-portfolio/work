@@ -22,8 +22,13 @@ validate_public_2amtext() {
 
     [ -f "$f" ] || return 0
 
-    if grep -q 'youtube.com/embed' "$f"; then
+    if grep -qE 'https://(www\.)?youtube\.com/embed' "$f"; then
         echo "[$TIMESTAMP] FAIL: 2amtext.html contains direct YouTube embeds; refusing to publish broken portfolio variant" >> "$LOG"
+        return 1
+    fi
+
+    if ! grep -q 'id="bg-frame"' "$f" || grep -q 'id="bg-stream-iframe"' "$f" || grep -q '<title>Always 2AM Radio</title>' "$f"; then
+        echo "[$TIMESTAMP] FAIL: 2amtext.html is not the desktop structure; refusing to publish mobile/radiomp3 variant" >> "$LOG"
         return 1
     fi
 
