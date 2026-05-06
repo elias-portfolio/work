@@ -433,11 +433,6 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font: not a decorative alphabet, but a usable writing system that can carry the logic of Maya glyphs into contemporary type software.</p>
                     <p>A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
-
-                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: flex; flex-direction: column; gap: 18px;">
-                    <img src="maya/references/maya_ref.jpg" alt="Maya reference material" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 0 !important;">
-                    <img src="maya/references/font_render_test.png" alt="Maya font render test" style="width: 100%; border-radius: 5px; display: block; margin-bottom: 0 !important; background: white;">
-                </div>
             `,
 			scripts: ` 
 
