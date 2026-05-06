@@ -32,13 +32,13 @@
   <div class="status stop">Corrected product definition</div>
   <h1>Maya Font</h1>
   <p class="lede"><strong>Maya is a Latin-input → Maya-output converter font/pipeline.</strong> Not a Maya-flavoured Latin alphabet. A user types Latin/transliteration; the product outputs Maya hieroglyphic signs, blocks, substitutions, or composed glyph sequences.</p>
-  <p class="muted">Generated 2026-05-05 19:59 CEST. Structural checks pass, but outline expansion is stopped until converter proof exists.</p>
+  <p class="muted">Updated 2026-05-06 03:08 CEST. Overnight converter scaffold is in place: parser, proof vocabulary, render plan, and HarfBuzz proof pass for the recovered WAK/CHAAN/wa/AJAW benchmark.</p>
 </header>
 
 <section class="grid">
   <div class="card"><h2>Structural pipeline</h2><p><span class="status">PASS</span></p><p><code>make validate</code> and <code>make doctor</code> pass.</p></div>
   <div class="card"><h2>Latin outline expansion</h2><p><span class="status stop">STOP</span></p><p>`adhesion`, `n/o`, `h/i` are not design direction. They were only render smoke.</p></div>
-  <div class="card"><h2>Next real proof</h2><p><span class="status stop">NOT STARTED</span></p><p>Input mapping + OpenType substitution/mark positioning: e.g. <code>ajaw</code> → Maya logogram.</p></div>
+  <div class="card"><h2>First converter proof</h2><p><span class="status">PASS</span></p><p><code>WAK@CHAAN-wa@AJAW</code> maps to <code>E001,E002</code> and shapes into <code>maya.block.WAK_CHAAN_wa_AJAW</code>.</p></div>
 </section>
 
 <h2>What we are building</h2>
@@ -48,6 +48,15 @@
   <li>OpenType <code>liga</code>/<code>clig</code> substitutions and <code>mark</code>/<code>mkmk</code> positioning.</li>
   <li>Maya hieroglyphic output, block/composite sign logic.</li>
 </ul>
+
+<h2>Overnight proof receipt</h2>
+<p>The first shippable proof is deliberately tiny, but it exercises the right product path: typed epigraphic input → parser → mapping → OpenType shaping input → composed Maya glyph.</p>
+<pre>Input:        WAK@CHAAN-wa@AJAW
+Parser:       main WAK, infix chain CHAAN/wa/AJAW
+Mapping:      E001 + E002
+HarfBuzz:     hb-shape recovered/source-snapshot/output/MayaVectorSeed.ttf --unicodes=E001,E002 --features=+liga
+Receipt:      [maya.block.WAK_CHAAN_wa_AJAW=0+1000]
+Status:       converter scaffold PASS, broader vocabulary still planned</pre>
 
 <div class="grid">
   <div><img src="./references/maya_ref.jpg" alt="Maya reference"><p class="muted">maya_ref.jpg</p></div>
