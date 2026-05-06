@@ -408,6 +408,17 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start;">
                     <figure style="margin: 0;">
+                        <img src="maya/references/dresden-codex-glyph-03-source.jpg" alt="Third Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f4f0df;">
+                        <figcaption style="font-size: 12px; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
+                    </figure>
+                    <figure style="margin: 0;">
+                        <img src="maya/references/dresden-codex-glyph-03-vectorized.jpg" alt="Vectorized third Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8;">
+                        <figcaption style="font-size: 12px; margin-top: 6px; color: #555;">Vectorized font drawing</figcaption>
+                    </figure>
+                </div>
+
+                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start;">
+                    <figure style="margin: 0;">
                         <img src="maya/references/dresden-codex-source.jpg" alt="Low-resolution Maya sign reference from the Dresden Codex" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f4f0df;">
                         <figcaption style="font-size: 12px; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
                     </figure>
