@@ -423,7 +423,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         <figcaption style="font-size: 12px; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
                     </figure>
                     <figure style="margin: 0;">
-                        <img src="maya/references/dresden-codex-glyph-02-vectorized.png" alt="Vectorized second Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8;">
+                        <img src="maya/references/dresden-codex-glyph-02-vectorized.jpg" alt="Vectorized second Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8;">
                         <figcaption style="font-size: 12px; margin-top: 6px; color: #555;">Vectorized font drawing</figcaption>
                     </figure>
                 </div>
