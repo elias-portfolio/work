@@ -1,0 +1,219 @@
+{
+  "input": "WAK@CHAAN-wa@AJAW",
+  "parsed": {
+    "kind": "document",
+    "errors": [],
+    "warnings": [],
+    "blocks": [
+      {
+        "kind": "block",
+        "raw": "WAK@CHAAN-wa@AJAW",
+        "main": {
+          "kind": "uppercase",
+          "value": "WAK",
+          "canonical": "wak",
+          "source": {
+            "raw": "WAK@CHAAN-wa@AJAW",
+            "span_start": 0,
+            "span_end": 3
+          }
+        },
+        "affixes": [
+          {
+            "position": "infix",
+            "order": 0,
+            "token": {
+              "kind": "uppercase",
+              "value": "CHAAN",
+              "canonical": "chaan"
+            }
+          },
+          {
+            "position": "infix",
+            "order": 1,
+            "token": {
+              "kind": "syllable",
+              "value": "wa",
+              "canonical": "wa"
+            }
+          },
+          {
+            "position": "infix",
+            "order": 2,
+            "token": {
+              "kind": "uppercase",
+              "value": "AJAW",
+              "canonical": "ajaw"
+            }
+          }
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    ]
+  },
+  "mapped": {
+    "input": "WAK@CHAAN-wa@AJAW",
+    "status": "resolved",
+    "blocks": [
+      {
+        "input": "WAK@CHAAN-wa@AJAW",
+        "main": "WAK",
+        "affixes": [
+          {
+            "position": "infix",
+            "token": "CHAAN",
+            "order": 0
+          },
+          {
+            "position": "infix",
+            "token": "wa",
+            "order": 1
+          },
+          {
+            "position": "infix",
+            "token": "AJAW",
+            "order": 2
+          }
+        ],
+        "resolved_signs": [
+          {
+            "sign_id": "maya.block.WAK_CHAAN_wa_AJAW",
+            "glyph_name": "maya.block.WAK_CHAAN_wa_AJAW",
+            "unicode": "E000",
+            "meaning": "logogram",
+            "confidence": "high"
+          },
+          {
+            "sign_id": "maya.main.WAK.experimental",
+            "glyph_name": "maya.main.WAK.experimental",
+            "unicode": "E001",
+            "meaning": "logogram",
+            "confidence": "medium"
+          },
+          {
+            "sign_id": "maya.mark.CHAAN_wa_AJAW.experimental",
+            "glyph_name": "maya.mark.CHAAN_wa_AJAW.experimental",
+            "unicode": "E002",
+            "meaning": "affix",
+            "confidence": "medium"
+          }
+        ],
+        "selected": {
+          "sign_id": "maya.block.WAK_CHAAN_wa_AJAW",
+          "glyph_name": "maya.block.WAK_CHAAN_wa_AJAW",
+          "unicode": "E000",
+          "meaning": "logogram",
+          "confidence": "high"
+        },
+        "status": "implemented",
+        "parse": {
+          "block": {
+            "main": "WAK",
+            "affixes": [
+              {
+                "position": "infix",
+                "token": "CHAAN",
+                "order": 0
+              },
+              {
+                "position": "infix",
+                "token": "wa",
+                "order": 1
+              },
+              {
+                "position": "infix",
+                "token": "AJAW",
+                "order": 2
+              }
+            ]
+          }
+        },
+        "proof_target": {
+          "canonical": true,
+          "expected_text": "maya.block.WAK_CHAAN_wa_AJAW",
+          "expected_hb_shape": "[maya.block.WAK_CHAAN_wa_AJAW=0+1000]",
+          "gate": "must pass"
+        },
+        "render": {
+          "sequence_unicode": [
+            "E001",
+            "E002"
+          ],
+          "ligature": {
+            "feature": "liga",
+            "input": [
+              "E001",
+              "E002"
+            ],
+            "output": {
+              "unicode": "E000",
+              "glyph_name": "maya.block.WAK_CHAAN_wa_AJAW"
+            },
+            "status": "implemented"
+          },
+          "fallback_svg": {
+            "source_label": "16-WAK@CHAAN-wa@AJAW@$@WAK@KAAN-wa@AJAW",
+            "source_path": "recovered/source-snapshot/data/mayan-hieroglyphs/svg/16-WAK@CHAAN-wa@AJAW@$@WAK@KAAN-wa@AJAW.svg",
+            "status": "implemented"
+          }
+        },
+        "fallback_svg": "recovered/source-snapshot/data/mayan-hieroglyphs/svg/16-WAK@CHAAN-wa@AJAW@$@WAK@KAAN-wa@AJAW.svg",
+        "is_canonical": true
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "composed": {
+    "status": "ok",
+    "blocks": [
+      {
+        "input": "WAK@CHAAN-wa@AJAW",
+        "actions": [
+          {
+            "source": "main",
+            "unicode": "E001",
+            "priority": 2
+          },
+          {
+            "source": "infix",
+            "unicode": "E002",
+            "priority": 5
+          }
+        ],
+        "expected_glyph": "E000",
+        "via_ligature": true
+      }
+    ]
+  },
+  "render": {
+    "otf_font": "/Users/eliaskarlsson/openclaw/workspaces/projects/maya-font/recovered/source-snapshot/output/MayaVectorSeed.ttf",
+    "blocks": [
+      {
+        "input": "WAK@CHAAN-wa@AJAW",
+        "unicode_sequence": [
+          "E001",
+          "E002"
+        ],
+        "glyph_target": "E000",
+        "hb_shape_cmd": [
+          "hb-shape",
+          "/Users/eliaskarlsson/openclaw/workspaces/projects/maya-font/recovered/source-snapshot/output/MayaVectorSeed.ttf",
+          "--unicodes=E001,E002",
+          "--features=+liga"
+        ],
+        "svg_fallback": "/Users/eliaskarlsson/openclaw/workspaces/projects/maya-font/recovered/source-snapshot/data/mayan-hieroglyphs/svg/16-WAK@CHAAN-wa@AJAW@$@WAK@KAAN-wa@AJAW.svg"
+      }
+    ]
+  },
+  "canonical": true,
+  "structural_verdict": "STRUCTURAL_PASS",
+  "visual_verdict": "MAYA_DESIGN_PASS",
+  "visual_gate_note": "Glass visual inspection 2026-05-06: phase-0 preview reads as a Maya/hieroglyphic block rather than Latin glyph output. This approves the visible proof direction, not broader vocabulary or final design.",
+  "harfbuzz_receipt": "[maya.block.WAK_CHAAN_wa_AJAW=0+1000]",
+  "proof_asset": "assets/wak-chaan-wa-ajaw.svg",
+  "generated_by": "python3 -m engine.run_demo + hb-shape",
+  "generated_at": "2026-05-06T12:27:00+02:00",
+  "visual_receipt": "reports/visual-inspection/wak-chaan-wa-ajaw-demo-preview.png"
+}

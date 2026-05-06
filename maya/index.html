@@ -32,7 +32,7 @@
   <div class="status stop">Corrected product definition</div>
   <h1>Maya Font</h1>
   <p class="lede"><strong>Maya is a Latin-input → Maya-output converter font/pipeline.</strong> Not a Maya-flavoured Latin alphabet. A user types Latin/transliteration; the product outputs Maya hieroglyphic signs, blocks, substitutions, or composed glyph sequences.</p>
-  <p class="muted">Updated 2026-05-06 03:08 CEST. Overnight converter scaffold is in place: parser, proof vocabulary, render plan, and HarfBuzz proof pass for the recovered WAK/CHAAN/wa/AJAW benchmark.</p>
+  <p class="muted">Updated 2026-05-06 12:30 CEST. Overnight converter scaffold is in place, and the first visible static converter proof now shows parser, mapping, HarfBuzz receipt, and a Maya block preview for the recovered WAK/CHAAN/wa/AJAW benchmark.</p>
 </header>
 
 <section class="grid">
@@ -49,14 +49,18 @@
   <li>Maya hieroglyphic output, block/composite sign logic.</li>
 </ul>
 
-<h2>Overnight proof receipt</h2>
+<h2>Visible converter proof</h2>
 <p>The first shippable proof is deliberately tiny, but it exercises the right product path: typed epigraphic input → parser → mapping → OpenType shaping input → composed Maya glyph.</p>
+<p><a href="./proof/converter-demo.html">Open the static converter proof demo</a></p>
+<iframe src="./proof/converter-demo.html" title="Maya phase-0 converter proof" style="width:100%; min-height:780px; border:1px solid var(--line); border-radius:16px; background:#0d0c0a;"></iframe>
+
+<h2>Overnight proof receipt</h2>
 <pre>Input:        WAK@CHAAN-wa@AJAW
 Parser:       main WAK, infix chain CHAAN/wa/AJAW
 Mapping:      E001 + E002
 HarfBuzz:     hb-shape recovered/source-snapshot/output/MayaVectorSeed.ttf --unicodes=E001,E002 --features=+liga
 Receipt:      [maya.block.WAK_CHAAN_wa_AJAW=0+1000]
-Status:       converter scaffold PASS, broader vocabulary still planned</pre>
+Status:       STRUCTURAL_PASS + MAYA_DESIGN_PASS for phase-0 visible proof</pre>
 
 <div class="grid">
   <div><img src="./references/maya_ref.jpg" alt="Maya reference"><p class="muted">maya_ref.jpg</p></div>

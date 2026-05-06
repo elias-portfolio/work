@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maya converter proof, phase 0</title>
+  <style>
+    :root { --bg:#0d0c0a; --fg:#eadfce; --muted:#9d9487; --line:#3d3429; --gold:#d5aa62; --green:#9fb982; --red:#bc654f; --ink:#17120d; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:radial-gradient(circle at 20% 0%, #241b12, var(--bg) 48%); color:var(--fg); font:16px/1.5 Georgia, 'Times New Roman', serif; }
+    main { max-width:1120px; margin:0 auto; padding:44px 20px 70px; }
+    h1 { font-size:clamp(34px,7vw,76px); line-height:.92; letter-spacing:-.045em; font-weight:400; margin:0 0 14px; }
+    h2 { color:var(--gold); font-weight:400; margin:34px 0 12px; }
+    .lede { font-size:20px; max-width:820px; color:#f2e6d5; }
+    .muted { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:18px; }
+    .card { border:1px solid var(--line); background:rgba(255,255,255,.035); border-radius:16px; padding:18px; }
+    .translate { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:stretch; }
+    .panel { border:1px solid var(--line); background:#120f0b; border-radius:16px; padding:16px; min-height:170px; }
+    .arrow { color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:30px; }
+    label { display:block; color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.09em; margin-bottom:8px; }
+    input { width:100%; padding:12px 13px; border-radius:10px; border:1px solid var(--line); background:#080706; color:var(--fg); font:18px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    button { margin-top:12px; padding:10px 14px; border-radius:999px; border:1px solid var(--gold); background:transparent; color:var(--gold); cursor:pointer; }
+    button:hover { background:rgba(213,170,98,.12); }
+    .badge { display:inline-block; padding:4px 10px; border:1px solid var(--green); color:var(--green); border-radius:999px; font:12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform:uppercase; letter-spacing:.06em; }
+    .badge.warn { border-color:var(--gold); color:var(--gold); }
+    .badge.stop { border-color:var(--red); color:#e7a18d; }
+    code, pre { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { white-space:pre-wrap; word-break:break-word; border:1px solid var(--line); background:#080706; border-radius:12px; padding:14px; overflow:auto; max-height:360px; }
+    .maya-output { display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
+    .maya-glyph { background:#e7dcc7; border-radius:14px; border:1px solid #7c6b52; padding:14px; width:100%; display:flex; align-items:center; justify-content:center; min-height:280px; }
+    .maya-glyph img { max-width:100%; max-height:360px; object-fit:contain; mix-blend-mode:multiply; }
+    .caption { font-size:14px; color:var(--muted); }
+    .small { font-size:14px; }
+    @media (max-width:760px) { .translate { grid-template-columns:1fr; } .arrow { transform:rotate(90deg); } }
+  </style>
+</head>
+<body>
+<main>
+  <p><span class="badge warn">phase 0 visible proof</span></p>
+  <h1>Maya converter proof</h1>
+  <p class="lede">A tiny “Google Translate fast Majafont” surface. Type Latin/transliteration input; the proof shows parser, mapping, OpenType shaping, and a visible Maya block preview.</p>
+
+  <section class="translate" aria-label="converter proof">
+    <div class="panel">
+      <label for="maya-input">Input</label>
+      <input id="maya-input" value="WAK@CHAAN-wa@AJAW" autocomplete="off" spellcheck="false" />
+      <button id="convert">Convert proof</button>
+      <p class="caption">Only the canonical phase-0 input is implemented. Other text is intentionally rejected until mapping contracts exist.</p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="panel maya-output">
+      <label>Maya output preview</label>
+      <div class="maya-glyph"><img id="maya-image" src="assets/wak-chaan-wa-ajaw.svg" alt="Maya WAK CHAAAN wa AJAW proof block" /></div>
+      <div><span id="visual-verdict" class="badge warn">RENDER_SMOKE_ONLY</span></div>
+      <p class="caption">Visible reference output from recovered Maya SVG material. This is a review target, not a final design approval.</p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>Structural verdict</h2>
+      <p><span id="structural-verdict" class="badge">STRUCTURAL_PASS</span></p>
+      <p class="small">Parser, resolver, composer, and HarfBuzz proof agree on the canonical block.</p>
+    </div>
+    <div class="card">
+      <h2>HarfBuzz receipt</h2>
+      <pre id="hb">loading…</pre>
+    </div>
+    <div class="card">
+      <h2>Next gate</h2>
+      <p><span class="badge">MAYA_DESIGN_PASS</span></p>
+      <p class="small">Glass inspected the phase-0 preview. This approves the visible proof direction, not broader vocabulary or final glyph design.</p>
+    </div>
+  </section>
+
+  <h2>Parser and mapping</h2>
+  <pre id="details">loading…</pre>
+
+  <h2>What this proves</h2>
+  <ul>
+    <li><code>WAK</code> is parsed as main sign.</li>
+    <li><code>CHAAN</code>, <code>wa</code>, and <code>AJAW</code> are parsed as an infix chain.</li>
+    <li>Mapping emits OpenType input sequence <code>E001,E002</code>.</li>
+    <li><code>liga</code> shaping returns <code>maya.block.WAK_CHAAN_wa_AJAW</code>.</li>
+  </ul>
+</main>
+<script>
+const CANONICAL = 'WAK@CHAAN-wa@AJAW';
+let fixture = null;
+
+function summarize(data) {
+  const block = data.parsed.blocks[0];
+  const mapped = data.mapped.blocks[0];
+  const composed = data.composed.blocks[0];
+  return {
+    input: data.input,
+    parse: {
+      main: block.main.value,
+      infix_chain: block.affixes.map(a => a.token.value)
+    },
+    mapping: {
+      sequence_unicode: mapped.render.sequence_unicode,
+      selected_output: mapped.selected.glyph_name,
+      expected_output_unicode: mapped.selected.unicode
+    },
+    composition: composed,
+    visual_gate: {
+      structural_verdict: data.structural_verdict,
+      visual_verdict: data.visual_verdict,
+      note: data.visual_gate_note
+    }
+  };
+}
+
+function render(data, inputValue) {
+  const ok = inputValue.trim() === CANONICAL;
+  document.getElementById('structural-verdict').textContent = ok ? data.structural_verdict : 'UNMAPPED_INPUT';
+  document.getElementById('structural-verdict').className = ok ? 'badge' : 'badge stop';
+  document.getElementById('visual-verdict').textContent = ok ? data.visual_verdict : 'NO_VISUAL_PROOF';
+  document.getElementById('visual-verdict').className = ok && data.visual_verdict === 'MAYA_DESIGN_PASS' ? 'badge' : (ok ? 'badge warn' : 'badge stop');
+  document.getElementById('hb').textContent = ok ? data.harfbuzz_receipt : 'No proof contract for this input yet.';
+  document.getElementById('details').textContent = ok ? JSON.stringify(summarize(data), null, 2) : JSON.stringify({
+    input: inputValue,
+    status: 'unmapped',
+    reason: 'Maya uses local SpecDD contracts. Add a mapping/proof contract before claiming support.'
+  }, null, 2);
+  document.getElementById('maya-image').style.opacity = ok ? '1' : '.22';
+}
+
+fetch('fixtures/wak-chaan-wa-ajaw.json')
+  .then(r => r.json())
+  .then(data => {
+    fixture = data;
+    render(fixture, document.getElementById('maya-input').value);
+  })
+  .catch(err => {
+    document.getElementById('details').textContent = 'Failed to load static fixture: ' + err.message;
+    document.getElementById('hb').textContent = 'fixture missing';
+  });
+
+document.getElementById('convert').addEventListener('click', () => {
+  if (fixture) render(fixture, document.getElementById('maya-input').value);
+});
+</script>
+</body>
+</html>
