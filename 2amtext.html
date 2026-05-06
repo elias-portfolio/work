@@ -1,153 +1,336 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>2AM RADIO</title>
-<style>
-    @font-face {
-      font-family: 'Suisse';
-      src: url('./css/suisse.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-#background-container {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  overflow: hidden;
-  background: black;
-}
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Always 2AM Radio</title>
+  <style>
+    /* 1) KzidenzGroteskBE-Bold.woff */
+  @font-face {
+    font-family: 'KzidenzGroteskBE-Bold';
+    src: url('css/KzidenzGroteskBE-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
 
-.video-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 177.77vh; /* 100 * (16/9) */
-  height: 100vh;
-  transform: translate(-50%, -50%);
-  pointer-events: none; /* lets clicks pass through */
-  background: black;
-}
+  /* 2) WieynkFraktur.woff2 + WieynkFraktur.woff (Regular) */
+  @font-face {
+    font-family: 'WieynkFraktur';
+    src: url('css/WieynkFraktur.woff2') format('woff2'),
+         url('css/WieynkFraktur.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
 
-#bg-frame,
-#bg-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 177.77777778vh;
-  height: 100vh;
-  transform: translate(-50%, -50%) scale(1.5);
-  transform-origin: center center;
-  pointer-events: none;
-  opacity: 1;
-  border: none;
-  z-index: 0;
-}
+  /* 3) WieynkFraktur Bold.woff (Bold variant) */
+  @font-face {
+    font-family: 'WieynkFraktur';
+    src: url('css/WieynkFraktur Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
 
-#bg-video {
-  object-fit: cover;
-}
-    body {
-      
-      color: white;
-      font-family: 'Suisse', sans-serif;
-      font-size: 14px;
+  /* 4) WieynkFrakturVignetten.woff */
+  @font-face {
+    font-family: 'WieynkFrakturVignetten';
+    src: url('css/WieynkFrakturVignetten.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* 5) WieynkFrakturZier Bold.woff */
+  @font-face {
+    font-family: 'WieynkFrakturZierBold';
+    src: url('css/WieynkFrakturZier Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  /* 6) Berliner Grotesk Regular.woff */
+  @font-face {
+    font-family: 'BerlinerGrotesk';
+    src: url('css/Berliner Grotesk Regular.woff') format('woff');
+    font-weight: 400; /* Regular */
+    font-style: normal;
+  }
+
+  /* 7) BerlinerGrotesk-Light.woff */
+ @font-face {
+  font-family: 'BerlinerGrotesk-Light';
+  src: url('css/BerlinerGrotesk-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  }
+
+  /* 8) Suisse.woff */
+  @font-face {
+    font-family: 'Suisse';
+    src: url('css/suisse.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+    html, body {
+      font-family: 'WieynkFraktur', serif;
       margin: 0;
-      padding: 10px;
-      text-transform: lowercase;
+      padding: 0;
+      overflow: hidden;
+      background-color: #0b0b22;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    #bg-stream-iframe, #bg-stream-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 177.77777778vh; /* 16:9 aspect ratio */
+      height: 100vh;
+      transform: translate(-50%, -50%) scale(2);
+      transform-origin: center center;
+      pointer-events: none;
+      opacity: 0.5;
+      border: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: fixed;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-    }
-
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      line-height: 1.3;
+      flex-direction: column;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
+      box-sizing: border-box;
+      background-color: rgba(0,0,0,0.2);
+     
+      transform-origin: center center;
+    }
+
+    /* Portrait mode (mobile) */
+    @media screen and (orientation: portrait) {
+      .container {
+        transform: rotate(90deg);
+        width: 100vh;
+        height: 100vw;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -50vw;
+        margin-left: -50vh;
+		  
+      }
+.ui-buttons {
+	font-family: 'WieynkFrakturVignetten';
+    transform: rotate(90deg);
+    width: 100vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: -36vh;
+	gap: 10vh;
+	  margin-top: -2vh;
+   
+  }
+      #bg-stream-iframe, #bg-stream-img {
+        transform: translate(-50%, -50%) rotate(90deg);
+        width: 177.77777778vh;
+        height: 100vh;
+      }
+
+      #clock-time {
+        font-size: 20vh;
+      }
+
+      #quote-marquee {
+        font-size: 4vh;
+	
+ 
+      
+      }
+
+      #stream-info {
+		  
+		  
+        font-size: 1.5vh;
+      }
+
+      
+    }
+
+    /* Landscape mode (desktop) */
+    @media screen and (orientation: landscape) {
+      .container {
+        transform: none;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #bg-stream-iframe, #bg-stream-img {
+        transform: translate(-50%, -50%) scale(2);
+      transform-origin: center center;
+        width: 177.77777778vh;
+        height: 100vh;
+      }
+		 #stream-info {
+     
+      font-family: 'WieynkFraktur', serif;
+      font-size: 1.5vh;
+      
+      
+    }
+
+      #clock-time {
+        font-size: 15vh;
+      }
+
+      #quote-marquee {
+        font-size: 3vh;
+		   text-shadow: none;
+			    
+      }
+
+      
+
+      
+    }
+
+    
+
+    #clock-logo {
+      position: relative;
+      font-size: 25vh;
+      font-family: 'AkzidenzGroteskBE-Bold', sans-serif;
+      color: #ff3b3b;
+      user-select: none;
+      cursor: pointer;
+      text-shadow:
+        0 0 10px rgba(255, 59, 59, 0.8),
+        0 0 20px rgba(255, 59, 59, 0.6),
+        0 0 30px rgba(255, 59, 59, 0.4),
+        0 0 40px rgba(255, 59, 59, 0.2);
+      box-shadow:
+        0 0 20px rgba(255, 59, 59, 0.4),
+        0 0 40px rgba(255, 59, 59, 0.3),
+        0 0 60px rgba(255, 59, 59, 0.2);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
       box-sizing: border-box;
     }
 
-    .zone {
-      margin: 0 8px 0 0;
-      padding: 0;
+    
 
-      white-space: nowrap;
+    
+
+    
+
+    #clock-time {
+      font-variant-numeric: tabular-nums;
+      font-family: 'WieynkFrakturZierBold';
+      font-size: 20vh;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
-    .gmt {
-      background-color: #359395;
-      color: white;
-      font-weight: bold;
+    #quote-marquee {
+      position: absolute;
+      bottom: 2vh;
+      width: 100%;
+      font-size: 4vh;
+      text-align: center;
+      color: #ff3b3b;
+      font-family: 'WieynkFraktur', serif;
+		
+		   text-shadow: none;
+			    
+      }
+      
+     
     }
-
-    .location {
-      background-color: #f2eb0c;
-      color: black;
-      font-weight: bold;
-    }
-
-    .stream {
-      background-color: #ff3800;
-      color: white;
-      font-weight: bold;
-    }
-  
-.neon-clock {
-color: red;
-	font-size: 14px;
-	animation: pulse 1.5s infinite alternate;
-	font-variant-numeric: tabular-nums;
-	font-feature-settings: 'tnum';
-	font-family: 'Suisse', monospace;
-}
-	
-	
-
-.clock-container {
-  position: fixed;
-  
-}
-.rewind {
-  cursor: pointer;
-  
-}
-
-.zone img {
-  height: 15px;
-  vertical-align: middle;
-}
-
-.zone-note {
-  opacity: 0.72;
-}
-
-</style>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  </style>
 </head>
 <body>
-<div id="background-container">
-<div class="video-bg">
-<iframe id="bg-frame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen frameborder="0" playsinline></iframe>
-<video id="bg-video" loop muted playsinline style="display: none"></video>
-</div>
-</div>
-<div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone" id="fullscreen">fullscreen</div><div class="zone" id="hideUI">hide text</div><div class="zone" id="clockMode">clock mode</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
-<audio id="radio-player"></audio>
-<script>
+	 
+  <div class="video-background">
+    <iframe id="bg-stream-iframe" frameborder="0" allow="autoplay; fullscreen"></iframe>
+    <img id="bg-stream-img" style="display:none;" />
+    <video id="bg-stream-video" autoplay muted playsinline style="position:absolute;top:50%;left:50%;width:177.77777778vh;height:100vh;transform:translate(-50%,-50%) scale(2);z-index:0;object-fit:cover;opacity:0.5;display:none;"></video>
+  </div>
+
+  <div class="container">
+    
+    <div id="clock-logo">
+      <div id="clock-time">02:00 AM</div>
+		<div id="stream-info">Loading...</div>
+		
+      
+      <marquee id="quote-marquee" behavior="scroll" direction="left" scrollamount="3">
+        ...
+      </marquee>
+    </div>
+  </div>
+	
+
+  <audio id="radio-player" autoplay></audio>
+
+      
+
+  <script>
+   const radioStreams = {
+      "-12": "https://stream-relay-geo.ntslive.net/stream",
+      "-11": "https://stream-relay-geo.ntslive.net/stream",
+      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
+      "-9": "https://stream.ktuh.org:8001/stream",
+      "-8": "https://officials-jeremy-rough-rica.trycloudflare.com/radio-proxy?url=http://s26.myradiostream.com:17824/",
+      "-7": "https://dublab.out.airtime.pro/dublab_a",
+      "-6": "https://radio.mensajito.mx/nopalVentana",
+      "-5": "https://edge.mixlr.com/channel/ibrdq",
+      "-4": "https://n10as.radiocult.fm/stream",
+      "-3": "https://servidor24-1.brlogic.com:7516/live",
+      "-2": "https://live.visir.is/hls-radio/fm957/playlist.m3u8",
+      "-1": "https://listen.radioking.com/radio/281506/stream/327253",
+      "0": "https://oroko-radio.radiocult.fm/stream",
+      "1": "https://officials-jeremy-rough-rica.trycloudflare.com/radio-proxy?url=http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
+      "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
+      "3": "https://20ft-radio.radiocult.fm/stream",
+      "4": "https://stream.radiojar.com/78cxy6wkxtzuv",
+      "5": "https://officials-jeremy-rough-rica.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/dubtechno",
+      "6": "https://officials-jeremy-rough-rica.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/schizoid",
+      "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
+      "8": "https://listen.belowground.fm/radio/8000/radio.mp3",
+      "9": "https://shonanbeachfm.out.airtime.pro/shonanbeachfm_a",
+      "10": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
+      "11": "https://stream.tbc.radio:8000/radio.mp3",
+      "12": "https://radio.kamchatkalive.ru:8103/dance"
+    };
+
     const streamLocations = {
-      "-12": "Habitless Zone",
-      "-11": "Habitless Zone",
-      "-10": "Habitless Zone",
+      "-12": "Deadzone",
+      "-11": "Deadzone",
+      "-10": "NASA ISS",
       "-9": "Honolulu",
       "-8": "Alaska",
       "-7": "Los Ángeles",
@@ -162,7 +345,7 @@ color: red;
       "2": "Berlin",
       "3": "Київ",
       "4": "بيت لحم",
-      "5": "Алматы",
+      "5": "کشمیر",
       "6": "गोवा",
       "7": "Jakarta",
       "8": "成都",
@@ -172,651 +355,742 @@ color: red;
       "12": "Камчатка"
     };
 
-    const zonePopulationNotes = {
-      "-12": "UTC−12 · population 0 · no settled civil timezone, so World Radio carries the night",
-      "-11": "UTC−11 · population ≈50k · too sparse for a stable 2AM local stream slot",
-      "-10": "UTC−10 · ocean/orbital relay · World Radio fills the gap when the map runs out of city"
-    };
-
-    const radioStreams = {
-      "-12": "https://stream-relay-geo.ntslive.net/stream",
-      "-11": "https://stream-relay-geo.ntslive.net/stream",
-      "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
-      "-9": "https://stream.ktuh.org:8001/stream",
-      "-8": "https://lemon-bases-mega-present.trycloudflare.com/radio-proxy?url=http://s26.myradiostream.com:17824/",
-      "-7": "https://dublab.out.airtime.pro/dublab_a",
-      "-6": "https://radio.mensajito.mx/nopalVentana",
-      "-5": "https://edge.mixlr.com/channel/ibrdq",
-      "-4": "https://n10as.radiocult.fm/stream",
-      "-3": "https://servidor24-1.brlogic.com:7516/live",
-      "-2": "https://live.visir.is/hls-radio/fm957/playlist.m3u8",
-      "-1": "https://listen.radioking.com/radio/281506/stream/327253",
-      "0": "https://oroko-radio.radiocult.fm/stream",
-      "1": "https://lemon-bases-mega-present.trycloudflare.com/radio-proxy?url=http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
-      "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
-      "3": "https://20ft-radio.radiocult.fm/stream",
-      "4": "https://stream.radiojar.com/78cxy6wkxtzuv",
-      "5": "https://daystream.palmerablanca.com/daystream-128.mp3",
-      "6": "https://lemon-bases-mega-present.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/schizoid",
-      "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
-      "8": "https://listen.belowground.fm/radio/8000/radio.mp3",
-      "9": "https://shonanbeachfm.out.airtime.pro/shonanbeachfm_a",
-      "10": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
-      "11": "https://stream.tbc.radio:8000/radio.mp3",
-      "12": "https://radio.kamchatkalive.ru:8103/dance"
-    };
-
-    const streamAliases = {
-      "-12": "NTS",
-      "-11": "NTS",
-      "-10": "divine",
-      "-9": "ktuh",
-      "-8": "aurora",
-      "-7": "dublab",
-      "-6": "mensajito",
-      "-5": "yard",
-      "-4": "radiocult",
-      "-3": "brlogic",
-      "-2": "fm957",
-      "-1": "radioking",
-      "0": "oroko",
-      "1": "RTÉ 1",
-      "2": "cashmere",
-      "3": "20ft",
-      "4": "radiojar",
-      "5": "palmera",
-      "6": "schizoid psy",
-      "7": "zeno",
-      "8": "belowground",
-      "9": "shonan",
-      "10": "3CR",
-      "11": "TBC",
-      "12": "dance"
-    };
-
-    const placeholderCities = [
-      "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",
-      "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi", "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",
-      "Vienna", "Warsaw", "Zagreb", "Amsterdam", "Belgrade", "Copenhagen", "Dublin", "Helsinki", "Jerusalem", "Lima",
-      "Manila", "Ottawa", "Reykjavik", "Singapore", "Tallinn", "Valencia", "Wellington", "Xi'an", "Yerevan", "Zurich",
-      "Bangkok", "Cape Town", "Cologne", "Damascus", "Edmonton", "Frankfurt", "Guadalajara", "Hamburg", "Islamabad",
-      "Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples", "Osaka", "Perth", "Quito", "Rome", "Seoul",
-      "Toronto", "Vancouver", "Xiamen", "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
-      "Kathmandu", "Luxembourg", "Marseille", "Nicosia", "Panama City", "Rabat", "Sarajevo", "Tunis", "Ulaanbaatar"
-    ];
-
-    const offset = (2 - new Date().getUTCHours() + 24) % 24;
-    const adjustedOffset = offset > 12 ? offset - 24 : offset;
-
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    const grid = document.getElementById("radio-zones");
-    const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
-    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url, label: streamAliases[key] || 'signal' })));
-    const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
-    const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
-
-    const allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];
-    while (allBlocks.length < 150) {
-      allBlocks.push({ type: 'placeholder', name: placeholderCities[Math.floor(Math.random() * placeholderCities.length)] });
-    }
-
-    const layout = shuffle(allBlocks).slice(0, 150);
-
-    layout.forEach(block => {
-      let html = '';
-      let className = 'zone';
-
-      if (block.type === 'gmt') {
-        if (parseInt(block.key) === adjustedOffset) className += ' gmt';
-        html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
-      } else if (block.type === 'stream') {
-        if (parseInt(block.key) === adjustedOffset) className += ' stream';
-        html = `${block.label}`;
-      } else if (block.type === 'location') {
-        if (block.key === String(adjustedOffset)) className += ' location';
-        html = `${block.name}`;
-      } else if (block.type === 'placeholder') {
-        html = `${block.name}`;
-      }
-
-      const div = document.createElement('div');
-      div.className = className;
-      div.dataset.blockType = block.type;
-      if (block.key !== undefined) div.dataset.key = block.key;
-      if (block.type === 'location') div.dataset.name = block.name;
-      div.innerHTML = html;
-      grid.appendChild(div);
-    });
-
-    const audio = document.getElementById("radio-player");
-    const currentStream = radioStreams[adjustedOffset];
-    if (currentStream) {
-      audio.src = currentStream;
-      audio.load();
-      audio.play().catch(error => {
-        console.log('Auto-play prevented:', error);
-      });
-    }
-  
     const backgroundStreams = {
-      "-12": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080",
-      "-11": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080",
-      "-10": "https://www.youtube.com/embed/zPH5KtjJFaQ?autoplay=1&mute=1&controls=0&loop=1&playlist=zPH5KtjJFaQ&vq=hd1080",
-      "-9": "https://www.youtube.com/embed/8waVy4wM1tM?autoplay=1&mute=1&controls=0&loop=1&playlist=8waVy4wM1tM&vq=hd1080",
-      "-8": "https://www.youtube.com/embed/61pi8UjLOlo?autoplay=1&mute=1&controls=0&loop=1&playlist=61pi8UjLOlo&vq=hd1080",
-      "-7": "https://www.youtube.com/embed/EO_1LWqsCNE?autoplay=1&mute=1&controls=0&loop=1&playlist=EO_1LWqsCNE&vq=hd1080",
-      "-6": "https://www.youtube.com/embed/uV3wWHSvkfs?autoplay=1&mute=1&controls=0&loop=1&playlist=uV3wWHSvkfs&vq=hd1080",
-      "-5": "https://www.youtube.com/embed/_BMi3usEwi8?autoplay=1&mute=1&controls=0&loop=1&playlist=_BMi3usEwi8&vq=hd1080",
-      "-4": "https://www.youtube.com/embed/waDFkGGIIdA?autoplay=1&mute=1&controls=0&loop=1&playlist=waDFkGGIIdA&vq=hd1080",
-      "-3": "https://www.youtube.com/embed/tMYtrEBNVAU?autoplay=1&mute=1&controls=0&loop=1&playlist=tMYtrEBNVAU&vq=hd1080",
-      "-2": { type: "image-refresh", url: "https://livefromiceland.is/wp-content/uploads/2025/11/reykjavikurtjorn.jpg", intervalMs: 60000 },
-      "-1": { type: "image-refresh", url: "https://ip.webcamcaboverde.com/memfs/54a71dcb-628c-4915-906c-f4a8bed4585b.jpg", intervalMs: 60000 },
-      "0": "https://www.youtube.com/embed/yuIm1V7Ne7I?autoplay=1&mute=1&controls=0&loop=1&playlist=yuIm1V7Ne7I&vq=hd1080",
-      "1": "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080",
-      "2": "https://www.youtube.com/embed/LAJiFSw2ICc?autoplay=1&mute=1&controls=0&loop=1&playlist=LAJiFSw2ICc&vq=hd1080",
-      "3": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080",
-      "4": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1&controls=0&loop=1&playlist=JboXN7CuKxc&vq=hd1080",
-      "5": "https://www.youtube.com/embed/MmlDKqnfEpY?autoplay=1&mute=1&controls=0&loop=1&playlist=MmlDKqnfEpY&vq=hd1080",
-      "6": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080",
-      "7": "https://www.youtube.com/embed/DSRm7V_bsm8?autoplay=1&mute=1&controls=0&loop=1&playlist=DSRm7V_bsm8&vq=hd1080",
-      "8": "https://www.youtube.com/embed/SUXPnIEpbn4?autoplay=1&mute=1&controls=0&loop=1&playlist=SUXPnIEpbn4&vq=hd1080",
-      "9": "https://www.youtube.com/embed/DjdUEyjx8GM?autoplay=1&mute=1&controls=0&loop=1&playlist=DjdUEyjx8GM&vq=hd1080",
-      "10": "https://www.youtube.com/embed/5uZa3-RMFos?autoplay=1&mute=1&controls=0&loop=1&playlist=5uZa3-RMFos&vq=hd1080",
-      "11": "https://www.youtube.com/embed/Ql7graq0I9M?autoplay=1&mute=1&controls=0&loop=1&playlist=Ql7graq0I9M&vq=hd1080",
+      "-12": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/vytmBNhc9ig/index.m3u8",
+      "-11": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/vytmBNhc9ig/index.m3u8",
+      "-10": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/zPH5KtjJFaQ/index.m3u8",
+      "-9": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/iIERsg9nAT0/index.m3u8",
+      "-8": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/61pi8UjLOlo/index.m3u8",
+      "-7": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/EO_1LWqsCNE/index.m3u8",
+      "-6": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/uV3wWHSvkfs/index.m3u8",
+      "-5": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/_BMi3usEwi8/index.m3u8",
+      "-4": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/AGCEEBwRUc0/index.m3u8",
+      "-3": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/ykwaa3bprM8/index.m3u8",
+      "-2": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "-1": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/fIMbMz2P7Bs/index.m3u8",
+      "0": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/yuIm1V7Ne7I/index.m3u8",
+      "1": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/3nyPER2kzqk/index.m3u8",
+      "2": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/IRqboacDNFg/index.m3u8",
+      "3": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
+      "4": "https://share.earthcam.net/tJ90CoLmq7TzrY396Yd88FszUBQXSsaa2UfVVJUL4rU!.tJ90CoLmq7TzrY396Yd88Oz5cQ2aIzlk7JZQa_rfG-I!/aish_hatorah_western_wall_webcam/western_wall_cam/live",
+      "5": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/e2gC37ILQmk/index.m3u8",
+      "6": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/FBYUkqutqzE/index.m3u8",
+      "7": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/DSRm7V_bsm8/index.m3u8",
+      "8": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "9": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/DjdUEyjx8GM/index.m3u8",
+      "10": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/5uZa3-RMFos/index.m3u8",
+      "11": "https://officials-jeremy-rough-rica.trycloudflare.com/stream/Ql7graq0I9M/index.m3u8",
       "12": "shors-refresh"
     };
 
-    const backgroundFallbackStreams = {
-      "-9": ["https://www.youtube.com/embed/hm9iAviOZ20?autoplay=1&mute=1&controls=0&loop=1&playlist=hm9iAviOZ20&vq=hd1080"],
-      "-4": ["https://www.youtube.com/embed/C6eSiTr3SE8?autoplay=1&mute=1&controls=0&loop=1&playlist=C6eSiTr3SE8&vq=hd1080", "https://www.youtube.com/embed/Sr_jX-yYkNY?autoplay=1&mute=1&controls=0&loop=1&playlist=Sr_jX-yYkNY&vq=hd1080"],
-      "-3": ["https://www.youtube.com/embed/8GjxwU0F84M?autoplay=1&mute=1&controls=0&loop=1&playlist=8GjxwU0F84M&vq=hd1080", "https://www.youtube.com/embed/qyoZi1EbRO4?autoplay=1&mute=1&controls=0&loop=1&playlist=qyoZi1EbRO4&vq=hd1080"],
-      "-2": ["https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080", "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080"],
-      "-1": [{ type: "image-refresh", url: "https://cdn.skylinewebcams.com/live3606.jpg", intervalMs: 60000 }],
-      "8": ["https://www.youtube.com/embed/UKkc40WQm0c?autoplay=1&mute=1&controls=0&loop=1&playlist=UKkc40WQm0c&vq=hd1080", "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"],
-      "9": ["https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"],
-      "11": []
+    // Literary Quotes Database
+    const quotes = [
+    {
+        "time": "02:00:00 AM",
+        "descriptive": "About two",
+        "quote": "\"The middle of the night?\" Alec asked sharply.\"Can you be more definite?\" \"About two. Just past.\" Daisy noted that he expressed no concern for her safety.",
+        "source": "Dead in the water ",
+        "author": "Carola Dunn "
+    },
+    {
+        "time": "02:00:00 AM",
+        "descriptive": "About two",
+        "quote": "\"The middle of the night?\" Alec asked sharply.\"Can you be more definite?\" \"About two. Just past.\" Daisy noted that he expressed no concern for her safety.",
+        "source": "Dead in the water ",
+        "author": "Carola Dunn "
+    }, {
+        "time": "02:00:00 AM",
+        "descriptive": "two o'clock",
+        "quote": "As two o'clock pealed from the cathedral bell, Jean Valjean awoke.",
+        "source": "Les Miserables ",
+        "author": "Victor Hugo "
+    }, {
+        "time": "02:00:00 AM",
+        "descriptive": "2 A.M.",
+        "quote": "Get on plane at 2 A.M., amid bundles, chickens, gypsies, sit opposite pair of plump fortune tellers who groan and (very discreetly) throw up all the way to Tbilisi.",
+        "source": "Bech: A Book",
+        "author": "J. Updike "
+    }, {
+        "time": "02:00:00 AM",
+        "descriptive": "two",
+        "quote": "Lady Macbeth: Out, damned spot! out, I say! One: two: why, then, 'tis time to do't. Hell is murky! Fie, my lord, fie! a soldier, and afeard? What need we fear who knows it, when none can call our power to account? Yet who would have thought the old man to have had so much blood in him.",
+        "source": "Macbeth",
+        "author": "Shakespeare "
+    }, {
+        "time": "02:00:00 AM",
+        "descriptive": "It struck two.",
+        "quote": "Somewhere behind a screen a clock began wheezing, as though oppressed by something, as though someone were strangling it. After an unnaturally prolonged wheezing there followed a shrill, nasty, and as it were unexpectedly rapid, chime - as though someone were suddenly jumping forward. It struck two. I woke up, though I had indeed not been asleep but lying half-conscious.",
+        "source": "Notes from the underground ",
+        "author": "Fyodor Dostoyevsky "
+    }, {
+        "time": "02:00:00 AM",
+        "descriptive": "two o'clock",
+        "quote": "When all had grown quiet and Fyodor Pavlovich went to bed at around two o'clock, Ivan Fyodorovich also went to bed with the firm resolve of falling quickly asleep, as he felt horribly exhausted.'",
+        "source": "The Brothers Karamazov ",
+        "author": "Fyodor Dostoyevsky "
+    }, {
+        "time": "02:01:00 AM",
+        "descriptive": "2.01 AM.",
+        "quote": "I checked my watch. 2.01 AM. The cheeseburger Happy Meal was now only a distant memory. I cursed myself for not also ordering a breakfast sandwich for the morning.",
+        "source": "The Selected Works of T.S. Spivet",
+        "author": "Reif Larsen"
+    }, {
+        "time": "02:02:00 AM",
+        "descriptive": "almost 02:04",
+        "quote": "\"Wake up.\" \"Having the worst dream.\" \"I should certainly say you were.\" \"It was awful. It just went on and on.\" \"I shook you and shook you and...\"time is it.\" \"It's nearly - almost 2:04\"",
+        "source": "Oblivion",
+        "author": "David Foster Wallace"
+    }, {
+        "time": "02:03:00 AM",
+        "descriptive": "almost 02:04",
+        "quote": "\"Wake up.\" \"Having the worst dream.\" \"I should certainly say you were.\" \"It was awful. It just went on and on.\" \"I shook you and shook you and...\"time is it.\" \"It's nearly - almost 2:04\"",
+        "source": "Oblivion",
+        "author": "David Foster Wallace"
+    }, {
+        "time": "02:04:00 AM",
+        "descriptive": "02:04",
+        "quote": "\"Wake up.\" \"Having the worst dream.\" \"I should certainly say you were.\" \"It was awful. It just went on and on.\" \"I shook you and shook you and...\"time is it.\" \"It's nearly - almost 2:04\"",
+        "source": "Oblivion",
+        "author": "David Foster Wallace"
+    }, {
+        "time": "02:05:00 AM",
+        "descriptive": "02.05",
+        "quote": "At 2.05 the fizzy tights came crackling off.",
+        "source": "London Fields",
+        "author": "Martin Amis"
+    }, {
+        "time": "02:05:00 AM",
+        "descriptive": "five minutes past two",
+        "quote": "Then he began ringing the bell. In about ten minutes his valet appeared, half dressed, and looking very drowsy. \"I am sorry to have had to wake you up, Francis,\" he said, stepping in; \"but I had forgotten my latch-key. What time is it?\" \"Five minutes past two, sir,\" answered the man, looking at the clock and yawning. \"Five minutes past two? How horribly late! You must wake me at nine to-morrow. I have some work to do.\"",
+        "source": "The Picture of Dorian Gray ",
+        "author": "Oscar Wilde "
+    }, {
+        "time": "02:07:00 AM",
+        "descriptive": "02:07 AM",
+        "quote": "At 2:07 AM I decided that I wanted a drink of orange squash before I brushed my teeth and got into bed, so I went downstairs to the kitchen. Father was sitting on the sofa watching snooker on the television and drinking whisky. There were tears coming out of his eyes.",
+        "source": "The Curious Incident of the Dog in the Night-time",
+        "author": "Mark Haddon"
+    }, {
+        "time": "02:07:00 AM",
+        "descriptive": "02.07 am",
+        "quote": "But I couldn't sleep. And I got out of bed at 2.07 am and I felt scared of Mr. Shears so I went downstairs and out of the front door into Chapter Road.",
+        "source": "The Curious Incident of the Dog in the Night-time",
+        "author": "Mark Haddon "
+    }, {
+        "time": "02:07:00 AM",
+        "descriptive": "02.07 AM",
+        "quote": "Saturday, 17 November 2.07 AM I cannot sleep. Ben is upstairs, back in bed, and I am writing this in the kitchen. He thinks I am drinking a cup of cocoa that he has just made for me. He thinks I will come back to bed soon. I will, but first I must write again.",
+        "source": "Before I Go to Sleep ",
+        "author": "S. J. Watson "
+    }, 
+		
+		
+		
+		
+		{
+        "time": "02:10:00 AM",
+        "descriptive": "ten minutes past two",
+        "quote": "\"Ten minutes past two, sir,\" answered the man, looking at the clock and blinking. \"Ten minutes past two? How horribly late! ..\"",
+        "source": "The Picture of Dorian Gray ",
+        "author": "Oscar Wilde "
+    }, {
+        "time": "02:10:00 AM",
+        "descriptive": "02:10 AM",
+        "quote": "Decided to get under way again as soon as there is any clearance. Snowing and blowing, force about fifty or sixty miles an hour. February 26, Saturday - Richards went out 1:10 AM and found it clearing a bit, so we got under way as soon as possible, which was 2:10 AM",
+        "source": "South: The Endurance Expedition",
+        "author": "Ernest Shackleton"
+    }, {
+        "time": "02:12:00 AM",
+        "descriptive": "02.12am",
+        "quote": "Then the lights went out all over the city. It happened at 2.12am according to power-house records, but Blake's diary gives no indication of the time. The entry is merely, \"Lights out - God help me.\"",
+        "source": "The Haunter of the Dark",
+        "author": "HP Lovecraft"
+    }, {
+        "time": "02:13:00 AM",
+        "descriptive": "02.13",
+        "quote": "Now, listen: your destination is Friday, 4 August 1944, and the window will punch through at 22.30 hours. You're going to a dimension that diverged from our own at 02.13 on the morning of Wednesday 20 February 1918, over twenty-six years earlier. You don't know what it's going to be like...",
+        "source": "The Second Internet Cafe, Part 1: The Dimension Researcher",
+        "author": "Chris James"
+    }, {
+        "time": "02:15:00 AM",
+        "descriptive": "02:15",
+        "quote": "Above the door of Room 69 the clock ticked on at 2:15. The motion was accelerating. What had once been the gymnasium was now a small room, seven feet wide, a tight, almost perfect cube.",
+        "source": "Manhole 69",
+        "author": "JG Ballard"
+    }, {
+        "time": "02:15:00 AM",
+        "descriptive": "two fifteen",
+        "quote": "It did. When the alarm rang at two fifteen, Lew shut it off, snapped on the little bedside lamp, then swung his feet to the floor to sit on the edge of the bed, holding his eyes open.",
+        "source": "The Night People ",
+        "author": "Jack Finney "
+    }, {
+        "time": "02:17:00 AM",
+        "descriptive": "two-seventeen",
+        "quote": "\"What time is it now?\" He turned her very dusty alarm clock to check. \"Two-seventeen,\" he marveled. It was the strangest time he'd seen in his entire life. \"I apologize that the room is so messy,\" Lalitha said. \"I like it. I love how you are. Are you hungry? I'm a little hungry.\" \"No, Walter.\" She smiled. \"I'm not hungry. But I can get you something.\" \"I was thinking, like, a glass of soy milk. Soy beverage.\"",
+        "source": "Freedom ",
+        "author": "Jonathan Franzen "
+    }, {
+        "time": "02:17:00 AM",
+        "descriptive": "02.17",
+        "quote": "One of the \"choppers\" stopped, did an about-turn and came back to me. The flare spluttered and faded, and now the glare of the spotlight blinded me. I sat very still. It was 2.17. Against the noise of the blades a deeper resonant sound bit into the chill black air.",
+        "source": "The Ipcress File",
+        "author": "Len Deighton"
+    }, {
+        "time": "02:18:00 AM",
+        "descriptive": "02:18 in the morning",
+        "quote": "It was 2:18 in the morning, and Donna could see no one else in any other office working so late.",
+        "source": "Moo",
+        "author": "Jane Smiley"
+    }, {
+        "time": "02:20:00 AM",
+        "descriptive": "two-twenty",
+        "quote": "She turned abruptly to the nurse and asked the time. \"Two-twenty\" \"Ah... Two-twenty!\" Genevieve repeated, as though there was something urgent to be done.",
+        "source": "Southern Mail",
+        "author": "Antoine de Saint Exupery"
+    }, {
+        "time": "02:20:00 AM",
+        "descriptive": "two twenty",
+        "quote": "The night of his third walk Lew slept in his own apartment. When his eyes opened at two twenty, by the green hands of his alarm, he knew that this time he'd actually been waiting for it in his sleep.",
+        "source": "The Night People ",
+        "author": "Jack Finney "
+    }, {
+        "time": "02:21:00 AM",
+        "descriptive": "02:21 AM",
+        "quote": "2:21 AM Lance-Corporal Hartmann emerged from the house in the Rue de Londres.",
+        "source": "The Night of the Generals",
+        "author": "Hans Hellmut Kirst"
+    }, {
+        "time": "02:21:00 AM",
+        "descriptive": "two-twenty-one",
+        "quote": "It was the urge to look up at the sky. But of course there was no sun nor moon nor stars overhead. Darkness hung heavy over me. Each breath I took, each wet footstep, everything wanted to slide like mud to the ground. I lifted my left hand and pressed on the light of my digital wristwatch. Two-twenty-one. It was midnight when we headed underground, so only a little over two hours had passed. We continued walking down, down the narrow trench, mouths clamped tight.",
+        "source": "Hard Boiled Wonderland and the End of the World ",
+        "author": "Haruki Murakami "
+    }, {
+        "time": "02:24:00 AM",
+        "descriptive": "02.24am.",
+        "quote": "It was 2.24am. She stumbled out of bed, tripping on her shoes that she'd kicked off earlier and pulled on a jumper.",
+        "source": "After You'd Gone",
+        "author": "Maggie O'Farrell"
+    }, {
+        "time": "02:25:00 AM",
+        "descriptive": "02.25am.",
+        "quote": "You see it is time: 2.25am. You get out of bed.",
+        "source": "Nineteen Eighty-Three: The Red Riding Quartet, Book Four",
+        "author": "David Peace"
+    }, {
+        "time": "02:26:00 AM",
+        "descriptive": "02.26am",
+        "quote": "Listened to a voicemail message left at 2.26am by Claude.",
+        "source": "The Lighted Rooms",
+        "author": "Richard Mason"
+    }, {
+        "time": "02:27:00 AM",
+        "descriptive": "02.27am.",
+        "quote": "The moon didn't shine again until 2.27am. It was enough to show Wallander that he was positioned some distance below the tree.",
+        "source": "One Step Behind",
+        "author": "Henning Mankell"
+    }, {
+        "time": "02:28:00 AM",
+        "descriptive": "02.28am",
+        "quote": "2.28am: Ran out of sheep and began counting other farmyard animals.",
+        "source": "Mr Commitment",
+        "author": "Mike Gayle"
+    }, {
+        "time": "02:30:00 AM",
+        "descriptive": "02:30 AM",
+        "quote": "\"Get into the mood, Shirl!\" Lew said. \"The party's already started! Yippee! You dressed for a party, Harry?\" \"Yep. Something told me to put on dinner clothes when I went to bed tonight.\" \"I'm in mufti myself: white gloves and matching tennis shoes. But I'm sorry to report that Jo is still in her Dr. Dentons. What're you wearing, Shirl?\" \"My old drum majorette's outfit. The one I wore to the State Finals. Listen, we can't tie up the phones like this.\" \"Why not?\" said Harry. \"Who's going to call at 2:30 AM with a better idea? Yippee, to quote Lew, we're having a party! What're we serving, Lew?\" \"Beer, I guess. Haven't got any wine, have we, Jo?\" \"Just for cooking.\"",
+        "source": "The Night People ",
+        "author": "Jack Finney "
+    }, {
+        "time": "02:30:00 AM",
+        "descriptive": "half past two",
+        "quote": "At about half past two she had been woken by the creak of footsteps out on the stairs. At first she had been frightened.",
+        "source": "The Little Stranger",
+        "author": "Sarah Waters"
+    }, {
+        "time": "02:30:00 AM",
+        "descriptive": "230",
+        "quote": "Inc, I tried to pull her off about 0230, and there was this fuckingâ€¦ sound.",
+        "source": "Infinite Jest ",
+        "author": "David Foster Wallace "
+    }, {
+        "time": "02:30:00 AM",
+        "descriptive": "02.30 AM",
+        "quote": "It is 2.30 AM and I am tight. As a tick, as a lord, as a newt. Must write this down before the sublime memories fade and blur.",
+        "source": "Any Human Heart ",
+        "author": "William Boyd "
+    }, {
+        "time": "02:31:00 AM",
+        "descriptive": "02.31 AM.",
+        "quote": "And then I woke up because there were people shouting in the flat and it was 2.31 AM. And one of the people was Father and I was frightened.",
+        "source": "The Curious Incident Of The Dog In The Night-time",
+        "author": "Mark Haddon"
+    }, {
+        "time": "02:32:00 AM",
+        "descriptive": "02.32 AM",
+        "quote": "The last guests departed at 2.32 AM, two hours and two minutes after the scheduled completion time.",
+        "source": "The Rosie Project",
+        "author": "Graeme Simsion"
+    }, {
+        "time": "02:33:00 AM",
+        "descriptive": "two-thirty-three",
+        "quote": "But it wasn't going on! It was two-thirty-four, well. Two-thirty-three and nothing had happened. Suppose he got a room call, or the elevator night-bell rang, now.",
+        "source": "A Swell-looking Babe",
+        "author": "Jim Thompson"
+    }, {
+        "time": "02:34:00 AM",
+        "descriptive": "two-thirty-four",
+        "quote": "But it wasn't going on! It was two-thirty-four, well. Two-thirty-three and nothing had happened. Suppose he got a room call, or the elevator night-bell rang, now.",
+        "source": "A Swell-looking Babe",
+        "author": "Jim Thompson"
+    }, {
+        "time": "02:35:00 AM",
+        "descriptive": "02.35",
+        "quote": "For what happened at 2.35 we have the testimony of the priest, a young, intelligent, and well-educated person; of Patrolman William J. Monohan of the Central Station, an officer of the highest reliability who had paused at that part of his beat to inspect the crowd.",
+        "source": "The Haunter of the Dark",
+        "author": "HP Lovecraft"
+    }, {
+        "time": "02:36:00 AM",
+        "descriptive": "02.36am",
+        "quote": "It was about 2.36am when a provost colonel arrived to arrest me. At 2.36 1/2 I remembered the big insulating gauntlets. But even had I remembered before, what could I have done?",
+        "source": "The Ipcress File",
+        "author": "Len Deighton"
+    }, {
+        "time": "02:37:00 AM",
+        "descriptive": "thirty-seven minutes past two",
+        "quote": "June 13, 1990. Thirty-seven minutes past two in the morning. And sixteen seconds.",
+        "source": "The Stand",
+        "author": "Stephen King"
+    }, {
+        "time": "02:43:00 AM",
+        "descriptive": "02:43",
+        "quote": "She settled back beside him. \"It's 2:43:12am, Case. Got a readout chipped into my optic nerve.'",
+        "source": "Neuromancer",
+        "author": "William Gibson"
+    }, {
+        "time": "02:45:00 AM",
+        "descriptive": "0245h",
+        "quote": "0245h., Ennet House, the hours that are truly wee.",
+        "source": "Infinite Jest ",
+        "author": "David Foster Wallace "
+    }, {
+        "time": "02:46:00 AM",
+        "descriptive": "02.46am.",
+        "quote": "2.46am. The chain drive whirred and the paper target slid down the darkened range, ducking in and out of shafts of yellow incandescent light. At the firing station, a figure waited in the shadows. As the target passed the twenty-five-foot mark, the man opened fire: eight shots-rapid, unhesitating.",
+        "source": "Patriots",
+        "author": "Steve Sohmer"
+    }, {
+        "time": "02:46:00 AM",
+        "descriptive": "two forty-six",
+        "quote": "Vicki shoved her glasses at her face and peered at the clock. Two forty-six. \"I don't have time for this\" she muttered, sttling back against the pillows, heart still slamming against her ribs.",
+        "source": "Blood Lines ",
+        "author": "Tanya Huff "
+    }, {
+        "time": "02:47:00 AM",
+        "descriptive": "02.47am.",
+        "quote": "The glowing numbers read 2.47am. Moisos sighs and turns back to the bathroom door. Finally, the doorknob turns and Conchita comes back to bed. She resumes her place next to Moisos. Relieved, he pulls her close.",
+        "source": "The Book of Want",
+        "author": "Daniel A. Olivas"
+    }, {
+        "time": "03:51:00 AM",
+        "descriptive": "02:55 AM",
+        "quote": "\"It's the way the world will end, Harry. Recorded cocktail music nuclear-powered to play on for centuries after all life has been destroyed. Selections from \"No, No, Nanette,\" throughout eternity. That do you for 2:55 AM?\"",
+        "source": "The Night People ",
+        "author": "Jack Finney "
+    }, {
+        "time": "02:55:00 AM",
+        "descriptive": "02.55am.",
+        "quote": "time to go: 2.55am. Two-handed, Cec lifted his peak cap from the chair.",
+        "source": "Downriver",
+        "author": "Iain Sinclair"
+    }, {
+        "time": "02:56:00 AM",
+        "descriptive": "02:56",
+        "quote": "It was 2:56 when the shovel touched the coffin. We all heard the sound and looked at each other.",
+        "source": "Extremely Loud and Incredibly Close ",
+        "author": "Jonathan Safran Foer "
+    }, {
+        "time": "02:59:00 AM",
+        "descriptive": "02.59",
+        "quote": "I remembered arriving in this room at 2.59 one night. I remembered the sergeant who called me names: mostly Anglo-Saxon monosyllabic four-letter ones with an odd \"Commie\" thrown in for syntax.",
+        "source": "The Ipcress File",
+        "author": "Len Deighton"
+    },
+    {
+        "time": "02:06:00 AM",
+        "descriptive": "02:06",
+        "quote": "When he woke it was 2:06 by the digital clock on the bedside table. He lay there looking at the ceiling, the raw glare of the vaporlamp outside bathing the bedroom in a cold and bluish light. Like a winter moon.",
+        "source": "No Country for Old Men",
+        "author": "Cormac McCarthy"
+    },
+    {
+        "time": "02:08:00 AM",
+        "descriptive": "02.08AM",
+        "quote": "It was 2.08AM but he had left the ball at the same time as I did, and had further to travel.",
+        "source": "The Rosie Project",
+        "author": "Graeme Simsion"
+    },
+    {
+        "time": "02:09:00 AM",
+        "descriptive": "nine minutes past one",
+        "quote": "They made an unostentatious exit from their coach, finding themselves, when the express had rolled on into the west, upon a station platform in a foreign city at nine minutes past two in the morning-but at length without their shadow.",
+        "source": "The Black Bag",
+        "author": "Louis Joseph Vance"
+    },
+    {
+        "time": "02:11:00 AM",
+        "descriptive": "02:11 AM",
+        "quote": "It was at 2:11 AM beneath the cool metal of a jungle gym that all Andrew's dreams came true. He kissed his one true love and swore up and down that it would last forever to this exhausted companion throughout their long trek home.",
+        "source": "Dying in the Twilight of Summer",
+        "author": "Seth O'Connell"
+    },
+    {
+        "time": "02:14:00 AM",
+        "descriptive": "02.14",
+        "quote": "Since he had told the girl that it had to end, he'd been waking up every morning at 2.14, without fail. Every morning his eyes would flick open, alert, and the red numerals on his electric alarm clock would read 2.14.",
+        "source": "The Slap",
+        "author": "Christos Tsiolkas"
+    },
+    {
+        "time": "02:16:00 AM",
+        "descriptive": "sixteen past two",
+        "quote": "At sixteen past two,they walked into the interview room.",
+        "source": "Nothing Gold Can Stay ",
+        "author": "Dana Stabenow "
+    },
+    {
+        "time": "02:19:00 AM",
+        "descriptive": "02.19 A.M.",
+        "quote": "The time stamp on Navidson's camcorder indicates that it is exactly 2.19 A.M.",
+        "source": "House of Leaves",
+        "author": "Mark Z Danielewski"
+    },
+    {
+        "time": "02:22:00 AM",
+        "descriptive": "02:22",
+        "quote": "It was 2:22 when we found Dad's grave.",
+        "source": "Extremely Loud and Incredibly Close",
+        "author": "Jonathan Safran Foer"
+    },
+    {
+        "time": "02:23:00 AM",
+        "descriptive": "twenty-three minutes past one",
+        "quote": "The clock marked twenty-three minutes past two. He was suddenly full of agitation,yet hopeful.She had come!Who could tell what she would say?She might offer the most natural explanation of her late arrival.",
+        "source": "A Mummer's Tale",
+        "author": "Anatole France"
+    },
+    {
+        "time": "02:38:00 AM",
+        "descriptive": "02.38am",
+        "quote": "At 2.38am, it began to snow in Bowling Green, Kentucky. The geese circling the city flew back to the park, landed, and hunkered down to sit it out on their island in the lake.",
+        "source": "Just Like the Ones we Used to Know",
+        "author": "Connie Willis"
+    },
+    {
+        "time": "02:39:00 AM",
+        "descriptive": "02.39am.",
+        "quote": "23 October 1893 2.39am. Upon further thought, I feel it necessary to explain that exile into the Master's workshop is not an unpleasant fate. It is not simply some bare-walled cellar devoid of stimulation - quite the opposite.",
+        "source": "The Clockwork man",
+        "author": "William Jablonsky"
+    },
+    {
+        "time": "02:40:00 AM",
+        "descriptive": "three forty",
+        "quote": "His bedside clock shows two forty. He has no idea what he's doing out of bed: he has no need to relieve himself, nor is he disturbed by a dream or some element of the day before, or even by the state of the world.",
+        "source": "Saturday",
+        "author": "Ian McEwan"
+    },
+    {
+        "time": "02:41:00 AM",
+        "descriptive": "02.41 AM.",
+        "quote": "The alarm clock said 2.41 AM. He sat up. Why was the alarm clock slow? He picked up the alarm clock and adjusted the hands to show the same time as his wristwatch: 2.44am",
+        "source": "The Dogs of Riga",
+        "author": "Henning Mankell"
+    },
+    {
+        "time": "02:42:00 AM",
+        "descriptive": "02:42",
+        "quote": "\"We are due in Yellow Sky at 2:42,\" he said, looking tenderly into her eyes. \"Oh, are we?\" she said, as if she had not been aware of it. To evince surprise at her husband's statement was part of her wifely amiability.",
+        "source": "Bride Comes to Yellow Sky",
+        "author": "Stephen Crane"
+    },
+    {
+        "time": "02:44:00 AM",
+        "descriptive": "02.44 AM",
+        "quote": "It was dark. After she had switched the light on and been to the toilet, she checked her watch: 2.44 AM She undressed, put the cat out the door and returned to the twin bed.",
+        "source": "Liver: Leber",
+        "author": "Will Self"
+    },
+    {
+        "time": "02:48:00 AM",
+        "descriptive": "02:48",
+        "quote": "At 2:48 the happy hour when clarity visits warm darkness which soaks my eyes I know no sin",
+        "source": "4:48 Psychosis",
+        "author": "Sarah Kane"
+    },
+    {
+        "time": "02:49:00 AM",
+        "descriptive": "02.49",
+        "quote": "It was 2.49 when he hit me because of the two hundred times I had said, \"I don't know.\" He hit me a lot after that.",
+        "source": "The Ipcress File",
+        "author": "Len Deighton"
+    },
+    {
+        "time": "02:50:00 AM",
+        "descriptive": "ten or five to three",
+        "quote": "She had used her cell phone to leave several messages on the answering machine in Sao Paulo of the young dentist of the previous evening, whose name was Fernando. The first was recorded at ten or five to two in the morning. I'm never going to forget you ... I'm sure we'll meet again somewhere.",
+        "source": "A Death in Brazil: A Book of Omissions",
+        "author": "Peter Robb"
+    },
+    {
+        "time": "02:51:00 AM",
+        "descriptive": "02:51",
+        "quote": "I lacked the will and physical strength to get out of bed and move through the dark house, clutching walls and stair rails. To feel my way, reinhabit my body, re-enter the world. Sweat trickled down my ribs. The digital reading on the clock-radio was 2:51. Always odd numbered at times like this. What does it mean? Is death odd-numbered?",
+        "source": "White Noise ",
+        "author": "Don DeLillo "
+    },
+    {
+      
+    "time": "02:52:00 AM",
+    "descriptive": "Nearly four",
+    "quote": "Certain facts were apparent: dark; cold; thundering boots; quilts; pillow; light under the door, the materials of reality--but I could not pin these materials down in time. And the raw materials of reality without that glue of time are materials adrift and reality is as meaningless as the balsa parts of a model.",
+    "source": "",
+    "author": ""
+}
+
+];
+    function get2amTimezoneOffset() {
+  const utcHour = new Date().getUTCHours();
+  let offset = (2 - utcHour + 24) % 24;
+  if (offset > 12) offset -= 24;
+  return offset;
+}
+
+function updateRadio() {
+  const offset = get2amTimezoneOffset();
+  const stream = radioStreams[offset];
+  const audioPlayer = document.getElementById('radio-player');
+  const locationEl = document.getElementById('stream-info');
+  const location = streamLocations[offset] || "unknown location";
+  
+  const bgUrl = backgroundStreams[offset];
+  const iframe = document.getElementById("bg-stream-iframe");
+  const img = document.getElementById("bg-stream-img");
+  const video = document.getElementById("bg-stream-video");
+  
+  locationEl.textContent = `on air: gmt ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}`;
+  
+  // Set background content
+  clearInterval(window._radioModeImageInterval);
+
+  if (window._radioModeHls) {
+    try { window._radioModeHls.destroy(); } catch (e) {}
+    window._radioModeHls = null;
+  }
+
+  if (bgUrl === "shors-refresh") {
+    img.style.display = "block";
+    iframe.style.display = "none";
+    video.style.display = "none";
+
+    const refreshImage = () => {
+      const timestamp = new Date().getTime();
+      img.src = `https://www.shors.ru/images/camera/image96.jpg?${timestamp}`;
     };
 
+    refreshImage();
+    window._radioModeImageInterval = setInterval(refreshImage, 60000);
+  } else if (bgUrl && bgUrl.includes('youtube.com')) {
+    iframe.style.display = "block";
+    img.style.display = "none";
+    video.style.display = "none";
+    iframe.src = bgUrl;
+  } else if (bgUrl && (bgUrl.includes('.jpg') || bgUrl.includes('.jpeg') || bgUrl.includes('.png') || bgUrl.includes('mjpg'))) {
+    img.style.display = "block";
+    iframe.style.display = "none";
+    video.style.display = "none";
+    img.src = bgUrl;
+  } else if (bgUrl && bgUrl.endsWith('.m3u8')) {
+    iframe.style.display = "none";
+    img.style.display = "none";
+    video.style.display = "block";
+    video.muted = true;
 
-    let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
-    virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
-    let manualOffset = false; // Flag to track if user manually changed offset
-
-    // Add this variable to track current video index
-    let currentVideoIndex = 0;
-    let currentBackgroundAttempt = 0;
-
-    function backgroundCandidates(offset) {
-      const primary = backgroundStreams[offset];
-      const fallbacks = backgroundFallbackStreams[offset] || [];
-      return [primary, ...fallbacks].filter(Boolean);
-    }
-
-    function backgroundKey(bg) {
-      return typeof bg === 'string' ? bg : JSON.stringify(bg || {});
-    }
-
-    function armBackgroundFallback(offset, attempt, label) {
-      clearTimeout(window._bgFallbackTimer);
-      const candidates = backgroundCandidates(offset);
-      if (attempt >= candidates.length - 1) return;
-      window._bgFallbackTimer = setTimeout(() => {
-        if (virtualOffset === offset && currentBackgroundAttempt === attempt) {
-          console.warn(`background ${label || 'stream'} slow; trying fallback`, { offset, attempt: attempt + 1 });
-          updateBackground(offset, attempt + 1);
-        }
-      }, 18000);
-    }
-
-    function disarmBackgroundFallback() {
-      clearTimeout(window._bgFallbackTimer);
-    }
-
-    function getAutoOffset() {
-      let offset = (2 - new Date().getUTCHours() + 24) % 24;
-      return offset > 12 ? offset - 24 : offset;
-    }
-
-    function syncStationToOffset(offset) {
-      const newStream = radioStreams[offset];
-      if (newStream && audio.src !== newStream) {
-        audio.src = newStream;
-        audio.load();
-        audio.play().catch(console.error);
-      }
-
-      updateBackground(offset);
-      updateHighlights(offset);
-    }
-
-    function updateBackground(offset, attempt = 0) {
-      const candidates = backgroundCandidates(offset);
-      let newBg = candidates[attempt];
-      currentBackgroundAttempt = attempt;
-
-      const bgFrame = document.getElementById("bg-frame");
-      const bgVideo = document.getElementById("bg-video");
-      
-      // Stop previous image refresh if switching away
-      clearInterval(window._shorsImageInterval);
-      document.getElementById("shors-cam-img")?.remove();
-      
-      if (newBg === "shors-refresh" || (newBg && typeof newBg === 'object' && newBg.type === "image-refresh")) {
-        bgFrame.style.display = 'none';
-        bgVideo.style.display = 'none';
-        armBackgroundFallback(offset, attempt, 'image');
-
-        let img = document.getElementById("shors-cam-img");
-        if (!img) {
-          img = document.createElement("img");
-          img.id = "shors-cam-img";
-          img.style.position = "absolute";
-          img.style.top = "50%";
-          img.style.left = "50%";
-          img.style.width = "177.77777778vh";
-          img.style.height = "100vh";
-          img.style.transform = "translate(-50%, -50%) scale(1.5)";
-          img.style.transformOrigin = "center center";
-          img.style.pointerEvents = "none";
-          img.style.opacity = "1";
-          img.style.zIndex = "0";
-          img.style.objectFit = "cover";
-          document.querySelector(".video-bg").appendChild(img);
-        }
-
-        // Set up auto-refreshing background
-        function refreshImage() {
-          const timestamp = new Date().getTime(); // prevent caching
-          const imageUrl = newBg === "shors-refresh" ? "https://www.shors.ru/images/camera/image96.jpg" : (newBg.url || newBg.image_url);
-          img.onload = disarmBackgroundFallback;
-          img.onerror = () => updateBackground(offset, attempt + 1);
-          img.src = `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}${timestamp}`;
-        }
-
-        // Refresh immediately and then every minute
-        refreshImage();
-        clearInterval(window._shorsImageInterval);
-        window._shorsImageInterval = setInterval(refreshImage, (newBg.intervalMs || 60000));
-      } else if (newBg) {
-        if (Array.isArray(newBg)) {
-          // Handle multiple video files
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          
-          // Set up video ended event handler if not already set
-          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
-            bgVideo.addEventListener('ended', function() {
-              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
-              bgVideo.src = newBg[currentVideoIndex];
-              bgVideo.play().catch(console.error);
-            });
-            bgVideo.setAttribute('data-rotation-initialized', 'true');
-          }
-          
-          // Start with current video in rotation if not already playing it
-          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
-            bgVideo.src = newBg[currentVideoIndex];
-            bgVideo.load();
-            bgVideo.play().catch(e => {
-              console.error('Video play error:', e);
-              setTimeout(() => bgVideo.play().catch(console.error), 100);
-            });
-          }
-        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
-          // Handle single video file
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          
-          if (bgVideo.src !== newBg) {
-            bgVideo.src = newBg;
-            bgVideo.load();
-          }
-          bgVideo.play().catch(e => {
-            console.error('Video play error:', e);
-            setTimeout(() => bgVideo.play().catch(console.error), 100);
-          });
-        } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
-          // Handle HLS stream
-          armBackgroundFallback(offset, attempt, 'hls');
-          bgFrame.style.display = 'none';
-          bgVideo.style.display = 'block';
-          bgVideo.style.position = "absolute";
-          bgVideo.style.top = "50%";
-          bgVideo.style.left = "50%";
-          bgVideo.style.width = "177.77777778vh";
-          bgVideo.style.height = "100vh";
-          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
-          bgVideo.style.transformOrigin = "center center";
-          bgVideo.style.pointerEvents = "none";
-          bgVideo.style.opacity = "1";
-          bgVideo.style.border = "none";
-          bgVideo.style.zIndex = "0";
-          bgVideo.style.objectFit = "cover";
-          bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
-          // Use hls.js if needed
-          if (window.hls) {
-            window.hls.destroy();
-            window.hls = null;
-          }
-          bgVideo.onerror = () => updateBackground(offset, attempt + 1);
-          bgVideo.onplaying = disarmBackgroundFallback;
-          bgVideo.oncanplay = disarmBackgroundFallback;
-          if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
-            bgVideo.src = newBg;
-            bgVideo.load();
-            bgVideo.play().catch(console.error);
-          } else if (window.Hls) {
-            window.hls = new Hls();
-            window.hls.loadSource(newBg);
-            window.hls.attachMedia(bgVideo);
-            window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
-              bgVideo.play().catch(console.error);
-            });
-            window.hls.on(Hls.Events.ERROR, function(event, data) {
-              if (data && data.fatal) updateBackground(offset, attempt + 1);
-            });
-          }
-        } else {
-          // Handle YouTube/external iframe
-          armBackgroundFallback(offset, attempt, 'iframe');
-          bgVideo.style.display = 'none';
-          bgFrame.style.display = 'block';
-          if (bgFrame.src !== newBg) {
-            // Use postMessage API for additional muting control
-            const iframeJoiner = newBg.includes('?') ? '&' : '?';
-            const iframeSrc = newBg.includes('enablejsapi=1') ? newBg : newBg + iframeJoiner + "enablejsapi=1";
-            bgFrame.src = iframeSrc;
-            
-            // Try to initialize YouTube API control when frame loads
-            bgFrame.onload = function() {
-              disarmBackgroundFallback();
-              try {
-                if (window.YT && window.YT.Player) {
-                  if (ytPlayer) {
-                    ytPlayer.destroy();
-                  }
-                  ytPlayer = new YT.Player(bgFrame.id, {
-                    events: {
-                      'onReady': function(event) {
-                        event.target.mute();
-                        event.target.setPlaybackQuality('hd1080');
-                      },
-                      'onStateChange': function(event) {
-                        // Ensure video stays muted during state changes (like when ads start)
-                        event.target.mute();
-                      }
-                    }
-                  });
-                }
-              } catch(e) {
-                console.error("YouTube API error:", e);
-              }
-            };
-          }
-        }
-      }
-    }
-
-    // Force muting function - runs periodically
-    function enforceMuting() {
-      const bgFrame = document.getElementById("bg-frame");
-      const bgVideo = document.getElementById("bg-video");
-      
-      // Force HTML5 video to be muted
-      if (bgVideo && bgVideo.style.display !== 'none') {
-        bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
-      }
-      
-      // Force YouTube iframe to be muted using both API and postMessage
-      if (bgFrame && bgFrame.style.display !== 'none') {
-        // Use YouTube API if available
-        if (ytPlayer && typeof ytPlayer.mute === 'function') {
-          ytPlayer.mute();
-        }
-        
-        // Backup: Use postMessage API directly
-        try {
-          bgFrame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-        } catch(e) {
-          // Ignore errors from cross-origin frames
-        }
-      }
-    }
-
-    // Run mute enforcement every second
-    setInterval(enforceMuting, 1000);
-
-    // Add event listener for messages from YouTube iframe
-    window.addEventListener('message', function(event) {
-      // Listen for YouTube events and ensure muting
-      if (event.data && typeof event.data === 'string') {
-        try {
-          const data = JSON.parse(event.data);
-          if (data.event === 'onStateChange' || data.event === 'infoDelivery') {
-            enforceMuting();
-          }
-        } catch(e) {
-          // Ignore parsing errors
-        }
-      }
-    });
-
-    // Update all YouTube URLs to include API parameters
-    for (const key in backgroundStreams) {
-      if (typeof backgroundStreams[key] === 'string' && backgroundStreams[key].includes('youtube.com/embed/')) {
-        // Make sure API is enabled and additional mute parameter is set
-        if (!backgroundStreams[key].includes('enablejsapi=1')) {
-          backgroundStreams[key] += (backgroundStreams[key].includes('?') ? '&' : '?') + 'enablejsapi=1';
-        }
-      }
-    }
-
-    function testVideo() {
-      const videoElement = document.createElement('video');
-      videoElement.src = './css/backround.mp4';
-      videoElement.autoplay = true;
-      videoElement.loop = true;
-      videoElement.muted = true;
-      videoElement.playsInline = true;
-      videoElement.style.cssText = 'width: 100px; height: 100px; position: fixed; top: 10px; left: 10px; z-index: 9999;';
-      document.body.appendChild(videoElement);
-      videoElement.play().catch(e => console.error('Test video play failed:', e));
-    }
-
-    function updateClock() {
-      const now = new Date();
-
-      if (!manualOffset) {
-        const autoOffset = getAutoOffset();
-        if (virtualOffset !== autoOffset) {
-          virtualOffset = autoOffset;
-          syncStationToOffset(virtualOffset);
-        }
-      }
-
-      // Calculate time in the selected timezone: UTC + virtualOffset
-      const utcHours = now.getUTCHours();
-      const timezoneHours = (utcHours + virtualOffset + 24) % 24;
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const seconds = now.getSeconds().toString().padStart(2, '0');
-      
-      // Show time in the selected timezone
-      const hours = timezoneHours.toString().padStart(2, '0');
-      document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Update the tick function to always show uppercase AM
-    function tick() {
-      const now = new Date();
-      // Calculate time in the selected timezone: UTC + virtualOffset
-      const utcHours = now.getUTCHours();
-      const timezoneHours = (utcHours + virtualOffset + 24) % 24;
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const seconds = now.getSeconds().toString().padStart(2, '0');
-      
-      const hours = timezoneHours.toString().padStart(2, '0');
-      const ampm = timezoneHours >= 12 ? 'PM' : 'AM';
-      const displayHours = timezoneHours % 12 || 12;
-      document.getElementById("clock").textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
-    }
-
-    function updateHighlights(offset) {
-      document.querySelectorAll('.gmt, .stream, .location').forEach(el => {
-        el.classList.remove('gmt', 'stream', 'location');
-      });
-
-      document.querySelectorAll('#radio-zones .zone').forEach(zone => {
-        if (zone.dataset.blockType === 'gmt') {
-          if (zone.dataset.key === String(offset)) {
-            zone.classList.add('gmt');
-          }
-        } else if (zone.dataset.blockType === 'stream' && zone.dataset.key === String(offset)) {
-          zone.classList.add('stream');
-        } else if (zone.dataset.blockType === 'location') {
-          const isActive = zone.dataset.key === String(offset);
-          const note = isActive ? zonePopulationNotes[zone.dataset.key] : null;
-          zone.innerHTML = note ? `${zone.dataset.name} <span class="zone-note">(${note})</span>` : zone.dataset.name;
-          if (isActive) zone.classList.add('location');
-        }
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = bgUrl;
+      video.load();
+      video.play().catch(console.error);
+    } else if (window.Hls) {
+      window._radioModeHls = new Hls();
+      window._radioModeHls.loadSource(bgUrl);
+      window._radioModeHls.attachMedia(video);
+      window._radioModeHls.on(Hls.Events.MANIFEST_PARSED, function() {
+        video.play().catch(console.error);
       });
     }
+  } else if (bgUrl && bgUrl.endsWith('.mp4')) {
+    iframe.style.display = "none";
+    img.style.display = "none";
+    video.style.display = "block";
+    video.src = bgUrl;
+    video.load();
+    video.play().catch(console.error);
+  } else {
+    iframe.style.display = "block";
+    img.style.display = "none";
+    video.style.display = "none";
+    iframe.src = bgUrl || "";
+  }
 
-    updateHighlights(virtualOffset);
+  if (stream) {
+    audioPlayer.src = stream;
+    audioPlayer.play().catch(console.error);
+  }
+}
 
-    // Add global click handler for play/pause right after audio setup
-    document.body.addEventListener("click", (e) => {
-      const clickedText = e.target.closest(".zone");
-      const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
-      const clickedClock = e.target.id === "clock" || e.target.closest("#clock");
-      const clickedHideUI = e.target.id === "hideUI" || e.target.closest("#hideUI");
-      const clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
-      const clickedFullscreen = e.target.id === "fullscreen" || e.target.closest("#fullscreen");
+function scheduleHourlyUpdate() {
+  updateRadio(); // Initial run
 
-      // If the click is NOT on any interactive/text element
-      if (!clickedText && !clickedRewind && !clickedClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
-        if (audio.paused) {
-          audio.play().catch(console.error);
-        } else {
-          audio.pause();
-        }
-      }
-    });
+  const now = new Date();
+  const msUntilNextHour =
+    (60 - now.getMinutes()) * 60 * 1000 -
+    now.getSeconds() * 1000 -
+    now.getMilliseconds();
 
-    document.getElementById("rewind").addEventListener("click", () => {
-      const oldOffset = virtualOffset;
-      virtualOffset = virtualOffset - 1;
-      if (virtualOffset < -12) virtualOffset = 12;
-      
-      // Set manual flag to prevent auto-reset
-      manualOffset = true;
-      
-      // Reset video index when leaving Hawaii timezone
-      if (oldOffset === -9) {
-        currentVideoIndex = 0;
-      }
+  setTimeout(() => {
+    updateRadio(); // Right on the hour
+    setInterval(updateRadio, 60 * 60 * 1000); // Every hour
+  }, msUntilNextHour);
+}
 
-      const newStream = radioStreams[virtualOffset];
-      if (newStream) {
-        audio.src = newStream;
-        audio.play().catch(console.error);
-      }
-      
-      updateBackground(virtualOffset);
-      updateHighlights(virtualOffset);
-      
-      // Test video if we're at GMT-9
-      if (virtualOffset === -9) {
-        testVideo();
-      }
-    });
+function updateClockLogo() {
+  const now = new Date();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  
+  // Format for display
+  const mStr = m.toString().padStart(2, '0');
+  const sStr = s.toString().padStart(2, '0');
+  document.getElementById('clock-time').textContent = `02:${mStr}:${sStr}`;
 
-    document.getElementById("playPause").addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play().then(() => {
-          document.getElementById("playPause").textContent = "pause";
-        }).catch(console.error);
-      } else {
-        audio.pause();
-        document.getElementById("playPause").textContent = "play";
-      }
-    });
+  const marquee = document.getElementById('quote-marquee');
+  
+  // Only show quotes at minutes divisible by 3 (0, 3, 6, 9...)
+  if (m % 3 === 0) {
+    const timeNow = `02:${mStr}:00 AM`;
+    const match = quotes.find(q => q.time === timeNow);
+    
+    if (match) {
+      marquee.textContent = `${match.quote} — ${match.author.trim()} (${match.source.trim()})`;
+    } else {
+      marquee.textContent = "...";
+    }
+  } else {
+    // Hide quotes during other minutes
+    marquee.textContent = "...";
+  }
+}
 
-    // Update play/pause text when audio state changes
-    audio.addEventListener("play", () => {
-      document.getElementById("playPause").textContent = "pause";
-    });
+document.getElementById('clock-logo').onclick = () => {
+  const audio = document.getElementById('radio-player');
+  if (audio.paused) {
+    audio.play().catch(err => console.error("Error playing audio:", err));
+  } else {
+    audio.pause();
+  }
+};
 
-    audio.addEventListener("pause", () => {
-      document.getElementById("playPause").textContent = "play";
-    });
+// Removed fullscreen functionality as it interferes with play/pause
+updateClockLogo();
+setInterval(updateClockLogo, 1000);
+scheduleHourlyUpdate();
+  
+  </script>
 
-    // Add hide UI functionality
-    document.getElementById("hideUI").addEventListener("click", () => {
-      const hideUIButton = document.getElementById("hideUI");
-      const zones = document.querySelectorAll('.zone:not(#hideUI)');
-      const isHidden = Array.from(zones).every(zone => zone.style.display === 'none');
+<!-- New buttons container -->
+ 
+<style>
+  .ui-buttons {
+  font-family: 'WieynkFrakturVignetten';
+  position: absolute;
+  bottom: 48vh; /* moves the buttons higher on screen */
+  display: flex;
+  gap: 70vh;
+  justify-content: center;
+  width: 100%;
+  z-index: 25;
+}
 
-      zones.forEach(zone => {
-        zone.style.display = isHidden ? '' : 'none';
-      });
+.ui-buttons button {
+  font-family: 'WieynkFrakturVignetten', serif; /* match button text to icon font */
+  font-size: 4vh; /* bump up if you want icon-like size */
+  padding: 1vh 2vh;
+  background: transparent; /* clean for icon feel */
+  color: #ff3b3b;
+  border: none;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(255, 59, 59, 0.9);
+}
+</style>
 
-      hideUIButton.textContent = isHidden ? 'hide text' : 'show text';
-    });
+<script>
+  // Fullscreen toggle
+  document.getElementById('btn-fullscreen').onclick = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen?.();
+    }
+  };
 
-    // Add clock mode functionality
-    document.getElementById("clockMode").addEventListener("click", () => {
-      window.location.href = './radiomp3.html';
-    });
+  // Toggle visibility of UI
+  document.getElementById('btn-toggle-ui').onclick = () => {
+    const container = document.querySelector('.container');
+    const buttons = document.querySelector('.ui-buttons');
+    container.style.display = container.style.display === 'none' ? 'flex' : 'none';
+    buttons.style.display = buttons.style.display === 'none' ? 'flex' : 'none';
+  };
 
-    // Add fullscreen functionality
-    document.getElementById("fullscreen").addEventListener("click", () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(console.error);
-      } else {
-        document.exitFullscreen().catch(console.error);
-      }
-    });
+  // Show current stream info as alert (can be customized)
+  document.getElementById('btn-stream-info').onclick = () => {
+    const offset = get2amTimezoneOffset();
+    const location = streamLocations[offset] || "Unknown location";
+    alert(`Stream timezone offset: GMT${offset >= 0 ? '+' : ''}${offset}\nLocation: ${location}`);
+  };
+	  const audio = document.getElementById("radio-player");
+const asciiWave = document.getElementById("ascii-wave");
 
-    // Add this to the end of your script to ensure initial state is correct
-    document.addEventListener('DOMContentLoaded', function() {
-      const offset = virtualOffset;
-      updateBackground(offset);
-      enforceMuting();
-    });
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const sourceNode = audioCtx.createMediaElementSource(audio);
+const analyser = audioCtx.createAnalyser();
+
+analyser.fftSize = 128;
+const bufferLength = analyser.fftSize;
+const dataArray = new Uint8Array(bufferLength);
+
+sourceNode.connect(analyser);
+analyser.connect(audioCtx.destination);
+
+function renderWaveform() {
+  analyser.getByteTimeDomainData(dataArray);
+
+  const wave = Array.from(dataArray)
+    .filter((_, i) => i % 4 === 0) // 
+    .map(value => {
+      const v = (value - 128) / 128; 
+      const row = Math.floor((v + 1) * 10);
+      return ' '.repeat(row) + '*';
+    })
+    .join('\n');
+
+  asciiWave.textContent = wave;
+  requestAnimationFrame(renderWaveform);
+}
+
+audio.addEventListener('play', () => {
+  audioCtx.resume();
+  renderWaveform();
+});
 </script>
 </body>
 </html>

@@ -17,6 +17,22 @@ TARGET_FILES=("2amtext.html" "radiomp3.html" "stream-data.json")
 STREAM_PROBE_PATH="/stream/${TEST_VIDEO}/index.m3u8"
 FORCE_NEW_TUNNEL="${FORCE_NEW_TUNNEL:-false}"
 
+validate_public_2amtext() {
+    local f="2amtext.html"
+
+    [ -f "$f" ] || return 0
+
+    if grep -q 'youtube.com/embed' "$f"; then
+        echo "[$TIMESTAMP] FAIL: 2amtext.html contains direct YouTube embeds; refusing to publish broken portfolio variant" >> "$LOG"
+        return 1
+    fi
+
+    if ! grep -qE 'https://[a-z0-9-]+\.trycloudflare\.com/stream/' "$f"; then
+        echo "[$TIMESTAMP] FAIL: 2amtext.html has no Cloudflare HLS /stream/ URLs; refusing to publish" >> "$LOG"
+        return 1
+    fi
+}
+
 publish_tunnel_url() {
     local new_url="$1"
     local old_url="${2:-}"
@@ -45,6 +61,8 @@ publish_tunnel_url() {
             perl -0pi -e 's#https://[a-z0-9-]+\.trycloudflare\.com#'"$new_url"'#g' "$f"
         fi
     done
+
+    validate_public_2amtext || return 1
 
     git add "${TARGET_FILES[@]}" 2>/dev/null
     if ! git diff --cached --quiet; then
