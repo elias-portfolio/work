@@ -254,6 +254,7 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             edmon: `
 
 <div>
+    <img src="images/edmon/sapmi-language-pack.jpg" alt="EdMon Sapmi Language Pack" style="display:block; width:100%; max-width:720px; height:auto; margin-bottom:18px;">
     edmon placeholder. ai-assisted postproduction, logging, search, rough cuts, the whole machine. proper case, materials, and a cleaner write-up are coming.
 </div>
             `,
