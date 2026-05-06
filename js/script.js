@@ -255,8 +255,12 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
 <div>
     <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; align-items:start; margin-bottom:18px;">
-        <img src="images/edmon/sapmi-language-pack.jpg" alt="EdMon Sapmi Language Pack" style="display:block; width:100%; height:auto;">
-        <img src="images/edmon/action-events-patch.jpg" alt="EdMon Action & Events Patch" style="display:block; width:100%; height:auto;">
+        <div style="aspect-ratio:1339 / 1600; overflow:hidden; background:#fff;">
+            <img src="images/edmon/sapmi-language-pack.jpg" alt="EdMon Sapmi Language Pack" style="display:block; width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div style="aspect-ratio:1339 / 1600; overflow:hidden; background:#fff;">
+            <img src="images/edmon/action-events-patch.jpg" alt="EdMon Action & Events Patch" style="display:block; width:100%; height:100%; object-fit:cover;">
+        </div>
     </div>
     edmon placeholder. ai-assisted postproduction, logging, search, rough cuts, the whole machine. proper case, materials, and a cleaner write-up are coming.
 </div>
