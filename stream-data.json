@@ -7,7 +7,7 @@
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
     "updated_at": "2026-05-09",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
-    "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source.",
+    "reykjavik_repair_note": "Offset -2 changed from Live From Iceland Reykjavíkurtjörn image-refresh still to Aurora Reykjavík live YouTube stream 6xOnr8Ukeb0. Verified 2026-05-09: live_status=is_live, playable_in_embed=true.",
     "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
     "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated.",
     "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo. On 2026-04-28, dead Astana Atameken live id aSZT76rBQyw was replaced by GEONET Almaty live mountain/city IP camera MmlDKqnfEpY after yt-dlp validation.",
@@ -235,11 +235,12 @@
       "note": "Replaces dead Brasilia/Rio primary as UTC-3 Brazil atmospheric harbor visual. Verified 2026-04-27: live_status=is_live, playable_in_embed=true, frame captured."
     },
     "-2": {
-      "type": "image_refresh",
-      "url": "https://livefromiceland.is/wp-content/uploads/2025/11/reykjavikurtjorn.jpg",
-      "title": "Reykjavíkurtjörn live image — Live From Iceland",
-      "refresh_interval_ms": 60000,
-      "note": "Replaces YouTube tYgGEC-ESTw because captured frame showed camera startup/no-signal. Verified 2026-04-27: HTTP 200 image/jpeg 512x288 real Reykjavík pond/city view."
+      "type": "youtube",
+      "id": "6xOnr8Ukeb0",
+      "title": "Live Aurora from Reykjavík Iceland — Aurora Reykjavík",
+      "embed_url": "https://www.youtube.com/embed/6xOnr8Ukeb0?autoplay=1&mute=1&controls=0&loop=1&playlist=6xOnr8Ukeb0&vq=hd1080&enablejsapi=1",
+      "source_url": "https://aurorareykjavik.is/aurora-forecast/",
+      "note": "Replaces Live From Iceland static Reykjavíkurtjörn image-refresh still with a real live Reykjavík stream. Verified 2026-05-09: live_status=is_live, is_live=True, playable_in_embed=True, channel=Aurora Reykjavík The Northern Lights Center."
     },
     "-1": {
       "type": "image-refresh",
