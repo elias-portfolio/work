@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maya Font status console</title>
+  <style>
+    :root {
+      --bg:#090806; --panel:#12100d; --panel2:#18130f; --fg:#f1e6d6; --muted:#a99d8f;
+      --dim:#73695f; --line:#3a3028; --gold:#d6ad68; --green:#a9c47f; --red:#d07961;
+      --blue:#8cb9d6; --ink:#050403;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:radial-gradient(circle at 20% 0%,#2a2118 0,#090806 38%,#050403 100%); color:var(--fg); font:16px/1.5 Georgia,'Times New Roman',serif; }
+    a { color:var(--gold); text-decoration-thickness:1px; text-underline-offset:.18em; }
+    main { max-width:1180px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { position:sticky; top:0; z-index:10; margin:-28px -18px 28px; padding:10px 18px; background:rgba(9,8,6,.82); backdrop-filter:blur(14px); border-bottom:1px solid rgba(214,173,104,.16); display:flex; gap:10px; align-items:center; overflow:auto; }
+    .topbar a { white-space:nowrap; color:#e9d2a8; border:1px solid rgba(214,173,104,.28); border-radius:999px; padding:6px 10px; text-decoration:none; font-size:13px; }
+    header { min-height:72vh; display:grid; align-content:center; gap:22px; border-bottom:1px solid var(--line); padding-bottom:34px; }
+    .kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.16em; font-size:12px; }
+    h1 { font-size:clamp(48px,12vw,142px); letter-spacing:-.065em; line-height:.82; margin:0; font-weight:400; max-width:980px; }
+    .lede { max-width:850px; font-size:clamp(20px,3vw,32px); line-height:1.16; margin:0; color:#f8ecd9; }
+    .sublede { max-width:780px; color:var(--muted); margin:0; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; }
+    .button { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--gold); color:var(--ink); background:var(--gold); border-radius:999px; padding:10px 14px; text-decoration:none; }
+    .button.secondary { color:var(--gold); background:transparent; }
+    .metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+    .metric { border:1px solid var(--line); border-radius:18px; padding:16px; background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015)); min-height:128px; }
+    .metric b { display:block; font-size:clamp(32px,5vw,58px); line-height:1; font-weight:400; color:var(--gold); }
+    .metric span { color:var(--muted); }
+    section { padding:42px 0; border-bottom:1px solid var(--line); }
+    h2 { margin:0 0 16px; font-size:clamp(30px,5vw,62px); line-height:.95; letter-spacing:-.04em; font-weight:400; }
+    h3 { margin:0 0 8px; font-size:22px; font-weight:400; color:#fff0d9; }
+    p { margin:0 0 14px; }
+    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:14px; }
+    .card { grid-column:span 4; border:1px solid var(--line); border-radius:18px; padding:18px; background:rgba(255,255,255,.035); }
+    .card.wide { grid-column:span 8; }
+    .card.full { grid-column:1/-1; }
+    .tag { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); color:var(--muted); border-radius:999px; padding:4px 9px; font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+    .tag.pass { border-color:rgba(169,196,127,.55); color:var(--green); }
+    .tag.warn { border-color:rgba(208,121,97,.6); color:#eea38f; }
+    .tag.info { border-color:rgba(140,185,214,.55); color:var(--blue); }
+    .rail { display:grid; grid-template-columns:minmax(180px,280px) 1fr; gap:16px; align-items:start; }
+    .rail aside { position:sticky; top:68px; border:1px solid var(--line); border-radius:16px; padding:14px; background:rgba(18,16,13,.9); }
+    .timeline { display:grid; gap:12px; }
+    .step { display:grid; grid-template-columns:84px 1fr; gap:14px; border:1px solid var(--line); border-radius:16px; padding:14px; background:var(--panel); }
+    .step time { color:var(--gold); font-size:13px; }
+    .proofs { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
+    .proof-card { border:1px solid var(--line); border-radius:16px; padding:14px; background:#100e0b; min-height:150px; }
+    .proof-card.live { border-color:rgba(169,196,127,.55); background:linear-gradient(160deg,rgba(169,196,127,.12),rgba(255,255,255,.025)); }
+    .proof-top { display:flex; justify-content:space-between; gap:8px; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+    code, pre, .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    pre { white-space:pre-wrap; overflow:auto; border:1px solid var(--line); border-radius:16px; padding:16px; background:#050403; color:#f6e6cf; }
+    iframe { width:100%; min-height:760px; border:1px solid var(--line); border-radius:18px; background:#0d0c0a; }
+    img { max-width:100%; border-radius:18px; border:1px solid var(--line); background:#fff; }
+    .claim-controls { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+    .claim-controls button, .claim { font:inherit; color:var(--fg); }
+    .claim-controls button { border:1px solid var(--line); background:transparent; border-radius:999px; padding:7px 11px; cursor:pointer; }
+    .claim-controls button.active { border-color:var(--gold); color:var(--gold); }
+    .claims { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:10px; }
+    .claim { text-align:left; border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:12px; display:grid; gap:6px; cursor:pointer; }
+    .claim small { color:var(--green); text-transform:uppercase; letter-spacing:.08em; }
+    .claim[data-status="deferred"] small { color:#eea38f; }
+    .claim em { font-style:normal; color:var(--muted); font-size:13px; }
+    .callout { border-left:3px solid var(--gold); background:rgba(214,173,104,.08); padding:14px 16px; border-radius:0 14px 14px 0; }
+    .split { display:grid; grid-template-columns:1.05fr .95fr; gap:14px; }
+    .footer { color:var(--dim); font-size:13px; padding-top:30px; }
+    @media (max-width:800px) { .metrics { grid-template-columns:repeat(2,1fr); } .card,.card.wide { grid-column:1/-1; } .rail,.split { grid-template-columns:1fr; } header { min-height:auto; padding-top:44px; } }
+  </style>
+</head>
+<body>
+<main>
+  <nav class="topbar" aria-label="Page sections">
+    <a href="./index.html">Maya home</a>
+    <a href="#where">Where we are</a>
+    <a href="#proof">Proof</a>
+    <a href="#specdb">Spec DB</a>
+    <a href="#next">Next gate</a>
+  </nav>
+
+  <header>
+    <div class="kicker">Maya Font status console · inspired by small useful HTML</div>
+    <h1>Less report. More instrument.</h1>
+    <p class="lede">Current state of the Maya project as an inspectable page: product definition, proof vocabulary, source-ledger claims, live demo, and the next safe gate.</p>
+    <p class="sublede">Updated 2026-05-09 13:35 CEST from the project SpecDD files and source ledger. The safe sentence is still: Latin/transliteration input becomes Maya visual glyph-block output through parser, mapping, composition, and font/render proof.</p>
+    <div class="hero-actions">
+      <a class="button" href="./proof/converter-demo.html">Open converter demo</a>
+      <a class="button secondary" href="#specdb">Inspect spec database digest</a>
+    </div>
+    <div class="metrics" aria-label="Current metrics">
+      <div class="metric"><b>9</b><span>accepted source-ledger claims</span></div>
+      <div class="metric"><b>1</b><span>deferred historical umbrella claim</span></div>
+      <div class="metric"><b>1</b><span>implemented proof-vocabulary entry</span></div>
+      <div class="metric"><b>7</b><span>planned next proof entries</span></div>
+    </div>
+  </header>
+
+  <section id="where">
+    <h2>Where we are</h2>
+    <div class="grid">
+      <article class="card"><span class="tag pass">locked</span><h3>Product direction</h3><p>Maya is a converter/font pipeline. It does not try to make Latin letters wear a Maya costume. It maps Latin-ish input into Maya visual output.</p></article>
+      <article class="card"><span class="tag pass">passing</span><h3>Validation</h3><p><code>make validate</code> is clean. Latest validation report has <code>ok: true</code>, with no errors or warnings.</p></article>
+      <article class="card"><span class="tag pass">visible</span><h3>First proof</h3><p><code>WAK@CHAAN-wa@AJAW</code> parses, maps, shapes, and renders as the first Maya block proof.</p></article>
+      <article class="card"><span class="tag info">seeded</span><h3>NotebookLM</h3><p>A curated source packet notebook exists for orientation, with source PDFs and project packet. It is a research aid, not authority.</p></article>
+      <article class="card"><span class="tag warn">bounded</span><h3>Confidence</h3><p>The current phrase is <code>mechanical-high; visual-canon-unreviewed</code>. Good mechanics. Not yet full canonical Maya authenticity.</p></article>
+      <article class="card"><span class="tag warn">do not rush</span><h3>Vocabulary expansion</h3><p>Next tokens require accepted claims, proof contracts, fixtures, structural receipts, and visual receipts. No blind glyph expansion.</p></article>
+    </div>
+  </section>
+
+  <section id="proof">
+    <h2>Proof surface</h2>
+    <div class="split">
+      <div>
+        <p class="callout">The useful proof is not a paragraph saying “it works”. It is a small machine you can poke. Type input, inspect parser output, inspect mapping, inspect shaping receipt, then look at the rendered block.</p>
+        <pre>Input:      WAK@CHAAN-wa@AJAW
+Parser:     main WAK + infix chain CHAAN / wa / AJAW
+Mapping:    maya.block.WAK_CHAAN_wa_AJAW at U+E000
+HarfBuzz:   [maya.block.WAK_CHAAN_wa_AJAW=0+1000]
+Verdict:    STRUCTURAL_PASS + MAYA_DESIGN_PASS for phase-0 visible proof
+Caveat:     mechanical proof only, visual-canon-unreviewed</pre>
+      </div>
+      <div>
+        <img src="./proof/assets/wak-chaan-wa-ajaw-demo-preview.png" alt="WAK CHAAN wa AJAW visual proof receipt">
+      </div>
+    </div>
+    <iframe src="./proof/converter-demo.html" title="Maya phase-0 converter proof"></iframe>
+  </section>
+
+  <section id="specdb">
+    <h2>Spec DB digest</h2>
+    <div class="rail">
+      <aside>
+        <p><span class="tag info">source of truth</span></p>
+        <p class="mono">research/claims/source-ledger.json<br>mapping/proof-vocabulary.json<br>proof/fixtures/wak-chaan-wa-ajaw.json<br>reports/validate.json</p>
+        <p class="sublede">The page summarizes them. The repo files govern.</p>
+      </aside>
+      <div>
+        <h3>Proof vocabulary</h3>
+        <div class="proofs"><article class="proof-card live">
+  <div class="proof-top"><span>mvx-benchmark-001</span><small>implemented</small></div>
+  <h3>WAK@CHAAN-wa@AJAW</h3>
+  <p>WAK@CHAAN-wa@AJAW canonical benchmark</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-002</span><small>planned</small></div>
+  <h3>WAK+CHAN</h3>
+  <p>WAK+CHAN (adjacency/stack test)</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-003</span><small>planned</small></div>
+  <h3>ku</h3>
+  <p>Simple syllable: ku</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-004</span><small>planned</small></div>
+  <h3>K&#x27;IN</h3>
+  <p>Simple logogram: K&#x27;IN</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-005</span><small>planned</small></div>
+  <h3>ti</h3>
+  <p>Simple syllable: ti</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-006</span><small>planned</small></div>
+  <h3>AJAW</h3>
+  <p>Simple logogram: AJAW</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-007</span><small>planned</small></div>
+  <h3>6</h3>
+  <p>Numeric token: 6</p>
+</article>
+<article class="proof-card planned">
+  <div class="proof-top"><span>mvx-demo-008</span><small>planned</small></div>
+  <h3>ku K&#x27;IN AJAW 6</h3>
+  <p>Compound demo string</p>
+</article></div>
+        <h3 style="margin-top:24px">Source-ledger claims</h3>
+        <div class="claim-controls" aria-label="Claim filters">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="accepted">Accepted</button>
+          <button data-filter="deferred">Deferred</button>
+        </div>
+        <div class="claims"><button class="claim" data-status="accepted" data-id="MAYA-CASE-001">
+  <span>MAYA-CASE-001</span>
+  <small>accepted</small>
+  <em>Maya epigraphic transliteration convention uses uppercase for logograms and lowercase for syllabograms/syllabic signs.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-HYPHEN-001">
+  <span>MAYA-HYPHEN-001</span>
+  <small>accepted</small>
+  <em>Hyphen may be used as a sign separator inside a glyph block in epigraphic transliteration conventions.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-BLOCK-001">
+  <span>MAYA-BLOCK-001</span>
+  <small>accepted</small>
+  <em>Maya writing is organized into glyph blocks/sign groupings with main signs and possible affixes/infixes; visual/spatial composition matters.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-UNICODE-001">
+  <span>MAYA-UNICODE-001</span>
+  <small>accepted</small>
+  <em>The first Maya hieroglyph proof should not depend on public Unicode codepoints for full Maya hieroglyph output; currently standardized Unicode coverage is limited, with Mayan numerals as a narrow block.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-LOCAL-AT-001">
+  <span>MAYA-LOCAL-AT-001</span>
+  <small>accepted</small>
+  <em>The `@` operator in `WAK@CHAAN-wa@AJAW` is Maya-project-local composition syntax, not a verified standard Maya epigraphic operator.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-ATTEST-WAK-001">
+  <span>MAYA-ATTEST-WAK-001</span>
+  <small>accepted</small>
+  <em>WAK is attested as a logogram/numeral reading for six, with phonetic spelling wa-ka also documented in local source evidence.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-ATTEST-CHAN-001">
+  <span>MAYA-ATTEST-CHAN-001</span>
+  <small>accepted</small>
+  <em>The CHAN/KAAN/KA&#x27;AN/CHAAN reading family is attested for the sky, serpent, and four value cluster; project token CHAAN is a local long-vowel orthographic normalization over source forms commonly written CHAN, KA&#x27;AN, or KA:N.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-ATTEST-AJAW-001">
+  <span>MAYA-ATTEST-AJAW-001</span>
+  <small>accepted</small>
+  <em>AJAW is robustly attested as a lord/ruler and day-name logogram in Maya epigraphic sources.</em>
+</button>
+<button class="claim" data-status="accepted" data-id="MAYA-ATTEST-WA-001">
+  <span>MAYA-ATTEST-WA-001</span>
+  <small>accepted</small>
+  <em>wa is attested as a CV syllabogram/phonetic sign in Maya sign and vocabulary sources.</em>
+</button>
+<button class="claim" data-status="deferred" data-id="MAYA-ATTEST-TODO-001">
+  <span>MAYA-ATTEST-TODO-001</span>
+  <small>deferred</small>
+  <em>Historical umbrella TODO retained for project continuity: individual sign attestation for WAK, CHAAN, AJAW, and wa is now represented by accepted IDs MAYA-ATTEST-WAK-001, MAYA-ATTEST-CHAN-001, MAYA-ATTEST-AJAW-001, and MAYA-ATTEST-WA-001.</em>
+</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="next">
+    <h2>Next safe gate</h2>
+    <div class="timeline">
+      <article class="step"><time>1</time><div><h3>Pick one small expansion</h3><p>Likely candidates from the plan: <code>ku</code>, <code>K'IN</code>, <code>AJAW</code>, <code>ti</code>, <code>u</code>, or <code>6</code>. Choose one or one tiny compound, not a vocabulary avalanche.</p></div></article>
+      <article class="step"><time>2</time><div><h3>Promote evidence first</h3><p>Any implementation-affecting source finding must become an accepted atomic claim in the source ledger before it governs a spec or proof.</p></div></article>
+      <article class="step"><time>3</time><div><h3>Build the proof packet</h3><p>Each token needs a local proof contract, parser and mapping fixture, HarfBuzz or structural receipt, saved visual receipt, and explicit pass or iterate note.</p></div></article>
+      <article class="step"><time>4</time><div><h3>Critic gate</h3><p>Run the Maya critic loop before calling it progress. A pretty screenshot without a receipt is a mask. Masks are allowed; lies are not.</p></div></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Current verdict</h2>
+    <p class="lede">The project is in a good narrow place. The first converter proof is real enough to inspect, but not broad enough to generalize. That is exactly where it should be.</p>
+    <p>Latest accepted proof claim cluster: MAYA-ATTEST-WAK-001 · MAYA-ATTEST-CHAN-001 · MAYA-ATTEST-AJAW-001 · MAYA-ATTEST-WA-001. NotebookLM exists for orientation. The ledger and SpecDD files remain the governing layer.</p>
+  </section>
+
+  <p class="footer">Generated by Doktor Glass for Elias. Page artifact: <code>maya/status.html</code>. Inspiration: “The unreasonable effectiveness of HTML”, applied as a small project instrument instead of a markdown slab.</p>
+</main>
+<script>
+  const buttons = document.querySelectorAll('.claim-controls button');
+  const claims = document.querySelectorAll('.claim');
+  buttons.forEach(button => button.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    button.classList.add('active');
+    const filter = button.dataset.filter;
+    claims.forEach(claim => {
+      claim.hidden = filter !== 'all' && claim.dataset.status !== filter;
+    });
+  }));
+</script>
+</body>
+</html>
