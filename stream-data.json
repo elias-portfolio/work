@@ -5,12 +5,13 @@
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
-    "updated_at": "2026-04-28",
+    "updated_at": "2026-05-09",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
     "reykjavik_repair_note": "Offset -2 changed from YouTube tYgGEC-ESTw camera-startup stream to Live From Iceland Reykjavíkurtjörn image-refresh source.",
     "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
     "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated.",
-    "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo. On 2026-04-28, dead Astana Atameken live id aSZT76rBQyw was replaced by GEONET Almaty live mountain/city IP camera MmlDKqnfEpY after yt-dlp validation."
+    "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo. On 2026-04-28, dead Astana Atameken live id aSZT76rBQyw was replaced by GEONET Almaty live mountain/city IP camera MmlDKqnfEpY after yt-dlp validation.",
+    "jamaica_repair_note": "Offset -5 visual changed from fake/generic ocean ambience _BMi3usEwi8 to See Jamaica Downtown Kingston / West Parade live street camera UH9Jv_NEdcc after yt-dlp and HLS proxy validation."
   },
   "streamLocations": {
     "-12": "Habitless Zone",
@@ -215,9 +216,10 @@
     },
     "-5": {
       "type": "youtube",
-      "id": "_BMi3usEwi8",
-      "title": "Ocean ambience live fallback for Kingston",
-      "embed_url": "https://www.youtube.com/embed/_BMi3usEwi8?autoplay=1&mute=1&controls=0&loop=1&playlist=_BMi3usEwi8&vq=hd1080&enablejsapi=1"
+      "id": "UH9Jv_NEdcc",
+      "title": "Downtown Kingston LIVE 24/7 — West Parade Jamaica Street View",
+      "embed_url": "https://www.youtube.com/embed/UH9Jv_NEdcc?autoplay=1&mute=1&controls=0&loop=1&playlist=UH9Jv_NEdcc&vq=hd1080&enablejsapi=1",
+      "note": "Replaces fake/generic ocean ambience _BMi3usEwi8 with a real Downtown Kingston/West Parade street camera. Verified 2026-05-09: live_status=is_live, playable_in_embed=true."
     },
     "-4": {
       "type": "youtube",
