@@ -11,7 +11,7 @@ TUNNEL_URL_FILE="/Users/eliaskarlsson/2am-local-proxy/.tunnel_url"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
-TEST_VIDEO="zPH5KtjJFaQ"
+TEST_VIDEO="vytmBNhc9ig"
 HEALTH_URL="http://localhost:8089/healthz"
 TARGET_FILES=("2amtext.html" "radiomp3.html" "stream-data.json")
 STREAM_PROBE_PATH="/stream/${TEST_VIDEO}/index.m3u8"
@@ -164,12 +164,12 @@ else
 fi
 
 # 4. Döda gamla cloudflared-processer mot port 8089
-pkill -f "cloudflared tunnel --url http://localhost:8089" 2>/dev/null
+pkill -f "cloudflared tunnel --url http://127.0.0.1:8089" 2>/dev/null
 sleep 2
 
 # 5. Starta ny Quick Tunnel och fånga URL
 TUNNEL_LOG=$(mktemp)
-nohup bash -lc 'cloudflared tunnel --url http://localhost:8089 > >(tee -a "'$PROXY_DIR'/cloudflared.log" "'$TUNNEL_LOG'") 2>&1' >/dev/null 2>&1 &
+nohup bash -lc 'cloudflared tunnel --url http://127.0.0.1:8089 > >(tee -a "'$PROXY_DIR'/cloudflared.log" "'$TUNNEL_LOG'") 2>&1' >/dev/null 2>&1 &
 TUNNEL_PID=$!
 
 # Vänta på att URL:en dyker upp i loggen (max 30 sek)
