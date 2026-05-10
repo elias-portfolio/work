@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Karlsson | Wickman — APOC-style preview</title>
+  <meta name="description" content="A bright editorial marketplace variant for Karlsson & Wickman ethnographic jewelry." />
+  <link rel="preload" href="../assets/images/065-nagaland-carnelian-necklace.webp" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar" aria-label="Main navigation">
+    <nav class="nav-left" aria-label="Catalogue navigation">
+      <a href="#new">New</a>
+      <a href="#objects" data-filter-link="All">All</a>
+      <a href="#objects" data-filter-link="Bracelets">Bracelets</a>
+      <a href="#objects" data-filter-link="Necklaces">Necklaces</a>
+      <a href="#objects">Archive</a>
+    </nav>
+    <a class="apoc-wordmark" href="../" aria-label="Karlsson Wickman home">K<span>|</span>W</a>
+    <nav class="nav-right" aria-label="Utility navigation">
+      <a href="#objects">Search</a>
+      <a href="https://www.karlssonandwickman.com/ethnic-jewelry">Original</a>
+      <a href="../">Dark preview</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="split-hero" id="new" aria-label="Featured Karlsson and Wickman objects">
+      <a class="hero-tile hero-fashion" href="#objects" data-filter-link="Necklaces">
+        <img src="../assets/images/065-nagaland-carnelian-necklace.webp" alt="Carnelian necklace, Nagaland, India" />
+        <div class="tile-copy">
+          <h1>Latest Jewelry</h1>
+          <p>Shop necklaces&nbsp;&nbsp;&nbsp;Shop pendants&nbsp;&nbsp;&nbsp;Shop silver</p>
+        </div>
+      </a>
+      <a class="hero-tile hero-home" href="#objects" data-filter-link="Bracelets">
+        <img src="../assets/images/005-omani-silver-bracelets.webp" alt="A pair of Omani silver bracelets" />
+        <div class="tile-copy">
+          <h1>Latest Objects</h1>
+          <p>Shop bracelets&nbsp;&nbsp;&nbsp;Shop belts&nbsp;&nbsp;&nbsp;Shop archive</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="promo-grid" aria-label="Featured collections">
+      <a class="promo promo-small" href="#objects" data-filter-link="Belts">
+        <img src="../assets/images/007-madhya-pradesh-silver-belt.webp" alt="Silver belt, Madhya Pradesh" />
+        <h2>Belts &amp; body ornament</h2>
+        <p>Shop collection</p>
+      </a>
+      <a class="promo promo-wide" href="#objects" data-filter-link="Pendants">
+        <img src="../assets/images/025-saryk-turkoman-dorsal-pendant.webp" alt="Large dorsal pendant, Saryk Turkoman" />
+        <h2>Central Asian silver</h2>
+        <p>Ritual surfaces, field pieces, dorsal pendants</p>
+      </a>
+      <a class="promo promo-small" href="#objects" data-filter-link="Earrings">
+        <img src="../assets/images/010-tunisian-libyan-temporals.webp" alt="Large silver temporals from Tunisia or Libya" />
+        <h2>Temporals / earrings</h2>
+        <p>Shop collection</p>
+      </a>
+    </section>
+
+    <section class="designer-strip" aria-label="Archive notes">
+      <h2>New in archive</h2>
+      <div class="strip-track">
+        <figure><img src="../assets/images/031-nepal-tharu-necklace.webp" alt="Old Nepal Tharu necklace"><figcaption>Tharu</figcaption></figure>
+        <figure><img src="../assets/images/090-mapuche-head-ornament.webp" alt="Mapuche head ornament"><figcaption>Mapuche</figcaption></figure>
+        <figure><img src="../assets/images/057-dinka-ivory-bracelet.webp" alt="Dinka ivory bracelet"><figcaption>Dinka</figcaption></figure>
+        <figure><img src="../assets/images/088-bulgarian-ottoman-silver-necklace.webp" alt="Bulgarian Ottoman silver necklace"><figcaption>Ottoman</figcaption></figure>
+        <figure><img src="../assets/images/069-kirghiz-earrings.webp" alt="Kirghiz earrings"><figcaption>Kirghiz</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="manifesto" aria-label="Karlsson Wickman introduction">
+      <h2>Karlsson &amp; Wickman is an ethnographic jewelry and design archive, presenting collected objects with provenance, material force and cultural context.</h2>
+      <a href="https://www.karlssonandwickman.com/">Learn more</a>
+    </section>
+
+    <section class="shop-section" id="objects">
+      <div class="shop-header">
+        <h2>Selected objects</h2>
+        <div class="filters" aria-label="Filter products">
+          <button class="filter active" data-filter="All">All</button>
+          <button class="filter" data-filter="Bracelets" id="bracelets">Bracelets</button>
+          <button class="filter" data-filter="Necklaces" id="necklaces">Necklaces</button>
+          <button class="filter" data-filter="Pendants">Pendants</button>
+          <button class="filter" data-filter="Earrings">Earrings</button>
+          <button class="filter" data-filter="Belts">Belts</button>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Karlsson | Wickman</p>
+    <p>APOC-inspired layout study, original CSS, Karlsson &amp; Wickman imagery.</p>
+    <a href="../">Back to first preview</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
