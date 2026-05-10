@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Karlsson | Wickman — Ethnographic Jewelry</title>
+  <meta name="description" content="A preview catalogue for Karlsson & Wickman ethnographic jewelry." />
+  <link rel="preload" href="assets/images/hero-cabinet.webp" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" aria-label="Main navigation">
+    <button class="icon-button" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="search-button" aria-label="Search"></button>
+    <a class="wordmark" href="#top" aria-label="Karlsson Wickman home">Karlsson <span>|</span> Wickman</a>
+    <nav class="utility" aria-label="Utility navigation">
+      <a href="#objects">Objects</a>
+      <a href="#cabinet">Cabinet</a>
+      <a href="https://www.karlssonandwickman.com/ethnic-jewelry">Archive</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Karlsson and Wickman jewelry preview">
+      <div class="hero-image" role="img" aria-label="Ethnographic jewelry objects on a dark cabinet background"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-notes" aria-hidden="true">
+        <span class="note note-one">silver, coral, amber</span>
+        <span class="note note-two">field collected pieces</span>
+        <span class="note note-three">ritual ornament</span>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">Karlsson | Wickman</p>
+        <h1>Ethnographic Jewelry</h1>
+        <a class="hero-link" href="#objects">Enter the cabinet</a>
+      </div>
+    </section>
+
+    <section class="intro" id="cabinet">
+      <div>
+        <p class="section-kicker">Preview selection</p>
+        <h2>Objects with provenance, surface and gravity.</h2>
+      </div>
+      <p>
+        A first sketch for Jon’s new Karlsson & Wickman site, built from the archived jewelry images. The catalogue below is intentionally partial: enough bracelets, pendants, necklaces, earrings and belts to test the visual system before the full collection is structured.
+      </p>
+    </section>
+
+    <section class="feature-row" aria-label="Featured categories">
+      <a class="feature-card" href="#objects" data-filter-link="Bracelets">
+        <span>Bracelets</span>
+        <strong>Worked silver, ivory and cuffs</strong>
+      </a>
+      <a class="feature-card" href="#objects" data-filter-link="Necklaces">
+        <span>Necklaces</span>
+        <strong>Coral, carnelian and ceremonial chains</strong>
+      </a>
+      <a class="feature-card" href="#objects" data-filter-link="Pendants">
+        <span>Pendants</span>
+        <strong>Portable altars and talismans</strong>
+      </a>
+    </section>
+
+    <section class="catalogue" id="objects">
+      <div class="catalogue-head">
+        <p class="section-kicker">Selected objects</p>
+        <div class="filters" aria-label="Filter products">
+          <button class="filter active" data-filter="All">All</button>
+          <button class="filter" data-filter="Bracelets">Bracelets</button>
+          <button class="filter" data-filter="Necklaces">Necklaces</button>
+          <button class="filter" data-filter="Pendants">Pendants</button>
+          <button class="filter" data-filter="Earrings">Earrings</button>
+          <button class="filter" data-filter="Belts">Belts</button>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="story-block">
+      <div class="story-image"></div>
+      <div class="story-copy">
+        <p class="section-kicker">Archive note</p>
+        <h2>Not a shop yet. A room for looking.</h2>
+        <p>
+          The next pass can add object pages, full provenance, dimensions, categories and sold status. For now the page tests the mood: black cabinet, white type, restrained commerce language, and images that feel handled rather than flattened.
+        </p>
+        <a href="https://drive.google.com/drive/folders/1nFqQuZdpzVyBcXQ4nA3wrPAJkk68EVR4">View source archive</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <strong>Karlsson | Wickman</strong>
+      <p>Ethnographic & Design</p>
+    </div>
+    <a href="https://www.karlssonandwickman.com">Current site</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
