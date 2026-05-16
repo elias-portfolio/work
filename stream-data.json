@@ -5,13 +5,15 @@
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
-    "updated_at": "2026-05-09",
+    "updated_at": "2026-05-16",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
     "reykjavik_repair_note": "Offset -2 changed from Live From Iceland Reykjavíkurtjörn image-refresh still to Aurora Reykjavík live YouTube stream 6xOnr8Ukeb0. Verified 2026-05-09: live_status=is_live, playable_in_embed=true.",
     "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
     "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated.",
     "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo. On 2026-04-28, dead Astana Atameken live id aSZT76rBQyw was replaced by GEONET Almaty live mountain/city IP camera MmlDKqnfEpY after yt-dlp validation.",
-    "jamaica_repair_note": "Offset -5 visual changed from fake/generic ocean ambience _BMi3usEwi8 to See Jamaica Downtown Kingston / West Parade live street camera UH9Jv_NEdcc after yt-dlp and HLS proxy validation."
+    "jamaica_repair_note": "Offset -5 changed from flaky Downtown Kingston UH9Jv_NEdcc to Barbican St Andrew Kingston street cam XF9fcTdr6MQ. Verified 2026-05-16: live_status=is_live, playable_in_embed=true. Downtown Kingston retained as fallback with additional Kingston/Jamaica street fallbacks.",
+    "habitless_minus10_repair_note": "Offset -10 changed from dead zPH5KtjJFaQ to Sen ISS 4K earth livestream fO9e9jnhYK8. Verified 2026-05-16: live_status=is_live, playable_in_embed=true. Added earth/ISS fallback candidates.",
+    "montreal_repair_note": "Offset -4 primary promoted from dead waDFkGGIIdA to working Montreal Trudeau Airport 24R C6eSiTr3SE8. Verified by visual heartbeat 2026-05-16: live_status=is_live, playable_in_embed=true."
   },
   "streamLocations": {
     "-12": "Habitless Zone",
@@ -186,9 +188,10 @@
     },
     "-10": {
       "type": "youtube",
-      "id": "zPH5KtjJFaQ",
-      "title": "NASA ISS official stream / Habitless Zone relay",
-      "embed_url": "https://www.youtube.com/embed/zPH5KtjJFaQ?autoplay=1&mute=1&controls=0&loop=1&playlist=zPH5KtjJFaQ&vq=hd1080&enablejsapi=1"
+      "id": "fO9e9jnhYK8",
+      "title": "Sen ISS 4K Earth livestream / Habitless Zone relay",
+      "embed_url": "https://www.youtube.com/embed/fO9e9jnhYK8?autoplay=1&mute=1&controls=0&loop=1&playlist=fO9e9jnhYK8&vq=hd1080&enablejsapi=1",
+      "note": "Replaces dead NASA ISS stream zPH5KtjJFaQ. Verified 2026-05-16: live_status=is_live, playable_in_embed=true, channel=Sen."
     },
     "-9": {
       "type": "youtube",
@@ -216,16 +219,17 @@
     },
     "-5": {
       "type": "youtube",
-      "id": "UH9Jv_NEdcc",
-      "title": "Downtown Kingston LIVE 24/7 — West Parade Jamaica Street View",
-      "embed_url": "https://www.youtube.com/embed/UH9Jv_NEdcc?autoplay=1&mute=1&controls=0&loop=1&playlist=UH9Jv_NEdcc&vq=hd1080&enablejsapi=1",
-      "note": "Replaces fake/generic ocean ambience _BMi3usEwi8 with a real Downtown Kingston/West Parade street camera. Verified 2026-05-09: live_status=is_live, playable_in_embed=true."
+      "id": "XF9fcTdr6MQ",
+      "title": "Barbican St Andrew LIVE 24/7 — Kingston Jamaica Street Cam",
+      "embed_url": "https://www.youtube.com/embed/XF9fcTdr6MQ?autoplay=1&mute=1&controls=0&loop=1&playlist=XF9fcTdr6MQ&vq=hd1080&enablejsapi=1",
+      "note": "Replaces flaky Downtown Kingston UH9Jv_NEdcc primary. Verified 2026-05-16: live_status=is_live, playable_in_embed=true, channel=See Jamaica."
     },
     "-4": {
       "type": "youtube",
-      "id": "waDFkGGIIdA",
-      "title": "Montreal Trudeau Airport live cam 24L",
-      "embed_url": "https://www.youtube.com/embed/waDFkGGIIdA?autoplay=1&mute=1&controls=0&loop=1&playlist=waDFkGGIIdA&vq=hd1080&enablejsapi=1"
+      "id": "C6eSiTr3SE8",
+      "title": "Montreal Trudeau Airport live cam 24R",
+      "embed_url": "https://www.youtube.com/embed/C6eSiTr3SE8?autoplay=1&mute=1&controls=0&loop=1&playlist=C6eSiTr3SE8&vq=hd1080&enablejsapi=1",
+      "note": "Promoted from fallback after waDFkGGIIdA became unavailable. Verified 2026-05-16: live_status=is_live, playable_in_embed=true."
     },
     "-3": {
       "type": "youtube",
@@ -444,13 +448,15 @@
       "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080"
     ],
     "-10": [
-      "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080",
-      "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080"
+      "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080",
+      "https://www.youtube.com/embed/6JTS9S16axQ?autoplay=1&mute=1&controls=0&loop=1&playlist=6JTS9S16axQ&vq=hd1080",
+      "https://www.youtube.com/embed/OKQEMp2555A?autoplay=1&mute=1&controls=0&loop=1&playlist=OKQEMp2555A&vq=hd1080"
     ],
     "-5": [
-      "https://www.youtube.com/embed/XCMRy1oxDpc?autoplay=1&mute=1&controls=0&loop=1&playlist=XCMRy1oxDpc&vq=hd1080",
-      "https://www.youtube.com/embed/Fjhb4nhL73o?autoplay=1&mute=1&controls=0&loop=1&playlist=Fjhb4nhL73o&vq=hd1080",
-      "https://www.youtube.com/embed/uaI9_RZjT3Y?autoplay=1&mute=1&controls=0&loop=1&playlist=uaI9_RZjT3Y&vq=hd1080"
+      "https://www.youtube.com/embed/UH9Jv_NEdcc?autoplay=1&mute=1&controls=0&loop=1&playlist=UH9Jv_NEdcc&vq=hd1080",
+      "https://www.youtube.com/embed/BSC7c-nzVl8?autoplay=1&mute=1&controls=0&loop=1&playlist=BSC7c-nzVl8&vq=hd1080",
+      "https://www.youtube.com/embed/Wo9MZfEMAaY?autoplay=1&mute=1&controls=0&loop=1&playlist=Wo9MZfEMAaY&vq=hd1080",
+      "https://www.youtube.com/embed/butK9aqBY1E?autoplay=1&mute=1&controls=0&loop=1&playlist=butK9aqBY1E&vq=hd1080"
     ],
     "-6": [
       "https://www.youtube.com/embed/z9JpMNJYuYg?autoplay=1&mute=1&controls=0&loop=1&playlist=z9JpMNJYuYg&vq=hd1080"
@@ -477,12 +483,6 @@
       }
     ],
     "-4": [
-      {
-        "type": "youtube",
-        "id": "C6eSiTr3SE8",
-        "title": "Montreal Trudeau Airport live cam 24R",
-        "embed_url": "https://www.youtube.com/embed/C6eSiTr3SE8?autoplay=1&mute=1&controls=0&loop=1&playlist=C6eSiTr3SE8&vq=hd1080&enablejsapi=1"
-      },
       {
         "type": "youtube",
         "id": "Sr_jX-yYkNY",
@@ -548,6 +548,52 @@
         "title": "Cape Verde - Praia da Cruz live still fallback",
         "url": "https://cdn.skylinewebcams.com/live3606.jpg",
         "intervalMs": 60000
+      }
+    ],
+    "-10": [
+      {
+        "type": "youtube",
+        "id": "vytmBNhc9ig",
+        "title": "afarTV NASA/Earth from Space live fallback",
+        "embed_url": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "6JTS9S16axQ",
+        "title": "ISS Earth from Space 24/7 fallback",
+        "embed_url": "https://www.youtube.com/embed/6JTS9S16axQ?autoplay=1&mute=1&controls=0&loop=1&playlist=6JTS9S16axQ&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "OKQEMp2555A",
+        "title": "ISS overview camera earth fallback",
+        "embed_url": "https://www.youtube.com/embed/OKQEMp2555A?autoplay=1&mute=1&controls=0&loop=1&playlist=OKQEMp2555A&vq=hd1080&enablejsapi=1"
+      }
+    ],
+    "-5": [
+      {
+        "type": "youtube",
+        "id": "UH9Jv_NEdcc",
+        "title": "Downtown Kingston / West Parade Jamaica Street View fallback",
+        "embed_url": "https://www.youtube.com/embed/UH9Jv_NEdcc?autoplay=1&mute=1&controls=0&loop=1&playlist=UH9Jv_NEdcc&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "BSC7c-nzVl8",
+        "title": "Half Way Tree Kingston transport centre fallback",
+        "embed_url": "https://www.youtube.com/embed/BSC7c-nzVl8?autoplay=1&mute=1&controls=0&loop=1&playlist=BSC7c-nzVl8&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "Wo9MZfEMAaY",
+        "title": "Devon House Kingston live fallback",
+        "embed_url": "https://www.youtube.com/embed/Wo9MZfEMAaY?autoplay=1&mute=1&controls=0&loop=1&playlist=Wo9MZfEMAaY&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "butK9aqBY1E",
+        "title": "Washington Boulevard Kingston traffic fallback",
+        "embed_url": "https://www.youtube.com/embed/butK9aqBY1E?autoplay=1&mute=1&controls=0&loop=1&playlist=butK9aqBY1E&vq=hd1080&enablejsapi=1"
       }
     ]
   }
