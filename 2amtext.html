@@ -56,11 +56,12 @@
    history strip at the bottom of the iframe. For those relay sources, make
    the iframe twice as tall and show only the top half through the existing
    viewport mask. Ugly source, clean night. */
-.video-bg.earth-relay-crop #bg-frame {
-  top: 100%;
-  width: 355.55555556vh;
-  height: 200vh;
-  transform: translate(-50%, -50%);
+.video-bg.earth-relay-crop #bg-frame,
+.video-bg.earth-relay-crop #bg-video {
+  top: 100% !important;
+  width: 355.55555556vh !important;
+  height: 200vh !important;
+  transform: translate(-50%, -50%) !important;
 }
     body {
       
