@@ -5,6 +5,23 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>2AM RADIO</title>
+<script>
+  (function redirectMobileVisitorsToRadioMode() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('desktop')) return;
+
+    const hasCoarseMobileViewport = window.matchMedia &&
+      window.matchMedia('(max-width: 768px) and (pointer: coarse)').matches;
+    const hasMobileUserAgent = /Android|iPhone|iPod|Windows Phone|IEMobile|Mobile/i
+      .test(navigator.userAgent || '');
+
+    if (!hasCoarseMobileViewport && !hasMobileUserAgent) return;
+
+    const target = new URL('./radiomp3.html', window.location.href);
+    target.hash = window.location.hash;
+    window.location.replace(target.href);
+  })();
+</script>
 <style>
     @font-face {
       font-family: 'Suisse';
