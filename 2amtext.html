@@ -51,6 +51,17 @@
 #bg-video {
   object-fit: cover;
 }
+
+/* NASA / ISS relay embeds sometimes expose YouTube's internal thumbnail
+   history strip at the bottom of the iframe. For those relay sources, make
+   the iframe twice as tall and show only the top half through the existing
+   viewport mask. Ugly source, clean night. */
+.video-bg.earth-relay-crop #bg-frame {
+  top: 100%;
+  width: 355.55555556vh;
+  height: 200vh;
+  transform: translate(-50%, -50%);
+}
     body {
       
       color: white;
@@ -365,6 +376,22 @@ color: red;
       return typeof bg === 'string' ? bg : JSON.stringify(bg || {});
     }
 
+    const earthRelayCropIds = [
+      "vytmBNhc9ig",
+      "fO9e9jnhYK8",
+      "6JTS9S16axQ",
+      "OKQEMp2555A"
+    ];
+
+    function shouldCropEarthRelaySource(bg) {
+      const source = backgroundKey(bg).toLowerCase();
+      return earthRelayCropIds.some(id => source.includes(id.toLowerCase())) || /nasa|iss|earth from space|earth livestream/.test(source);
+    }
+
+    function applyEarthRelayCrop(bg) {
+      document.querySelector(".video-bg")?.classList.toggle("earth-relay-crop", shouldCropEarthRelaySource(bg));
+    }
+
     function armBackgroundFallback(offset, attempt, label) {
       clearTimeout(window._bgFallbackTimer);
       const candidates = backgroundCandidates(offset);
@@ -402,6 +429,7 @@ color: red;
       const candidates = backgroundCandidates(offset);
       let newBg = candidates[attempt];
       currentBackgroundAttempt = attempt;
+      applyEarthRelayCrop(newBg);
 
       const bgFrame = document.getElementById("bg-frame");
       const bgVideo = document.getElementById("bg-video");
