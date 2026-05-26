@@ -213,9 +213,10 @@
     },
     "-6": {
       "type": "youtube",
-      "id": "uV3wWHSvkfs",
-      "title": "Mexico City Zócalo panorama live",
-      "embed_url": "https://www.youtube.com/embed/uV3wWHSvkfs?autoplay=1&mute=1&controls=0&loop=1&playlist=uV3wWHSvkfs&vq=hd1080&enablejsapi=1"
+      "id": "xWvJIaHx16w",
+      "title": "Mexico City Zócalo panorama live — webcamsdemexico",
+      "embed_url": "https://www.youtube.com/embed/xWvJIaHx16w?autoplay=1&mute=1&controls=0&loop=1&playlist=xWvJIaHx16w&vq=hd1080&enablejsapi=1",
+      "note": "Replaces dead uV3wWHSvkfs. Verified 2026-05-26: live_status=is_live, playable_in_embed=true, channel=webcamsdemexico."
     },
     "-5": {
       "type": "youtube",
@@ -280,10 +281,13 @@
       "embed_url": "https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1&controls=0&loop=1&playlist=e2gC37ILQmk&vq=hd1080&enablejsapi=1"
     },
     "4": {
-      "type": "youtube",
-      "id": "JboXN7CuKxc",
-      "title": "Middle East live camera feeds",
-      "embed_url": "https://www.youtube.com/embed/JboXN7CuKxc?autoplay=1&mute=1&controls=0&loop=1&playlist=JboXN7CuKxc&vq=hd1080&enablejsapi=1"
+      "type": "image-refresh",
+      "id": "worldcam-bethlehem-manger-square",
+      "title": "Bethlehem Nativity Square / Manger Square live still",
+      "url": "https://www.worldcam.pl/images/webcams/420x236/62d195052aa90.jpg",
+      "source_url": "https://worldcam.eu/webcams/asia/palestine/26633-bethlehem-nativity-square-manger-square",
+      "intervalMs": 60000,
+      "note": "Replaces dead JboXN7CuKxc while preserving the Bethlehem slot with a live-refreshing Manger Square still. Verified 2026-05-26: HTTP 200 image/jpeg."
     },
     "5": {
       "type": "youtube",
@@ -474,6 +478,34 @@
     "-10": "UTC−10 · ocean/orbital relay · World Radio fills the gap when the map runs out of city"
   },
   "videoFallbackStreams": {
+    "-6": [
+      {
+        "type": "youtube",
+        "id": "wbO-_P9vbgY",
+        "title": "CDMX Zócalo live event fallback — webcamsdemexico",
+        "embed_url": "https://www.youtube.com/embed/wbO-_P9vbgY?autoplay=1&mute=1&controls=0&loop=1&playlist=wbO-_P9vbgY&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "CyqG-Sjktas",
+        "title": "Popocatépetl Mexico 24/7 fallback",
+        "embed_url": "https://www.youtube.com/embed/CyqG-Sjktas?autoplay=1&mute=1&controls=0&loop=1&playlist=CyqG-Sjktas&vq=hd1080&enablejsapi=1"
+      }
+    ],
+    "4": [
+      {
+        "type": "youtube",
+        "id": "77akujLn4k8",
+        "title": "Jerusalem Western Wall live fallback",
+        "embed_url": "https://www.youtube.com/embed/77akujLn4k8?autoplay=1&mute=1&controls=0&loop=1&playlist=77akujLn4k8&vq=hd1080&enablejsapi=1"
+      },
+      {
+        "type": "youtube",
+        "id": "fTaKsyMuP_M",
+        "title": "Jerusalem live prayer camera fallback",
+        "embed_url": "https://www.youtube.com/embed/fTaKsyMuP_M?autoplay=1&mute=1&controls=0&loop=1&playlist=fTaKsyMuP_M&vq=hd1080&enablejsapi=1"
+      }
+    ],
     "-9": [
       {
         "type": "youtube",
