@@ -5,9 +5,9 @@
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
-    "updated_at": "2026-05-16",
+    "updated_at": "2026-05-28",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
-    "reykjavik_repair_note": "Offset -2 changed from Live From Iceland Reykjavíkurtjörn image-refresh still to Aurora Reykjavík live YouTube stream 6xOnr8Ukeb0. Verified 2026-05-09: live_status=is_live, playable_in_embed=true.",
+    "reykjavik_repair_note": "Offset -2 primary changed from unavailable Aurora Reykjavík YouTube id 6xOnr8Ukeb0 to current Aurora Reykjavík live stream iqkZCpPVeJ0. Verified 2026-05-28: live_status=is_live, playable_in_embed=true; HLS proxy returns a YouTube live manifest redirect. Iceland Volcano Watch 4B-xBkUX4jM and Reykjavik Iceland LIVE tYgGEC-ESTw retained as verified fallbacks.",
     "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
     "kamchatka_hold_note": "Offset +12 held on existing SHORS Kamchatka image-refresh source until a broader Kamchatka camera set is validated.",
     "kazakhstan_combo_note": "Offset +5 changed from Karachi/Pakistan to Kazakhstan UTC+5 combo. On 2026-04-28, dead Astana Atameken live id aSZT76rBQyw was replaced by GEONET Almaty live mountain/city IP camera MmlDKqnfEpY after yt-dlp validation.",
@@ -241,11 +241,11 @@
     },
     "-2": {
       "type": "youtube",
-      "id": "6xOnr8Ukeb0",
+      "id": "iqkZCpPVeJ0",
       "title": "Live Aurora from Reykjavík Iceland — Aurora Reykjavík",
-      "embed_url": "https://www.youtube.com/embed/6xOnr8Ukeb0?autoplay=1&mute=1&controls=0&loop=1&playlist=6xOnr8Ukeb0&vq=hd1080&enablejsapi=1",
+      "embed_url": "https://www.youtube.com/embed/iqkZCpPVeJ0?autoplay=1&mute=1&controls=0&loop=1&playlist=iqkZCpPVeJ0&vq=hd1080&enablejsapi=1",
       "source_url": "https://aurorareykjavik.is/aurora-forecast/",
-      "note": "Replaces Live From Iceland static Reykjavíkurtjörn image-refresh still with a real live Reykjavík stream. Verified 2026-05-09: live_status=is_live, is_live=True, playable_in_embed=True, channel=Aurora Reykjavík The Northern Lights Center."
+      "note": "Replaces unavailable Aurora Reykjavík live stream id 6xOnr8Ukeb0. Verified 2026-05-28: live_status=is_live, is_live=True, playable_in_embed=True, channel=Aurora Reykjavík The Northern Lights Center."
     },
     "-1": {
       "type": "image-refresh",
@@ -541,13 +541,15 @@
         "type": "youtube",
         "id": "4B-xBkUX4jM",
         "title": "Iceland Volcano Watch fallback",
-        "embed_url": "https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080&enablejsapi=1"
+        "embed_url": "https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-05-28: live_status=is_live, playable_in_embed=true, channel=afarTV."
       },
       {
         "type": "youtube",
-        "id": "HZdkuXhcPyI",
-        "title": "Iceland Aurora sky cam fallback",
-        "embed_url": "https://www.youtube.com/embed/HZdkuXhcPyI?autoplay=1&mute=1&controls=0&loop=1&playlist=HZdkuXhcPyI&vq=hd1080&enablejsapi=1"
+        "id": "tYgGEC-ESTw",
+        "title": "Reykjavik Iceland LIVE fallback",
+        "embed_url": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-05-28: live_status=is_live, playable_in_embed=true, channel=Our World Live."
       }
     ],
     "11": [],
