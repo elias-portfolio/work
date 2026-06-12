@@ -213,17 +213,17 @@
     },
     "-6": {
       "type": "youtube",
-      "id": "xWvJIaHx16w",
-      "title": "Mexico City Zócalo panorama live — webcamsdemexico",
-      "embed_url": "https://www.youtube.com/embed/xWvJIaHx16w?autoplay=1&mute=1&controls=0&loop=1&playlist=xWvJIaHx16w&vq=hd1080&enablejsapi=1",
-      "note": "Replaces dead uV3wWHSvkfs. Verified 2026-05-26: live_status=is_live, playable_in_embed=true, channel=webcamsdemexico."
+      "id": "omtorFakk7E",
+      "title": "Vista en vivo del Zócalo de la Ciudad de México — webcamsdemexico",
+      "embed_url": "https://www.youtube.com/embed/omtorFakk7E?autoplay=1&mute=1&controls=0&loop=1&playlist=omtorFakk7E&vq=hd1080&enablejsapi=1",
+      "note": "Replaces dead xWvJIaHx16w primary and dead wbO-_P9vbgY/CyqG-Sjktas fallbacks. Verified 2026-06-12: live_status=is_live, playable_in_embed=true, channel=webcamsdemexico."
     },
     "-5": {
       "type": "youtube",
-      "id": "XF9fcTdr6MQ",
+      "id": "cZJM0Sg6dy4",
       "title": "Barbican St Andrew LIVE 24/7 — Kingston Jamaica Street Cam",
-      "embed_url": "https://www.youtube.com/embed/XF9fcTdr6MQ?autoplay=1&mute=1&controls=0&loop=1&playlist=XF9fcTdr6MQ&vq=hd1080&enablejsapi=1",
-      "note": "Replaces flaky Downtown Kingston UH9Jv_NEdcc primary. Verified 2026-05-16: live_status=is_live, playable_in_embed=true, channel=See Jamaica."
+      "embed_url": "https://www.youtube.com/embed/cZJM0Sg6dy4?autoplay=1&mute=1&controls=0&loop=1&playlist=cZJM0Sg6dy4&vq=hd1080&enablejsapi=1",
+      "note": "Replaces dead XF9fcTdr6MQ primary and dead See Jamaica fallbacks. Verified 2026-06-12: live_status=is_live, playable_in_embed=true, channel=See Jamaica."
     },
     "-4": {
       "type": "youtube",
@@ -481,15 +481,17 @@
     "-6": [
       {
         "type": "youtube",
-        "id": "wbO-_P9vbgY",
+        "id": "QIzKnPctqWc",
         "title": "CDMX Zócalo live event fallback — webcamsdemexico",
-        "embed_url": "https://www.youtube.com/embed/wbO-_P9vbgY?autoplay=1&mute=1&controls=0&loop=1&playlist=wbO-_P9vbgY&vq=hd1080&enablejsapi=1"
+        "embed_url": "https://www.youtube.com/embed/QIzKnPctqWc?autoplay=1&mute=1&controls=0&loop=1&playlist=QIzKnPctqWc&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
       },
       {
         "type": "youtube",
-        "id": "CyqG-Sjktas",
-        "title": "Popocatépetl Mexico 24/7 fallback",
-        "embed_url": "https://www.youtube.com/embed/CyqG-Sjktas?autoplay=1&mute=1&controls=0&loop=1&playlist=CyqG-Sjktas&vq=hd1080&enablejsapi=1"
+        "id": "UdZxw7rKqrw",
+        "title": "Fuego Volcano Guatemala 24/7 fallback — afarTV",
+        "embed_url": "https://www.youtube.com/embed/UdZxw7rKqrw?autoplay=1&mute=1&controls=0&loop=1&playlist=UdZxw7rKqrw&vq=hd1080&enablejsapi=1",
+        "note": "UTC-6 regional fallback. Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
       }
     ],
     "4": [
@@ -607,27 +609,31 @@
     "-5": [
       {
         "type": "youtube",
-        "id": "UH9Jv_NEdcc",
+        "id": "KFLHtYuZShM",
         "title": "Downtown Kingston / West Parade Jamaica Street View fallback",
-        "embed_url": "https://www.youtube.com/embed/UH9Jv_NEdcc?autoplay=1&mute=1&controls=0&loop=1&playlist=UH9Jv_NEdcc&vq=hd1080&enablejsapi=1"
+        "embed_url": "https://www.youtube.com/embed/KFLHtYuZShM?autoplay=1&mute=1&controls=0&loop=1&playlist=KFLHtYuZShM&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
       },
       {
         "type": "youtube",
-        "id": "BSC7c-nzVl8",
+        "id": "F9nkutU1i_g",
         "title": "Half Way Tree Kingston transport centre fallback",
-        "embed_url": "https://www.youtube.com/embed/BSC7c-nzVl8?autoplay=1&mute=1&controls=0&loop=1&playlist=BSC7c-nzVl8&vq=hd1080&enablejsapi=1"
+        "embed_url": "https://www.youtube.com/embed/F9nkutU1i_g?autoplay=1&mute=1&controls=0&loop=1&playlist=F9nkutU1i_g&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
       },
       {
         "type": "youtube",
-        "id": "Wo9MZfEMAaY",
-        "title": "Devon House Kingston live fallback",
-        "embed_url": "https://www.youtube.com/embed/Wo9MZfEMAaY?autoplay=1&mute=1&controls=0&loop=1&playlist=Wo9MZfEMAaY&vq=hd1080&enablejsapi=1"
+        "id": "C71bNZ1coG4",
+        "title": "Half Way Tree Clock Kingston live fallback",
+        "embed_url": "https://www.youtube.com/embed/C71bNZ1coG4?autoplay=1&mute=1&controls=0&loop=1&playlist=C71bNZ1coG4&vq=hd1080&enablejsapi=1",
+        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
       },
       {
         "type": "youtube",
-        "id": "butK9aqBY1E",
-        "title": "Washington Boulevard Kingston traffic fallback",
-        "embed_url": "https://www.youtube.com/embed/butK9aqBY1E?autoplay=1&mute=1&controls=0&loop=1&playlist=butK9aqBY1E&vq=hd1080&enablejsapi=1"
+        "id": "Ml9sYQ09Rwc",
+        "title": "Montego Bay live fallback — See Jamaica",
+        "embed_url": "https://www.youtube.com/embed/Ml9sYQ09Rwc?autoplay=1&mute=1&controls=0&loop=1&playlist=Ml9sYQ09Rwc&vq=hd1080&enablejsapi=1",
+        "note": "Jamaica regional fallback. Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
       }
     ]
   }
