@@ -227,10 +227,10 @@
     },
     "-4": {
       "type": "youtube",
-      "id": "C6eSiTr3SE8",
-      "title": "Montreal Trudeau Airport live cam 24R",
-      "embed_url": "https://www.youtube.com/embed/C6eSiTr3SE8?autoplay=1&mute=1&controls=0&loop=1&playlist=C6eSiTr3SE8&vq=hd1080&enablejsapi=1",
-      "note": "Promoted from fallback after waDFkGGIIdA became unavailable. Verified 2026-05-16: live_status=is_live, playable_in_embed=true."
+      "id": "Sr_jX-yYkNY",
+      "title": "Faucons UdeM Montréal live cam",
+      "embed_url": "https://www.youtube.com/embed/Sr_jX-yYkNY?autoplay=1&mute=1&controls=0&loop=1&playlist=Sr_jX-yYkNY&vq=hd1080&enablejsapi=1",
+      "note": "Promoted from fallback after C6eSiTr3SE8 became unavailable. Verified 2026-06-25: live_status=is_live, playable_in_embed=true, channel=Faucons UdeM."
     },
     "-3": {
       "type": "youtube",
@@ -298,9 +298,10 @@
     },
     "6": {
       "type": "youtube",
-      "id": "FBYUkqutqzE",
-      "title": "House of Sanskara beach live stream",
-      "embed_url": "https://www.youtube.com/embed/FBYUkqutqzE?autoplay=1&mute=1&controls=0&loop=1&playlist=FBYUkqutqzE&vq=hd1080&enablejsapi=1"
+      "id": "GQRnp3GLx1U",
+      "title": "LIVE Ala-Too Square, Bishkek, Kyrgyzstan — Saima Telecom",
+      "embed_url": "https://www.youtube.com/embed/GQRnp3GLx1U?autoplay=1&mute=1&controls=0&loop=1&playlist=GQRnp3GLx1U&vq=hd1080&enablejsapi=1",
+      "note": "UTC+6 regional live visual replacing dead Goa/House of Sanskara FBYUkqutqzE. Verified 2026-06-25: live_status=is_live, playable_in_embed=true, channel=Saima Telecom."
     },
     "7": {
       "type": "youtube",
@@ -514,14 +515,6 @@
         "id": "hm9iAviOZ20",
         "title": "Surfline Hawaii multi-cam fallback",
         "embed_url": "https://www.youtube.com/embed/hm9iAviOZ20?autoplay=1&mute=1&controls=0&loop=1&playlist=hm9iAviOZ20&vq=hd1080&enablejsapi=1"
-      }
-    ],
-    "-4": [
-      {
-        "type": "youtube",
-        "id": "Sr_jX-yYkNY",
-        "title": "Faucons UdeM Montreal live cam",
-        "embed_url": "https://www.youtube.com/embed/Sr_jX-yYkNY?autoplay=1&mute=1&controls=0&loop=1&playlist=Sr_jX-yYkNY&vq=hd1080&enablejsapi=1"
       }
     ],
     "-3": [
