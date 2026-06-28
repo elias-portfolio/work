@@ -125,9 +125,10 @@
       "station": "20ft Radio"
     },
     "4": {
-      "url": "https://www.radioalhara.net/stream",
+      "url": "https://stream.radiojar.com/78cxy6wkxtzuv",
       "status": "working",
-      "station": "Radio Alhara"
+      "station": "Radio Alhara",
+      "note": "Direct RadioJar audio stream behind radioalhara.net/stream. Verified 2026-06-28: HTTP 200 audio/mpeg."
     },
     "5": {
       "url": "https://daystream.palmerablanca.com/daystream-128.mp3",
@@ -137,9 +138,10 @@
       "note": "Kazakhstan UTC+5 candidate. Verified 2026-04-28 with ffprobe: MP3 128 kbps. Radio-browser tags: chill/downtempo/lo-fi/retrowave/synthwave."
     },
     "6": {
-      "url": "http://ice1.somafm.com/suburbsofgoa-128-mp3",
+      "url": "http://schizoid.in:8000/schizoid",
       "status": "working",
-      "station": "SomaFM Suburbs of Goa"
+      "station": "Schizoid Psychedelic Trance",
+      "note": "Goa audio source. Replaces SomaFM URL that returned empty reply. Verified 2026-06-28: HTTP 200 audio/mpeg."
     },
     "7": {
       "url": "https://stream.zeno.fm/2uhuu5hvzqzuv",
@@ -213,10 +215,10 @@
     },
     "-6": {
       "type": "youtube",
-      "id": "omtorFakk7E",
-      "title": "Vista en vivo del Zócalo de la Ciudad de México — webcamsdemexico",
-      "embed_url": "https://www.youtube.com/embed/omtorFakk7E?autoplay=1&mute=1&controls=0&loop=1&playlist=omtorFakk7E&vq=hd1080&enablejsapi=1",
-      "note": "Replaces dead xWvJIaHx16w primary and dead wbO-_P9vbgY/CyqG-Sjktas fallbacks. Verified 2026-06-12: live_status=is_live, playable_in_embed=true, channel=webcamsdemexico."
+      "id": "8J3C46ImLSg",
+      "title": "CDMX Zócalo en vivo — webcamsdemexico",
+      "embed_url": "https://www.youtube.com/embed/8J3C46ImLSg?autoplay=1&mute=1&controls=0&loop=1&playlist=8J3C46ImLSg&vq=hd1080&enablejsapi=1",
+      "note": "Replaces omtorFakk7E after HLS proxy returned 500. Verified 2026-06-28: live_status=is_live, playable_in_embed=true, channel=webcamsdemexico, tunnel HLS 200 application/vnd.apple.mpegurl."
     },
     "-5": {
       "type": "youtube",
@@ -482,10 +484,10 @@
     "-6": [
       {
         "type": "youtube",
-        "id": "QIzKnPctqWc",
-        "title": "CDMX Zócalo live event fallback — webcamsdemexico",
-        "embed_url": "https://www.youtube.com/embed/QIzKnPctqWc?autoplay=1&mute=1&controls=0&loop=1&playlist=QIzKnPctqWc&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
+        "id": "36mNi1GN1AE",
+        "title": "Paseo de la Reforma en vivo — webcamsdemexico",
+        "embed_url": "https://www.youtube.com/embed/36mNi1GN1AE?autoplay=1&mute=1&controls=0&loop=1&playlist=36mNi1GN1AE&vq=hd1080&enablejsapi=1",
+        "note": "CDMX regional fallback. Verified 2026-06-28: live_status=is_live, playable_in_embed=true, tunnel HLS 200 application/vnd.apple.mpegurl."
       },
       {
         "type": "youtube",
