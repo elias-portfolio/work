@@ -11,7 +11,9 @@ TUNNEL_URL_FILE="/Users/eliaskarlsson/2am-local-proxy/.tunnel_url"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
-TEST_VIDEO="vytmBNhc9ig"
+# Known-live representative probe. This must be a currently verified stream,
+# otherwise every healthy tunnel is rejected by the activation gate.
+TEST_VIDEO="EO_1LWqsCNE"
 HEALTH_URL="http://localhost:8089/healthz"
 TARGET_FILES=("2amtext.html" "radiomp3.html" "stream-data.json")
 STREAM_PROBE_PATH="/stream/${TEST_VIDEO}/index.m3u8"
@@ -191,9 +193,11 @@ fi
 
 echo "[$TIMESTAMP] Ny tunnel: $NEW_URL" >> "$LOG"
 
-# Vänta tills tunneln faktiskt svarar innan vi publicerar den
+# Quick Tunnel DNS/edge propagation can take longer than 40 seconds even after
+# cloudflared has registered its edge connection. Stay fail-closed, but allow a
+# bounded three-minute activation budget before rejecting a healthy new tunnel.
 NEW_TUNNEL_OK=false
-for i in $(seq 1 20); do
+for i in $(seq 1 90); do
     if check_tunnel_ok "$NEW_URL"; then
         NEW_TUNNEL_OK=true
         break
