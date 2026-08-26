@@ -171,13 +171,13 @@ sleep 2
 
 # 5. Starta ny Quick Tunnel och fånga URL
 TUNNEL_LOG=$(mktemp)
-nohup bash -lc 'cloudflared tunnel --url http://127.0.0.1:8089 > >(tee -a "'$PROXY_DIR'/cloudflared.log" "'$TUNNEL_LOG'") 2>&1' >/dev/null 2>&1 &
+nohup bash -c 'exec cloudflared tunnel --url http://127.0.0.1:8089 > "'$PROXY_DIR'/cloudflared.log" 2>&1' >/dev/null 2>&1 &
 TUNNEL_PID=$!
 
 # Vänta på att URL:en dyker upp i loggen (max 30 sek)
 NEW_URL=""
 for i in $(seq 1 30); do
-    NEW_URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' "$TUNNEL_LOG" 2>/dev/null | head -1)
+    NEW_URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' "$PROXY_DIR/cloudflared.log" 2>/dev/null | head -1)
     if [ -n "$NEW_URL" ]; then
         break
     fi
