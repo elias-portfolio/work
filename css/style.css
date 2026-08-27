@@ -242,16 +242,17 @@ body2 {
 }
 
 .europa-next-indicator {
-    display: inline-block;
-    margin: 0 0 14px 0;
+    display: inline;
+    margin-left: 6px;
     font-family: 'Suisse', 'sans-serif';
     font-size: 16px;
-    line-height: 1.2;
+    line-height: inherit;
     text-transform: lowercase;
     color: rgb(0, 0, 238);
     text-decoration: underline;
     text-underline-offset: 2px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .europa-next-indicator:hover {

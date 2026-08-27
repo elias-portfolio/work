@@ -311,22 +311,17 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             europa: `
                 <div>
                     <p>
-                        This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Check out the full exhibit here. <br>
+                        below are some randomized samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Check out the full exhibit here. <br>
                         <a href="https://europearchive.eu/country-index/" target="_blank">https://europearchive.eu/country-index/</a>
                     </p>
                 </div>
 
                 <!-- Text frame (click to load new) placed under the link -->
                 <div id="europa-quote" onclick="fetchAndDisplayEuropaQuotation();"
-                     style="cursor: pointer; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0 4px 0;">
+                     style="cursor: pointer; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0 10px 0;">
                     <div style="font-family: 'Suisse'; text-align: center; padding: 8px 0;">
                         loading...
                     </div>
-                </div>
-
-                <div class="europa-next-indicator" onclick="fetchAndDisplayEuropaQuotation();" role="button" tabindex="0"
-                     onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fetchAndDisplayEuropaQuotation(); }">
-                    next →
                 </div>
 
                 <!-- Image frame below the text frame -->
@@ -573,8 +568,8 @@ let initialLoadEuropa = true;
 function initializeEuropaQuote() {
     const europaQuoteElement = document.getElementById('europa-quote');
     if (initialLoadEuropa && europaQuoteElement) {
-        europaQuoteElement.textContent =
-            "This is some samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Click the box or next to flip through some of the work.";
+        europaQuoteElement.innerHTML =
+            '<div>below are some randomized samples from an exhibit I made with the founder of Kesselskramer, Erik Kessels. It was called Europa Archive and I wrote most of the stuff. Click the box or next to flip through some of the work. <span class="europa-next-indicator" role="button" tabindex="0">next →</span></div>';
     }
 }
 const europaImages = {
@@ -657,8 +652,8 @@ function displayEuropaContent(text) {
     const entryId = entryIdMatch ? entryIdMatch[1] : null;
     console.log('Entry ID extracted:', entryId);
 
-    // Update text frame
-    europaQuoteElement.innerHTML = `<div>${selectedEntry}</div>`;
+    // Update text frame with inline next link
+    europaQuoteElement.innerHTML = `<div>${selectedEntry} <span class="europa-next-indicator" role="button" tabindex="0">next →</span></div>`;
     console.log('Europa quote element updated');
 
     // Update image frame if image exists
