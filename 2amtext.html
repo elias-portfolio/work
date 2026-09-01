@@ -492,26 +492,6 @@ color: red;
           
           bgFrame.onload = function() {
             disarmBackgroundFallback();
-            try {
-              if (window.YT && window.YT.Player) {
-                if (ytPlayer) {
-                  ytPlayer.destroy();
-                }
-                ytPlayer = new YT.Player(bgFrame.id, {
-                  events: {
-                    'onReady': function(event) {
-                      event.target.mute();
-                      event.target.setPlaybackQuality('hd1080');
-                    },
-                    'onStateChange': function(event) {
-                      event.target.mute();
-                    }
-                  }
-                });
-              }
-            } catch (e) {
-              console.log("YouTube API init:", e);
-            }
           };
         }
       }
