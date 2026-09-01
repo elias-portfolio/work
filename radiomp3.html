@@ -409,17 +409,17 @@ function updateRadio() {
     video.style.display = "block";
     video.muted = true;
 
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = bgUrl;
-      video.load();
-      video.play().catch(console.error);
-    } else if (window.Hls) {
-      window._radioModeHls = new Hls();
+    if (window.Hls && Hls.isSupported()) {
+      window._radioModeHls = new Hls({ enableWorker: true, lowLatencyMode: true });
       window._radioModeHls.loadSource(bgUrl);
       window._radioModeHls.attachMedia(video);
       window._radioModeHls.on(Hls.Events.MANIFEST_PARSED, function() {
         video.play().catch(console.error);
       });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = bgUrl;
+      video.load();
+      video.play().catch(console.error);
     }
   } else if (bgUrl && bgUrl.endsWith('.mp4')) {
     iframe.style.display = "none";

@@ -581,20 +581,27 @@ color: red;
           bgVideo.onerror = () => updateBackground(offset, attempt + 1);
           bgVideo.onplaying = disarmBackgroundFallback;
           bgVideo.oncanplay = disarmBackgroundFallback;
-          if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
-            bgVideo.src = newBg;
-            bgVideo.load();
-            bgVideo.play().catch(console.error);
-          } else if (window.Hls) {
-            window.hls = new Hls();
+          if (window.Hls && Hls.isSupported()) {
+            window.hls = new Hls({
+              enableWorker: true,
+              lowLatencyMode: true,
+              backBufferLength: 30
+            });
             window.hls.loadSource(newBg);
             window.hls.attachMedia(bgVideo);
             window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
               bgVideo.play().catch(console.error);
             });
             window.hls.on(Hls.Events.ERROR, function(event, data) {
-              if (data && data.fatal) updateBackground(offset, attempt + 1);
+              if (data && data.fatal) {
+                console.warn('HLS.js fatal error:', data);
+                updateBackground(offset, attempt + 1);
+              }
             });
+          } else if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
+            bgVideo.src = newBg;
+            bgVideo.load();
+            bgVideo.play().catch(console.error);
           }
         } else {
           // Handle YouTube/external iframe
