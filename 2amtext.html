@@ -81,6 +81,7 @@
   transform: translate(-50%, -50%) !important;
 }
     body {
+      
       color: white;
       font-family: 'Suisse', sans-serif;
       font-size: 14px;
@@ -138,39 +139,35 @@ color: red;
 	font-family: 'Suisse', monospace;
 }
 	
+	
+
 .clock-container {
   position: fixed;
+  
 }
 .rewind {
   cursor: pointer;
   
 }
-.zone:hover {
-  outline: 1px solid white;
-  cursor: pointer;
+
+.zone img {
+  height: 15px;
+  vertical-align: middle;
 }
+
 .zone-note {
-  color: #777;
-  font-size: 11px;
+  opacity: 0.72;
 }
-@keyframes pulse {
-	0% {
-		opacity: 1;
-		text-shadow: 0 0 2px rgba(255, 0, 0, 0.4);
-	}
-	100% {
-		opacity: 0.8;
-		text-shadow: 0 0 8px rgba(255, 0, 0, 0.9);
-	}
-}
+
 </style>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 <div id="background-container">
 <div class="video-bg">
-<iframe id="bg-frame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen frameborder="0" playsinline style="display:none"></iframe>
-<video id="bg-video" autoplay loop muted playsinline style="display: none"></video>
+<iframe id="bg-frame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen frameborder="0" playsinline></iframe>
+<video id="bg-video" loop muted playsinline style="display: none"></video>
 </div>
 </div>
 <div class="grid" id="radio-zones"><div class="zone neon-clock" id="clock">2:00:00 AM</div><div class="zone" id="playPause">play</div><div class="zone" id="fullscreen">fullscreen</div><div class="zone" id="hideUI">hide text</div><div class="zone" id="clockMode">clock mode</div><div class="zone rewind" id="rewind">الإسكندرية</div></div>
@@ -180,28 +177,28 @@ color: red;
       "-12": "Habitless Zone",
       "-11": "Habitless Zone",
       "-10": "Habitless Zone",
-      "-9": "honolulu",
-      "-8": "alaska",
-      "-7": "los ángeles",
-      "-6": "ciudad de méxico",
-      "-5": "kingston",
-      "-4": "montréal",
-      "-3": "brasília",
-      "-2": "reykjavík",
-      "-1": "cabo verde",
-      "0": "ghana",
-      "1": "dublin",
-      "2": "berlin",
-      "3": "київ",
-      "4": "بيت لحm",
-      "5": "алматы",
+      "-9": "Honolulu",
+      "-8": "Alaska",
+      "-7": "Los Ángeles",
+      "-6": "Ciudad de México",
+      "-5": "Kingston",
+      "-4": "Montréal",
+      "-3": "Brasília",
+      "-2": "Reykjavík",
+      "-1": "Cabo Verde",
+      "0": "Ghana",
+      "1": "Baile Átha Cliath",
+      "2": "Berlin",
+      "3": "Київ",
+      "4": "بيت لحم",
+      "5": "Алматы",
       "6": "गोवा",
-      "7": "jakarta",
+      "7": "Jakarta",
       "8": "成都",
       "9": "東京",
-      "10": "melbourne",
-      "11": "tāmaki makaurau",
-      "12": "камчатка"
+      "10": "Melbourne",
+      "11": "Tāmaki Makaurau",
+      "12": "Камчатка"
     };
 
     const zonePopulationNotes = {
@@ -214,8 +211,8 @@ color: red;
       "-12": "https://stream-relay-geo.ntslive.net/stream",
       "-11": "https://stream-relay-geo.ntslive.net/stream",
       "-10": "https://orbit.citrus3.com:2020/stream/divineradiolondon",
-      "-9": "http://178.159.3.22:8307/stream",
-      "-8": "https://s26.myradiostream.com:17824/;?type=http&nocache=1742989445",
+      "-9": "https://stream.ktuh.org:8001/stream",
+      "-8": "https://imagination-doubt-absorption-got.trycloudflare.com/radio-proxy?url=http://s26.myradiostream.com:17824/",
       "-7": "https://dublab.out.airtime.pro/dublab_a",
       "-6": "https://s2.mexside.net/8020/stream",
       "-5": "https://edge.mixlr.com/channel/ibrdq",
@@ -224,100 +221,112 @@ color: red;
       "-2": "https://live.visir.is/hls-radio/fm957/playlist.m3u8",
       "-1": "https://listen.radioking.com/radio/281506/stream/327253",
       "0": "https://oroko-radio.radiocult.fm/stream",
-      "1": "http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
+      "1": "https://dublin-digital-radio.radiocult.fm/stream",
       "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
       "3": "https://20ft-radio.radiocult.fm/stream",
       "4": "https://stream.radiojar.com/78cxy6wkxtzuv",
       "5": "https://daystream.palmerablanca.com/daystream-128.mp3",
-      "6": "http://schizoid.in:8000/schizoid",
+      "6": "https://imagination-doubt-absorption-got.trycloudflare.com/radio-proxy?url=http://schizoid.in:8000/schizoid",
       "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
-      "8": "http://ngcdn002.cnr.cn/live/jjzs/index.m3u8",
-      "9": "https://jenny.torontocast.com:2000/stream/J1HITS",
+      "8": "https://listen.belowground.fm/radio/8000/radio.mp3",
+      "9": "https://shonanbeachfm.out.airtime.pro/shonanbeachfm_a",
       "10": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
       "11": "https://stream.tbc.radio:8000/radio.mp3",
       "12": "https://radio.kamchatkalive.ru:8103/dance"
     };
 
-    const streamNames = {
+    const streamAliases = {
       "-12": "NTS",
       "-11": "NTS",
       "-10": "divine",
       "-9": "ktuh",
-      "-8": "alaska",
+      "-8": "aurora",
       "-7": "dublab",
       "-6": "mexside",
-      "-5": "radiocult",
-      "-4": "montreal",
+      "-5": "yard",
+      "-4": "radiocult",
       "-3": "brlogic",
       "-2": "fm957",
       "-1": "radioking",
       "0": "oroko",
-      "1": "baile átha cliath",
+      "1": "DDR",
       "2": "cashmere",
       "3": "20ft",
       "4": "radiojar",
       "5": "palmera",
       "6": "schizoid psy",
       "7": "zeno",
-      "8": "jjzs",
+      "8": "belowground",
       "9": "shonan",
-      "10": "3cr",
-      "11": "tbc",
+      "10": "3CR",
+      "11": "TBC",
       "12": "dance"
     };
 
-    const zoneContainer = document.getElementById("radio-zones");
-    for (let offset = -12; offset <= 12; offset++) {
-      const adjustedOffset = offset > 12 ? offset - 24 : offset;
-      const gmtKey = adjustedOffset.toString();
+    const placeholderCities = [
+      "Accra", "Buenos Aires", "Cairo", "Dhaka", "Edinburgh", "Florence", "Geneva", "Hanoi", "Istanbul", "Jakarta",
+      "Kuala Lumpur", "Lisbon", "Madrid", "Nairobi", "Oslo", "Prague", "Quebec City", "Riga", "Santiago", "Tehran",
+      "Vienna", "Warsaw", "Zagreb", "Amsterdam", "Belgrade", "Copenhagen", "Dublin", "Helsinki", "Jerusalem", "Lima",
+      "Manila", "Ottawa", "Reykjavik", "Singapore", "Tallinn", "Valencia", "Wellington", "Xi'an", "Yerevan", "Zurich",
+      "Bangkok", "Cape Town", "Cologne", "Damascus", "Edmonton", "Frankfurt", "Guadalajara", "Hamburg", "Islamabad",
+      "Johannesburg", "Kyoto", "Lyon", "Melbourne", "Montreal", "Naples", "Osaka", "Perth", "Quito", "Rome", "Seoul",
+      "Toronto", "Vancouver", "Xiamen", "Yogyakarta", "Zagreb", "Antwerp", "Bratislava", "চট্টগ্রাম", "Dakar", "Havana",
+      "Kathmandu", "Luxembourg", "Marseille", "Nicosia", "Panama City", "Rabat", "Sarajevo", "Tunis", "Ulaanbaatar"
+    ];
 
-      if (streamLocations[gmtKey]) {
-        const loc = document.createElement("div");
-        loc.className = "zone";
-        loc.dataset.key = gmtKey;
-        loc.dataset.blockType = "location";
-        loc.dataset.name = streamLocations[gmtKey];
-        loc.textContent = streamLocations[gmtKey];
-        loc.addEventListener("click", () => {
-          virtualOffset = parseInt(gmtKey);
-          manualOffset = true;
-          syncStationToOffset(virtualOffset);
-        });
-        zoneContainer.appendChild(loc);
+    const offset = (2 - new Date().getUTCHours() + 24) % 24;
+    const adjustedOffset = offset > 12 ? offset - 24 : offset;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
       }
-
-      const gmt = document.createElement("div");
-      gmt.className = "zone";
-      gmt.dataset.key = gmtKey;
-      gmt.dataset.blockType = "gmt";
-      gmt.textContent = `gmt ${adjustedOffset >= 0 ? '+' : ''}${adjustedOffset}`;
-      gmt.addEventListener("click", () => {
-        virtualOffset = parseInt(gmtKey);
-        manualOffset = true;
-        syncStationToOffset(virtualOffset);
-      });
-      zoneContainer.appendChild(gmt);
-
-      if (streamNames[gmtKey]) {
-        const stream = document.createElement("div");
-        stream.className = "zone";
-        stream.dataset.key = gmtKey;
-        stream.dataset.blockType = "stream";
-        stream.textContent = streamNames[gmtKey];
-        stream.addEventListener("click", () => {
-          virtualOffset = parseInt(gmtKey);
-          manualOffset = true;
-          syncStationToOffset(virtualOffset);
-        });
-        zoneContainer.appendChild(stream);
-      }
+      return array;
     }
 
-    const audio = document.getElementById("radio-player");
+    const grid = document.getElementById("radio-zones");
+    const gmtZones = shuffle(Object.keys(radioStreams).map(key => ({ type: 'gmt', key })));
+    const streamBlocks = shuffle(Object.entries(radioStreams).map(([key, url]) => ({ type: 'stream', key, url, label: streamAliases[key] || 'signal' })));
+    const locationBlocks = shuffle(Object.entries(streamLocations).map(([key, name]) => ({ type: 'location', key, name })));
+    const placeholderBlocks = shuffle(placeholderCities.map(name => ({ type: 'placeholder', name })));
 
-    function playStream(offset) {
-      const currentStream = radioStreams[offset];
-      if (!currentStream) return;
+    const allBlocks = [...gmtZones, ...streamBlocks, ...locationBlocks, ...placeholderBlocks];
+    while (allBlocks.length < 150) {
+      allBlocks.push({ type: 'placeholder', name: placeholderCities[Math.floor(Math.random() * placeholderCities.length)] });
+    }
+
+    const layout = shuffle(allBlocks).slice(0, 150);
+
+    layout.forEach(block => {
+      let html = '';
+      let className = 'zone';
+
+      if (block.type === 'gmt') {
+        if (parseInt(block.key) === adjustedOffset) className += ' gmt';
+        html = `gmt ${block.key >= 0 ? '+' : ''}${block.key}`;
+      } else if (block.type === 'stream') {
+        if (parseInt(block.key) === adjustedOffset) className += ' stream';
+        html = `${block.label}`;
+      } else if (block.type === 'location') {
+        if (block.key === String(adjustedOffset)) className += ' location';
+        html = `${block.name}`;
+      } else if (block.type === 'placeholder') {
+        html = `${block.name}`;
+      }
+
+      const div = document.createElement('div');
+      div.className = className;
+      div.dataset.blockType = block.type;
+      if (block.key !== undefined) div.dataset.key = block.key;
+      if (block.type === 'location') div.dataset.name = block.name;
+      div.innerHTML = html;
+      grid.appendChild(div);
+    });
+
+    const audio = document.getElementById("radio-player");
+    const currentStream = radioStreams[adjustedOffset];
+    if (currentStream) {
       audio.src = currentStream;
       audio.load();
       audio.play().catch(error => {
@@ -367,10 +376,13 @@ color: red;
       "11": []
     };
 
+
     let virtualOffset = (2 - new Date().getUTCHours() + 24) % 24;
     virtualOffset = virtualOffset > 12 ? virtualOffset - 24 : virtualOffset;
-    let manualOffset = false;
+    let manualOffset = false; // Flag to track if user manually changed offset
 
+    // Add this variable to track current video index
+    let currentVideoIndex = 0;
     let currentBackgroundAttempt = 0;
 
     function backgroundCandidates(offset) {
@@ -441,6 +453,7 @@ color: red;
       const bgFrame = document.getElementById("bg-frame");
       const bgVideo = document.getElementById("bg-video");
       
+      // Stop previous image refresh if switching away
       clearInterval(window._shorsImageInterval);
       document.getElementById("shors-cam-img")?.remove();
       
@@ -467,54 +480,227 @@ color: red;
           document.querySelector(".video-bg").appendChild(img);
         }
 
+        // Set up auto-refreshing background
         function refreshImage() {
-          const timestamp = new Date().getTime();
+          const timestamp = new Date().getTime(); // prevent caching
           const imageUrl = newBg === "shors-refresh" ? "https://www.shors.ru/images/camera/image96.jpg" : (newBg.url || newBg.image_url);
           img.onload = disarmBackgroundFallback;
           img.onerror = () => updateBackground(offset, attempt + 1);
           img.src = `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}${timestamp}`;
         }
 
+        // Refresh immediately and then every minute
         refreshImage();
         clearInterval(window._shorsImageInterval);
         window._shorsImageInterval = setInterval(refreshImage, (newBg.intervalMs || 60000));
-      } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
-        armBackgroundFallback(offset, attempt, 'hls');
-        bgFrame.style.display = 'none';
-        bgVideo.style.display = 'block';
-        bgVideo.muted = true;
-        bgVideo.setAttribute("autoplay", "true");
-        bgVideo.setAttribute("playsinline", "true");
-
-        if (window.hls) {
-          window.hls.destroy();
-          window.hls = null;
-        }
-
-        if (window.Hls && Hls.isSupported()) {
-          const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: true,
-            backBufferLength: 30
+      } else if (newBg) {
+        if (Array.isArray(newBg)) {
+          // Handle multiple video files
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          
+          // Set up video ended event handler if not already set
+          if (!bgVideo.hasAttribute('data-rotation-initialized')) {
+            bgVideo.addEventListener('ended', function() {
+              currentVideoIndex = (currentVideoIndex + 1) % newBg.length;
+              bgVideo.src = newBg[currentVideoIndex];
+              bgVideo.play().catch(console.error);
+            });
+            bgVideo.setAttribute('data-rotation-initialized', 'true');
+          }
+          
+          // Start with current video in rotation if not already playing it
+          if (!bgVideo.src.endsWith(newBg[currentVideoIndex])) {
+            bgVideo.src = newBg[currentVideoIndex];
+            bgVideo.load();
+            bgVideo.play().catch(e => {
+              console.error('Video play error:', e);
+              setTimeout(() => bgVideo.play().catch(console.error), 100);
+            });
+          }
+        } else if (typeof newBg === 'string' && newBg.endsWith('.mp4')) {
+          // Handle single video file
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          
+          if (bgVideo.src !== newBg) {
+            bgVideo.src = newBg;
+            bgVideo.load();
+          }
+          bgVideo.play().catch(e => {
+            console.error('Video play error:', e);
+            setTimeout(() => bgVideo.play().catch(console.error), 100);
           });
-          window.hls = hls;
-          hls.loadSource(newBg);
-          hls.attachMedia(bgVideo);
-          hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        } else if (typeof newBg === 'string' && newBg.endsWith('.m3u8')) {
+          // Handle HLS stream
+          armBackgroundFallback(offset, attempt, 'hls');
+          bgFrame.style.display = 'none';
+          bgVideo.style.display = 'block';
+          bgVideo.style.position = "absolute";
+          bgVideo.style.top = "50%";
+          bgVideo.style.left = "50%";
+          bgVideo.style.width = "177.77777778vh";
+          bgVideo.style.height = "100vh";
+          bgVideo.style.transform = "translate(-50%, -50%) scale(1.5)";
+          bgVideo.style.transformOrigin = "center center";
+          bgVideo.style.pointerEvents = "none";
+          bgVideo.style.opacity = "1";
+          bgVideo.style.border = "none";
+          bgVideo.style.zIndex = "0";
+          bgVideo.style.objectFit = "cover";
+          bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
+          // Use hls.js if needed
+          if (window.hls) {
+            window.hls.destroy();
+            window.hls = null;
+          }
+          bgVideo.onerror = () => updateBackground(offset, attempt + 1);
+          bgVideo.onplaying = disarmBackgroundFallback;
+          bgVideo.oncanplay = disarmBackgroundFallback;
+          if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
+            bgVideo.src = newBg;
+            bgVideo.load();
             bgVideo.play().catch(console.error);
-          });
-          hls.on(Hls.Events.ERROR, function(event, data) {
-            if (data && data.fatal) {
-              console.warn('HLS.js fatal error:', data);
-              updateBackground(offset, attempt + 1);
-            }
-          });
-        } else if (bgVideo.canPlayType('application/vnd.apple.mpegurl')) {
-          bgVideo.src = newBg;
-          bgVideo.load();
-          bgVideo.play().catch(console.error);
+          } else if (window.Hls) {
+            window.hls = new Hls();
+            window.hls.loadSource(newBg);
+            window.hls.attachMedia(bgVideo);
+            window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
+              bgVideo.play().catch(console.error);
+            });
+            window.hls.on(Hls.Events.ERROR, function(event, data) {
+              if (data && data.fatal) updateBackground(offset, attempt + 1);
+            });
+          }
+        } else {
+          // Handle YouTube/external iframe
+          armBackgroundFallback(offset, attempt, 'iframe');
+          bgVideo.style.display = 'none';
+          bgFrame.style.display = 'block';
+          if (bgFrame.src !== newBg) {
+            // Use postMessage API for additional muting control
+            const iframeJoiner = newBg.includes('?') ? '&' : '?';
+            const iframeSrc = newBg.includes('enablejsapi=1') ? newBg : newBg + iframeJoiner + "enablejsapi=1";
+            bgFrame.src = iframeSrc;
+            
+            // Try to initialize YouTube API control when frame loads
+            bgFrame.onload = function() {
+              disarmBackgroundFallback();
+              try {
+                if (window.YT && window.YT.Player) {
+                  if (ytPlayer) {
+                    ytPlayer.destroy();
+                  }
+                  ytPlayer = new YT.Player(bgFrame.id, {
+                    events: {
+                      'onReady': function(event) {
+                        event.target.mute();
+                        event.target.setPlaybackQuality('hd1080');
+                      },
+                      'onStateChange': function(event) {
+                        // Ensure video stays muted during state changes (like when ads start)
+                        event.target.mute();
+                      }
+                    }
+                  });
+                }
+              } catch(e) {
+                console.error("YouTube API error:", e);
+              }
+            };
+          }
         }
       }
+    }
+
+    // Force muting function - runs periodically
+    function enforceMuting() {
+      const bgFrame = document.getElementById("bg-frame");
+      const bgVideo = document.getElementById("bg-video");
+      
+      // Force HTML5 video to be muted
+      if (bgVideo && bgVideo.style.display !== 'none') {
+        bgVideo.muted = true; bgVideo.setAttribute("autoplay", "true"); bgVideo.setAttribute("playsinline", "true");
+      }
+      
+      // Force YouTube iframe to be muted using both API and postMessage
+      if (bgFrame && bgFrame.style.display !== 'none') {
+        // Use YouTube API if available
+        if (ytPlayer && typeof ytPlayer.mute === 'function') {
+          ytPlayer.mute();
+        }
+        
+        // Backup: Use postMessage API directly
+        try {
+          bgFrame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+        } catch(e) {
+          // Ignore errors from cross-origin frames
+        }
+      }
+    }
+
+    // Run mute enforcement every second
+    setInterval(enforceMuting, 1000);
+
+    // Add event listener for messages from YouTube iframe
+    window.addEventListener('message', function(event) {
+      // Listen for YouTube events and ensure muting
+      if (event.data && typeof event.data === 'string') {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.event === 'onStateChange' || data.event === 'infoDelivery') {
+            enforceMuting();
+          }
+        } catch(e) {
+          // Ignore parsing errors
+        }
+      }
+    });
+
+    // Update all YouTube URLs to include API parameters
+    for (const key in backgroundStreams) {
+      if (typeof backgroundStreams[key] === 'string' && backgroundStreams[key].includes('youtube.com/embed/')) {
+        // Make sure API is enabled and additional mute parameter is set
+        if (!backgroundStreams[key].includes('enablejsapi=1')) {
+          backgroundStreams[key] += (backgroundStreams[key].includes('?') ? '&' : '?') + 'enablejsapi=1';
+        }
+      }
+    }
+
+    function testVideo() {
+      const videoElement = document.createElement('video');
+      videoElement.src = './css/backround.mp4';
+      videoElement.autoplay = true;
+      videoElement.loop = true;
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      videoElement.style.cssText = 'width: 100px; height: 100px; position: fixed; top: 10px; left: 10px; z-index: 9999;';
+      document.body.appendChild(videoElement);
+      videoElement.play().catch(e => console.error('Test video play failed:', e));
     }
 
     function updateClock() {
@@ -528,17 +714,34 @@ color: red;
         }
       }
 
+      // Calculate time in the selected timezone: UTC + virtualOffset
       const utcHours = now.getUTCHours();
       const timezoneHours = (utcHours + virtualOffset + 24) % 24;
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const seconds = now.getSeconds().toString().padStart(2, '0');
       
+      // Show time in the selected timezone
       const hours = timezoneHours.toString().padStart(2, '0');
       document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
     }
 
     setInterval(updateClock, 1000);
     updateClock();
+
+    // Update the tick function to always show uppercase AM
+    function tick() {
+      const now = new Date();
+      // Calculate time in the selected timezone: UTC + virtualOffset
+      const utcHours = now.getUTCHours();
+      const timezoneHours = (utcHours + virtualOffset + 24) % 24;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      
+      const hours = timezoneHours.toString().padStart(2, '0');
+      const ampm = timezoneHours >= 12 ? 'PM' : 'AM';
+      const displayHours = timezoneHours % 12 || 12;
+      document.getElementById("clock").textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+    }
 
     function updateHighlights(offset) {
       document.querySelectorAll('.gmt, .stream, .location').forEach(el => {
@@ -563,6 +766,7 @@ color: red;
 
     updateHighlights(virtualOffset);
 
+    // Add global click handler for play/pause right after audio setup
     document.body.addEventListener("click", (e) => {
       const clickedText = e.target.closest(".zone");
       const clickedRewind = e.target.id === "rewind" || e.target.closest("#rewind");
@@ -571,6 +775,7 @@ color: red;
       const clickedClockMode = e.target.id === "clockMode" || e.target.closest("#clockMode");
       const clickedFullscreen = e.target.id === "fullscreen" || e.target.closest("#fullscreen");
 
+      // If the click is NOT on any interactive/text element
       if (!clickedText && !clickedRewind && !clickedClock && !clickedHideUI && !clickedClockMode && !clickedFullscreen) {
         if (audio.paused) {
           audio.play().catch(console.error);
@@ -581,9 +786,17 @@ color: red;
     });
 
     document.getElementById("rewind").addEventListener("click", () => {
+      const oldOffset = virtualOffset;
       virtualOffset = virtualOffset - 1;
       if (virtualOffset < -12) virtualOffset = 12;
+      
+      // Set manual flag to prevent auto-reset
       manualOffset = true;
+      
+      // Reset video index when leaving Hawaii timezone
+      if (oldOffset === -9) {
+        currentVideoIndex = 0;
+      }
 
       const newStream = radioStreams[virtualOffset];
       if (newStream) {
@@ -593,6 +806,11 @@ color: red;
       
       updateBackground(virtualOffset);
       updateHighlights(virtualOffset);
+      
+      // Test video if we're at GMT-9
+      if (virtualOffset === -9) {
+        testVideo();
+      }
     });
 
     document.getElementById("playPause").addEventListener("click", () => {
@@ -606,6 +824,7 @@ color: red;
       }
     });
 
+    // Update play/pause text when audio state changes
     audio.addEventListener("play", () => {
       document.getElementById("playPause").textContent = "pause";
     });
@@ -614,6 +833,7 @@ color: red;
       document.getElementById("playPause").textContent = "play";
     });
 
+    // Add hide UI functionality
     document.getElementById("hideUI").addEventListener("click", () => {
       const hideUIButton = document.getElementById("hideUI");
       const zones = document.querySelectorAll('.zone:not(#hideUI)');
@@ -626,10 +846,12 @@ color: red;
       hideUIButton.textContent = isHidden ? 'hide text' : 'show text';
     });
 
+    // Add clock mode functionality
     document.getElementById("clockMode").addEventListener("click", () => {
       window.location.href = './radiomp3.html';
     });
 
+    // Add fullscreen functionality
     document.getElementById("fullscreen").addEventListener("click", () => {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(console.error);
@@ -638,8 +860,11 @@ color: red;
       }
     });
 
+    // Add this to the end of your script to ensure initial state is correct
     document.addEventListener('DOMContentLoaded', function() {
-      updateBackground(virtualOffset);
+      const offset = virtualOffset;
+      updateBackground(offset);
+      enforceMuting();
     });
 </script>
 </body>
