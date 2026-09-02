@@ -551,6 +551,21 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1601</figcaption>
                     </figure>
                 </div>
+
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 38px 0 14px 12px; max-width: calc(100% - 12px);">
+                    <h3 style="font-size: 18px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 8px 0; text-transform: none;">Interactive Maya Compute Matrix</h3>
+                    <p style="margin: 0 0 16px 0; font-size: 14px; color: #555;">Real-time 5×5 WebGL shader matrix rendering all 25 vector glyph studies across the PrettyColors spectrum with dynamic cursor displacement and thermal glow fields.</p>
+                </div>
+
+                <div id="maya-matrix-container" style="margin: 0 0 36px 12px; width: calc(100% - 12px); max-width: 680px; background: #0a0908; border-radius: 16px; overflow: hidden; box-shadow: 0 16px 40px rgba(0,0,0,0.18);">
+                    <div style="width: 100%; aspect-ratio: 1 / 1; position: relative;">
+                        <canvas id="maya-matrix-canvas" style="width: 100%; height: 100%; display: block; cursor: crosshair;"></canvas>
+                    </div>
+                    <div style="padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; background: #12100e; border-top: 1px solid #221f1b; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: rgba(255,255,255,0.7);">
+                        <span id="maya-matrix-info">CELL: -- (HOVER / SWIPE MATRIX)</span>
+                        <span style="opacity: 0.6;">5×5 WEBGL MATRIX • 60 FPS</span>
+                    </div>
+                </div>
             `,
 			scripts: ` 
 
@@ -607,6 +622,16 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         console.error('fetchAndDisplayEuropaQuotation function not available');
                     }
                 }, 100);
+            }
+
+            // Special handling for Maya interactive shader matrix
+            if (section === 'maya') {
+                console.log('Initializing Maya matrix section');
+                setTimeout(() => {
+                    if (typeof window.initMayaMatrix === 'function') {
+                        window.initMayaMatrix();
+                    }
+                }, 50);
             }
 
             // Special handling for 2.am section - let the embedded canonical 2amtext.html page own audio playback
