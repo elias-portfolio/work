@@ -566,6 +566,28 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         <span style="opacity: 0.6;">5×5 WEBGL MATRIX • 60 FPS</span>
                     </div>
                 </div>
+
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 38px 0 14px 12px; max-width: calc(100% - 12px);">
+                    <h3 style="font-size: 18px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 8px 0; text-transform: none;">Random Palette Glyph Slideshow</h3>
+                    <p style="margin: 0 0 16px 0; font-size: 14px; color: #555;">Click the card or use the controls below to advance through the glyphs. Each step draws a fresh, random background color from our PrettyColors database.</p>
+                </div>
+
+                <div style="margin: 0 0 44px 12px; width: calc(100% - 12px); max-width: 680px;">
+                    <div id="maya-slideshow-card" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 40px; box-sizing: border-box; cursor: pointer; transition: background-color 0.4s ease, transform 0.15s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.06); user-select: none;">
+                        <img id="maya-slideshow-img" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph slide" style="max-width: 80%; max-height: 80%; object-fit: contain; display: block; transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none;">
+                    </div>
+                    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-family: 'Suisse', 'sans-serif'; font-size: 13px;">
+                        <div style="display: flex; gap: 6px;">
+                            <button id="maya-slideshow-prev" type="button" style="background: #000; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; font-family: inherit; font-size: 12px; cursor: pointer;">← Prev</button>
+                            <button id="maya-slideshow-next" type="button" style="background: #000; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; font-family: inherit; font-size: 12px; cursor: pointer;">Next →</button>
+                        </div>
+                        <div id="maya-slideshow-counter" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: bold; color: #222;">01 / 25 • T100</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span id="maya-slideshow-color" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: rgba(0,0,0,0.06); padding: 4px 8px; border-radius: 4px; color: #333;">#------</span>
+                            <button id="maya-slideshow-shuffle" type="button" style="background: transparent; color: #555; border: 1px solid #ccc; border-radius: 6px; padding: 5px 10px; font-family: inherit; font-size: 12px; cursor: pointer;">⟳ Shuffle</button>
+                        </div>
+                    </div>
+                </div>
             `,
 			scripts: ` 
 
@@ -626,10 +648,13 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
             // Special handling for Maya interactive shader matrix
             if (section === 'maya') {
-                console.log('Initializing Maya matrix section');
+                console.log('Initializing Maya matrix and slideshow section');
                 setTimeout(() => {
                     if (typeof window.initMayaMatrix === 'function') {
                         window.initMayaMatrix();
+                    }
+                    if (typeof window.initMayaSlideshow === 'function') {
+                        window.initMayaSlideshow();
                     }
                 }, 50);
             }
