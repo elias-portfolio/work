@@ -534,6 +534,22 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         <img src="maya/references/svg/bauhaus_glyph_001400.svg" alt="Glyph study 001400" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #FF6B8B; padding: 14px; box-sizing: border-box;">
                         <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1400</figcaption>
                     </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001500.svg" alt="Glyph study 001500" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #FFAA00; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1500</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001501.svg" alt="Glyph study 001501" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #99FF00; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1501</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001600.svg" alt="Glyph study 001600" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #FF388E; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1600</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001601.svg" alt="Glyph study 001601" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #05B3ED; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1601</figcaption>
+                    </figure>
                 </div>
             `,
 			scripts: ` 
