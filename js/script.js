@@ -419,7 +419,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 32px 0 14px 12px; max-width: calc(100% - 12px);">
                     <h3 style="font-size: 18px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 8px 0; text-transform: none;">Vector Glyph Studies</h3>
-                    <p style="margin: 0 0 16px 0; font-size: 14px; color: #555;">High-resolution vector glyph studies exploring Classic Maya structural composition and geometric sign variants.</p>
+                    <p style="margin: 0 0 16px 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Below is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
                 </div>
 
                 <div style="margin: 0 0 24px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; align-items: start;">
