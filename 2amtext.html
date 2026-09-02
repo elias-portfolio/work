@@ -876,12 +876,9 @@ color: red;
       }
     });
 
-    // Add this to the end of your script to ensure initial state is correct
-    document.addEventListener('DOMContentLoaded', function() {
-      const offset = virtualOffset;
-      updateBackground(offset);
-      enforceMuting();
-    });
+    // Initialize background and muting immediately
+    updateBackground(virtualOffset);
+    enforceMuting();
 </script>
 </body>
 </html>
