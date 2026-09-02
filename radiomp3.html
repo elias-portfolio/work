@@ -409,17 +409,29 @@ function updateRadio() {
     video.style.display = "block";
     video.muted = true;
 
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = bgUrl;
-      video.load();
-      video.play().catch(console.error);
-    } else if (window.Hls) {
-      window._radioModeHls = new Hls();
+    if (window.Hls && Hls.isSupported()) {
+      window._radioModeHls = new Hls({ enableWorker: true, lowLatencyMode: true });
       window._radioModeHls.loadSource(bgUrl);
       window._radioModeHls.attachMedia(video);
       window._radioModeHls.on(Hls.Events.MANIFEST_PARSED, function() {
         video.play().catch(console.error);
       });
+      window._radioModeHls.on(Hls.Events.ERROR, function(event, data) {
+        if (data && data.fatal) {
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              window._radioModeHls.startLoad();
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              window._radioModeHls.recoverMediaError();
+              break;
+          }
+        }
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = bgUrl;
+      video.load();
+      video.play().catch(console.error);
     }
   } else if (bgUrl && bgUrl.endsWith('.mp4')) {
     iframe.style.display = "none";
