@@ -428,6 +428,78 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font: not a decorative alphabet, but a usable writing system that can carry the logic of Maya glyphs into contemporary type software.</p>
                     <p>A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
+
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 32px 0 14px 12px; max-width: calc(100% - 12px);">
+                    <h3 style="font-size: 18px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 8px 0; text-transform: none;">Bauhaus Vector Glyph Studies</h3>
+                    <p style="margin: 0 0 16px 0; font-size: 14px; color: #555;">High-resolution vector glyph studies exploring Classic Maya structural composition through modernist Bauhaus geometry.</p>
+                </div>
+
+                <div style="margin: 0 0 24px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; align-items: start;">
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Bauhaus glyph study 000100" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T100 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Bauhaus glyph study 000101" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T101 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000200.svg" alt="Bauhaus glyph study 000200" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T200 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000300.svg" alt="Bauhaus glyph study 000300" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T300 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000301.svg" alt="Bauhaus glyph study 000301" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T301 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000302.svg" alt="Bauhaus glyph study 000302" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T302 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000400.svg" alt="Bauhaus glyph study 000400" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T400 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000500.svg" alt="Bauhaus glyph study 000500" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T500 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000600.svg" alt="Bauhaus glyph study 000600" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T600 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000700.svg" alt="Bauhaus glyph study 000700" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T700 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000800.svg" alt="Bauhaus glyph study 000800" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T800 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_000900.svg" alt="Bauhaus glyph study 000900" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T900 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001000.svg" alt="Bauhaus glyph study 001000" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1000 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001100.svg" alt="Bauhaus glyph study 001100" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1100 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001200.svg" alt="Bauhaus glyph study 001200" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1200 Bauhaus study</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <img src="maya/references/svg/bauhaus_glyph_001201.svg" alt="Bauhaus glyph study 001201" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; background: #f8f4e8; padding: 14px; box-sizing: border-box;">
+                        <figcaption style="font-size: 11px; line-height: 1.4; margin-top: 6px; color: #777;">T1201 Bauhaus study</figcaption>
+                    </figure>
+                </div>
             `,
 			scripts: ` 
 
