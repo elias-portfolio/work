@@ -429,7 +429,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             `,
             maya: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
-                    <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 14px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
+                    <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 10px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
+                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Below is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
                 </div>
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
@@ -462,12 +463,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     </figure>
                 </div>
 
-                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 22px 12px; max-width: calc(100% - 12px);">
-                    <p style="margin-top: 0;">A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
-                </div>
-
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 36px 12px; max-width: calc(100% - 12px);">
-                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Above is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
+                    <p style="margin-top: 0;">A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
             `,
 			scripts: ` 
