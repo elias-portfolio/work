@@ -263,38 +263,19 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
         EdMon is an AI-assisted post-production toolkit for automated footage logging, natural language search, transcription, and story assembly.
     </p>
 
-    <!-- Live Website Embed -->
-    <div style="margin: 20px 0; width: 100%; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; background: #000;">
-        <div style="padding: 8px 12px; background: #f5f5f5; border-bottom: 1px solid #e0e0e0; font-size: 12px; color: #666; display: flex; justify-content: space-between; align-items: center;">
-            <span>Live site: <a href="https://edmon.ai/" target="_blank" style="color: #000; text-decoration: underline;">edmon.ai</a></span>
-            <span style="font-size: 11px; opacity: 0.7;">↗ open external</span>
+    <!-- Animated Patterns side by side without text -->
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0 20px 0;">
+        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
+            <img src="images/edmon/PATTERN_13-1.gif" alt="EdMon Pattern 13" style="display: block; width: 100%; height: auto;">
         </div>
-        <iframe src="https://edmon.ai/" style="width: 100%; height: 600px; border: none; display: block;" title="EdMon AI Website" loading="lazy"></iframe>
-    </div>
-
-    <!-- Animated Patterns / Backgrounds -->
-    <div style="margin: 24px 0 12px 0; font-weight: bold; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">
-        Animated Interface Patterns
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px;">
-        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee;">
-            <img src="images/edmon/PATTERN_13-1.gif" alt="EdMon Pattern 13" style="display: block; width: 100%; height: auto; object-fit: cover;">
-            <div style="padding: 6px 10px; font-size: 11px; color: #888; background: #fafafa; border-top: 1px solid #eee;">Pattern 13 (Frontpage Loop)</div>
-        </div>
-        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee;">
-            <img src="images/edmon/PATTERN_20.gif" alt="EdMon Pattern 20" style="display: block; width: 100%; height: auto; object-fit: cover;">
-            <div style="padding: 6px 10px; font-size: 11px; color: #888; background: #fafafa; border-top: 1px solid #eee;">Pattern 20 (About Us Loop)</div>
+        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
+            <img src="images/edmon/PATTERN_20.gif" alt="EdMon Pattern 20" style="display: block; width: 100%; height: auto;">
         </div>
     </div>
 
-    <!-- Feature Cards / Visuals -->
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin-bottom: 20px;">
-        <div style="aspect-ratio: 1339 / 1600; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px;">
-            <img src="images/edmon/sapmi-language-pack.jpg" alt="EdMon Sapmi Language Pack" style="display: block; width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div style="aspect-ratio: 1339 / 1600; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px;">
-            <img src="images/edmon/action-events-patch.jpg" alt="EdMon Action & Events Patch" style="display: block; width: 100%; height: 100%; object-fit: cover;">
-        </div>
+    <!-- Sápmi Language Pack full width -->
+    <div style="width: 100%; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px; margin-bottom: 24px; line-height: 0;">
+        <img src="images/edmon/sapmi-language-pack.jpg" alt="EdMon Sápmi Language Pack" style="display: block; width: 100%; height: auto;">
     </div>
 </div>
             `,
