@@ -434,14 +434,14 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
                     <figure style="margin: 0; line-height: 0;">
-                        <div id="maya-card-1" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #FF5D0D; transition: background-color 0.2s ease;">
-                            <img id="maya-img-1" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph 1" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; transition: opacity 0.08s ease, transform 0.08s ease; pointer-events: none;">
+                        <div id="maya-card-1" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #FF5D0D;">
+                            <img id="maya-img-1" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph 1" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; pointer-events: none;">
                         </div>
                         <figcaption id="maya-caption-1" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T100 • #FF5D0D</figcaption>
                     </figure>
                     <figure style="margin: 0; line-height: 0;">
-                        <div id="maya-card-2" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #63C1F7; transition: background-color 0.2s ease;">
-                            <img id="maya-img-2" src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Maya glyph 2" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; transition: opacity 0.08s ease, transform 0.08s ease; pointer-events: none;">
+                        <div id="maya-card-2" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #63C1F7;">
+                            <img id="maya-img-2" src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Maya glyph 2" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; pointer-events: none;">
                         </div>
                         <figcaption id="maya-caption-2" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T101 • #63C1F7</figcaption>
                     </figure>
@@ -449,10 +449,9 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">
                     <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font: not a decorative alphabet, but a usable writing system that can carry the logic of Maya glyphs into contemporary type software.</p>
-                    <p>A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
 
-                <div style="margin: 20px 0 24px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
+                <div style="margin: 20px 0 20px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
                     <figure style="margin: 0; line-height: 0;">
                         <img src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
@@ -461,6 +460,10 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                         <img src="maya/references/dresden-codex-glyph-03-vectorized.jpg?v=clean-20260506" alt="Vectorized Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Vectorized font drawing</figcaption>
                     </figure>
+                </div>
+
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 22px 12px; max-width: calc(100% - 12px);">
+                    <p style="margin-top: 0;">A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 36px 12px; max-width: calc(100% - 12px);">

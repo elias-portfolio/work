@@ -89,18 +89,10 @@
 
             const nextGlyph = GLYPHS[nextGlyphIdx];
 
-            // Quick smooth transition
-            img.style.opacity = "0.2";
-            img.style.transform = "scale(0.94)";
-
-            setTimeout(() => {
-                if (!document.body.contains(card)) return;
-                img.src = "maya/references/svg/" + nextGlyph.file;
-                card.style.backgroundColor = nextColor;
-                if (cap) cap.textContent = `${nextGlyph.id} • ${nextColor}`;
-                img.style.opacity = "1";
-                img.style.transform = "scale(1)";
-            }, 70);
+            // Instant crisp swap without lagging animation
+            img.src = "maya/references/svg/" + nextGlyph.file;
+            card.style.backgroundColor = nextColor;
+            if (cap) cap.textContent = `${nextGlyph.id} • ${nextColor}`;
         }
 
         startLoop() {
