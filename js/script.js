@@ -264,18 +264,41 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
     </p>
 
     <!-- Animated Patterns side by side without text -->
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0 20px 0;">
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0 24px 0;">
         <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
             <img src="images/edmon/PATTERN_13-1.gif" alt="EdMon Pattern 13" style="display: block; width: 100%; height: auto;">
         </div>
         <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
             <img src="images/edmon/PATTERN_20.gif" alt="EdMon Pattern 20" style="display: block; width: 100%; height: auto;">
         </div>
+        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
+            <img src="images/edmon/edmonpattern1.gif" alt="EdMon Pattern 1" style="display: block; width: 100%; height: auto;">
+        </div>
+        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
+            <img src="images/edmon/edmonpattern4.gif" alt="EdMon Pattern 4" style="display: block; width: 100%; height: auto;">
+        </div>
+        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
+            <img src="images/edmon/edmonpattern7.gif" alt="EdMon Pattern 7" style="display: block; width: 100%; height: auto;">
+        </div>
+        <div style="background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #eee; line-height: 0;">
+            <img src="images/edmon/edmonpattern8.gif" alt="EdMon Pattern 8" style="display: block; width: 100%; height: auto;">
+        </div>
     </div>
 
     <!-- Sápmi Language Pack full width -->
     <div style="width: 100%; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px; margin-bottom: 24px; line-height: 0;">
         <img src="images/edmon/sapmi-language-pack.jpg" alt="EdMon Sápmi Language Pack" style="display: block; width: 100%; height: auto;">
+    </div>
+
+    <!-- Copy examples in EdMon Red -->
+    <div style="margin: 28px 0 24px 0; color: #cf2e2e; font-family: 'Suisse', sans-serif;">
+        <div style="font-size: 13px; font-weight: 500; text-transform: lowercase; margin-bottom: 10px; opacity: 0.9;">
+            copy examples included:
+        </div>
+        <div style="font-size: 17px; line-height: 1.45;">
+            <p style="margin: 0 0 8px 0;">&ldquo;we turn characters into characters, and back again &rdquo;</p>
+            <p style="margin: 0;">&ldquo;Don't take our word for it. Take theirs from the sync.&rdquo;</p>
+        </div>
     </div>
 </div>
             `,
