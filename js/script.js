@@ -170,6 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
             youtubeEmbed.src = '';
         }
 
+        if (previousSection === 'maya' && typeof window.stopMayaSlideshow === 'function') {
+            window.stopMayaSlideshow();
+        }
+
         const ytBgPlayer = document.getElementById('yt-bg-player');
         if (ytBgPlayer && section !== 'spotify') {
             ytBgPlayer.src = '';
@@ -430,6 +434,26 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
                     <figure style="margin: 0; line-height: 0;">
+                        <div id="maya-card-1" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #FF5D0D; transition: background-color 0.2s ease;">
+                            <img id="maya-img-1" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph 1" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; transition: opacity 0.08s ease, transform 0.08s ease; pointer-events: none;">
+                        </div>
+                        <figcaption id="maya-caption-1" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T100 • #FF5D0D</figcaption>
+                    </figure>
+                    <figure style="margin: 0; line-height: 0;">
+                        <div id="maya-card-2" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #63C1F7; transition: background-color 0.2s ease;">
+                            <img id="maya-img-2" src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Maya glyph 2" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; transition: opacity 0.08s ease, transform 0.08s ease; pointer-events: none;">
+                        </div>
+                        <figcaption id="maya-caption-2" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T101 • #63C1F7</figcaption>
+                    </figure>
+                </div>
+
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">
+                    <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font: not a decorative alphabet, but a usable writing system that can carry the logic of Maya glyphs into contemporary type software.</p>
+                    <p>A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
+                </div>
+
+                <div style="margin: 20px 0 24px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
+                    <figure style="margin: 0; line-height: 0;">
                         <img src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
                     </figure>
@@ -439,31 +463,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     </figure>
                 </div>
 
-                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 22px 0 0 12px; max-width: calc(100% - 12px);">
-                    <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font: not a decorative alphabet, but a usable writing system that can carry the logic of Maya glyphs into contemporary type software.</p>
-                    <p>A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
-                </div>
-
-                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 32px 0 14px 12px; max-width: calc(100% - 12px);">
-                    <h3 style="font-size: 18px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 8px 0; text-transform: none;">Vector Glyph Studies</h3>
-                    <p style="margin: 0 0 16px 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Below is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
-                </div>
-
-                <div style="margin: 0 0 44px 12px; width: calc(100% - 12px); max-width: 680px;">
-                    <div id="maya-slideshow-card" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 40px; box-sizing: border-box; cursor: pointer; transition: background-color 0.4s ease, transform 0.15s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.06); user-select: none;">
-                        <img id="maya-slideshow-img" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph slide" style="max-width: 80%; max-height: 80%; object-fit: contain; display: block; transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none;">
-                    </div>
-                    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-family: 'Suisse', 'sans-serif'; font-size: 13px;">
-                        <div style="display: flex; gap: 6px;">
-                            <button id="maya-slideshow-prev" type="button" style="background: #000; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; font-family: inherit; font-size: 12px; cursor: pointer;">← Prev</button>
-                            <button id="maya-slideshow-next" type="button" style="background: #000; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; font-family: inherit; font-size: 12px; cursor: pointer;">Next →</button>
-                        </div>
-                        <div id="maya-slideshow-counter" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: bold; color: #222;">01 / 25 • T100</div>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span id="maya-slideshow-color" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: rgba(0,0,0,0.06); padding: 4px 8px; border-radius: 4px; color: #333;">#------</span>
-                            <button id="maya-slideshow-shuffle" type="button" style="background: transparent; color: #555; border: 1px solid #ccc; border-radius: 6px; padding: 5px 10px; font-family: inherit; font-size: 12px; cursor: pointer;">⟳ Shuffle</button>
-                        </div>
-                    </div>
+                <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 36px 12px; max-width: calc(100% - 12px);">
+                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Above is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
                 </div>
             `,
 			scripts: ` 
