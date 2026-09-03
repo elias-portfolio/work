@@ -5,7 +5,8 @@
     "extracted_from": "2amtext_tailscale_kimi_blend_v2.html",
     "generated_at": "2026-04-16",
     "version": "resurrection-scaffold-v3-japan-caboverde-cron",
-    "updated_at": "2026-05-28",
+    "updated_at": "2026-09-03",
+    "stream_repair_2026_09_03": "Comprehensive stream audit and repair: Replaced dead streams for UTC-12 (NASA ISS HD awQzjn72bI0), UTC-11 (NASA ISS 24/7 tj4knR4r1UU), UTC-9 (Surfline Hawaii hm9iAviOZ20, fallback Kilauea Volcano iws3rh5vLAQ), UTC-6 (CDMX Reforma 0Z3ZLD9JNLs, fallbacks Popocatépetl Volcano xytHO8TgCBE & Fuego Volcano cNW2nytVkfs), UTC-5 (Kingston Half Way Tree C71bNZ1coG4), UTC-3 (Porto de Santos 5BxqzvR6TgM, fallback GRU Airport 9HHg3tv9Oas), UTC-2 (Reykjavik LIVE tYgGEC-ESTw, fallback Iceland Volcano Watch qkSvU9j4kqM), UTC-1 (Capo Verde Praia da Cruz still live3606.jpg, fallback Teide Volcano bZah1iB1xeI), and UTC+2 (Berlin Alexanderplatz IRqboacDNFg). All verified with yt-dlp, HLS local proxy and image fetches.",
     "brasilia_repair_note": "Offset -3 primary changed from dead asziETEK8J8 to Santos port tMYtrEBNVAU after local yt-dlp/embed/frame validation.",
     "reykjavik_repair_note": "Offset -2 primary changed from unavailable Aurora Reykjavík YouTube id 6xOnr8Ukeb0 to current Aurora Reykjavík live stream iqkZCpPVeJ0. Verified 2026-05-28: live_status=is_live, playable_in_embed=true; HLS proxy returns a YouTube live manifest redirect. Iceland Volcano Watch 4B-xBkUX4jM and Reykjavik Iceland LIVE tYgGEC-ESTw retained as verified fallbacks.",
     "pakistan_audio_repair_note": "Superseded for now by Kazakhstan UTC+5 combo; FM91 Pakistan validated and remains a known fallback candidate.",
@@ -178,15 +179,17 @@
   "videoStreams": {
     "-12": {
       "type": "youtube",
-      "id": "vytmBNhc9ig",
-      "title": "NASA Earth from Space / Habitless Zone relay",
-      "embed_url": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080&enablejsapi=1"
+      "id": "awQzjn72bI0",
+      "title": "NASA Official ISS HD Views / Earth from Space",
+      "embed_url": "https://www.youtube.com/embed/awQzjn72bI0?autoplay=1&mute=1&controls=0&loop=1&playlist=awQzjn72bI0&vq=hd1080&enablejsapi=1",
+      "note": "Replaces private vytmBNhc9ig. Verified 2026-09-03: live_status=is_live, playable_in_embed=true, channel=NASA."
     },
     "-11": {
       "type": "youtube",
-      "id": "vytmBNhc9ig",
-      "title": "NASA Earth from Space / Habitless Zone relay",
-      "embed_url": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080&enablejsapi=1"
+      "id": "tj4knR4r1UU",
+      "title": "NASA ISS 24/7 Earth from Space Livestream",
+      "embed_url": "https://www.youtube.com/embed/tj4knR4r1UU?autoplay=1&mute=1&controls=0&loop=1&playlist=tj4knR4r1UU&vq=hd1080&enablejsapi=1",
+      "note": "Replaces private vytmBNhc9ig. Verified 2026-09-03: live_status=is_live, playable_in_embed=true."
     },
     "-10": {
       "type": "youtube",
@@ -197,9 +200,10 @@
     },
     "-9": {
       "type": "youtube",
-      "id": "8waVy4wM1tM",
-      "title": "Waikiki Beach Marriott Resort live cam",
-      "embed_url": "https://www.youtube.com/embed/8waVy4wM1tM?autoplay=1&mute=1&controls=0&loop=1&playlist=8waVy4wM1tM&vq=hd1080&enablejsapi=1"
+      "id": "hm9iAviOZ20",
+      "title": "Surfline Hawaii multi-cam live stream",
+      "embed_url": "https://www.youtube.com/embed/hm9iAviOZ20?autoplay=1&mute=1&controls=0&loop=1&playlist=hm9iAviOZ20&vq=hd1080&enablejsapi=1",
+      "note": "Replaces ended 8waVy4wM1tM. Verified 2026-09-03: live_status=is_live, playable_in_embed=true."
     },
     "-8": {
       "type": "youtube",
@@ -215,17 +219,17 @@
     },
     "-6": {
       "type": "youtube",
-      "id": "8J3C46ImLSg",
-      "title": "CDMX Zócalo en vivo — webcamsdemexico",
-      "embed_url": "https://www.youtube.com/embed/8J3C46ImLSg?autoplay=1&mute=1&controls=0&loop=1&playlist=8J3C46ImLSg&vq=hd1080&enablejsapi=1",
-      "note": "Replaces omtorFakk7E after HLS proxy returned 500. Verified 2026-06-28: live_status=is_live, playable_in_embed=true, channel=webcamsdemexico, tunnel HLS 200 application/vnd.apple.mpegurl."
+      "id": "0Z3ZLD9JNLs",
+      "title": "Paseo de la Reforma en CDMX desde Hotel B Urban Xaman Reforma — webcamsdemexico",
+      "embed_url": "https://www.youtube.com/embed/0Z3ZLD9JNLs?autoplay=1&mute=1&controls=0&loop=1&playlist=0Z3ZLD9JNLs&vq=hd1080&enablejsapi=1",
+      "note": "Replaces ended 8J3C46ImLSg. Verified 2026-09-03: live_status=is_live, channel=webcamsdemexico, proxy 200 HLS."
     },
     "-5": {
       "type": "youtube",
-      "id": "cZJM0Sg6dy4",
-      "title": "Barbican St Andrew LIVE 24/7 — Kingston Jamaica Street Cam",
-      "embed_url": "https://www.youtube.com/embed/cZJM0Sg6dy4?autoplay=1&mute=1&controls=0&loop=1&playlist=cZJM0Sg6dy4&vq=hd1080&enablejsapi=1",
-      "note": "Replaces dead XF9fcTdr6MQ primary and dead See Jamaica fallbacks. Verified 2026-06-12: live_status=is_live, playable_in_embed=true, channel=See Jamaica."
+      "id": "C71bNZ1coG4",
+      "title": "Half Way Tree Clock Kingston LIVE 24/7 — Jamaica Street Cam",
+      "embed_url": "https://www.youtube.com/embed/C71bNZ1coG4?autoplay=1&mute=1&controls=0&loop=1&playlist=C71bNZ1coG4&vq=hd1080&enablejsapi=1",
+      "note": "Replaces ended cZJM0Sg6dy4. Verified 2026-09-03: live_status=is_live, playable_in_embed=true."
     },
     "-4": {
       "type": "youtube",
@@ -236,27 +240,26 @@
     },
     "-3": {
       "type": "youtube",
-      "id": "tMYtrEBNVAU",
-      "title": "Brazil Santos port entrance live cam",
-      "embed_url": "https://www.youtube.com/embed/tMYtrEBNVAU?autoplay=1&mute=1&controls=0&loop=1&playlist=tMYtrEBNVAU&vq=hd1080&enablejsapi=1",
-      "note": "Replaces dead Brasilia/Rio primary as UTC-3 Brazil atmospheric harbor visual. Verified 2026-04-27: live_status=is_live, playable_in_embed=true, frame captured."
+      "id": "5BxqzvR6TgM",
+      "title": "Porto ao Vivo - Entrada no Canal do Porto de Santos, Brasil",
+      "embed_url": "https://www.youtube.com/embed/5BxqzvR6TgM?autoplay=1&mute=1&controls=0&loop=1&playlist=5BxqzvR6TgM&vq=hd1080&enablejsapi=1",
+      "note": "Replaces ended tMYtrEBNVAU. Verified 2026-09-03: live_status=is_live, playable_in_embed=true."
     },
     "-2": {
       "type": "youtube",
-      "id": "iqkZCpPVeJ0",
-      "title": "Live Aurora from Reykjavík Iceland — Aurora Reykjavík",
-      "embed_url": "https://www.youtube.com/embed/iqkZCpPVeJ0?autoplay=1&mute=1&controls=0&loop=1&playlist=iqkZCpPVeJ0&vq=hd1080&enablejsapi=1",
-      "source_url": "https://aurorareykjavik.is/aurora-forecast/",
-      "note": "Replaces unavailable Aurora Reykjavík live stream id 6xOnr8Ukeb0. Verified 2026-05-28: live_status=is_live, is_live=True, playable_in_embed=True, channel=Aurora Reykjavík The Northern Lights Center."
+      "id": "tYgGEC-ESTw",
+      "title": "Reykjavik Iceland LIVE — Our World Live",
+      "embed_url": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080&enablejsapi=1",
+      "note": "Replaces unavailable iqkZCpPVeJ0. Verified 2026-09-03: live_status=is_live, playable_in_embed=true, channel=Our World Live."
     },
     "-1": {
       "type": "image-refresh",
-      "id": "webcamcaboverde-sal-odjo-dagua-still",
-      "title": "Santa Maria, Sal, Cabo Verde live still — Hotel Odjo d’Água",
-      "url": "https://ip.webcamcaboverde.com/memfs/54a71dcb-628c-4915-906c-f4a8bed4585b.jpg",
-      "source_url": "https://webcamcaboverde.com/sal-island-webcam-live-djadsal-cabo-verde/",
+      "id": "skyline-live3606",
+      "title": "Cape Verde - Praia da Cruz live still — SkylineWebcams",
+      "url": "https://cdn.skylinewebcams.com/live3606.jpg",
+      "source_url": "https://www.skylinewebcams.com/en/webcam/cape-verde/sal/santa-maria/praia-da-cruz.html",
       "intervalMs": 60000,
-      "note": "HLS endpoint is currently 404; use the provider’s live-refreshing poster image so the slot stays visible."
+      "note": "Promoted from fallback after webcamcaboverde memfs timed out. Verified 2026-09-03: HTTP 200 image/jpeg."
     },
     "0": {
       "type": "youtube",
@@ -272,9 +275,10 @@
     },
     "2": {
       "type": "youtube",
-      "id": "LAJiFSw2ICc",
-      "title": "Berlin Corbusierhaus panoramic live cam",
-      "embed_url": "https://www.youtube.com/embed/LAJiFSw2ICc?autoplay=1&mute=1&controls=0&loop=1&playlist=LAJiFSw2ICc&vq=hd1080&enablejsapi=1"
+      "id": "IRqboacDNFg",
+      "title": "Berlin Alexanderplatz Panorama-Webcam mit Blick über die Hauptstadt",
+      "embed_url": "https://www.youtube.com/embed/IRqboacDNFg?autoplay=1&mute=1&controls=0&loop=1&playlist=IRqboacDNFg&vq=hd1080&enablejsapi=1",
+      "note": "Replaces ended LAJiFSw2ICc. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
     },
     "3": {
       "type": "youtube",
@@ -484,17 +488,17 @@
     "-6": [
       {
         "type": "youtube",
-        "id": "36mNi1GN1AE",
-        "title": "Paseo de la Reforma en vivo — webcamsdemexico",
-        "embed_url": "https://www.youtube.com/embed/36mNi1GN1AE?autoplay=1&mute=1&controls=0&loop=1&playlist=36mNi1GN1AE&vq=hd1080&enablejsapi=1",
-        "note": "CDMX regional fallback. Verified 2026-06-28: live_status=is_live, playable_in_embed=true, tunnel HLS 200 application/vnd.apple.mpegurl."
+        "id": "xytHO8TgCBE",
+        "title": "Volcán Popocatépetl En Vivo — Vista Tlamacas",
+        "embed_url": "https://www.youtube.com/embed/xytHO8TgCBE?autoplay=1&mute=1&controls=0&loop=1&playlist=xytHO8TgCBE&vq=hd1080&enablejsapi=1",
+        "note": "UTC-6 Mexico volcano live cam. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       },
       {
         "type": "youtube",
-        "id": "UdZxw7rKqrw",
-        "title": "Fuego Volcano Guatemala 24/7 fallback — afarTV",
-        "embed_url": "https://www.youtube.com/embed/UdZxw7rKqrw?autoplay=1&mute=1&controls=0&loop=1&playlist=UdZxw7rKqrw&vq=hd1080&enablejsapi=1",
-        "note": "UTC-6 regional fallback. Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
+        "id": "cNW2nytVkfs",
+        "title": "Fuego Volcano Eruption 24/7 in 4K Ultra HD — afarTV",
+        "embed_url": "https://www.youtube.com/embed/cNW2nytVkfs?autoplay=1&mute=1&controls=0&loop=1&playlist=cNW2nytVkfs&vq=hd1080&enablejsapi=1",
+        "note": "UTC-6 Central America volcano live cam. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       }
     ],
     "4": [
@@ -514,39 +518,35 @@
     "-9": [
       {
         "type": "youtube",
-        "id": "hm9iAviOZ20",
-        "title": "Surfline Hawaii multi-cam fallback",
-        "embed_url": "https://www.youtube.com/embed/hm9iAviOZ20?autoplay=1&mute=1&controls=0&loop=1&playlist=hm9iAviOZ20&vq=hd1080&enablejsapi=1"
+        "id": "iws3rh5vLAQ",
+        "title": "Kilauea Volcano Hawaii 24/7 Livestream",
+        "embed_url": "https://www.youtube.com/embed/iws3rh5vLAQ?autoplay=1&mute=1&controls=0&loop=1&playlist=iws3rh5vLAQ&vq=hd1080&enablejsapi=1",
+        "note": "Hawaii UTC-9 active volcano stream. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       }
     ],
     "-3": [
       {
         "type": "youtube",
-        "id": "8GjxwU0F84M",
-        "title": "Brazil São Paulo rail live fallback",
-        "embed_url": "https://www.youtube.com/embed/8GjxwU0F84M?autoplay=1&mute=1&controls=0&loop=1&playlist=8GjxwU0F84M&vq=hd1080&enablejsapi=1"
+        "id": "9HHg3tv9Oas",
+        "title": "SBGR LIVE 4K — Aeroporto Internacional de Guarulhos AO VIVO",
+        "embed_url": "https://www.youtube.com/embed/9HHg3tv9Oas?autoplay=1&mute=1&controls=0&loop=1&playlist=9HHg3tv9Oas&vq=hd1080&enablejsapi=1",
+        "note": "Brazil UTC-3 airport live cam. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       },
       {
         "type": "youtube",
-        "id": "qyoZi1EbRO4",
-        "title": "Brazil Embú Guaçu rail live fallback",
-        "embed_url": "https://www.youtube.com/embed/qyoZi1EbRO4?autoplay=1&mute=1&controls=0&loop=1&playlist=qyoZi1EbRO4&vq=hd1080&enablejsapi=1"
+        "id": "VahCvcV-9rk",
+        "title": "Trem ao Vivo Embú Guaçu SP Brasil",
+        "embed_url": "https://www.youtube.com/embed/VahCvcV-9rk?autoplay=1&mute=1&controls=0&loop=1&playlist=VahCvcV-9rk&vq=hd1080&enablejsapi=1",
+        "note": "Brazil UTC-3 rail live cam. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       }
     ],
     "-2": [
       {
         "type": "youtube",
-        "id": "4B-xBkUX4jM",
-        "title": "Iceland Volcano Watch fallback",
-        "embed_url": "https://www.youtube.com/embed/4B-xBkUX4jM?autoplay=1&mute=1&controls=0&loop=1&playlist=4B-xBkUX4jM&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-05-28: live_status=is_live, playable_in_embed=true, channel=afarTV."
-      },
-      {
-        "type": "youtube",
-        "id": "tYgGEC-ESTw",
-        "title": "Reykjavik Iceland LIVE fallback",
-        "embed_url": "https://www.youtube.com/embed/tYgGEC-ESTw?autoplay=1&mute=1&controls=0&loop=1&playlist=tYgGEC-ESTw&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-05-28: live_status=is_live, playable_in_embed=true, channel=Our World Live."
+        "id": "qkSvU9j4kqM",
+        "title": "Iceland Volcano Watch Multi-cams 24/7 — afarTV",
+        "embed_url": "https://www.youtube.com/embed/qkSvU9j4kqM?autoplay=1&mute=1&controls=0&loop=1&playlist=qkSvU9j4kqM&vq=hd1080&enablejsapi=1",
+        "note": "Iceland UTC-2 volcano multi-cam live stream. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       }
     ],
     "11": [],
@@ -574,25 +574,19 @@
     ],
     "-1": [
       {
-        "type": "image-refresh",
-        "id": "skyline-live3606",
-        "title": "Cape Verde - Praia da Cruz live still fallback",
-        "url": "https://cdn.skylinewebcams.com/live3606.jpg",
-        "intervalMs": 60000
+        "type": "youtube",
+        "id": "bZah1iB1xeI",
+        "title": "Teide Volcano Live Monitoring 24/7 — Tenerife",
+        "embed_url": "https://www.youtube.com/embed/bZah1iB1xeI?autoplay=1&mute=1&controls=0&loop=1&playlist=bZah1iB1xeI&vq=hd1080&enablejsapi=1",
+        "note": "Atlantic UTC-1 volcano monitoring. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       }
     ],
     "-10": [
       {
         "type": "youtube",
-        "id": "vytmBNhc9ig",
-        "title": "afarTV NASA/Earth from Space live fallback",
-        "embed_url": "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080&enablejsapi=1"
-      },
-      {
-        "type": "youtube",
-        "id": "6JTS9S16axQ",
-        "title": "ISS Earth from Space 24/7 fallback",
-        "embed_url": "https://www.youtube.com/embed/6JTS9S16axQ?autoplay=1&mute=1&controls=0&loop=1&playlist=6JTS9S16axQ&vq=hd1080&enablejsapi=1"
+        "id": "tj4knR4r1UU",
+        "title": "NASA ISS 24/7 Earth from Space Live Stream",
+        "embed_url": "https://www.youtube.com/embed/tj4knR4r1UU?autoplay=1&mute=1&controls=0&loop=1&playlist=tj4knR4r1UU&vq=hd1080&enablejsapi=1"
       },
       {
         "type": "youtube",
