@@ -202,6 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
             `,
             diablo: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; color: black; line-height: 1.5;">
+                    <iframe class="diablo-video" src="https://www.youtube.com/embed/qxbl1RnUT-c?modestbranding=1&rel=0&autoplay=0" title="Diablo case film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div style="font-size: 12px; line-height: 1.5; margin: 8px 0 22px 0; color: #555; text-transform: lowercase;">case film:</div>
+
                     <p><strong>Brief:</strong><br>Create a launch campaign that breaks through culture in a way unique to Diablo.</p>
 
                     <p><strong>Background:</strong><br>Diablo is set in an underworld inspired by Hell. An underworld like our "hell" is not a concept unique to the West, and neither is being scared shitless by it.</p>
@@ -218,9 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <sup>3</sup>In Norse traditions, Vikings honored their dead by burying them with grave goods such as weapons, jewelry, and tools, reflecting their status and beliefs. Notably, some Viking burials included <a href="https://en.wikipedia.org/wiki/Norse_funeral" target="_blank">ship burials</a>, where the deceased were placed in boats along with their possessions, symbolizing their journey to the afterlife.<br>
                         <sup>4</sup>Likewise, in ancient China, it was common to include <a href="https://en.wikipedia.org/wiki/Mingqi" target="_blank">mingqi</a>, or "spirit goods," in burials. These items ranged from everyday objects to elaborate models of servants and animals, intended to serve and accompany the deceased in the afterlife.
                     </div>
-
-                    <div style="margin: 0 0 10px 0;">case film:</div>
-                    <iframe class="diablo-video" src="https://www.youtube.com/embed/qxbl1RnUT-c?modestbranding=1&rel=0&autoplay=0" title="Diablo case film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
                     <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 18px;">
                         <img src="images/Diablo/render.gif" alt="Diablo render" class="diablo-image">
