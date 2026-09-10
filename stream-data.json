@@ -139,10 +139,10 @@
       "note": "Kazakhstan UTC+5 candidate. Verified 2026-04-28 with ffprobe: MP3 128 kbps. Radio-browser tags: chill/downtempo/lo-fi/retrowave/synthwave."
     },
     "6": {
-      "url": "http://schizoid.in:8000/schizoid",
-      "status": "working",
+      "url": "http://94.130.113.214:8000/schizoid",
+      "status": "upstream-down",
       "station": "Schizoid Psychedelic Trance",
-      "note": "Goa audio source. Replaces SomaFM URL that returned empty reply. Verified 2026-06-28: HTTP 200 audio/mpeg."
+      "note": "Goa audio source. Replaces SomaFM URL that returned empty reply. Verified 2026-06-28: HTTP 200 audio/mpeg. 2026-09-10: schizoid.in DNS no longer resolves; switched to direct IP 94.130.113.214 (same host Zeno.FM lists for the station). The station server itself is currently unreachable (port 8000 times out; Zeno relay epbt6bnyw7jtv returns 503). Link form is correct and resumes when the station returns."
     },
     "7": {
       "url": "https://stream.zeno.fm/2uhuu5hvzqzuv",
