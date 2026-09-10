@@ -219,10 +219,10 @@
     },
     "-6": {
       "type": "youtube",
-      "id": "0Z3ZLD9JNLs",
-      "title": "Paseo de la Reforma en CDMX desde Hotel B Urban Xaman Reforma — webcamsdemexico",
-      "embed_url": "https://www.youtube.com/embed/0Z3ZLD9JNLs?autoplay=1&mute=1&controls=0&loop=1&playlist=0Z3ZLD9JNLs&vq=hd1080&enablejsapi=1",
-      "note": "Replaces ended 8J3C46ImLSg. Verified 2026-09-03: live_status=is_live, channel=webcamsdemexico, proxy 200 HLS."
+      "id": "xytHO8TgCBE",
+      "title": "Popocatépetl Volcano LIVE — Mexico",
+      "embed_url": "https://www.youtube.com/embed/xytHO8TgCBE?autoplay=1&mute=1&controls=0&loop=1&playlist=xytHO8TgCBE&vq=hd1080&enablejsapi=1",
+      "note": "2026-09-11: CDMX Reforma 0Z3ZLD9JNLs died ('live stream recording is not available'); promoted verified fallback Popocatépetl xytHO8TgCBE. Verified 2026-09-11: yt-dlp resolves, proxy 200 HLS. Fuego cNW2nytVkfs remains a live fallback."
     },
     "-5": {
       "type": "youtube",
@@ -233,10 +233,10 @@
     },
     "-4": {
       "type": "youtube",
-      "id": "Sr_jX-yYkNY",
-      "title": "Faucons UdeM Montréal live cam",
-      "embed_url": "https://www.youtube.com/embed/Sr_jX-yYkNY?autoplay=1&mute=1&controls=0&loop=1&playlist=Sr_jX-yYkNY&vq=hd1080&enablejsapi=1",
-      "note": "Promoted from fallback after C6eSiTr3SE8 became unavailable. Verified 2026-06-25: live_status=is_live, playable_in_embed=true, channel=Faucons UdeM."
+      "id": "hoz0vk-9ww8",
+      "title": "LIVE Montreal Trudeau Airport CYUL 24/7 Webcam Runway 24R — Moore Equipment Ltd.",
+      "embed_url": "https://www.youtube.com/embed/hoz0vk-9ww8?autoplay=1&mute=1&controls=0&loop=1&playlist=hoz0vk-9ww8&vq=hd1080&enablejsapi=1",
+      "note": "2026-09-11: Faucons UdeM Sr_jX-yYkNY ended (falcons left the nest); airport predecessor C6eSiTr3SE8 also dead. Replaced with the channel's current 24/7 airport stream. Verified 2026-09-11: live_status=is_live, yt-dlp resolves."
     },
     "-3": {
       "type": "youtube",
