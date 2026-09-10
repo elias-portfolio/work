@@ -259,6 +259,13 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             `,
             edmon: `
 <div style="font-size: 16px; font-family: 'Suisse', sans-serif; color: black; line-height: 1.5;">
+    <!-- ASCII caution tape -->
+    <div style="background: #f5c400; color: #111; font-family: 'Courier New', monospace; text-align: center; padding: 6px 0; margin-bottom: 28px; overflow: hidden; border-radius: 2px; user-select: none;">
+        <div style="white-space: nowrap; font-size: 13px; line-height: 1.1; letter-spacing: -1px; font-weight: bold;">//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
+        <div style="font-size: 15px; font-weight: bold; letter-spacing: 3px; line-height: 1.4; padding: 2px 8px;">UNDER CONSTRUCTION &mdash; STILL AWAITING ASSETS</div>
+        <div style="white-space: nowrap; font-size: 13px; line-height: 1.1; letter-spacing: -1px; font-weight: bold;">//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
+    </div>
+
     <p style="margin-top: 0;">
         EdMon is an AI-assisted post-production toolkit for automated footage logging, natural language search, transcription, and story assembly.
     </p>
