@@ -444,47 +444,51 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             maya: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
                     <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 10px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
-                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Below is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">Starting from signs in the Dresden Codex—the 13th-century bark-paper screenfold that became the key to deciphering Maya astronomical tables, described by Michael D. Coe in <em>Breaking the Maya Code</em> as “the greatest of the four surviving Maya books”—we are trying to build the first digital Maya font that can carry the logic of Maya glyphs into contemporary type software.</p>
                 </div>
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 18px; align-items: start;">
-                    <figure style="margin: 0; line-height: 0;">
-                        <div id="maya-card-1" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #000000;">
-                            <img id="maya-img-1" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph 1" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; pointer-events: none; filter: invert(1);">
+                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
+                        <div id="maya-card-1" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #000000;">
+                            <img id="maya-img-1" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; filter: invert(1); margin: 0;">
                         </div>
-                        <figcaption id="maya-caption-1" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T100 • #000000</figcaption>
+                        <figcaption id="maya-caption-1" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T100</figcaption>
                     </figure>
-                    <figure style="margin: 0; line-height: 0;">
-                        <div id="maya-card-2" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #FFFFFF;">
-                            <img id="maya-img-2" src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Maya glyph 2" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; pointer-events: none;">
+                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
+                        <div id="maya-card-2" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #FFFFFF;">
+                            <img id="maya-img-2" src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Maya glyph 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; margin: 0;">
                         </div>
-                        <figcaption id="maya-caption-2" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T101 • #FFFFFF</figcaption>
+                        <figcaption id="maya-caption-2" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T101</figcaption>
                     </figure>
-                    <figure style="margin: 0; line-height: 0;">
-                        <div id="maya-card-3" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #FFFFFF;">
-                            <img id="maya-img-3" src="maya/references/svg/bauhaus_glyph_000200.svg" alt="Maya glyph 3" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; pointer-events: none;">
+                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
+                        <div id="maya-card-3" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #FFFFFF;">
+                            <img id="maya-img-3" src="maya/references/svg/bauhaus_glyph_000200.svg" alt="Maya glyph 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; margin: 0;">
                         </div>
-                        <figcaption id="maya-caption-3" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T200 • #FFFFFF</figcaption>
+                        <figcaption id="maya-caption-3" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T200</figcaption>
                     </figure>
-                    <figure style="margin: 0; line-height: 0;">
-                        <div id="maya-card-4" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box; background: #000000;">
-                            <img id="maya-img-4" src="maya/references/svg/bauhaus_glyph_000300.svg" alt="Maya glyph 4" style="max-width: 85%; max-height: 85%; object-fit: contain; display: block; pointer-events: none; filter: invert(1);">
+                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
+                        <div id="maya-card-4" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #000000;">
+                            <img id="maya-img-4" src="maya/references/svg/bauhaus_glyph_000300.svg" alt="Maya glyph 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; filter: invert(1); margin: 0;">
                         </div>
-                        <figcaption id="maya-caption-4" style="font-size: 11px; line-height: 1.5; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">T300 • #000000</figcaption>
+                        <figcaption id="maya-caption-4" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T300</figcaption>
                     </figure>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">
-                    <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font that can carry the logic of Maya glyphs into contemporary type software.</p>
+                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Below is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
                 </div>
 
                 <div style="margin: 20px 0 20px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
-                    <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Dresden Codex glyph scan for the Maya font project" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f4f0df;">
+                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
+                        <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; background: #f4f0df;">
+                            <img class="maya-square-img" src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Dresden Codex glyph scan for the Maya font project" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 !important;">
+                        </div>
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
                     </figure>
-                    <figure style="margin: 0; line-height: 0;">
-                        <img src="maya/references/dresden-codex-glyph-03-vectorized.jpg?v=clean-20260506" alt="Vectorized Maya sign variant for the digital font" style="width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 5px; display: block; margin-bottom: 0 !important; background: #f8f4e8;">
+                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
+                        <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; background: #f8f4e8;">
+                            <img class="maya-square-img" src="maya/references/dresden-codex-glyph-03-vectorized.jpg?v=clean-20260506" alt="Vectorized Maya sign variant for the digital font" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 !important;">
+                        </div>
                         <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Vectorized font drawing</figcaption>
                     </figure>
                 </div>

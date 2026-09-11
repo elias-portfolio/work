@@ -234,6 +234,47 @@ body.is-mobile #content-display img[style] {
     margin-bottom: 16px !important;
 }
 
+body.mobile-prototype #content-display [id^="maya-card"],
+body.is-mobile #content-display [id^="maya-card"] {
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+body.mobile-prototype #content-display [id^="maya-card"] img,
+body.is-mobile #content-display [id^="maya-card"] img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 22px !important;
+    box-sizing: border-box !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+body.mobile-prototype #content-display .maya-square-img,
+body.is-mobile #content-display .maya-square-img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
 body.mobile-prototype #content-display iframe,
 body.is-mobile #content-display iframe {
     display: block;

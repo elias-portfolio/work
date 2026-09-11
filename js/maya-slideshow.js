@@ -56,7 +56,7 @@
             img.src = "maya/references/svg/" + glyph.file;
             img.style.filter = this.dark[i] ? "invert(1)" : "";
             card.style.backgroundColor = color;
-            if (cap) cap.textContent = `${glyph.id} • ${color}`;
+            if (cap) cap.textContent = glyph.id;
         }
 
         flipCard(i) {
