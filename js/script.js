@@ -444,7 +444,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             maya: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
                     <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 10px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
-                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">Starting from signs in the Dresden Codex—the 13th-century bark-paper screenfold that became the key to deciphering Maya astronomical tables, described by Michael D. Coe in <em>Breaking the Maya Code</em> as “the greatest of the four surviving Maya books”—we are trying to build the first digital Maya font that can carry the logic of Maya glyphs into contemporary type software.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">Starting from signs in the Dresden Codex—the 13th-century bark-paper screenfold that became the key to deciphering Maya astronomical tables, described by Michael D. Coe in <em>Breaking the Maya Code</em> as “the greatest of the four surviving Maya books”—we are trying to build the first digital Maya font that can carry the logic of Maya glyphs into the digital age.</p>
                 </div>
 
                 <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 18px; align-items: start;">
