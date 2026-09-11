@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const content = {
-            banned: ` 2.am is a site that only plays radio from where in the world it currently is 2am. for those who love night radio.
+            banned: ` <a href="2amtext.html" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">2.am</a> is a site that only plays radio from where in the world it currently is 2am. for those who love night radio.
               
                     <div id="iframe-container" style="margin-top: 20px; margin-bottom: 20px; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0; overflow: visible;">
                         <!-- Old globe prototype kept in repo, but the portfolio now shows the canonical 2amtext.html view -->
@@ -475,7 +475,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">
-                    <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font: not a decorative alphabet, but a usable writing system that can carry the logic of Maya glyphs into contemporary type software.</p>
+                    <p style="margin-top: 0;">Starting from signs in the Dresden Codex, we are trying to build the first digital Maya font that can carry the logic of Maya glyphs into contemporary type software.</p>
                 </div>
 
                 <div style="margin: 20px 0 20px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
