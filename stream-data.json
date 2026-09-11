@@ -448,33 +448,24 @@
     }
   },
   "videoStreamBackups": {
+    "_note_2026_09_12": "Purged 10 dead ('live stream recording is not available') and 2 private IDs. All remaining entries verified live with yt-dlp on 2026-09-12.",
     "-12": [
-      "https://www.youtube.com/embed/DIgkvm2nmHc?autoplay=1&mute=1&controls=0&loop=1&playlist=DIgkvm2nmHc&vq=hd1080",
-      "https://www.youtube.com/embed/og8bbxl0iW8?autoplay=1&mute=1&controls=0&loop=1&playlist=og8bbxl0iW8&vq=hd1080"
-    ],
-    "-11": [
-      "https://www.youtube.com/embed/yf5cEJULZXk?autoplay=1&mute=1&controls=0&loop=1&playlist=yf5cEJULZXk&vq=hd1080",
-      "https://www.youtube.com/embed/3nyPER2kzqk?autoplay=1&mute=1&controls=0&loop=1&playlist=3nyPER2kzqk&vq=hd1080"
-    ],
-    "-10": [
-      "https://www.youtube.com/embed/vytmBNhc9ig?autoplay=1&mute=1&controls=0&loop=1&playlist=vytmBNhc9ig&vq=hd1080",
-      "https://www.youtube.com/embed/6JTS9S16axQ?autoplay=1&mute=1&controls=0&loop=1&playlist=6JTS9S16axQ&vq=hd1080",
+      "https://www.youtube.com/embed/tj4knR4r1UU?autoplay=1&mute=1&controls=0&loop=1&playlist=tj4knR4r1UU&vq=hd1080",
       "https://www.youtube.com/embed/OKQEMp2555A?autoplay=1&mute=1&controls=0&loop=1&playlist=OKQEMp2555A&vq=hd1080"
     ],
-    "-5": [
-      "https://www.youtube.com/embed/UH9Jv_NEdcc?autoplay=1&mute=1&controls=0&loop=1&playlist=UH9Jv_NEdcc&vq=hd1080",
-      "https://www.youtube.com/embed/BSC7c-nzVl8?autoplay=1&mute=1&controls=0&loop=1&playlist=BSC7c-nzVl8&vq=hd1080",
-      "https://www.youtube.com/embed/Wo9MZfEMAaY?autoplay=1&mute=1&controls=0&loop=1&playlist=Wo9MZfEMAaY&vq=hd1080",
-      "https://www.youtube.com/embed/butK9aqBY1E?autoplay=1&mute=1&controls=0&loop=1&playlist=butK9aqBY1E&vq=hd1080"
+    "-11": [
+      "https://www.youtube.com/embed/awQzjn72bI0?autoplay=1&mute=1&controls=0&loop=1&playlist=awQzjn72bI0&vq=hd1080",
+      "https://www.youtube.com/embed/OKQEMp2555A?autoplay=1&mute=1&controls=0&loop=1&playlist=OKQEMp2555A&vq=hd1080"
+    ],
+    "-10": [
+      "https://www.youtube.com/embed/OKQEMp2555A?autoplay=1&mute=1&controls=0&loop=1&playlist=OKQEMp2555A&vq=hd1080",
+      "https://www.youtube.com/embed/tj4knR4r1UU?autoplay=1&mute=1&controls=0&loop=1&playlist=tj4knR4r1UU&vq=hd1080"
     ],
     "-6": [
-      "https://www.youtube.com/embed/z9JpMNJYuYg?autoplay=1&mute=1&controls=0&loop=1&playlist=z9JpMNJYuYg&vq=hd1080"
+      "https://www.youtube.com/embed/cNW2nytVkfs?autoplay=1&mute=1&controls=0&loop=1&playlist=cNW2nytVkfs&vq=hd1080"
     ],
     "-8": [
-      "https://www.youtube.com/embed/73-EekdVVU8?autoplay=1&mute=1&controls=0&loop=1&playlist=73-EekdVVU8&vq=hd1080"
-    ],
-    "12": [
-      "https://www.youtube.com/embed/3szkFHfr6sA?autoplay=1&mute=1&controls=0&loop=1&playlist=3szkFHfr6sA&vq=hd1080"
+      "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080"
     ]
   },
   "zonePopulationNotes": {
@@ -551,12 +542,6 @@
     "8": [
       {
         "type": "youtube",
-        "id": "UKkc40WQm0c",
-        "title": "Wolong Grove Giant Panda Cam fallback",
-        "embed_url": "https://www.youtube.com/embed/UKkc40WQm0c?autoplay=1&mute=1&controls=0&loop=1&playlist=UKkc40WQm0c&vq=hd1080&enablejsapi=1"
-      },
-      {
-        "type": "youtube",
         "id": "Y1XxYLwpJy4",
         "title": "Kyoto Japan live camera fallback",
         "embed_url": "https://www.youtube.com/embed/Y1XxYLwpJy4?autoplay=1&mute=1&controls=0&loop=1&playlist=Y1XxYLwpJy4&vq=hd1080&enablejsapi=1"
@@ -596,31 +581,10 @@
     "-5": [
       {
         "type": "youtube",
-        "id": "KFLHtYuZShM",
-        "title": "Downtown Kingston / West Parade Jamaica Street View fallback",
-        "embed_url": "https://www.youtube.com/embed/KFLHtYuZShM?autoplay=1&mute=1&controls=0&loop=1&playlist=KFLHtYuZShM&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
-      },
-      {
-        "type": "youtube",
-        "id": "F9nkutU1i_g",
-        "title": "Half Way Tree Kingston transport centre fallback",
-        "embed_url": "https://www.youtube.com/embed/F9nkutU1i_g?autoplay=1&mute=1&controls=0&loop=1&playlist=F9nkutU1i_g&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
-      },
-      {
-        "type": "youtube",
         "id": "C71bNZ1coG4",
         "title": "Half Way Tree Clock Kingston live fallback",
         "embed_url": "https://www.youtube.com/embed/C71bNZ1coG4?autoplay=1&mute=1&controls=0&loop=1&playlist=C71bNZ1coG4&vq=hd1080&enablejsapi=1",
-        "note": "Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
-      },
-      {
-        "type": "youtube",
-        "id": "Ml9sYQ09Rwc",
-        "title": "Montego Bay live fallback — See Jamaica",
-        "embed_url": "https://www.youtube.com/embed/Ml9sYQ09Rwc?autoplay=1&mute=1&controls=0&loop=1&playlist=Ml9sYQ09Rwc&vq=hd1080&enablejsapi=1",
-        "note": "Jamaica regional fallback. Verified 2026-06-12: live_status=is_live, playable_in_embed=true."
+        "note": "2026-09-12: KFLHtYuZShM, F9nkutU1i_g and Ml9sYQ09Rwc all ended ('live stream recording is not available') and were removed; C71bNZ1coG4 verified live on 2026-09-12 and is the only remaining fallback (same as primary — no independent backup known)."
       }
     ]
   }
