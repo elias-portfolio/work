@@ -367,3 +367,62 @@ body2 {
     object-fit: contain;
     display: block;
 }
+
+.maya-generated-gallery {
+    margin: 0 0 36px 12px;
+    width: calc(100% - 12px);
+    color: #000000;
+    text-transform: none;
+}
+
+.maya-generated-gallery-intro {
+    margin: 0 0 14px;
+}
+
+.maya-generated-gallery-intro h3 {
+    margin: 0 0 6px;
+    font-family: 'Suisse', 'sans-serif';
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.maya-generated-gallery-intro p {
+    margin: 0;
+    color: #555555;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.maya-generated-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+.maya-generated-gallery-grid figure {
+    min-width: 0;
+    margin: 0;
+}
+
+.maya-generated-gallery-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background: #f8f4e8;
+}
+
+.maya-generated-gallery-grid figcaption {
+    margin-top: 6px;
+    color: #555555;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    line-height: 17px;
+}
+
+@media (max-width: 600px) {
+    .maya-generated-gallery-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

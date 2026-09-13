@@ -496,6 +496,31 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 36px 12px; max-width: calc(100% - 12px);">
                     <p style="margin-top: 0;">A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
+
+                <section class="maya-generated-gallery" aria-labelledby="maya-generated-gallery-title">
+                    <div class="maya-generated-gallery-intro">
+                        <h3 id="maya-generated-gallery-title">Generated sign studies</h3>
+                        <p>Early visual prototypes for a digital sign system. These drawings are design studies, not verified linguistic transcriptions or translations.</p>
+                    </div>
+                    <div class="maya-generated-gallery-grid">
+                        <figure><img src="images/maya/generated/t2.webp" alt="Generated Maya sign study T2" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T2</figcaption></figure>
+                        <figure><img src="images/maya/generated/t28.webp" alt="Generated Maya sign study T28, including a secondary sign variant" width="1448" height="1086" loading="lazy" decoding="async"><figcaption>T28</figcaption></figure>
+                        <figure><img src="images/maya/generated/t29.webp" alt="Generated Maya sign study T29" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T29</figcaption></figure>
+                        <figure><img src="images/maya/generated/t30.webp" alt="Generated Maya sign study T30" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T30</figcaption></figure>
+                        <figure><img src="images/maya/generated/t31.webp" alt="Generated Maya sign study T31" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T31</figcaption></figure>
+                        <figure><img src="images/maya/generated/t32.webp" alt="Generated Maya sign study T32, including surrounding sign variants" width="1448" height="1086" loading="lazy" decoding="async"><figcaption>T32</figcaption></figure>
+                        <figure><img src="images/maya/generated/t33.webp" alt="Generated Maya sign study T33" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T33</figcaption></figure>
+                        <figure><img src="images/maya/generated/t34.webp" alt="Generated Maya sign study T34" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T34</figcaption></figure>
+                        <figure><img src="images/maya/generated/t45.webp" alt="Generated Maya sign study T45, including surrounding sign variants" width="1672" height="941" loading="lazy" decoding="async"><figcaption>T45</figcaption></figure>
+                        <figure><img src="images/maya/generated/t46.webp" alt="Generated Maya sign study T46" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T46</figcaption></figure>
+                        <figure><img src="images/maya/generated/t47.webp" alt="Generated Maya sign study T47" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T47</figcaption></figure>
+                        <figure><img src="images/maya/generated/t49.webp" alt="Generated Maya sign study T49" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T49</figcaption></figure>
+                        <figure><img src="images/maya/generated/t51.webp" alt="Generated Maya sign study T51" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T51</figcaption></figure>
+                        <figure><img src="images/maya/generated/t53.webp" alt="Generated Maya sign study T53, including surrounding sign variants" width="1448" height="1086" loading="lazy" decoding="async"><figcaption>T53</figcaption></figure>
+                        <figure><img src="images/maya/generated/t55.webp" alt="Generated Maya sign study T55" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T55</figcaption></figure>
+                        <figure><img src="images/maya/generated/t56.webp" alt="Generated Maya sign study T56" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T56</figcaption></figure>
+                    </div>
+                </section>
             `,
 			scripts: ` 
 
