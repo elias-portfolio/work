@@ -410,7 +410,11 @@ body2 {
     width: 100%;
     height: auto;
     margin: 0;
-    background: #f8f4e8;
+    background: #ffffff;
+}
+
+.maya-generated-gallery-grid figure:nth-child(even) img {
+    filter: invert(1);
 }
 
 .maya-generated-gallery-grid figcaption {
