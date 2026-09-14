@@ -410,11 +410,21 @@ body2 {
 }
 
 .maya-reference-frame {
-    position: relative;
+    display: grid;
+    place-items: center;
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 5px;
     overflow: hidden;
+}
+
+.maya-reference-frame img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 86%;
+    max-height: 86%;
+    object-fit: contain;
 }
 
 .maya-reference-frame-source {

@@ -65,6 +65,13 @@ function makeDom() {
   };
   const document = {
     body,
+    hidden: false,
+    listeners: new Map(),
+    addEventListener(type, callback) { this.listeners.set(type, callback); },
+    removeEventListener(type, callback) {
+      if (this.listeners.get(type) === callback) this.listeners.delete(type);
+    },
+    dispatchVisibility() { this.listeners.get("visibilitychange")?.(); },
     getElementById(id) { return nodes.get(id) || null; },
   };
   for (let i = 1; i <= 6; i++) {
@@ -132,11 +139,13 @@ test("Maya slideshow assets, six-card rendering, and template invariants", () =>
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260914-maya-fixed-reference-v1`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=20260914-maya-polished-rhythm-v1`), `${asset} cache-busted`);
   }
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
   assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(3,/);
+  assert.match(css, /\.maya-reference-frame\s*\{[^}]*display:\s*grid[^}]*place-items:\s*center/);
+  assert.match(css, /\.maya-reference-frame img\s*\{[^}]*max-width:\s*86%[^}]*max-height:\s*86%[^}]*object-fit:\s*contain/);
 });
 
 test("six cards visit every glyph, generated asset, and JPG without first-cycle repeats", () => {
@@ -156,7 +165,7 @@ test("six cards visit every glyph, generated asset, and JPG without first-cycle 
     const live = cards(fixture).map(({ img }) => assetPath(img.src));
     assert.equal(new Set(live).size, 6, "six cards show different paths simultaneously");
     const changed = live.filter((src, i) => src !== previous[i]);
-    assert.equal(changed.length, 1, "each scheduled task changes exactly one card");
+    assert.equal(changed.length, 1, "each scheduled beat changes exactly one card");
     chronological.push(changed[0]);
     if (visited.size < expected.size) {
       assert.ok(!visited.has(changed[0]), `no first-cycle repeat before deck exhaustion: ${changed[0]}`);
@@ -194,8 +203,17 @@ test("alt text, captions, photo polarity, lifecycle cleanup, and detached cards"
   assert.ok(firstPending > 0, "init schedules timers");
   lifecycle.window.initMayaSlideshow();
   assert.equal(lifecycle.timers.pending(), firstPending, "init twice leaves only one timer set");
+  lifecycle.document.hidden = true;
+  lifecycle.document.dispatchVisibility();
+  assert.equal(lifecycle.timers.pending(), 0, "hidden tab pauses the beat");
+  lifecycle.document.hidden = false;
+  lifecycle.document.dispatchVisibility();
+  assert.equal(lifecycle.timers.pending(), firstPending, "visible tab resumes the beat");
   lifecycle.window.stopMayaSlideshow();
   assert.equal(lifecycle.timers.pending(), 0, "stop clears every timer");
+  lifecycle.document.hidden = true;
+  lifecycle.document.dispatchVisibility();
+  assert.equal(lifecycle.timers.pending(), 0, "removed visibility listener cannot restart the beat");
   lifecycle.timers.advance(20);
   assert.equal(lifecycle.timers.pending(), 0, "stopped slideshow does not resurrect timers");
 
