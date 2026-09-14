@@ -11,11 +11,12 @@
 
     let timers = [];
 
-    const IMAGE_ASSETS = [
-        { id: "Dresden Codex source scan", file: "maya/references/dresden-codex-glyph-03-source.jpg", kind: "photo", alt: "Dresden Codex source scan for the Maya font project" },
-        { id: "Vectorized font drawing", file: "maya/references/dresden-codex-glyph-03-vectorized.jpg", kind: "photo", alt: "Vectorized font drawing of a Maya sign variant" },
-        ...["t2", "t28", "t29", "t30", "t31", "t32", "t33", "t34", "t45", "t46", "t47", "t49", "t51", "t53", "t55", "t56"].map((id) => ({ id: id.toUpperCase(), file: "images/maya/generated/" + id + ".webp", kind: "generated", alt: "Generated Maya sign study " + id.toUpperCase() }))
-    ];
+    const IMAGE_ASSETS = ["t2", "t28", "t29", "t30", "t31", "t32", "t33", "t34", "t45", "t46", "t47", "t49", "t51", "t53", "t55", "t56"].map((id) => ({
+        id: id.toUpperCase(),
+        file: "images/maya/generated/" + id + ".webp",
+        kind: "generated",
+        alt: "Generated Maya sign study " + id.toUpperCase()
+    }));
 
     class MayaFlippers {
         constructor() {
@@ -66,7 +67,7 @@
         renderCard(i) {
             const { card, img, cap } = this.cards[i];
             const asset = this.activeAssets[i];
-            const dark = asset.kind !== "photo" && this.dark[i];
+            const dark = this.dark[i];
             img.src = asset.file;
             img.alt = asset.alt;
             img.style.filter = dark ? "invert(1)" : "";

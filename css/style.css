@@ -394,6 +394,45 @@ body2 {
     text-transform: none;
 }
 
+.maya-reference-grid {
+    margin: 20px 0 20px 12px;
+    width: calc(100% - 12px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px;
+    align-items: start;
+}
+
+.maya-reference-grid figure {
+    margin: 0;
+    min-width: 0;
+    line-height: 0;
+}
+
+.maya-reference-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.maya-reference-frame-source {
+    background: #F4F0DF;
+}
+
+.maya-reference-frame-result {
+    background: #F8F4E8;
+}
+
+.maya-reference-grid figcaption {
+    margin-top: 6px;
+    color: #555;
+    font-size: 12px;
+    line-height: 1.5;
+    text-transform: none;
+}
+
 .maya-generated-disclaimer {
     margin: 0 12px 36px;
     color: #555;
@@ -411,5 +450,11 @@ body2 {
 
     .maya-card-grid [id^="maya-card"] img {
         padding: 14px;
+    }
+
+    .maya-reference-grid {
+        width: 100%;
+        margin-left: 0;
+        column-gap: 12px;
     }
 }

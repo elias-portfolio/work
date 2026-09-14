@@ -120,6 +120,11 @@ test("Maya slideshow assets, six-card rendering, and template invariants", () =>
   }
   assert.doesNotMatch(appTemplate, /maya-generated-gallery/);
   assert.match(appTemplate, /maya-generated-disclaimer/);
+  assert.match(appTemplate, /maya-reference-grid/);
+  assert.match(appTemplate, /maya-reference-frame-source/);
+  assert.match(appTemplate, /maya-reference-frame-result/);
+  assert.match(appTemplate, /Dresden Codex source scan/);
+  assert.match(appTemplate, /Vectorized font drawing/);
 
   const scriptsTemplate = appTemplate.match(/scripts:\s*`([\s\S]*?)`/);
   assert.ok(scriptsTemplate, "Scripts project stays registered in the portfolio");
@@ -127,7 +132,7 @@ test("Maya slideshow assets, six-card rendering, and template invariants", () =>
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260914-maya-three-card-rows-v1`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=20260914-maya-fixed-reference-v1`), `${asset} cache-busted`);
   }
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
@@ -139,7 +144,6 @@ test("six cards visit every glyph, generated asset, and JPG without first-cycle 
   const expected = new Set([
     ...glyphFiles().map((file) => `maya/references/svg/${file}`),
     ...generatedIds.map((id) => `images/maya/generated/${id}.webp`),
-    ...jpgs,
   ]);
   fixture.window.initMayaSlideshow();
 
@@ -172,19 +176,17 @@ test("alt text, captions, photo polarity, lifecycle cleanup, and detached cards"
     assert.ok(img.alt, "rendered image has alt text");
     assert.ok(caption.textContent, "rendered card has caption");
   }
-  const photosSeen = new Set();
+  const jpgsSeen = new Set();
   for (let tick = 0; tick < 300; tick++) {
     fixture.timers.advance(1);
-    for (const { img, caption, card } of cards(fixture)) {
+    for (const { img, caption } of cards(fixture)) {
       assert.ok(img.alt.includes(caption.textContent), "alt text follows the current caption");
       if (jpgs.includes(assetPath(img.src))) {
-        photosSeen.add(assetPath(img.src));
-        assert.notEqual(img.style.filter, "invert(1)", "photos are never inverted");
-        assert.equal(card.style.backgroundColor, "#FFFFFF", "source images retain a neutral surround");
+        jpgsSeen.add(assetPath(img.src));
       }
     }
   }
-  assert.equal(photosSeen.size, jpgs.length, "both source images were actually tested");
+  assert.equal(jpgsSeen.size, 0, "beige source and vector images stay out of the cycling cards");
 
   const lifecycle = loadFixture();
   lifecycle.window.initMayaSlideshow();
