@@ -127,11 +127,11 @@ test("Maya slideshow assets, six-card rendering, and template invariants", () =>
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260914`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=20260914-maya-three-card-rows-v1`), `${asset} cache-busted`);
   }
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
-  assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2,/);
+  assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(3,/);
 });
 
 test("six cards visit every glyph, generated asset, and JPG without first-cycle repeats", () => {
