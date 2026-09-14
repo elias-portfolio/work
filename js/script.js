@@ -447,80 +447,24 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">Starting from signs in the Dresden Codex—the 13th-century bark-paper screenfold that became the key to deciphering Maya astronomical tables, described by Michael D. Coe in <em>Breaking the Maya Code</em> as “the greatest of the four surviving Maya books”—we are trying to build the first digital Maya font that can carry the logic of Maya glyphs into the digital age.</p>
                 </div>
 
-                <div style="margin: 20px 0 0 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 18px; align-items: start;">
-                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
-                        <div id="maya-card-1" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #000000;">
-                            <img id="maya-img-1" src="maya/references/svg/bauhaus_glyph_000100.svg" alt="Maya glyph 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; filter: invert(1); margin: 0;">
-                        </div>
-                        <figcaption id="maya-caption-1" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T100</figcaption>
-                    </figure>
-                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
-                        <div id="maya-card-2" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #FFFFFF;">
-                            <img id="maya-img-2" src="maya/references/svg/bauhaus_glyph_000101.svg" alt="Maya glyph 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; margin: 0;">
-                        </div>
-                        <figcaption id="maya-caption-2" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T101</figcaption>
-                    </figure>
-                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
-                        <div id="maya-card-3" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #FFFFFF;">
-                            <img id="maya-img-3" src="maya/references/svg/bauhaus_glyph_000200.svg" alt="Maya glyph 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; margin: 0;">
-                        </div>
-                        <figcaption id="maya-caption-3" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T200</figcaption>
-                    </figure>
-                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
-                        <div id="maya-card-4" style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; box-sizing: border-box; background: #000000;">
-                            <img id="maya-img-4" src="maya/references/svg/bauhaus_glyph_000300.svg" alt="Maya glyph 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 22px; box-sizing: border-box; object-fit: contain; display: block; pointer-events: none; filter: invert(1); margin: 0;">
-                        </div>
-                        <figcaption id="maya-caption-4" style="font-size: 11px; line-height: 17px; height: 17px; margin-top: 6px; color: #777; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow: hidden;">T300</figcaption>
-                    </figure>
+                <div class="maya-card-grid" aria-label="Cycling Maya glyph and image studies">
+                    <figure><div id="maya-card-1"><img id="maya-img-1" alt="Maya image study"></div><figcaption id="maya-caption-1">study</figcaption></figure>
+                    <figure><div id="maya-card-2"><img id="maya-img-2" alt="Maya image study"></div><figcaption id="maya-caption-2">study</figcaption></figure>
+                    <figure><div id="maya-card-3"><img id="maya-img-3" alt="Maya image study"></div><figcaption id="maya-caption-3">study</figcaption></figure>
+                    <figure><div id="maya-card-4"><img id="maya-img-4" alt="Maya image study"></div><figcaption id="maya-caption-4">study</figcaption></figure>
+                    <figure><div id="maya-card-5"><img id="maya-img-5" alt="Maya image study"></div><figcaption id="maya-caption-5">study</figcaption></figure>
+                    <figure><div id="maya-card-6"><img id="maya-img-6" alt="Maya image study"></div><figcaption id="maya-caption-6">study</figcaption></figure>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">
-                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. Below is a very small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
-                </div>
-
-                <div style="margin: 20px 0 20px 12px; width: calc(100% - 12px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 0; align-items: start;">
-                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
-                        <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; background: #f4f0df;">
-                            <img class="maya-square-img" src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Dresden Codex glyph scan for the Maya font project" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 !important;">
-                        </div>
-                        <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Dresden Codex source scan</figcaption>
-                    </figure>
-                    <figure style="margin: 0; line-height: 0; width: 100%; min-width: 0;">
-                        <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 5px; overflow: hidden; background: #f8f4e8;">
-                            <img class="maya-square-img" src="maya/references/dresden-codex-glyph-03-vectorized.jpg?v=clean-20260506" alt="Vectorized Maya sign variant for the digital font" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 !important;">
-                        </div>
-                        <figcaption style="font-size: 12px; line-height: 1.5; margin-top: 6px; color: #555;">Vectorized font drawing</figcaption>
-                    </figure>
+                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. The cards above cycle through a small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 36px 12px; max-width: calc(100% - 12px);">
                     <p style="margin-top: 0;">A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>
                 </div>
 
-                <section class="maya-generated-gallery" aria-labelledby="maya-generated-gallery-title">
-                    <div class="maya-generated-gallery-intro">
-                        <h3 id="maya-generated-gallery-title">Generated sign studies</h3>
-                        <p>Early visual prototypes for a digital sign system. These drawings are design studies, not verified linguistic transcriptions or translations.</p>
-                    </div>
-                    <div class="maya-generated-gallery-grid">
-                        <figure><img src="images/maya/generated/t2.webp" alt="Generated Maya sign study T2" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T2</figcaption></figure>
-                        <figure><img src="images/maya/generated/t28.webp" alt="Generated Maya sign study T28, including a secondary sign variant" width="1448" height="1086" loading="lazy" decoding="async"><figcaption>T28</figcaption></figure>
-                        <figure><img src="images/maya/generated/t29.webp" alt="Generated Maya sign study T29" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T29</figcaption></figure>
-                        <figure><img src="images/maya/generated/t30.webp" alt="Generated Maya sign study T30" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T30</figcaption></figure>
-                        <figure><img src="images/maya/generated/t31.webp" alt="Generated Maya sign study T31" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T31</figcaption></figure>
-                        <figure><img src="images/maya/generated/t32.webp" alt="Generated Maya sign study T32, including surrounding sign variants" width="1448" height="1086" loading="lazy" decoding="async"><figcaption>T32</figcaption></figure>
-                        <figure><img src="images/maya/generated/t33.webp" alt="Generated Maya sign study T33" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T33</figcaption></figure>
-                        <figure><img src="images/maya/generated/t34.webp" alt="Generated Maya sign study T34" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T34</figcaption></figure>
-                        <figure><img src="images/maya/generated/t45.webp" alt="Generated Maya sign study T45, including surrounding sign variants" width="1672" height="941" loading="lazy" decoding="async"><figcaption>T45</figcaption></figure>
-                        <figure><img src="images/maya/generated/t46.webp" alt="Generated Maya sign study T46" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T46</figcaption></figure>
-                        <figure><img src="images/maya/generated/t47.webp" alt="Generated Maya sign study T47" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T47</figcaption></figure>
-                        <figure><img src="images/maya/generated/t49.webp" alt="Generated Maya sign study T49" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T49</figcaption></figure>
-                        <figure><img src="images/maya/generated/t51.webp" alt="Generated Maya sign study T51" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T51</figcaption></figure>
-                        <figure><img src="images/maya/generated/t53.webp" alt="Generated Maya sign study T53, including surrounding sign variants" width="1448" height="1086" loading="lazy" decoding="async"><figcaption>T53</figcaption></figure>
-                        <figure><img src="images/maya/generated/t55.webp" alt="Generated Maya sign study T55" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T55</figcaption></figure>
-                        <figure><img src="images/maya/generated/t56.webp" alt="Generated Maya sign study T56" width="1254" height="1254" loading="lazy" decoding="async"><figcaption>T56</figcaption></figure>
-                    </div>
-                </section>
+                <p class="maya-generated-disclaimer">Generated sign studies are early visual prototypes for a digital sign system, not verified linguistic transcriptions or translations.</p>
             `,
 			scripts: ` 
 

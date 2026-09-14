@@ -368,65 +368,44 @@ body2 {
     display: block;
 }
 
-.maya-generated-gallery {
-    margin: 0 0 36px 12px;
+.maya-card-grid {
+    margin: 20px 0 0 12px;
     width: calc(100% - 12px);
-    color: #000000;
-    text-transform: none;
-}
-
-.maya-generated-gallery-intro {
-    margin: 0 0 14px;
-}
-
-.maya-generated-gallery-intro h3 {
-    margin: 0 0 6px;
-    font-family: 'Suisse', 'sans-serif';
-    font-size: 16px;
-    font-weight: normal;
-}
-
-.maya-generated-gallery-intro p {
-    margin: 0;
-    color: #555555;
-    font-size: 13px;
-    line-height: 1.45;
-}
-
-.maya-generated-gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
-    align-items: start;
 }
-
-.maya-generated-gallery-grid figure {
+.maya-card-grid figure {
+    margin: 0;
     min-width: 0;
-    margin: 0;
 }
 
-.maya-generated-gallery-grid img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    background: #ffffff;
+.maya-card-grid [id^="maya-card"] {
+    background: #FFFFFF;
+    border-radius: 5px;
 }
 
-.maya-generated-gallery-grid figure:nth-child(even) img {
-    filter: invert(1);
-}
-
-.maya-generated-gallery-grid figcaption {
+.maya-card-grid figcaption {
+    font: 11px/17px ui-monospace, SFMono-Regular, Menlo, monospace;
+    min-height: 34px;
     margin-top: 6px;
-    color: #555555;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11px;
-    line-height: 17px;
+    color: #777;
+    overflow-wrap: anywhere;
+    text-transform: none;
+}
+
+.maya-generated-disclaimer {
+    margin: 0 12px 36px;
+    color: #555;
+    font-size: 13px;
+    line-height: 1.45;
+    text-transform: none;
 }
 
 @media (max-width: 600px) {
-    .maya-generated-gallery-grid {
-        grid-template-columns: minmax(0, 1fr);
+    .maya-card-grid {
+        width: 100%;
+        margin-left: 0;
+        gap: 12px;
     }
 }
