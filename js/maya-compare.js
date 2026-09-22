@@ -11,15 +11,20 @@
             root.setAttribute("aria-valuenow", String(Math.round(percent)));
         };
 
+        let dragging = false;
         const move = (event) => {
-            if (event.pointerId !== undefined && event.buttons === 0) return;
+            if (!dragging) return;
             setPosition(event.clientX);
         };
 
         root.addEventListener("pointerdown", (event) => {
+            dragging = true;
             root.setPointerCapture?.(event.pointerId);
+            event.preventDefault();
             setPosition(event.clientX);
         });
+        root.addEventListener("pointerup", () => { dragging = false; });
+        root.addEventListener("pointercancel", () => { dragging = false; });
         root.addEventListener("pointermove", move);
         root.addEventListener("keydown", (event) => {
             const current = Number(root.getAttribute("aria-valuenow")) || 50;

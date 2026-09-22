@@ -84,8 +84,14 @@
             this.stopLoop();
             this.running = true;
             const interval = setInterval(() => {
-                this.change(this.beat);
-                this.beat = (this.beat + 1) % CARD_COUNT;
+                const first = Math.floor(Math.random() * CARD_COUNT);
+                let cardIndex = first;
+                for (let offset = 1; offset < CARD_COUNT; offset++) {
+                    if (cardIndex !== this.previousCard) break;
+                    cardIndex = (first + offset) % CARD_COUNT;
+                }
+                this.change(cardIndex);
+                this.previousCard = cardIndex;
             }, CHANGE_MS);
             timers.push(interval);
         }

@@ -418,6 +418,10 @@ body2 {
     height: 100%;
     object-fit: contain;
     display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    user-select: none;
 }
 
 .maya-compare-after {

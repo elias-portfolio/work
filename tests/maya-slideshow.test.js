@@ -102,8 +102,11 @@ function loadFixture() {
   const timers = makeTimers();
   const dom = makeDom();
   const window = {};
+  const randomValues = [0, 0.5, 0.25, 0.75, 0.125, 0.875, 0.375, 0.625, 0.0625, 0.5625, 0.3125, 0.8125, 0.1875, 0.6875, 0.4375, 0.9375];
+  let randomIndex = 0;
   const context = vm.createContext({
     window, document: dom.document,
+    Math: Object.assign(Object.create(Math), { random: () => randomValues[randomIndex++ % randomValues.length] }),
     setTimeout: timers.setTimeout, setInterval: timers.setInterval,
     clearTimeout: timers.clearTimeout, clearInterval: timers.clearInterval,
   });
@@ -166,6 +169,22 @@ test("Maya slideshow assets, sixteen-card rendering, and template invariants", (
   assert.match(css, /\.maya-compare-before\s*\{[^}]*width:\s*var\(--maya-compare-position\)/);
   assert.doesNotMatch(css, /@keyframes\s+maya-card-flip/);
   assert.doesNotMatch(css, /animation:\s*maya-card-flip/);
+  assert.match(css, /\.maya-compare-image\s*\{[^}]*pointer-events:\s*none[^}]*user-select:\s*none/);
+});
+
+test("successive gallery updates choose non-adjacent random cards", () => {
+  const fixture = loadFixture();
+  fixture.window.initMayaSlideshow();
+  const initial = cards(fixture).map(({ img }) => assetPath(img.src));
+  fixture.timers.advance(1);
+  const first = cards(fixture).map(({ img }) => assetPath(img.src));
+  fixture.timers.advance(1);
+  const second = cards(fixture).map(({ img }) => assetPath(img.src));
+  const changedFirst = first.flatMap((src, index) => src !== initial[index] ? [index] : []);
+  const changedSecond = second.flatMap((src, index) => src !== first[index] ? [index] : []);
+  assert.equal(changedFirst.length, 1);
+  assert.equal(changedSecond.length, 1);
+  assert.notEqual(changedSecond[0], changedFirst[0]);
 });
 
 test("each card cycles both glyph and generated study assets", () => {
