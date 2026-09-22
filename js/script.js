@@ -456,6 +456,14 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <figure><div id="maya-card-6"><img id="maya-img-6" alt="Maya image study"></div><figcaption id="maya-caption-6">study</figcaption></figure>
                     <figure><div id="maya-card-7"><img id="maya-img-7" alt="Maya image study"></div><figcaption id="maya-caption-7">study</figcaption></figure>
                     <figure><div id="maya-card-8"><img id="maya-img-8" alt="Maya image study"></div><figcaption id="maya-caption-8">study</figcaption></figure>
+                    <figure><div id="maya-card-9"><img id="maya-img-9" alt="Maya image study"></div><figcaption id="maya-caption-9">study</figcaption></figure>
+                    <figure><div id="maya-card-10"><img id="maya-img-10" alt="Maya image study"></div><figcaption id="maya-caption-10">study</figcaption></figure>
+                    <figure><div id="maya-card-11"><img id="maya-img-11" alt="Maya image study"></div><figcaption id="maya-caption-11">study</figcaption></figure>
+                    <figure><div id="maya-card-12"><img id="maya-img-12" alt="Maya image study"></div><figcaption id="maya-caption-12">study</figcaption></figure>
+                    <figure><div id="maya-card-13"><img id="maya-img-13" alt="Maya image study"></div><figcaption id="maya-caption-13">study</figcaption></figure>
+                    <figure><div id="maya-card-14"><img id="maya-img-14" alt="Maya image study"></div><figcaption id="maya-caption-14">study</figcaption></figure>
+                    <figure><div id="maya-card-15"><img id="maya-img-15" alt="Maya image study"></div><figcaption id="maya-caption-15">study</figcaption></figure>
+                    <figure><div id="maya-card-16"><img id="maya-img-16" alt="Maya image study"></div><figcaption id="maya-caption-16">study</figcaption></figure>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">

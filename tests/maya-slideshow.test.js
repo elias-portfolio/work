@@ -78,7 +78,7 @@ function makeDom() {
     dispatchVisibility() { this.listeners.get("visibilitychange")?.(); },
     getElementById(id) { return nodes.get(id) || null; },
   };
-  for (let i = 1; i <= 8; i++) {
+  for (let i = 1; i <= 16; i++) {
     const classes = new Set();
     const card = {
       id: `maya-card-${i}`,
@@ -112,7 +112,7 @@ function loadFixture() {
 }
 
 function cards(fixture) {
-  return Array.from({ length: 8 }, (_, n) => ({
+  return Array.from({ length: 16 }, (_, n) => ({
     card: fixture.nodes.get(`maya-card-${n + 1}`),
     img: fixture.nodes.get(`maya-img-${n + 1}`),
     caption: fixture.nodes.get(`maya-caption-${n + 1}`),
@@ -127,15 +127,15 @@ function assertAssetPathsExist(paths) {
   for (const asset of paths) assert.ok(fs.existsSync(path.join(root, asset)), asset);
 }
 
-test("Maya slideshow assets, six-card rendering, and template invariants", () => {
+test("Maya slideshow assets, sixteen-card rendering, and template invariants", () => {
   const glyphs = glyphFiles();
   const generated = generatedIds.map((id) => `images/maya/generated/${id}.webp`);
   assertAssetPathsExist([...glyphs.map((file) => `maya/references/svg/${file}`), ...generated, ...jpgs]);
 
   assert.match(appTemplate, /id="maya-card-1"/);
-  assert.equal((appTemplate.match(/id="maya-card-[1-8]"/g) || []).length, 8);
+  assert.equal((appTemplate.match(/id="maya-card-(?:[1-9]|1[0-6])"/g) || []).length, 16);
   assert.doesNotMatch(slideshowSource, /Image|preload|transition|animation/);
-  for (let i = 1; i <= 8; i++) {
+  for (let i = 1; i <= 16; i++) {
     const figure = appTemplate.match(new RegExp(`<figure>[\\s\\S]*?id="maya-card-${i}"[\\s\\S]*?</figure>`));
     assert.ok(figure, `card ${i} has figure wrapper`);
     assert.match(figure[0], new RegExp(`<div id="maya-card-${i}">[\\s\\S]*</div>\\s*<figcaption[^>]*id="maya-caption-${i}"`), `caption ${i} is sibling of card div`);
@@ -154,7 +154,7 @@ test("Maya slideshow assets, six-card rendering, and template invariants", () =>
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-eight-instant-v4`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-sixteen-controlled-v5`), `${asset} cache-busted`);
   }
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
@@ -181,7 +181,7 @@ test("each card cycles both glyph and generated study assets", () => {
   }
 });
 
-test("eight cards visit the expanded glyph and generated asset stream", () => {
+test("sixteen cards visit the expanded glyph and generated asset stream", () => {
   const fixture = loadFixture();
   const expected = new Set([
     ...glyphFiles().map((file) => `maya/references/svg/${file}`),
@@ -193,7 +193,7 @@ test("eight cards visit the expanded glyph and generated asset stream", () => {
   let previous = cards(fixture).map(({ img }) => assetPath(img.src));
   const chronological = [...previous];
   const visited = new Set(previous.filter(Boolean));
-  assert.equal(new Set(previous).size, 8, "eight cards start with different paths");
+  assert.equal(new Set(previous).size, 16, "sixteen cards start with different paths");
   for (let tick = 0; tick < 1200 && visited.size < expected.size; tick++) {
     fixture.timers.advance(3);
     const live = cards(fixture).map(({ img }) => assetPath(img.src));
