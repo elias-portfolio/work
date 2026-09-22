@@ -142,11 +142,9 @@ test("Maya slideshow assets, sixteen-card rendering, and template invariants", (
   }
   assert.doesNotMatch(appTemplate, /maya-generated-gallery/);
   assert.match(appTemplate, /maya-generated-disclaimer/);
-  assert.match(appTemplate, /maya-reference-grid/);
-  assert.match(appTemplate, /maya-reference-frame-source/);
-  assert.match(appTemplate, /maya-reference-frame-result/);
-  assert.match(appTemplate, /Dresden Codex source scan/);
-  assert.match(appTemplate, /Vectorized font drawing/);
+  assert.match(appTemplate, /data-maya-compare/);
+  assert.match(appTemplate, /maya-compare-before/);
+  assert.match(appTemplate, /Dresden Codex source scan \/ vectorized drawing/);
 
   const scriptsTemplate = appTemplate.match(/scripts:\s*`([\s\S]*?)`/);
   assert.ok(scriptsTemplate, "Scripts project stays registered in the portfolio");
@@ -154,14 +152,15 @@ test("Maya slideshow assets, sixteen-card rendering, and template invariants", (
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-sixteen-controlled-v5`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-compare-v6`), `${asset} cache-busted`);
   }
+  assert.ok(entrypoint.includes("js/maya-compare.js?v=20260922-maya-compare-v1"), "compare script cache-busted");
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
   assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4,/);
   assert.doesNotMatch(css, /maya-card-flip|transition:\s*opacity/);
-  assert.match(css, /\.maya-reference-frame\s*\{[^}]*display:\s*grid[^}]*place-items:\s*center/);
-  assert.match(css, /\.maya-reference-frame img\s*\{[^}]*max-width:\s*86%[^}]*max-height:\s*86%[^}]*object-fit:\s*contain/);
+  assert.match(css, /\.maya-compare\s*\{[^}]*aspect-ratio:\s*1\s*\/\s*1[^}]*touch-action:\s*none/);
+  assert.match(css, /\.maya-compare-before\s*\{[^}]*width:\s*var\(--maya-compare-position\)/);
   assert.doesNotMatch(css, /@keyframes\s+maya-card-flip/);
   assert.doesNotMatch(css, /animation:\s*maya-card-flip/);
 });

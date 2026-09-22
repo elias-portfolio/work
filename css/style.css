@@ -393,48 +393,73 @@ body2 {
     text-transform: none;
 }
 
-.maya-reference-grid {
+.maya-before-after {
     margin: 20px 0 20px 12px;
     width: calc(100% - 12px);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 18px;
-    align-items: start;
 }
 
-.maya-reference-grid figure {
-    margin: 0;
-    min-width: 0;
-    line-height: 0;
-}
-
-.maya-reference-frame {
-    display: grid;
-    place-items: center;
+.maya-compare {
+    --maya-compare-position: 50%;
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    border-radius: 5px;
     overflow: hidden;
-}
-
-.maya-reference-frame img {
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: 86%;
-    max-height: 86%;
-    object-fit: contain;
-}
-
-.maya-reference-frame-source {
+    border-radius: 5px;
     background: #F4F0DF;
+    cursor: ew-resize;
+    touch-action: none;
+    user-select: none;
 }
 
-.maya-reference-frame-result {
+.maya-compare-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.maya-compare-after {
     background: #F8F4E8;
 }
 
-.maya-reference-grid figcaption {
+.maya-compare-before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--maya-compare-position);
+    overflow: hidden;
+    background: #F4F0DF;
+}
+
+.maya-compare-before .maya-compare-image {
+    width: 100%;
+    max-width: none;
+}
+
+.maya-compare-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--maya-compare-position);
+    width: 2px;
+    background: #111;
+    pointer-events: none;
+}
+
+.maya-compare-handle span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #111;
+    border-radius: 50%;
+    background: #F8F4E8;
+    transform: translate(-50%, -50%);
+}
+
+.maya-before-after figcaption {
     margin-top: 6px;
     color: #555;
     font-size: 12px;
@@ -462,9 +487,8 @@ body2 {
         padding: 14px;
     }
 
-    .maya-reference-grid {
+    .maya-before-after {
         width: 100%;
         margin-left: 0;
-        column-gap: 12px;
     }
 }
