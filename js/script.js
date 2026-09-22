@@ -448,12 +448,14 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 </div>
 
                 <div class="maya-card-grid" aria-label="Cycling Maya glyph and image studies">
-                    <figure><div id="maya-card-1"><img id="maya-img-1-a" alt="Maya image study" loading="eager"><img id="maya-img-1-b" alt="" aria-hidden="true" loading="lazy"></div><figcaption id="maya-caption-1">study</figcaption></figure>
-                    <figure><div id="maya-card-2"><img id="maya-img-2-a" alt="Maya image study" loading="eager"><img id="maya-img-2-b" alt="" aria-hidden="true" loading="lazy"></div><figcaption id="maya-caption-2">study</figcaption></figure>
-                    <figure><div id="maya-card-3"><img id="maya-img-3-a" alt="Maya image study" loading="eager"><img id="maya-img-3-b" alt="" aria-hidden="true" loading="lazy"></div><figcaption id="maya-caption-3">study</figcaption></figure>
-                    <figure><div id="maya-card-4"><img id="maya-img-4-a" alt="Maya image study" loading="eager"><img id="maya-img-4-b" alt="" aria-hidden="true" loading="lazy"></div><figcaption id="maya-caption-4">study</figcaption></figure>
-                    <figure><div id="maya-card-5"><img id="maya-img-5-a" alt="Maya image study" loading="eager"><img id="maya-img-5-b" alt="" aria-hidden="true" loading="lazy"></div><figcaption id="maya-caption-5">study</figcaption></figure>
-                    <figure><div id="maya-card-6"><img id="maya-img-6-a" alt="Maya image study" loading="eager"><img id="maya-img-6-b" alt="" aria-hidden="true" loading="lazy"></div><figcaption id="maya-caption-6">study</figcaption></figure>
+                    <figure><div id="maya-card-1"><img id="maya-img-1" alt="Maya image study"></div><figcaption id="maya-caption-1">study</figcaption></figure>
+                    <figure><div id="maya-card-2"><img id="maya-img-2" alt="Maya image study"></div><figcaption id="maya-caption-2">study</figcaption></figure>
+                    <figure><div id="maya-card-3"><img id="maya-img-3" alt="Maya image study"></div><figcaption id="maya-caption-3">study</figcaption></figure>
+                    <figure><div id="maya-card-4"><img id="maya-img-4" alt="Maya image study"></div><figcaption id="maya-caption-4">study</figcaption></figure>
+                    <figure><div id="maya-card-5"><img id="maya-img-5" alt="Maya image study"></div><figcaption id="maya-caption-5">study</figcaption></figure>
+                    <figure><div id="maya-card-6"><img id="maya-img-6" alt="Maya image study"></div><figcaption id="maya-caption-6">study</figcaption></figure>
+                    <figure><div id="maya-card-7"><img id="maya-img-7" alt="Maya image study"></div><figcaption id="maya-caption-7">study</figcaption></figure>
+                    <figure><div id="maya-card-8"><img id="maya-img-8" alt="Maya image study"></div><figcaption id="maya-caption-8">study</figcaption></figure>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">

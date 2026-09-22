@@ -345,21 +345,6 @@ body2 {
     width: 100%;
 }
 
-@keyframes maya-card-flip {
-    0% {
-        transform: perspective(700px) rotateY(0deg);
-    }
-    45% {
-        transform: perspective(700px) rotateY(90deg);
-    }
-    55% {
-        transform: perspective(700px) rotateY(90deg);
-    }
-    100% {
-        transform: perspective(700px) rotateY(0deg);
-    }
-}
-
 #content-display [id^="maya-card"] {
     position: relative;
     width: 100%;
@@ -380,20 +365,14 @@ body2 {
     box-sizing: border-box;
     object-fit: contain;
     display: block;
-    opacity: 0;
-    transition: opacity 180ms linear;
-}
-
-#content-display [id^="maya-card"] img:first-child {
-    opacity: 1;
 }
 
 .maya-card-grid {
     margin: 20px 0 0 12px;
     width: calc(100% - 12px);
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
 }
 .maya-card-grid figure {
     margin: 0;
@@ -403,19 +382,6 @@ body2 {
 .maya-card-grid [id^="maya-card"] {
     background: #FFFFFF;
     border-radius: 5px;
-    transform-style: preserve-3d;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .maya-card-grid [id^="maya-card"].is-flipping {
-        animation: maya-card-flip 420ms ease-in-out;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #content-display [id^="maya-card"] img {
-        transition: none;
-    }
 }
 
 .maya-card-grid figcaption {
@@ -489,6 +455,7 @@ body2 {
         width: 100%;
         margin-left: 0;
         gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .maya-card-grid [id^="maya-card"] img {
