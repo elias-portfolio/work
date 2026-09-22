@@ -130,7 +130,10 @@ function assertAssetPathsExist(paths) {
 test("Maya slideshow assets, sixteen-card rendering, and template invariants", () => {
   const glyphs = glyphFiles();
   const generated = generatedIds.map((id) => `images/maya/generated/${id}.webp`);
-  assertAssetPathsExist([...glyphs.map((file) => `maya/references/svg/${file}`), ...generated, ...jpgs]);
+  assertAssetPathsExist([...glyphs.map((file) => `maya/references/svg/${file}`), ...generated, ...jpgs,
+    "maya/references/dresden-codex-glyph-03-source-matched.jpg",
+    "maya/references/dresden-codex-glyph-03-vector-matched.jpg",
+  ]);
 
   assert.match(appTemplate, /id="maya-card-1"/);
   assert.equal((appTemplate.match(/id="maya-card-(?:[1-9]|1[0-6])"/g) || []).length, 16);
@@ -152,7 +155,7 @@ test("Maya slideshow assets, sixteen-card rendering, and template invariants", (
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-compare-v6`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-compare-matched-v7`), `${asset} cache-busted`);
   }
   assert.ok(entrypoint.includes("js/maya-compare.js?v=20260922-maya-compare-v1"), "compare script cache-busted");
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");

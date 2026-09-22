@@ -472,8 +472,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
 
                 <figure class="maya-before-after">
                     <div class="maya-compare" data-maya-compare aria-label="Before and after comparison of the Dresden Codex glyph" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Dresden Codex source scan to vectorized drawing">
-                        <img class="maya-compare-image maya-compare-after" src="maya/references/dresden-codex-glyph-03-vectorized.jpg?v=clean-20260506" alt="Vectorized Maya sign variant for the digital font">
-                        <div class="maya-compare-before"><img class="maya-compare-image" src="maya/references/dresden-codex-glyph-03-source.jpg?v=clean-20260506" alt="Dresden Codex glyph scan for the Maya font project"></div>
+                        <img class="maya-compare-image maya-compare-after" src="maya/references/dresden-codex-glyph-03-vector-matched.jpg?v=matched-20260922" alt="Vectorized Maya sign variant for the digital font">
+                        <div class="maya-compare-before"><img class="maya-compare-image" src="maya/references/dresden-codex-glyph-03-source-matched.jpg?v=matched-20260922" alt="Dresden Codex glyph scan for the Maya font project"></div>
                         <div class="maya-compare-handle" aria-hidden="true"><span></span></div>
                     </div>
                     <figcaption>Drag to compare: Dresden Codex source scan / vectorized drawing</figcaption>
