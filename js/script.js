@@ -268,9 +268,12 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
     </section>
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
         <figure class="edmon-animation-card edmon-logo-card">
-            <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon rotating 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-orbit="0deg 75deg 220%" interaction-prompt="none" shadow-intensity="0" loading="lazy" tabindex="-1">
-                <span slot="poster" class="edmon-model-status">Loading 3D logo…</span>
-            </model-viewer>
+            <div class="edmon-logo-stage">
+                <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon rotating 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-orbit="0deg 75deg 105%" interaction-prompt="none" shadow-intensity="0" loading="lazy" tabindex="-1">
+                    <span slot="poster" aria-hidden="true"></span>
+                    <span slot="progress-bar" aria-hidden="true"></span>
+                </model-viewer>
+            </div>
 
         </figure>
     </section>

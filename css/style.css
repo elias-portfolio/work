@@ -290,21 +290,22 @@ body2 {
     background-image: url('https://elias-portfolio.github.io/work/images/edmon/PATTERN_20.gif');
 }
 
+/* Same square media area as the SVG above; smaller centered render canvas. */
+#media.edmon-background .edmon-logo-stage {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+}
+
 #media.edmon-background model-viewer {
     display: block;
-    width: 100%;
+    width: 65%;
     height: auto;
     aspect-ratio: 1 / 1;
     background: transparent;
     --poster-color: transparent;
     pointer-events: none;
-}
-
-#media.edmon-background .edmon-model-status {
-    color: white;
-    background: rgba(0, 0, 0, 0.72);
-    padding: 12px;
-    text-transform: none;
 }
 
 /* Animated panels, followed by the existing case-study content. */
