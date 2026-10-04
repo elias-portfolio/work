@@ -164,6 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
+        if (typeof window.stopEdmonSlideshow === 'function') window.stopEdmonSlideshow();
+
         // Pause YouTube embeds in other sections
         const youtubeEmbed = document.getElementById('youtubeEmbed');
         if (youtubeEmbed && section !== 'birthday') {
@@ -282,14 +284,12 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             <div class="edmon-logo-stage">
                 <img src="images/edmon/cooler.jpg" width="845" height="1200" loading="lazy" alt="Illustration of three colleagues gathered around an office water cooler">
             </div>
+            <div class="edmon-slide-controls"><button type="button" data-edmon-pause>Pause</button><button type="button" data-edmon-next>Next image →</button><span data-edmon-count>1 / 4</span></div>
             <figcaption class="edmon-caption">I replaced stock photos with custom illustrations and graphic patterns to give Edmon a distinct identity aimed primarily at investors.</figcaption>
         </figure>
     </section>
 </div>
-<figure class="edmon-before-site">
-    <figcaption>This is how Edmon presented itself before I joined.</figcaption>
-    <iframe src="images/edmon/edmon-before.html" title="Edmon website before the redesign" loading="lazy" sandbox="" referrerpolicy="no-referrer"></iframe>
-</figure>
+<p class="edmon-before-link"><a href="images/edmon/edmon-before.html" target="_blank" rel="noopener noreferrer">See how Edmon looked before the redesign ↗</a></p>
             `,
             groundnews: `
 
@@ -503,6 +503,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
         if (content[section]) {
             console.log('Loading content for section:', section);
             contentDisplay.innerHTML = content[section];
+            if (section === 'edmon' && typeof window.initEdmonSlideshow === 'function') window.initEdmonSlideshow();
             mediaArea.style.flex = isMobileViewport() ? "1 1 auto" : "0 0 50%";
             mediaArea.style.width = isMobileViewport() ? "100%" : "50%";
             syncSectionParam(section);

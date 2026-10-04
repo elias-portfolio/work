@@ -227,7 +227,7 @@ test("Maya slideshow assets, twelve-card rendering, and template invariants", ()
   assert.ok(entrypoint.includes("js/maya-compare.js?v=20260922-maya-compare-v1"), "compare script cache-busted");
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
-  assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4,/);
+  assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(3,/);
   assert.doesNotMatch(css, /maya-card-flip|transition:\s*opacity/);
   assert.match(css, /\.maya-compare\s*\{[^}]*aspect-ratio:\s*1\s*\/\s*1[^}]*touch-action:\s*none/);
   assert.match(css, /\.maya-compare-before\s*\{[^}]*width:\s*var\(--maya-compare-position\)/);
