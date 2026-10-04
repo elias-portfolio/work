@@ -80,24 +80,16 @@ function makeDom() {
   };
   for (let i = 1; i <= 12; i++) {
     const classes = new Set();
-    const listeners = new Map();
     const card = {
       id: `maya-card-${i}`,
       style: {},
       offsetWidth: 300,
-      listeners,
       closest() { return body; },
       classList: {
         add(name) { classes.add(name); },
         remove(name) { classes.delete(name); },
         contains(name) { return classes.has(name); },
       },
-      addEventListener(type, handler) {
-        if (!listeners.has(type)) listeners.set(type, new Set());
-        listeners.get(type).add(handler);
-      },
-      removeEventListener(type, handler) { listeners.get(type)?.delete(handler); },
-      dispatch(type, event) { [...(listeners.get(type) || [])].forEach((handler) => handler(event || { type })); },
     };
     const img = { id: `maya-img-${i}`, src: "", alt: "", style: {}, replaceWith(next) { nodes.set(this.id, next); } };
     const caption = { id: `maya-caption-${i}`, textContent: "" };
@@ -138,12 +130,6 @@ function loadFixture(deferred = false, columns = 3, random = null) {
   });
   vm.runInContext(slideshowSource, context, { filename: "maya-slideshow.js" });
   return { ...dom, timers, window, loads, decodes, get observer() { return observer; } };
-}
-
-function finishFlap(fixture) {
-  for (let n = 1; n <= 12; n++) {
-    fixture.nodes.get(`maya-card-${n}`).dispatch("animationend", { type: "animationend", animationName: "maya-card-flap" });
-  }
 }
 
 test('one beat flips every card, and nothing swaps before every decode has settled', () => {
@@ -244,13 +230,11 @@ test("Maya slideshow assets, twelve-card rendering, and template invariants", ()
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
   assert.match(css, /object-fit:\s*contain/);
   assert.match(css, /\.maya-card-grid\s*\{[^}]*grid-template-columns:\s*repeat\(3,/);
-  assert.doesNotMatch(css, /transition:\s*opacity/);
+  assert.doesNotMatch(css, /maya-card-flip|transition:\s*opacity/);
   assert.match(css, /\.maya-compare\s*\{[^}]*aspect-ratio:\s*1\s*\/\s*1[^}]*touch-action:\s*none/);
   assert.match(css, /\.maya-compare-before\s*\{[^}]*width:\s*var\(--maya-compare-position\)/);
-  assert.match(css, /\.maya-card-grid \[id\^="maya-card"\]\s*\{[^}]*transform-origin:\s*50%\s*0/, "tiles hinge at the top edge");
-  assert.match(css, /\.maya-card-grid \[id\^="maya-card"\]\.is-flipping\s*\{[^}]*animation:\s*maya-card-flap/, "the flip class drives the flap");
-  assert.match(css, /@keyframes\s+maya-card-flap\s*\{[\s\S]*?rotateX\(-90deg\)[\s\S]*?rotateX\(0deg\)/, "the flap falls from edge-on into place");
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{[\s\S]*?\.is-flipping\s*\{[^}]*animation:\s*none/, "reduced motion keeps the tiles still");
+  assert.doesNotMatch(css, /@keyframes\s+maya-card-flip/);
+  assert.doesNotMatch(css, /animation:\s*maya-card-flip/);
   assert.match(css, /\.maya-compare-image\s*\{[^}]*pointer-events:\s*none[^}]*user-select:\s*none/);
 });
 
@@ -306,25 +290,8 @@ test("the board always keeps both black and white rows after a flip", () => {
   assert.ok(mixed(rowColors()), "the opening board already mixes black and white rows");
   for (let beat = 1; beat <= 8; beat++) {
     fixture.timers.advance(1);
-    finishFlap(fixture);
     assert.ok(mixed(rowColors()), `beat ${beat} keeps both polarities`);
   }
-  fixture.window.stopMayaSlideshow();
-});
-
-test("every beat starts a synchronized split-flap on all twelve tiles", () => {
-  const fixture = loadFixture();
-  fixture.window.initMayaSlideshow();
-  const flipping = () => cards(fixture).filter(({ card }) => card.classList.contains("is-flipping")).length;
-  assert.equal(flipping(), 0, "the board is still before the first beat");
-  fixture.timers.advance(1);
-  assert.equal(flipping(), 12, "the whole board flaps together");
-  finishFlap(fixture);
-  assert.equal(flipping(), 0, "the flap class clears when the animation ends");
-  fixture.timers.advance(1);
-  assert.equal(flipping(), 12, "the next beat flaps again");
-  finishFlap(fixture);
-  assert.equal(flipping(), 0);
   fixture.window.stopMayaSlideshow();
 });
 
