@@ -279,28 +279,20 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
     </section>
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');">
         <figure class="edmon-animation-card edmon-illustration-card">
-            <img src="images/edmon/cooler.jpg" width="845" height="1200" loading="lazy" alt="Illustration of three colleagues gathered around an office water cooler">
+            <div class="edmon-logo-stage">
+                <img src="images/edmon/cooler.jpg" width="845" height="1200" loading="lazy" alt="Illustration of three colleagues gathered around an office water cooler">
+            </div>
             <figcaption class="edmon-caption">I replaced stock photos with custom illustrations and graphic patterns to give Edmon a distinct identity aimed primarily at investors.</figcaption>
         </figure>
     </section>
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');">
         <figure class="edmon-animation-card edmon-before-card">
-            <iframe src="images/edmon/edmon-before.html" title="Edmon website before the redesign" loading="lazy" sandbox="" referrerpolicy="no-referrer"></iframe>
+            <div class="edmon-logo-stage">
+                <iframe src="images/edmon/edmon-before.html" title="Edmon website before the redesign" loading="lazy" sandbox="" referrerpolicy="no-referrer"></iframe>
+            </div>
             <figcaption class="edmon-caption">This is how Edmon presented itself before I joined. The website led with product features, workflow integrations and claims about speed. It provides a point of comparison for the graphic identity and tone of voice I developed.</figcaption>
         </figure>
     </section>
-</div>
-<div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">
-
-
-    <!-- Existing case-study content stays below the four selected animated panels. -->
-
-    <!-- Sápmi Language Pack full width -->
-    <div style="width: 100%; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px; margin-bottom: 24px; line-height: 0;">
-        <img src="images/edmon/sapmi-language-pack.png" alt="EdMon Sápmi Language Pack" style="display: block; width: 100%; height: auto;">
-    </div>
-
-
 </div>
             `,
             groundnews: `
