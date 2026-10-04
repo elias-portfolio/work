@@ -258,7 +258,7 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
             `,
             edmon: `
-<div style="font-size: 16px; font-family: 'Suisse', sans-serif; color: black; line-height: 1.5;">
+<div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">
     <!-- ASCII caution tape -->
     <div style="background: #f5c400; color: #111; font-family: 'Courier New', monospace; text-align: center; padding: 6px 0; margin-bottom: 28px; overflow: hidden; border-radius: 2px; user-select: none;">
         <div style="white-space: nowrap; font-size: 13px; line-height: 1.1; letter-spacing: -1px; font-weight: bold;">//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
@@ -273,35 +273,15 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
         I led a visual update and copy tonality overhaul, focusing on turning something as abstract as software updates into something tactile and physical—designing physical box art reminiscent of classic McAfee antivirus packaging and the Windows Vista era identity.
     </p>
 
-    <!-- Animated Patterns side by side without padding -->
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 20px 0 24px 0; border-radius: 6px; overflow: hidden; line-height: 0;">
-        <div style="background: #000; line-height: 0; padding: 0; margin: 0;">
-            <img src="images/edmon/PATTERN_13-1.gif" alt="EdMon Pattern 13" style="display: block; width: 100%; height: auto; margin: 0; padding: 0;">
-        </div>
-        <div style="background: #000; line-height: 0; padding: 0; margin: 0;">
-            <img src="images/edmon/PATTERN_20.gif" alt="EdMon Pattern 20" style="display: block; width: 100%; height: auto; margin: 0; padding: 0;">
-        </div>
-        <div style="background: #000; line-height: 0; padding: 0; margin: 0;">
-            <img src="images/edmon/edmonpattern1.gif" alt="EdMon Pattern 1" style="display: block; width: 100%; height: auto; margin: 0; padding: 0;">
-        </div>
-        <div style="background: #000; line-height: 0; padding: 0; margin: 0;">
-            <img src="images/edmon/edmonpattern4.gif" alt="EdMon Pattern 4" style="display: block; width: 100%; height: auto; margin: 0; padding: 0;">
-        </div>
-        <div style="background: #000; line-height: 0; padding: 0; margin: 0;">
-            <img src="images/edmon/edmonpattern7.gif" alt="EdMon Pattern 7" style="display: block; width: 100%; height: auto; margin: 0; padding: 0;">
-        </div>
-        <div style="background: #000; line-height: 0; padding: 0; margin: 0;">
-            <img src="images/edmon/edmonpattern8.gif" alt="EdMon Pattern 8" style="display: block; width: 100%; height: auto; margin: 0; padding: 0;">
-        </div>
-    </div>
+    <!-- Pattern gallery paused; pattern 4 now forms the media-column background. -->
 
     <!-- Sápmi Language Pack full width -->
     <div style="width: 100%; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px; margin-bottom: 24px; line-height: 0;">
         <img src="images/edmon/sapmi-language-pack.png" alt="EdMon Sápmi Language Pack" style="display: block; width: 100%; height: auto;">
     </div>
 
-    <!-- Copy examples in EdMon Red -->
-    <div style="margin: 28px 0 24px 0; color: #cf2e2e; font-family: 'Suisse', sans-serif;">
+    <!-- Copy examples inherit the readable foreground over the animated background. -->
+    <div style="margin: 28px 0 24px 0; font-family: 'Suisse', sans-serif;">
         <div style="font-size: 13px; font-weight: 500; text-transform: lowercase; margin-bottom: 10px; opacity: 0.9;">
             copy examples included:
         </div>
@@ -520,6 +500,9 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 </div>
             `
         };
+
+        // Keep the animated Edmon background confined to the media column.
+        mediaArea.classList.toggle('edmon-background', section === 'edmon');
 
         // Update content display area
         if (content[section]) {

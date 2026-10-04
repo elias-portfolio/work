@@ -169,6 +169,20 @@ body2 {
     background-color: #ffffff;
 }
 
+/* Edmon's animated atmosphere stays inside the right-hand media column. */
+#media.edmon-background {
+    background-image: url('../images/edmon/edmonpattern4.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    color: #ffffff;
+}
+
+#media.edmon-background .edmon-content {
+    color: #ffffff;
+}
+
 #content-display {
     font-family: 'Suisse', 'sans-serif';
     font-size: 16px;
