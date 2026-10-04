@@ -186,7 +186,7 @@ body.is-mobile #media.edmon-background {
 
 #media.edmon-background .edmon-patterns {
     display: grid;
-    gap: calc(2 * var(--edmon-inset));
+    gap: 0;
 }
 
 #media.edmon-background .edmon-pattern {
