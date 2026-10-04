@@ -266,21 +266,16 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             <figcaption class="edmon-caption">We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
         </figure>
     </section>
-    <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
-        <div class="edmon-copy">
-            <p class="edmon-body">Edmon is an AI startup that transcribes footage for reality and unscripted TV.</p>
-            <p class="edmon-body">I developed a new brand concept, graphic identity and tone of voice around one idea:</p>
-            <blockquote class="edmon-quote">“We turn characters into characters — and back again.”</blockquote>
-        </div>
-    </section>
-    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');">
+    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
         <figure class="edmon-animation-card edmon-logo-card">
-            <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" shadow-intensity="0" loading="lazy">
+            <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV.<br><br>I developed a new brand concept, graphic identity and tone of voice around one idea:<br>“We turn characters into characters — and back again.”</figcaption>
+            <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon rotating 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" interaction-prompt="none" shadow-intensity="0" loading="lazy" tabindex="-1">
                 <span slot="poster" class="edmon-model-status">Loading 3D logo…</span>
             </model-viewer>
-            <figcaption class="edmon-caption">Drag to rotate the logo.</figcaption>
+
         </figure>
     </section>
+    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
 </div>
 <div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">

@@ -293,10 +293,11 @@ body2 {
 #media.edmon-background model-viewer {
     display: block;
     width: 100%;
-    aspect-ratio: 1;
+    height: auto;
+    aspect-ratio: 1 / 1;
     background: transparent;
     --poster-color: transparent;
-    touch-action: pan-y;
+    pointer-events: none;
 }
 
 #media.edmon-background .edmon-model-status {
