@@ -262,14 +262,13 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 <div class="edmon-patterns">
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
         <figure class="edmon-animation-card">
-            <div class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV.<br><br>I developed a new brand concept, graphic identity and tone of voice around one idea:<br>“We turn characters into characters — and back again.”</div>
             <img src="images/edmon/animation-square.svg" width="800" height="800" alt="Edmon animated software box">
-            <figcaption class="edmon-caption">We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
+            <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV. I developed a new brand concept, graphic identity and tone of voice around one idea: “We turn characters into characters — and back again.”<br><br>We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
         </figure>
     </section>
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
         <figure class="edmon-animation-card edmon-logo-card">
-            <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon rotating 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-orbit="0deg 75deg 145%" interaction-prompt="none" shadow-intensity="0" loading="lazy" tabindex="-1">
+            <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon rotating 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-orbit="0deg 75deg 220%" interaction-prompt="none" shadow-intensity="0" loading="lazy" tabindex="-1">
                 <span slot="poster" class="edmon-model-status">Loading 3D logo…</span>
             </model-viewer>
 
@@ -439,10 +438,6 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <figure><div id="maya-card-10"><img id="maya-img-10" alt="Maya image study"></div><figcaption id="maya-caption-10">study</figcaption></figure>
                     <figure><div id="maya-card-11"><img id="maya-img-11" alt="Maya image study"></div><figcaption id="maya-caption-11">study</figcaption></figure>
                     <figure><div id="maya-card-12"><img id="maya-img-12" alt="Maya image study"></div><figcaption id="maya-caption-12">study</figcaption></figure>
-                    <figure><div id="maya-card-13"><img id="maya-img-13" alt="Maya image study"></div><figcaption id="maya-caption-13">study</figcaption></figure>
-                    <figure><div id="maya-card-14"><img id="maya-img-14" alt="Maya image study"></div><figcaption id="maya-caption-14">study</figcaption></figure>
-                    <figure><div id="maya-card-15"><img id="maya-img-15" alt="Maya image study"></div><figcaption id="maya-caption-15">study</figcaption></figure>
-                    <figure><div id="maya-card-16"><img id="maya-img-16" alt="Maya image study"></div><figcaption id="maya-caption-16">study</figcaption></figure>
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">

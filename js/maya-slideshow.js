@@ -7,7 +7,7 @@
     }));
     const BLACK = "#000000";
     const WHITE = "#FFFFFF";
-    const CARD_COUNT = 16;
+    const CARD_COUNT = 12;
     const CHANGE_MS = 350;
     const DARK_PHASE = [true, false, false, true, true, false, true, false, false, true, false, true, true, false, true, false];
     // Bounded by the declared asset list; retain decoded nodes for reuse.
