@@ -285,15 +285,11 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             <figcaption class="edmon-caption">I replaced stock photos with custom illustrations and graphic patterns to give Edmon a distinct identity aimed primarily at investors.</figcaption>
         </figure>
     </section>
-    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');">
-        <figure class="edmon-animation-card edmon-before-card">
-            <div class="edmon-logo-stage">
-                <iframe src="images/edmon/edmon-before.html" title="Edmon website before the redesign" loading="lazy" sandbox="" referrerpolicy="no-referrer"></iframe>
-            </div>
-            <figcaption class="edmon-caption">This is how Edmon presented itself before I joined. The website led with product features, workflow integrations and claims about speed. It provides a point of comparison for the graphic identity and tone of voice I developed.</figcaption>
-        </figure>
-    </section>
 </div>
+<figure class="edmon-before-site">
+    <figcaption>This is how Edmon presented itself before I joined.</figcaption>
+    <iframe src="images/edmon/edmon-before.html" title="Edmon website before the redesign" loading="lazy" sandbox="" referrerpolicy="no-referrer"></iframe>
+</figure>
             `,
             groundnews: `
 
