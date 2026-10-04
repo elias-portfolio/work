@@ -177,27 +177,75 @@ body2 {
     font-display: swap;
 }
 
-#media.edmon-background .edmon-hero {
+@font-face {
+    font-family: 'EdmonText';
+    src: url('./AkzidenzGroteskBQ-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EdmonText';
+    src: url('./AkzidenzGroteskBQ-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+#media.edmon-background .edmon-pattern.edmon-editorial {
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: clamp(24px, 3vw, 64px);
-    padding-bottom: max(24px, var(--edmon-blend));
+    height: auto;
+    min-height: calc(100vh - 2 * var(--edmon-inset));
+    min-height: calc(100svh - 2 * var(--edmon-inset));
+    padding: clamp(28px, 3.5vw, 72px);
+    padding-bottom: calc(var(--edmon-blend) + 48px);
+}
+
+#media.edmon-background .edmon-editorial + .edmon-editorial {
+    padding-top: calc(var(--edmon-blend) + 48px);
+}
+
+#media.edmon-background .edmon-copy {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    color: #ffffff;
+    text-transform: none;
+    overflow-wrap: break-word;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 }
 
 #media.edmon-background .edmon-headline {
-    position: relative;
-    z-index: 1;
+    margin: 0 0 32px;
+    max-width: 25ch;
+    font-family: 'EdmonText', sans-serif !important;
+    font-weight: 700;
+    font-size: clamp(28px, 2.7vw, 60px);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+}
+
+#media.edmon-background .edmon-body {
     margin: 0;
-    max-width: 18ch;
+    max-width: 46ch;
+    font-family: 'EdmonText', sans-serif !important;
+    font-weight: 400;
+    font-size: clamp(18px, 1.4vw, 26px);
+    line-height: 1.5;
+}
+
+#media.edmon-background .edmon-quote {
+    margin: 32px 0 0;
+    max-width: 21ch;
     font-family: 'EdmonAkzidenz', sans-serif !important;
     font-weight: 700;
     font-style: italic;
-    font-size: clamp(28px, 3.5vw, 76px);
-    line-height: 1.08;
-    text-transform: none;
-    color: #ffffff;
-    overflow-wrap: break-word;
+    font-size: clamp(28px, 3.2vw, 68px);
+    line-height: 1.14;
+    letter-spacing: -0.015em;
 }
 
 /* Animated panels, followed by the existing case-study content. */

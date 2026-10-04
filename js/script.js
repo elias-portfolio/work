@@ -258,23 +258,25 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
             `,
             edmon: `
-<!-- Empty animated panels reserved for future overlaid content. -->
+<!-- Editorial introduction and hero line over the first two animated panels. -->
 <div class="edmon-patterns">
-    <div class="edmon-pattern edmon-hero" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
-        <h1 class="edmon-headline">Finally a tool that turns characters into characters, and back again</h1>
-    </div>
-    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');"></div>
+    <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
+        <div class="edmon-copy">
+            <h1 class="edmon-headline">In reality television, finding the right line can mean watching hours of people talking.</h1>
+            <p class="edmon-body">Edmon transcribes that footage so editors can search for the words and cut with the original clips.</p>
+        </div>
+    </section>
+    <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
+        <div class="edmon-copy">
+            <p class="edmon-body">I gave the company a new tone of voice and graphic identity around the hero line:</p>
+            <blockquote class="edmon-quote">“We turn characters into characters, and back again.”</blockquote>
+        </div>
+    </section>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
 </div>
 <div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">
 
-    <p style="margin-top: 0;">
-        EdMon is an AI-assisted post-production toolkit for automated footage logging, natural language search, transcription, and story assembly.
-    </p>
-    <p>
-        I led a visual update and copy tonality overhaul, focusing on turning something as abstract as software updates into something tactile and physical—designing physical box art reminiscent of classic McAfee antivirus packaging and the Windows Vista era identity.
-    </p>
 
     <!-- Existing case-study content stays below the four selected animated panels. -->
 
@@ -289,7 +291,6 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             copy examples included:
         </div>
         <div style="font-size: 17px; line-height: 1.45;">
-            <p style="margin: 0 0 8px 0;">&ldquo;we turn characters into characters, and back again &rdquo;</p>
             <p style="margin: 0;">&ldquo;Don't take our word for it. Take theirs from the sync.&rdquo;</p>
         </div>
     </div>
