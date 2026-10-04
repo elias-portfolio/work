@@ -300,6 +300,19 @@ body2 {
     height: auto;
 }
 
+#media.edmon-background .edmon-before-card {
+    background-image: url('../images/edmon/PATTERN_67.gif');
+}
+
+#media.edmon-background .edmon-before-card iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    background: #ffffff;
+}
+
 /* Same square media area as the SVG above; smaller centered render canvas. */
 #media.edmon-background .edmon-logo-stage {
     width: 100%;

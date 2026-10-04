@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>From raw footage to final cut — driven by AI efficiency</title>
+  <meta name="description" content="AI-powered toolkit for professional post-production. Search, edit, and manage media with seamless Avid and Premiere Pro integration." />
+  <link rel="icon" href="https://edmon.ai/wp-content/uploads/2025/06/cropped-ICON-wo-background_black-32x32.png" sizes="32x32" />
+  <style>
+    :root{
+      --brand-red:#ff0000;
+      --brand-red-dark:#cc0000;
+      --ink:#111;
+      --muted:#6b7280;
+      --bg:#f8f9fa;
+      --card:#ffffff;
+      --ring:rgba(0,0,0,.08);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,system-ui,Arial,sans-serif;
+      color:var(--ink);
+      line-height:1.6;
+      background:#fff;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin-inline:auto;padding-inline:20px}
+
+    /* Header */
+    header{
+      background:#fff;
+      border-bottom:1px solid var(--ring);
+      position:sticky;top:0;z-index:50;
+    }
+    .header-content{
+      display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;
+    }
+    .logo img{height:44px;width:auto;display:block}
+    nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+    nav a{font-weight:600;color:#333}
+    nav a:hover{color:var(--brand-red)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:.75rem 1rem;border-radius:10px;font-weight:700;border:1px solid transparent;
+    }
+    .btn-primary{background:var(--brand-red);color:#fff}
+    .btn-primary:hover{background:var(--brand-red-dark)}
+    .btn-ghost{border-color:var(--ring);color:#333;background:#fff}
+    .btn-ghost:hover{border-color:var(--brand-red);color:var(--brand-red)}
+
+    /* Hero */
+    .hero{background:var(--bg);padding-block:56px;margin-block:0 28px;border-bottom:1px solid var(--ring)}
+    .hero-wrap{display:grid;gap:20px;justify-items:center;text-align:center}
+    .eyebrow{font-weight:700;color:var(--brand-red);letter-spacing:.02em;text-transform:uppercase}
+    h1{font-size:clamp(28px,4vw,44px);line-height:1.15;margin:6px 0 10px}
+    .sub{color:var(--muted);max-width:880px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+
+    /* Quick-scan pills under hero */
+    .pills{
+      display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px;max-width:1000px
+    }
+    .pill{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:.55rem .8rem;background:#fff;border:1px solid var(--ring);border-radius:999px;
+      font-weight:600;color:#374151;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--brand-red);flex:0 0 8px}
+
+    /* Feature grid */
+    .features{padding-block:36px}
+    .features h2{font-size:clamp(22px,2.6vw,30px);text-align:center;margin-bottom:10px}
+    .features .lead{color:var(--muted);text-align:center;margin-bottom:24px}
+    .grid{
+      display:grid;gap:14px;
+      grid-template-columns:repeat(12,1fr);
+    }
+    .card{
+      grid-column:span 4;
+      background:var(--card);border:1px solid var(--ring);border-radius:var(--radius);
+      padding:16px;display:grid;gap:6px;min-height:96px;
+    }
+    .card h3{font-size:16px;margin:0}
+    .card p{font-size:14px;color:var(--muted);margin:0}
+    .badge{font-size:12px;font-weight:700;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:999px;padding:.25rem .5rem;justify-self:start}
+
+    /* Customers */
+    .customers{padding-block:36px;text-align:center}
+    .customers img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--ring)}
+
+    /* Footer */
+    footer{background:#0f172a;color:#e5e7eb;margin-top:36px}
+    .foot-wrap{display:flex;gap:24px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;padding-block:28px}
+    .social{display:flex;gap:14px}
+    .social a{color:#e5e7eb}
+    .social a:hover{color:var(--brand-red)}
+    .company{font-size:14px;color:#cbd5e1}
+    .copy{border-top:1px solid rgba(255,255,255,.12);padding-block:16px;font-size:14px;color:#94a3b8;text-align:center}
+    .copy a{color:#e5e7eb}
+    .copy a:hover{color:var(--brand-red)}
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .card{grid-column:span 6}
+    }
+    @media (max-width:640px){
+      .header-content{flex-wrap:wrap;justify-content:center}
+      nav ul{gap:14px}
+      .card{grid-column:span 12}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content" role="navigation" aria-label="Primary">
+        <a class="logo" href="https://edmon.ai/" aria-label="EdMon home">
+          <img src="https://edmon.ai/wp-content/uploads/2025/01/cropped-EdMonLogo_full.png" alt="EdMon logo" width="1353" height="493" />
+        </a>
+        <nav>
+          <ul>
+            <li><a href="https://edmon.ai/contact-us-for-a-demo/">About</a></li>
+            <li><a href="https://edmon.ai/questions-answers/">Q&A</a></li>
+            <li><a href="https://edmon.ai/pricing/">Pricing</a></li>
+          </ul>
+        </nav>
+        <div class="nav-cta">
+          <a class="btn btn-ghost" href="https://edmonapp.com/login" target="_blank" rel="noopener">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-wrap">
+        <span class="eyebrow">EdMon •shaping the future of AI-powered editing
+</span>
+        <h1>The AI toolkit built for every professional post-production scenario.</h1>
+        <p class="sub">Seamless media management and text-based editing that integrate with any workflow — at any scale.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://edmonapp.com/signup" target="_blank" rel="noopener">Get started with EdMon</a>
+          <a class="btn btn-ghost" href="https://edmon.ai/contact-us-for-a-demo/">Book a demo</a>
+        </div>
+
+        <!-- Quick-scan pills (headline-level features) -->
+        <div class="pills" aria-label="Key capabilities">
+          <span class="pill"><span class="dot"></span>Search by word, phrase, speaker, or topic</span>
+          <span class="pill"><span class="dot"></span>Text-based rough cuts + AI summaries</span>
+          <span class="pill"><span class="dot"></span>Fully integrated with Avid & Premiere Pro</span>
+          <span class="pill"><span class="dot"></span>Handles 20+ mic channels with ease</span>
+          <span class="pill"><span class="dot"></span>Supports all global languages</span>
+          <span class="pill"><span class="dot"></span>Export AAF/XML linked to source</span>
+          <span class="pill"><span class="dot"></span>Not open source — full accountability</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick-scan Feature Grid -->
+  <section class="features">
+    <div class="container">
+      <h2>Made for real productions</h2>
+      <p class="lead">Turn weeks of logging into hours. Keep teams in sync. Ship faster.</p>
+
+      <div class="grid" role="list">
+        <article class="card" role="listitem">
+          <span class="badge">Speed</span>
+          <h3>Turn weeks into hours</h3>
+          <p>Logging, transcribing, and finding clips — done in a fraction of the time.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Search</span>
+          <h3>Find it instantly</h3>
+          <p>Search by word, phrase, speaker, tag, or location across your project.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Edit</span>
+          <h3>Cut from text</h3>
+          <p>Create rough cuts inside EdMon and export AAF/XML back to source.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Audio</span>
+          <h3>20+ mic channels</h3>
+          <p>Reality, panel, and multichannel clips — all handled cleanly.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Scale</span>
+          <h3>Up to 17-hour clips</h3>
+          <p>Process long sequences without breaking your flow.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Integrations</span>
+          <h3>Avid & Premiere Pro</h3>
+          <p>Mirrors project structure and exports cleanly to your NLE.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Language</span>
+          <h3>All global languages</h3>
+          <p>Transcribes mixed dialogue and multilingual speech.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Team</span>
+          <h3>Unlimited users</h3>
+          <p>Pay only for processed hours — invite everyone you need.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Cloud</span>
+          <h3>EU Google Cloud</h3>
+          <p>European data centers on renewable energy, low carbon footprint.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Accountability</span>
+          <h3>Not open source</h3>
+          <p>Closed, supported stack with full traceability and ownership.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Metadata</span>
+          <h3>Speaker tagging</h3>
+          <p>Leverage Avid locators (e.g., <code>[name]@speaker</code>) for auto-labels.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <span class="badge">Reporting</span>
+          <h3>Sustainability data</h3>
+          <p>Scope-3 aligned data available for ESG reporting on data center use.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customers -->
+  <section class="customers">
+    <div class="container">
+      <h2>Some of our customers</h2>
+      <p class="lead">Trusted by teams who live in post.</p>
+      <img src="https://edmon.ai/wp-content/uploads/2025/09/image-1-1024x392.png" width="1024" height="392" alt="Selected customer logos using EdMon" />
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="foot-wrap">
+        <div class="social" aria-label="Social media">
+          <a href="https://www.linkedin.com/company/edmon-ai/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+          <a href="https://www.instagram.com/edmon_producer/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        </div>
+        <div class="company">
+          <strong>Edmon Producer AB</strong><br />
+          Org. nr: 559455-1227<br />
+          Bragevägen 19, 114 24 Stockholm, Sweden
+        </div>
+      </div>
+      <div class="copy">
+        <strong>© 2025 EdMon.AI — All rights reserved</strong><br />
+        <a href="https://edmon.ai/privacy-policy">Privacy Policy</a> •
+        <a href="https://edmon.ai/terms-and-conditions/">Terms &amp; Conditions</a> •
+        <a href="https://edmon.ai/environmental-social-and-governance-esg-policy/">ESG Policy</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
