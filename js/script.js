@@ -258,20 +258,17 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
             `,
             edmon: `
-<!-- Editorial introduction and hero line over the first two animated panels. -->
+<!-- Introduction and hero line kept together in one animated text card. -->
 <div class="edmon-patterns">
     <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
         <div class="edmon-copy">
             <h1 class="edmon-headline">In reality television, finding the right line can mean watching hours of people talking.</h1>
             <p class="edmon-body">Edmon transcribes that footage so editors can search for the words and cut with the original clips.</p>
-        </div>
-    </section>
-    <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
-        <div class="edmon-copy">
             <p class="edmon-body">I gave the company a new tone of voice and graphic identity around the hero line:</p>
             <blockquote class="edmon-quote">“We turn characters into characters, and back again.”</blockquote>
         </div>
     </section>
+    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
 </div>
