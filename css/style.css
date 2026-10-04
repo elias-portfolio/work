@@ -185,18 +185,41 @@ body.is-mobile #media.edmon-background {
 }
 
 #media.edmon-background .edmon-patterns {
+    --edmon-blend: 80px;
     display: grid;
     gap: 0;
+    isolation: isolate;
 }
 
 #media.edmon-background .edmon-pattern {
     position: relative;
+    isolation: isolate;
     height: calc(100vh - 2 * var(--edmon-inset));
     height: calc(100svh - 2 * var(--edmon-inset));
+}
+
+/* Only the background fades; future foreground content stays sharp. */
+#media.edmon-background .edmon-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-image: var(--edmon-pattern);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+@supports (mask-image: linear-gradient(transparent, black)) or (-webkit-mask-image: linear-gradient(transparent, black)) {
+    #media.edmon-background .edmon-pattern + .edmon-pattern {
+        margin-top: calc(-1 * var(--edmon-blend));
+    }
+
+    #media.edmon-background .edmon-pattern + .edmon-pattern::before {
+        -webkit-mask-image: linear-gradient(to bottom, transparent, black var(--edmon-blend));
+        mask-image: linear-gradient(to bottom, transparent, black var(--edmon-blend));
+    }
 }
 
 #media.edmon-background .edmon-content {
