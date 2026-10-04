@@ -10,7 +10,29 @@
     const CARD_COUNT = 16;
     const CHANGE_MS = 350;
     const DARK_PHASE = [true, false, false, true, true, false, true, false, false, true, false, true, true, false, true, false];
-    let timers = [];
+    // Bounded by the declared asset list; retain decoded nodes for reuse.
+    const images = new Map();
+    function prepare(asset, ready) {
+        let entry = images.get(asset.file);
+        if (entry && entry.ready) { ready(entry.img); return; }
+        if (entry) { entry.waiters.push(ready); return; }
+        const img = new Image();
+        entry = { img, ready: false, waiters: [ready] };
+        images.set(asset.file, entry);
+        const finish = (ok) => {
+            img.onload = img.onerror = null;
+            entry.ready = ok;
+            if (!ok) images.delete(asset.file);
+            const waiters = entry.waiters.splice(0);
+            waiters.forEach((callback) => callback(ok ? img : null));
+        };
+        img.onload = () => {
+            if (img.decode) img.decode().then(() => finish(true), () => finish(false));
+            else finish(true);
+        };
+        img.onerror = () => finish(false);
+        img.src = asset.file;
+    }
 
     class MayaStream {
         constructor() {
@@ -33,23 +55,48 @@
             this.active = this.decks.map((deck, index) => deck[index]);
             this.visible = new Set(this.active.map((asset) => asset.file));
             this.dark = this.active.map((asset, index) => asset.kind === "generated" ? false : DARK_PHASE[index]);
-            this.running = true;
-            this.beat = 0;
-
-            this.cards.forEach((_, index) => this.render(index));
-            this.startLoop();
+            this.running = false;
+            this.generation = 0;
+            this.pending = false;
+            this.inView = true;
+            this.initialized = false;
+            this.disposed = false;
+            let remaining = this.cards.length;
+            this.cards.forEach((_, index) => prepare(this.active[index], (img) => {
+                if (this.disposed) return;
+                if (img) this.render(index, img);
+                if (--remaining === 0) {
+                    this.initialized = true;
+                    this.startLoop();
+                }
+            }));
+            if (typeof IntersectionObserver !== 'undefined') {
+                const grid = this.cards[0].card.closest('.maya-card-grid');
+                if (grid) {
+                    this.observer = new IntersectionObserver(([entry]) => {
+                        this.inView = entry.isIntersecting;
+                        if (this.inView) this.startLoop();
+                        else this.stopLoop();
+                    });
+                    this.observer.observe(grid);
+                }
+            }
         }
 
         makeDeck(cardIndex) {
             return Array.from({ length: this.assets.length }, (_, offset) => this.assets[(cardIndex + offset) % this.assets.length]);
         }
 
-        render(index) {
-            const { card, img, cap } = this.cards[index];
+        render(index, img) {
+            const slot = this.cards[index];
+            const { card, cap } = slot;
             const asset = this.active[index];
-            img.src = asset.file;
+            img.id = 'maya-img-' + (index + 1);
             img.alt = asset.alt;
-            img.style.filter = this.dark[index] ? "invert(1)" : "";
+            img.style.filter = this.dark[index] ? 'invert(1)' : '';
+            // Insert the already-decoded image, never expose a loading src.
+            slot.img.replaceWith(img);
+            slot.img = img;
             card.style.backgroundColor = this.dark[index] ? BLACK : WHITE;
             if (cap) cap.textContent = asset.id;
         }
@@ -60,6 +107,7 @@
                 this.stopLoop();
                 return;
             }
+            if (this.pending) return;
             const deck = this.decks[index];
             const current = this.active[index];
             let next = null;
@@ -72,18 +120,26 @@
                 }
             }
             if (!next) return;
-            this.visible.delete(current.file);
-            this.visible.add(next.candidate.file);
-            this.indices[index] = next.candidateIndex;
-            this.active[index] = next.candidate;
-            this.dark[index] = next.candidate.kind === "generated" ? false : !this.dark[index];
-            this.render(index);
+            this.pending = true;
+            const generation = this.generation;
+            prepare(next.candidate, (img) => {
+                if (generation !== this.generation || this.disposed) return;
+                this.pending = false;
+                if (!img || !this.running || !document.body.contains(card)) return;
+                this.visible.delete(current.file);
+                this.visible.add(next.candidate.file);
+                this.indices[index] = next.candidateIndex;
+                this.active[index] = next.candidate;
+                this.dark[index] = next.candidate.kind === 'generated' ? false : !this.dark[index];
+                this.render(index, img);
+            });
         }
 
         startLoop() {
             this.stopLoop();
+            if (this.disposed || !this.initialized || !this.inView || document.hidden) return;
             this.running = true;
-            const interval = setInterval(() => {
+            this.timer = setInterval(() => {
                 const first = Math.floor(Math.random() * CARD_COUNT);
                 let cardIndex = first;
                 for (let offset = 1; offset < CARD_COUNT; offset++) {
@@ -93,13 +149,21 @@
                 this.change(cardIndex);
                 this.previousCard = cardIndex;
             }, CHANGE_MS);
-            timers.push(interval);
+
         }
 
         stopLoop() {
             this.running = false;
-            timers.forEach((timer) => { clearTimeout(timer); clearInterval(timer); });
-            timers = [];
+            clearInterval(this.timer);
+            this.timer = null;
+            this.generation++;
+            this.pending = false;
+        }
+
+        dispose() {
+            this.disposed = true;
+            this.stopLoop();
+            this.observer?.disconnect();
         }
     }
 
@@ -111,7 +175,7 @@
     }
 
     window.initMayaSlideshow = function () {
-        if (activeInstance) activeInstance.stopLoop();
+        if (activeInstance) activeInstance.dispose();
         document.removeEventListener("visibilitychange", onVisibilityChange);
         if (!document.getElementById("maya-card-1")) return;
         activeInstance = new MayaStream();
@@ -120,7 +184,7 @@
 
     window.stopMayaSlideshow = function () {
         document.removeEventListener("visibilitychange", onVisibilityChange);
-        if (activeInstance) activeInstance.stopLoop();
+        if (activeInstance) activeInstance.dispose();
         activeInstance = null;
     };
 })();

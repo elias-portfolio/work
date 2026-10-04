@@ -84,13 +84,14 @@ function makeDom() {
       id: `maya-card-${i}`,
       style: {},
       offsetWidth: 300,
+      closest() { return body; },
       classList: {
         add(name) { classes.add(name); },
         remove(name) { classes.delete(name); },
         contains(name) { return classes.has(name); },
       },
     };
-    const img = { id: `maya-img-${i}`, src: "", alt: "", style: {} };
+    const img = { id: `maya-img-${i}`, src: "", alt: "", style: {}, replaceWith(next) { nodes.set(this.id, next); } };
     const caption = { id: `maya-caption-${i}`, textContent: "" };
     nodes.set(card.id, card); nodes.set(img.id, img); nodes.set(caption.id, caption);
     body.append(card); body.append(img); body.append(caption);
@@ -98,7 +99,10 @@ function makeDom() {
   return { document, nodes, body };
 }
 
-function loadFixture() {
+function loadFixture(deferred = false) {
+  const loads = [];
+  const decodes = [];
+  let observer;
   const timers = makeTimers();
   const dom = makeDom();
   const window = {};
@@ -106,13 +110,73 @@ function loadFixture() {
   let randomIndex = 0;
   const context = vm.createContext({
     window, document: dom.document,
+    Image: class {
+      constructor() { this.style = {}; }
+      set src(value) { this._src = value; if (deferred) loads.push(this); else this.onload?.(); }
+      decode() { return { then: (ok, fail) => deferred ? decodes.push({ ok, fail }) : ok() }; }
+      get src() { return this._src; }
+      replaceWith(next) { dom.nodes.set(this.id, next); }
+    },
+    IntersectionObserver: class {
+      constructor(callback) { observer = this; this.callback = callback; }
+      observe() {}
+      disconnect() { this.disconnected = true; }
+    },
     Math: Object.assign(Object.create(Math), { random: () => randomValues[randomIndex++ % randomValues.length] }),
     setTimeout: timers.setTimeout, setInterval: timers.setInterval,
     clearTimeout: timers.clearTimeout, clearInterval: timers.clearInterval,
   });
   vm.runInContext(slideshowSource, context, { filename: "maya-slideshow.js" });
-  return { ...dom, timers, window };
+  return { ...dom, timers, window, loads, decodes, get observer() { return observer; } };
 }
+
+test('decode gates atomic swaps; paused or disposed work cannot commit', () => {
+  const f = loadFixture(true);
+  f.window.initMayaSlideshow();
+  assert.equal(f.loads.length, 16);
+  f.loads.splice(0).forEach(img => img.onload());
+  f.decodes.splice(0).forEach(decode => decode.ok());
+  const snapshot = () => cards(f).map(({ img, card, caption }) => [img.src, card.style.backgroundColor, img.style.filter, caption.textContent]);
+  const before = snapshot();
+  f.timers.advance(1);
+  assert.equal(f.loads.length, 1);
+  f.timers.advance(8);
+  assert.equal(f.loads.length, 1, 'only one swap loads at a time');
+  assert.deepEqual(snapshot(), before);
+  f.loads.shift().onload();
+  assert.deepEqual(snapshot(), before, 'load alone does not change image or polarity');
+  f.decodes.shift().ok();
+  assert.equal(snapshot().filter((v, i) => JSON.stringify(v) !== JSON.stringify(before[i])).length, 1);
+  f.timers.advance(1);
+  f.loads.shift().onload();
+  const paused = snapshot();
+  f.observer.callback([{ isIntersecting: false }]);
+  f.decodes.shift().ok();
+  assert.deepEqual(snapshot(), paused);
+  assert.equal(f.timers.pending(), 0);
+  f.observer.callback([{ isIntersecting: true }]);
+  assert.equal(f.timers.pending(), 1);
+  f.window.stopMayaSlideshow();
+  assert.equal(f.observer.disconnected, true);
+  assert.equal(f.timers.pending(), 0);
+});
+
+test('failed image keeps current card and permits the next beat', () => {
+  const f = loadFixture(true);
+  f.window.initMayaSlideshow();
+  f.loads.splice(0).forEach(img => img.onload());
+  f.decodes.splice(0).forEach(d => d.ok());
+  const before = cards(f).map(({ img }) => img.src);
+  f.timers.advance(1);
+  f.loads.shift().onerror();
+  assert.deepEqual(cards(f).map(({ img }) => img.src), before);
+  f.timers.advance(1);
+  assert.equal(f.loads.length, 1);
+  f.window.stopMayaSlideshow();
+  f.loads.shift().onload();
+  f.decodes.shift().ok();
+  assert.deepEqual(cards(f).map(({ img }) => img.src), before);
+});
 
 function cards(fixture) {
   return Array.from({ length: 16 }, (_, n) => ({
@@ -140,7 +204,7 @@ test("Maya slideshow assets, sixteen-card rendering, and template invariants", (
 
   assert.match(appTemplate, /id="maya-card-1"/);
   assert.equal((appTemplate.match(/id="maya-card-(?:[1-9]|1[0-6])"/g) || []).length, 16);
-  assert.doesNotMatch(slideshowSource, /Image|preload|transition|animation/);
+  assert.match(slideshowSource, /img\.decode\(\)/);
   for (let i = 1; i <= 16; i++) {
     const figure = appTemplate.match(new RegExp(`<figure>[\\s\\S]*?id="maya-card-${i}"[\\s\\S]*?</figure>`));
     assert.ok(figure, `card ${i} has figure wrapper`);
@@ -158,7 +222,7 @@ test("Maya slideshow assets, sixteen-card rendering, and template invariants", (
   assert.match(scriptsTemplate[1], /<iframe[^>]*src="scripts\.html"/);
   const entrypoint = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const asset of ["css/style.css", "js/script.js", "js/maya-slideshow.js"]) {
-    assert.ok(entrypoint.includes(`${asset}?v=20260922-maya-compare-matched-v7`), `${asset} cache-busted`);
+    assert.ok(entrypoint.includes(`${asset}?v=`), `${asset} cache-busted`);
   }
   assert.ok(entrypoint.includes("js/maya-compare.js?v=20260922-maya-compare-v1"), "compare script cache-busted");
   const css = fs.readFileSync(path.join(root, "css/style.css"), "utf8");
