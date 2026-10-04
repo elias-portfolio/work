@@ -11,6 +11,8 @@
     /** Solari cadence: the whole board flips on the fourth/fifth second. */
     const FLIP_MS = 4500;
     const FALLBACK_COLUMNS = 3;
+    const FLAP_CLASS = "is-flipping";
+    const FLAP_NAME = "maya-card-flap";
     // Bounded by the declared asset list; retain decoded nodes for reuse.
     const images = new Map();
     function prepare(asset, ready) {
@@ -64,6 +66,12 @@
             this.initialized = false;
             this.disposed = false;
             this.dealRowPolarity();
+            this.cards.forEach(({ card }) => {
+                if (!card || typeof card.addEventListener !== 'function') return;
+                card.addEventListener('animationend', (event) => {
+                    if (!event || !event.animationName || event.animationName === FLAP_NAME) card.classList?.remove(FLAP_CLASS);
+                });
+            });
             let remaining = this.cards.length;
             this.cards.forEach((_, index) => prepare(this.active[index], (img) => {
                 if (this.disposed) return;
@@ -98,17 +106,33 @@
             return count > 0 ? count : FALLBACK_COLUMNS;
         }
 
-        /** One random polarity per row: every card in a row shares black or white. */
+        /** One random polarity per row, but never a board of a single colour. */
         dealRowPolarity() {
             const columns = this.columns();
             const rows = Math.ceil(this.cards.length / columns);
             this.rowDark = [];
             for (let row = 0; row < rows; row++) this.rowDark.push(Math.random() < 0.5);
+            // Keep both black and white rows so the board always reads as a mix.
+            const darkRows = this.rowDark.filter(Boolean).length;
+            if (rows > 1 && (darkRows === 0 || darkRows === rows)) {
+                const flipAt = Math.floor(Math.random() * rows);
+                this.rowDark[flipAt] = !this.rowDark[flipAt];
+            }
             this.dark = this.cards.map((_, index) => {
                 const asset = this.active[index];
                 if (asset && asset.kind === 'generated') return false;
                 return this.rowDark[Math.floor(index / columns)] === true;
             });
+        }
+
+        /** Start the split-flap fall on one tile, restartable on every beat. */
+        flap(index) {
+            const { card } = this.cards[index];
+            if (!card || !card.classList) return;
+            card.classList.remove(FLAP_CLASS);
+            // Force a style flush so the same animation can replay on the next beat.
+            void card.offsetWidth;
+            card.classList.add(FLAP_CLASS);
         }
 
         render(index, img) {
@@ -170,7 +194,10 @@
                 });
                 // Polarity is dealt once for the whole board, once the new faces are known.
                 this.dealRowPolarity();
-                live.forEach((target) => this.render(target.index, decoded.get(target)));
+                live.forEach((target) => {
+                    this.render(target.index, decoded.get(target));
+                    this.flap(target.index);
+                });
             };
             planned.forEach((target) => {
                 prepare(target.asset, (img) => {

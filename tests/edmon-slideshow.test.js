@@ -152,16 +152,11 @@ function buildSection() {
   const art = new Element("img", { src: "images/edmon/cooler.jpg" });
   art.src = "images/edmon/cooler.jpg";
   artStage.append(art);
-  const count = new Element("span", { "data-edmon-count": "" });
-  count.textContent = "1 / 4";
-  const controls = new Element("div", { class: "edmon-slide-controls" });
-  controls.append(count);
   const artCard = new Element("figure", { class: "edmon-animation-card edmon-illustration-card" });
   artCard.append(artStage);
-  artCard.append(controls);
   section.append(artCard);
 
-  return { section, viewer, glbStatus, box, boxStatus, artStage, count };
+  return { section, viewer, glbStatus, box, boxStatus, artStage };
 }
 
 function loadFixture({ assetsReady = false, reducedMotion = false } = {}) {
@@ -236,7 +231,10 @@ test("edmon drops the manual controls and rotates on its own every three seconds
     "the GLB note precedes the box note",
   );
   assert.match(css, /#media\.edmon-background \.edmon-asset-status \{/);
-  assert.doesNotMatch(css, /\.edmon-slide-controls button/);
+  assert.doesNotMatch(css, /\.edmon-slide-controls/);
+  assert.doesNotMatch(appTemplate, /data-edmon-count|edmon-slide-controls/);
+  assert.doesNotMatch(entrypoint, /data-edmon-count/);
+  assert.match(entrypoint, /<span class="year">2026<\/span>\s*<span class="title">Edmon<\/span>/, "Edmon is listed as 2026");
   for (const asset of ["css/style.css", "js/script.js", "js/edmon-slideshow.js"]) {
     assert.ok(entrypoint.includes(`${asset}?v=`), `${asset} cache-busted`);
   }
@@ -258,7 +256,6 @@ test("the illustration advances by itself every three seconds", async () => {
   f.decodes.shift().ok();
   await flush();
   assert.notEqual(f.artStage.children[0].src, first, "the decoded illustration takes over");
-  assert.equal(f.count.textContent, "2 / 4", "the counter follows the shown illustration");
   assert.equal(f.timers.pending(), 1, "the timer keeps its beat");
 
   f.observer.callback([{ isIntersecting: false }]);

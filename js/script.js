@@ -288,7 +288,6 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             <div class="edmon-logo-stage">
                 <img src="images/edmon/cooler.jpg" width="845" height="1200" loading="lazy" alt="Illustration of three colleagues gathered around an office water cooler">
             </div>
-            <div class="edmon-slide-controls"><span data-edmon-count>1 / 4</span></div>
             <figcaption class="edmon-caption">I replaced stock photos with custom illustrations and graphic patterns to give Edmon a distinct identity aimed primarily at investors.</figcaption>
         </figure>
     </section>

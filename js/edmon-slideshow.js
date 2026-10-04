@@ -63,7 +63,6 @@
         const stage = root.querySelector('.edmon-logo-stage') || root;
         let image = stage.querySelector('img');
         if (!image) return () => {};
-        const count = root.querySelector('[data-edmon-count]');
         // Reduced-motion users keep the first illustration; nothing is forced on them.
         const still = typeof window.matchMedia === 'function'
             && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -95,7 +94,6 @@
                 cache.set(index, image);
                 image = ready;
                 index = target;
-                if (count) count.textContent = (index + 1) + ' / ' + ILLUSTRATIONS.length;
             } catch {
                 // Preserve the displayed image if loading fails; allow another attempt.
             } finally {
