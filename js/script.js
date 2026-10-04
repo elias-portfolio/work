@@ -268,7 +268,7 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
                     <span slot="progress-bar" aria-hidden="true"></span>
                 </model-viewer>
             </div>
-            <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV. I developed a new brand concept, graphic identity and tone of voice around one idea: “We turn characters into characters — and back again.”</figcaption>
+            <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV. I developed a new brand concept, graphic identity and tone of voice around the hero line: “Turning characters into characters — and back again.”</figcaption>
         </figure>
     </section>
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
@@ -277,8 +277,12 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             <figcaption class="edmon-caption">We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
         </figure>
     </section>
-    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
-    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
+    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');">
+        <figure class="edmon-animation-card edmon-illustration-card">
+            <img src="images/edmon/cooler.jpg" width="845" height="1200" loading="lazy" alt="Illustration of three colleagues gathered around an office water cooler">
+            <figcaption class="edmon-caption">I replaced stock photos with custom illustrations and graphic patterns to give Edmon a distinct identity aimed primarily at investors.</figcaption>
+        </figure>
+    </section>
 </div>
 <div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">
 

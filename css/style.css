@@ -247,8 +247,8 @@ body2 {
     align-items: center;
     box-sizing: border-box;
     height: auto;
-    min-height: calc(100svh - 2 * var(--edmon-inset));
-    padding: calc(var(--edmon-blend) + 32px) clamp(16px, 2vw, 40px);
+    min-height: 0;
+    padding: 16px clamp(16px, 2vw, 40px);
 }
 
 #media.edmon-background .edmon-animation-card {
@@ -288,6 +288,16 @@ body2 {
 
 #media.edmon-background .edmon-logo-card {
     background-image: url('https://elias-portfolio.github.io/work/images/edmon/PATTERN_20.gif');
+}
+
+#media.edmon-background .edmon-illustration-card {
+    background-image: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');
+}
+
+#media.edmon-background .edmon-illustration-card img {
+    aspect-ratio: auto;
+    width: 100%;
+    height: auto;
 }
 
 /* Same square media area as the SVG above; smaller centered render canvas. */
@@ -362,6 +372,11 @@ body.is-mobile #media.edmon-background {
 @supports (mask-image: linear-gradient(transparent, black)) or (-webkit-mask-image: linear-gradient(transparent, black)) {
     #media.edmon-background .edmon-pattern + .edmon-pattern {
         margin-top: calc(-1 * var(--edmon-blend));
+    }
+
+    /* Reserve the overlap below cards, not above the next card. */
+    #media.edmon-background .edmon-animation-panel:not(:last-child) {
+        padding-bottom: calc(var(--edmon-blend) + 16px);
     }
 
     #media.edmon-background .edmon-pattern + .edmon-pattern::before {
