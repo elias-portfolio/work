@@ -258,15 +258,9 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
             `,
             edmon: `
-<!-- Box animation first, then the introduction and interactive logo. -->
+<!-- Logo and introduction first, then the software box and its caption. -->
 <div class="edmon-patterns">
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
-        <figure class="edmon-animation-card">
-            <img src="images/edmon/animation-square.svg" width="800" height="800" alt="Edmon animated software box">
-            <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV. I developed a new brand concept, graphic identity and tone of voice around one idea: “We turn characters into characters — and back again.”<br><br>We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
-        </figure>
-    </section>
-    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
         <figure class="edmon-animation-card edmon-logo-card">
             <div class="edmon-logo-stage">
                 <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon rotating 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-orbit="0deg 75deg 105%" interaction-prompt="none" shadow-intensity="0" loading="lazy" tabindex="-1">
@@ -274,7 +268,13 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
                     <span slot="progress-bar" aria-hidden="true"></span>
                 </model-viewer>
             </div>
-
+            <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV. I developed a new brand concept, graphic identity and tone of voice around one idea: “We turn characters into characters — and back again.”</figcaption>
+        </figure>
+    </section>
+    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
+        <figure class="edmon-animation-card">
+            <img src="images/edmon/animation-square.svg" width="800" height="800" alt="Edmon animated software box">
+            <figcaption class="edmon-caption">We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
         </figure>
     </section>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
