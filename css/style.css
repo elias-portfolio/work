@@ -170,9 +170,14 @@ body2 {
 }
 
 /* Empty animated hero, followed by the existing case-study content. */
-#media.edmon-background,
+#media.edmon-background {
+    --edmon-inset: 20px;
+    padding: var(--edmon-inset);
+}
+
 body.is-mobile #media.edmon-background {
-    padding: 0;
+    --edmon-inset: 12px;
+    padding: var(--edmon-inset);
 }
 
 #media.edmon-background #content-display {
@@ -180,8 +185,8 @@ body.is-mobile #media.edmon-background {
 }
 
 #media.edmon-background .edmon-pattern {
-    height: 100vh;
-    height: 100svh;
+    height: calc(100vh - 2 * var(--edmon-inset));
+    height: calc(100svh - 2 * var(--edmon-inset));
     background-image: url('../images/edmon/edmonpattern4.gif');
     background-size: cover;
     background-position: center;
