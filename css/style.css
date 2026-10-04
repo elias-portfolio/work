@@ -169,18 +169,29 @@ body2 {
     background-color: #ffffff;
 }
 
-/* Edmon's animated atmosphere stays inside the right-hand media column. */
-#media.edmon-background {
+/* Empty animated hero, followed by the existing case-study content. */
+#media.edmon-background,
+body.is-mobile #media.edmon-background {
+    padding: 0;
+}
+
+#media.edmon-background #content-display {
+    padding: 0;
+}
+
+#media.edmon-background .edmon-pattern {
+    height: 100vh;
+    height: 100svh;
     background-image: url('../images/edmon/edmonpattern4.gif');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: local;
-    color: #ffffff;
 }
 
 #media.edmon-background .edmon-content {
-    color: #ffffff;
+    padding: 20px;
+    background: #ffffff;
+    color: #000000;
 }
 
 #content-display {
