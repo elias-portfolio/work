@@ -184,10 +184,16 @@ body.is-mobile #media.edmon-background {
     padding: 0;
 }
 
+#media.edmon-background .edmon-patterns {
+    display: grid;
+    gap: calc(2 * var(--edmon-inset));
+}
+
 #media.edmon-background .edmon-pattern {
+    position: relative;
     height: calc(100vh - 2 * var(--edmon-inset));
     height: calc(100svh - 2 * var(--edmon-inset));
-    background-image: url('../images/edmon/edmonpattern4.gif');
+    background-image: var(--edmon-pattern);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

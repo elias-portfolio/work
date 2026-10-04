@@ -258,8 +258,15 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
             `,
             edmon: `
-<!-- Empty animated hero reserved for future overlaid text. -->
-<div class="edmon-pattern" aria-hidden="true"></div>
+<!-- Empty animated panels reserved for future overlaid content. -->
+<div class="edmon-patterns" aria-hidden="true">
+    <div class="edmon-pattern" style="--edmon-pattern: url('images/edmon/edmonpattern4.gif');"></div>
+    <div class="edmon-pattern" style="--edmon-pattern: url('images/edmon/PATTERN_13-1.gif');"></div>
+    <div class="edmon-pattern" style="--edmon-pattern: url('images/edmon/PATTERN_20.gif');"></div>
+    <div class="edmon-pattern" style="--edmon-pattern: url('images/edmon/edmonpattern1.gif');"></div>
+    <div class="edmon-pattern" style="--edmon-pattern: url('images/edmon/edmonpattern7.gif');"></div>
+    <div class="edmon-pattern" style="--edmon-pattern: url('images/edmon/edmonpattern8.gif');"></div>
+</div>
 <div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">
 
     <p style="margin-top: 0;">
@@ -269,7 +276,7 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
         I led a visual update and copy tonality overhaul, focusing on turning something as abstract as software updates into something tactile and physical—designing physical box art reminiscent of classic McAfee antivirus packaging and the Windows Vista era identity.
     </p>
 
-    <!-- Pattern gallery paused; pattern 4 now forms the media-column background. -->
+    <!-- Existing case-study content stays below all six animated panels. -->
 
     <!-- Sápmi Language Pack full width -->
     <div style="width: 100%; overflow: hidden; background: #fff; border: 1px solid #eee; border-radius: 6px; margin-bottom: 24px; line-height: 0;">
