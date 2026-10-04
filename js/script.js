@@ -258,21 +258,29 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 
             `,
             edmon: `
-<!-- Introduction and hero line kept together in one animated text card. -->
+<!-- Box animation first, then the introduction and interactive logo. -->
 <div class="edmon-patterns">
-    <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
+    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
+        <figure class="edmon-animation-card">
+            <img src="images/edmon/animation-square.svg" width="800" height="800" alt="Edmon animated software box">
+            <figcaption class="edmon-caption">We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
+        </figure>
+    </section>
+    <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
         <div class="edmon-copy">
             <p class="edmon-body">Edmon is an AI startup that transcribes footage for reality and unscripted TV.</p>
             <p class="edmon-body">I developed a new brand concept, graphic identity and tone of voice around one idea:</p>
             <blockquote class="edmon-quote">“We turn characters into characters — and back again.”</blockquote>
         </div>
     </section>
-    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
-        <figure class="edmon-animation-card">
-            <img src="images/edmon/animation-square.svg" width="800" height="800" loading="lazy" alt="Edmon animated graphic">
+    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');">
+        <figure class="edmon-animation-card edmon-logo-card">
+            <model-viewer src="images/edmon/LOGGA.glb" alt="Edmon 3D logo" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" shadow-intensity="0" loading="lazy">
+                <span slot="poster" class="edmon-model-status">Loading 3D logo…</span>
+            </model-viewer>
+            <figcaption class="edmon-caption">Drag to rotate the logo.</figcaption>
         </figure>
     </section>
-    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
 </div>
 <div class="edmon-content" style="font-size: 16px; font-family: 'Suisse', sans-serif; line-height: 1.5;">
