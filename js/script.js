@@ -261,14 +261,17 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 <!-- Introduction and hero line kept together in one animated text card. -->
 <div class="edmon-patterns">
     <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
-        <div class="edmon-copy edmon-copy-green">
-            <h1 class="edmon-headline">Edmon is an AI startup that transcribes footage so editors can search for the words and cut with the original clips.</h1>
-            <p class="edmon-body">I gave the company a new graphic identity to attract investors, together with copy like:</p>
-            <blockquote class="edmon-quote">“We turn characters into characters, and back again.”</blockquote>
-            <blockquote class="edmon-quote edmon-quote-secondary">“don't take our word for it (take theirs)”</blockquote>
+        <div class="edmon-copy">
+            <p class="edmon-body">Edmon is an AI startup that transcribes footage for reality and unscripted TV.</p>
+            <p class="edmon-body">I developed a new brand concept, graphic identity and tone of voice around one idea:</p>
+            <blockquote class="edmon-quote">“We turn characters into characters — and back again.”</blockquote>
         </div>
     </section>
-    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');"></div>
+    <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
+        <figure class="edmon-animation-card">
+            <img src="images/edmon/animation-square.svg" width="800" height="800" loading="lazy" alt="Edmon animated graphic">
+        </figure>
+    </section>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
 </div>
