@@ -99,13 +99,15 @@ function makeDom() {
   return { document, nodes, body };
 }
 
-function loadFixture(deferred = false) {
+function loadFixture(deferred = false, columns = 3) {
   const loads = [];
   const decodes = [];
   let observer;
   const timers = makeTimers();
   const dom = makeDom();
-  const window = {};
+  const window = {
+    getComputedStyle: () => ({ gridTemplateColumns: Array.from({ length: columns }, () => "1fr").join(" ") }),
+  };
   const randomValues = [0, 0.5, 0.25, 0.75, 0.125, 0.875, 0.375, 0.625, 0.0625, 0.5625, 0.3125, 0.8125, 0.1875, 0.6875, 0.4375, 0.9375];
   let randomIndex = 0;
   const context = vm.createContext({
@@ -130,7 +132,7 @@ function loadFixture(deferred = false) {
   return { ...dom, timers, window, loads, decodes, get observer() { return observer; } };
 }
 
-test('decode gates atomic swaps; paused or disposed work cannot commit', () => {
+test('one beat flips every card, and nothing swaps before every decode has settled', () => {
   const f = loadFixture(true);
   f.window.initMayaSlideshow();
   assert.equal(f.loads.length, 12);
@@ -139,20 +141,16 @@ test('decode gates atomic swaps; paused or disposed work cannot commit', () => {
   const snapshot = () => cards(f).map(({ img, card, caption }) => [img.src, card.style.backgroundColor, img.style.filter, caption.textContent]);
   const before = snapshot();
   f.timers.advance(1);
-  assert.equal(f.loads.length, 1);
-  f.timers.advance(8);
-  assert.equal(f.loads.length, 1, 'only one swap loads at a time');
-  assert.deepEqual(snapshot(), before);
+  assert.equal(f.loads.length, 12, 'every card joins the same beat');
+  assert.deepEqual(snapshot(), before, 'no card moves while the beat is still decoding');
+  f.loads.splice(0, 11).forEach(img => img.onload());
+  f.decodes.splice(0, 11).forEach(decode => decode.ok());
+  assert.deepEqual(snapshot(), before, 'eleven settled cards wait for the last one');
   f.loads.shift().onload();
-  assert.deepEqual(snapshot(), before, 'load alone does not change image or polarity');
   f.decodes.shift().ok();
-  assert.equal(snapshot().filter((v, i) => JSON.stringify(v) !== JSON.stringify(before[i])).length, 1);
-  f.timers.advance(1);
-  f.loads.shift().onload();
-  const paused = snapshot();
+  const changed = snapshot().filter((value, index) => JSON.stringify(value) !== JSON.stringify(before[index]));
+  assert.equal(changed.length, 12, 'the whole board commits in one tick');
   f.observer.callback([{ isIntersecting: false }]);
-  f.decodes.shift().ok();
-  assert.deepEqual(snapshot(), paused);
   assert.equal(f.timers.pending(), 0);
   f.observer.callback([{ isIntersecting: true }]);
   assert.equal(f.timers.pending(), 1);
@@ -168,14 +166,18 @@ test('failed image keeps current card and permits the next beat', () => {
   f.decodes.splice(0).forEach(d => d.ok());
   const before = cards(f).map(({ img }) => img.src);
   f.timers.advance(1);
+  assert.equal(f.loads.length, 12, 'the beat loads one asset per card');
   f.loads.shift().onerror();
-  assert.deepEqual(cards(f).map(({ img }) => img.src), before);
+  f.loads.splice(0).forEach(img => img.onload());
+  f.decodes.splice(0).forEach(d => d.ok());
+  const after = cards(f).map(({ img }) => img.src);
+  assert.equal(after.filter((src, index) => src !== before[index]).length, 11, 'ready cards still commit while the failed one keeps its image');
   f.timers.advance(1);
-  assert.equal(f.loads.length, 1);
+  assert.ok(f.loads.length >= 1, 'the next beat starts');
   f.window.stopMayaSlideshow();
-  f.loads.shift().onload();
-  f.decodes.shift().ok();
-  assert.deepEqual(cards(f).map(({ img }) => img.src), before);
+  f.loads.splice(0).forEach(img => img.onload());
+  f.decodes.splice(0).forEach(d => d.ok());
+  assert.deepEqual(cards(f).map(({ img }) => img.src), after, 'a stopped board commits nothing');
 });
 
 function cards(fixture) {
@@ -236,7 +238,7 @@ test("Maya slideshow assets, twelve-card rendering, and template invariants", ()
   assert.match(css, /\.maya-compare-image\s*\{[^}]*pointer-events:\s*none[^}]*user-select:\s*none/);
 });
 
-test("successive gallery updates choose non-adjacent random cards", () => {
+test("every beat advances all twelve cards together without duplicates", () => {
   const fixture = loadFixture();
   fixture.window.initMayaSlideshow();
   const initial = cards(fixture).map(({ img }) => assetPath(img.src));
@@ -246,9 +248,38 @@ test("successive gallery updates choose non-adjacent random cards", () => {
   const second = cards(fixture).map(({ img }) => assetPath(img.src));
   const changedFirst = first.flatMap((src, index) => src !== initial[index] ? [index] : []);
   const changedSecond = second.flatMap((src, index) => src !== first[index] ? [index] : []);
-  assert.equal(changedFirst.length, 1);
-  assert.equal(changedSecond.length, 1);
-  assert.notEqual(changedSecond[0], changedFirst[0]);
+  assert.equal(changedFirst.length, 12, "the first beat flips the whole board");
+  assert.equal(changedSecond.length, 12, "the next beat flips the whole board again");
+  assert.equal(new Set(first).size, 12, "no asset appears on two cards");
+  assert.equal(new Set(second).size, 12, "the board stays free of duplicates");
+});
+
+test("polarity is random per grid row and shared by the cards inside a row", () => {
+  const fixture = loadFixture(false, 3);
+  fixture.window.initMayaSlideshow();
+  const rowsOf = (columns, live) => {
+    const all = cards(live);
+    const rows = [];
+    for (let start = 0; start < all.length; start += columns) rows.push(all.slice(start, start + columns));
+    return rows;
+  };
+  const rowPolarity = (columns, live) => rowsOf(columns, live).map((row) => {
+    const colors = new Set(row.map(({ card }) => card.style.backgroundColor));
+    assert.equal(colors.size, 1, "a row shares one polarity");
+    const [color] = [...colors];
+    assert.ok(color === "#000000" || color === "#FFFFFF", "row polarity is black or white");
+    return color;
+  });
+
+  const initial = rowPolarity(3, fixture);
+  fixture.timers.advance(1);
+  const flipped = rowPolarity(3, fixture);
+  assert.equal(initial.length, 4, "twelve cards form four rows of three");
+  assert.equal(flipped.length, 4);
+
+  const narrow = loadFixture(false, 2);
+  narrow.window.initMayaSlideshow();
+  assert.equal(rowPolarity(2, narrow).length, 6, "a two-column mobile grid forms six rows");
 });
 
 test("each card cycles both glyph and generated study assets", () => {
@@ -284,7 +315,7 @@ test("twelve cards visit the expanded glyph and generated asset stream", () => {
     const live = cards(fixture).map(({ img }) => assetPath(img.src));
     assert.ok(new Set(live).size >= 1, "the expanded stream remains active");
     const changed = live.filter((src, i) => src !== previous[i]);
-    assert.ok(changed.length <= 6, "card changes remain bounded between timer observations");
+    assert.equal(changed.length, 12, "each observed beat flips every card");
     if (changed[0]) {
       chronological.push(changed[0]);
       visited.add(changed[0]);

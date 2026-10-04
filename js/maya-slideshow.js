@@ -1,4 +1,4 @@
-/** Sixteen Maya cards swap instantly, one controlled card at a time. */
+/** Twelve Maya cards flip together like a Solari board: one new asset per card, every beat. */
 
 (function () {
     const GLYPHS = [{"id": "T100", "file": "bauhaus_glyph_000100.svg"}, {"id": "T101", "file": "bauhaus_glyph_000101.svg"}, {"id": "T200", "file": "bauhaus_glyph_000200.svg"}, {"id": "T300", "file": "bauhaus_glyph_000300.svg"}, {"id": "T301", "file": "bauhaus_glyph_000301.svg"}, {"id": "T302", "file": "bauhaus_glyph_000302.svg"}, {"id": "T400", "file": "bauhaus_glyph_000400.svg"}, {"id": "T500", "file": "bauhaus_glyph_000500.svg"}, {"id": "T600", "file": "bauhaus_glyph_000600.svg"}, {"id": "T700", "file": "bauhaus_glyph_000700.svg"}, {"id": "T800", "file": "bauhaus_glyph_000800.svg"}, {"id": "T900", "file": "bauhaus_glyph_000900.svg"}, {"id": "T1000", "file": "bauhaus_glyph_001000.svg"}, {"id": "T1100", "file": "bauhaus_glyph_001100.svg"}, {"id": "T1200", "file": "bauhaus_glyph_001200.svg"}, {"id": "T1201", "file": "bauhaus_glyph_001201.svg"}, {"id": "T1300", "file": "bauhaus_glyph_001300.svg"}, {"id": "T1301", "file": "bauhaus_glyph_001301.svg"}, {"id": "T1302", "file": "bauhaus_glyph_001302.svg"}, {"id": "T1303", "file": "bauhaus_glyph_001303.svg"}, {"id": "T1400", "file": "bauhaus_glyph_001400.svg"}, {"id": "T1500", "file": "bauhaus_glyph_001500.svg"}, {"id": "T1501", "file": "bauhaus_glyph_001501.svg"}, {"id": "T1600", "file": "bauhaus_glyph_001600.svg"}, {"id": "T1601", "file": "bauhaus_glyph_001601.svg"}, {"id": "T1602", "file": "bauhaus_glyph_001602.svg"}, {"id": "T1700", "file": "bauhaus_glyph_001700.svg"}, {"id": "T1701", "file": "bauhaus_glyph_001701.svg"}, {"id": "T1702", "file": "bauhaus_glyph_001702.svg"}, {"id": "T1705", "file": "bauhaus_glyph_001705.svg"}, {"id": "T1800", "file": "bauhaus_glyph_001800.svg"}, {"id": "T1900", "file": "bauhaus_glyph_001900.svg"}, {"id": "T1901", "file": "bauhaus_glyph_001901.svg"}, {"id": "T2000", "file": "bauhaus_glyph_002000.svg"}, {"id": "T2100", "file": "bauhaus_glyph_002100.svg"}, {"id": "T2101", "file": "bauhaus_glyph_002101.svg"}, {"id": "T2104", "file": "bauhaus_glyph_002104.svg"}, {"id": "T2200", "file": "bauhaus_glyph_002200.svg"}, {"id": "T2300", "file": "bauhaus_glyph_002300.svg"}, {"id": "T2400", "file": "bauhaus_glyph_002400.svg"}, {"id": "T2500", "file": "bauhaus_glyph_002500.svg"}, {"id": "T2501", "file": "bauhaus_glyph_002501.svg"}, {"id": "T2600", "file": "bauhaus_glyph_002600.svg"}, {"id": "T2700", "file": "bauhaus_glyph_002700.svg"}];
@@ -8,8 +8,9 @@
     const BLACK = "#000000";
     const WHITE = "#FFFFFF";
     const CARD_COUNT = 12;
-    const CHANGE_MS = 350;
-    const DARK_PHASE = [true, false, false, true, true, false, true, false, false, true, false, true, true, false, true, false];
+    /** Solari cadence: the whole board flips on the fourth/fifth second. */
+    const FLIP_MS = 4500;
+    const FALLBACK_COLUMNS = 3;
     // Bounded by the declared asset list; retain decoded nodes for reuse.
     const images = new Map();
     function prepare(asset, ready) {
@@ -53,14 +54,16 @@
             this.decks = this.cards.map((_, cardIndex) => this.makeDeck(cardIndex));
             this.indices = Array.from({ length: CARD_COUNT }, (_, index) => index);
             this.active = this.decks.map((deck, index) => deck[index]);
-            this.visible = new Set(this.active.map((asset) => asset.file));
-            this.dark = this.active.map((asset, index) => asset.kind === "generated" ? false : DARK_PHASE[index]);
+            this.grid = this.cards[0].card.closest ? this.cards[0].card.closest('.maya-card-grid') : null;
+            this.dark = this.cards.map(() => false);
+            this.rowDark = [];
             this.running = false;
             this.generation = 0;
             this.pending = false;
             this.inView = true;
             this.initialized = false;
             this.disposed = false;
+            this.dealRowPolarity();
             let remaining = this.cards.length;
             this.cards.forEach((_, index) => prepare(this.active[index], (img) => {
                 if (this.disposed) return;
@@ -71,7 +74,7 @@
                 }
             }));
             if (typeof IntersectionObserver !== 'undefined') {
-                const grid = this.cards[0].card.closest('.maya-card-grid');
+                const grid = this.grid;
                 if (grid) {
                     this.observer = new IntersectionObserver(([entry]) => {
                         this.inView = entry.isIntersecting;
@@ -85,6 +88,27 @@
 
         makeDeck(cardIndex) {
             return Array.from({ length: this.assets.length }, (_, offset) => this.assets[(cardIndex + offset) % this.assets.length]);
+        }
+
+        /** Live column count, so "a row" means the same thing on desktop and mobile. */
+        columns() {
+            if (!this.grid || typeof window.getComputedStyle !== 'function') return FALLBACK_COLUMNS;
+            const template = window.getComputedStyle(this.grid).gridTemplateColumns;
+            const count = template ? template.trim().split(/\s+/).length : 0;
+            return count > 0 ? count : FALLBACK_COLUMNS;
+        }
+
+        /** One random polarity per row: every card in a row shares black or white. */
+        dealRowPolarity() {
+            const columns = this.columns();
+            const rows = Math.ceil(this.cards.length / columns);
+            this.rowDark = [];
+            for (let row = 0; row < rows; row++) this.rowDark.push(Math.random() < 0.5);
+            this.dark = this.cards.map((_, index) => {
+                const asset = this.active[index];
+                if (asset && asset.kind === 'generated') return false;
+                return this.rowDark[Math.floor(index / columns)] === true;
+            });
         }
 
         render(index, img) {
@@ -101,37 +125,58 @@
             if (cap) cap.textContent = asset.id;
         }
 
-        change(index) {
-            const { card } = this.cards[index];
-            if (!this.running || !card || !document.body.contains(card)) {
+        /**
+         * Plan one board-wide flip: every card advances a deck step, and no file is
+         * planned onto two cards at once (the current faces count as taken).
+         */
+        planBeat() {
+            const claimed = new Set(this.active.map((asset) => asset.file));
+            return this.cards.map((_, index) => {
+                const deck = this.decks[index];
+                for (let step = 1; step <= deck.length; step++) {
+                    const candidateIndex = (this.indices[index] + step) % deck.length;
+                    const asset = deck[candidateIndex];
+                    if (claimed.has(asset.file)) continue;
+                    claimed.add(asset.file);
+                    return { index, candidateIndex, asset };
+                }
+                return null;
+            }).filter(Boolean);
+        }
+
+        /** Everyone waits for every decode, then the whole board swaps in one tick. */
+        flip() {
+            if (this.disposed || !this.initialized) return;
+            if (!this.running || this.pending) return;
+            if (this.cards.some(({ card }) => !card || !document.body.contains(card))) {
                 this.stopLoop();
                 return;
             }
-            if (this.pending) return;
-            const deck = this.decks[index];
-            const current = this.active[index];
-            let next = null;
-            for (let offset = 1; offset <= deck.length; offset++) {
-                const candidateIndex = (this.indices[index] + offset) % deck.length;
-                const candidate = deck[candidateIndex];
-                if (!this.visible.has(candidate.file)) {
-                    next = { candidate, candidateIndex };
-                    break;
-                }
-            }
-            if (!next) return;
+            const planned = this.planBeat();
+            if (!planned.length) return;
             this.pending = true;
             const generation = this.generation;
-            prepare(next.candidate, (img) => {
+            const decoded = new Map();
+            let remaining = planned.length;
+            const commit = () => {
                 if (generation !== this.generation || this.disposed) return;
                 this.pending = false;
-                if (!img || !this.running || !document.body.contains(card)) return;
-                this.visible.delete(current.file);
-                this.visible.add(next.candidate.file);
-                this.indices[index] = next.candidateIndex;
-                this.active[index] = next.candidate;
-                this.dark[index] = next.candidate.kind === 'generated' ? false : !this.dark[index];
-                this.render(index, img);
+                if (!this.running) return;
+                const live = planned.filter((target) => decoded.get(target) && document.body.contains(this.cards[target.index].card));
+                if (!live.length) return;
+                live.forEach((target) => {
+                    this.indices[target.index] = target.candidateIndex;
+                    this.active[target.index] = target.asset;
+                });
+                // Polarity is dealt once for the whole board, once the new faces are known.
+                this.dealRowPolarity();
+                live.forEach((target) => this.render(target.index, decoded.get(target)));
+            };
+            planned.forEach((target) => {
+                prepare(target.asset, (img) => {
+                    decoded.set(target, img);
+                    if (--remaining === 0) commit();
+                });
             });
         }
 
@@ -139,17 +184,7 @@
             this.stopLoop();
             if (this.disposed || !this.initialized || !this.inView || document.hidden) return;
             this.running = true;
-            this.timer = setInterval(() => {
-                const first = Math.floor(Math.random() * CARD_COUNT);
-                let cardIndex = first;
-                for (let offset = 1; offset < CARD_COUNT; offset++) {
-                    if (cardIndex !== this.previousCard) break;
-                    cardIndex = (first + offset) % CARD_COUNT;
-                }
-                this.change(cardIndex);
-                this.previousCard = cardIndex;
-            }, CHANGE_MS);
-
+            this.timer = setInterval(() => this.flip(), FLIP_MS);
         }
 
         stopLoop() {

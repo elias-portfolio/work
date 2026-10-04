@@ -269,13 +269,17 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
                     <span slot="poster" aria-hidden="true"></span>
                     <span slot="progress-bar" aria-hidden="true"></span>
                 </model-viewer>
+                <span class="edmon-asset-status" data-edmon-status="glb" aria-hidden="true">Loading asset…</span>
             </div>
             <figcaption class="edmon-caption">Edmon is an AI startup that transcribes footage for reality and unscripted TV. I developed a new brand concept, graphic identity and tone of voice around the hero line: “Turning characters into characters — and back again.”</figcaption>
         </figure>
     </section>
     <section class="edmon-pattern edmon-animation-panel" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');">
         <figure class="edmon-animation-card">
-            <img src="images/edmon/animation-square.svg" width="800" height="800" alt="Edmon animated software box">
+            <div class="edmon-logo-stage">
+                <img src="images/edmon/animation-square.svg" width="800" height="800" alt="Edmon animated software box" data-edmon-asset>
+                <span class="edmon-asset-status" data-edmon-status="box" aria-hidden="true">Loading asset…</span>
+            </div>
             <figcaption class="edmon-caption">We wanted the software to feel like a physical product. I rendered boxes inspired by old McAfee antivirus packaging. That gave us a way to turn routine updates into releases: support for a new language became a “language pack,” complete with its own box.</figcaption>
         </figure>
     </section>
@@ -284,7 +288,7 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             <div class="edmon-logo-stage">
                 <img src="images/edmon/cooler.jpg" width="845" height="1200" loading="lazy" alt="Illustration of three colleagues gathered around an office water cooler">
             </div>
-            <div class="edmon-slide-controls"><button type="button" data-edmon-pause>Pause</button><button type="button" data-edmon-next>Next image →</button><span data-edmon-count>1 / 4</span></div>
+            <div class="edmon-slide-controls"><span data-edmon-count>1 / 4</span></div>
             <figcaption class="edmon-caption">I replaced stock photos with custom illustrations and graphic patterns to give Edmon a distinct identity aimed primarily at investors.</figcaption>
         </figure>
     </section>
