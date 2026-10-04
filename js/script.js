@@ -261,11 +261,11 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
 <!-- Introduction and hero line kept together in one animated text card. -->
 <div class="edmon-patterns">
     <section class="edmon-pattern edmon-editorial" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
-        <div class="edmon-copy">
-            <h1 class="edmon-headline">In reality television, finding the right line can mean watching hours of people talking.</h1>
-            <p class="edmon-body">Edmon transcribes that footage so editors can search for the words and cut with the original clips.</p>
-            <p class="edmon-body">I gave the company a new tone of voice and graphic identity around the hero line:</p>
+        <div class="edmon-copy edmon-copy-green">
+            <h1 class="edmon-headline">Edmon is an AI startup that transcribes footage so editors can search for the words and cut with the original clips.</h1>
+            <p class="edmon-body">I gave the company a new graphic identity to attract investors, together with copy like:</p>
             <blockquote class="edmon-quote">“We turn characters into characters, and back again.”</blockquote>
+            <blockquote class="edmon-quote edmon-quote-secondary">“don't take our word for it (take theirs)”</blockquote>
         </div>
     </section>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');"></div>
@@ -282,15 +282,7 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
         <img src="images/edmon/sapmi-language-pack.png" alt="EdMon Sápmi Language Pack" style="display: block; width: 100%; height: auto;">
     </div>
 
-    <!-- Copy examples below the animated hero. -->
-    <div style="margin: 28px 0 24px 0; font-family: 'Suisse', sans-serif;">
-        <div style="font-size: 13px; font-weight: 500; text-transform: lowercase; margin-bottom: 10px; opacity: 0.9;">
-            copy examples included:
-        </div>
-        <div style="font-size: 17px; line-height: 1.45;">
-            <p style="margin: 0;">&ldquo;Don't take our word for it. Take theirs from the sync.&rdquo;</p>
-        </div>
-    </div>
+
 </div>
             `,
             groundnews: `

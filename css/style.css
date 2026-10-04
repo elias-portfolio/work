@@ -219,6 +219,14 @@ body2 {
     overflow-wrap: break-word;
 }
 
+#media.edmon-background .edmon-copy-green {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url('https://elias-portfolio.github.io/work/images/edmon/PATTERN_20.gif');
+}
+
+#media.edmon-background .edmon-quote.edmon-quote-secondary {
+    font-size: clamp(21px, 1.8vw, 36px);
+}
+
 #media.edmon-background .edmon-headline {
     margin: 0 0 22px;
     max-width: 30ch;
