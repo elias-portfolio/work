@@ -169,7 +169,38 @@ body2 {
     background-color: #ffffff;
 }
 
-/* Empty animated hero, followed by the existing case-study content. */
+@font-face {
+    font-family: 'EdmonAkzidenz';
+    src: url('./AkzidenzGroteskBQ-BoldExtIt.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+#media.edmon-background .edmon-hero {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: clamp(24px, 3vw, 64px);
+    padding-bottom: max(24px, var(--edmon-blend));
+}
+
+#media.edmon-background .edmon-headline {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    max-width: 18ch;
+    font-family: 'EdmonAkzidenz', sans-serif !important;
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(28px, 3.5vw, 76px);
+    line-height: 1.08;
+    text-transform: none;
+    color: #ffffff;
+    overflow-wrap: break-word;
+}
+
+/* Animated panels, followed by the existing case-study content. */
 #media.edmon-background {
     --edmon-inset: 20px;
     padding: var(--edmon-inset);

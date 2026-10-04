@@ -259,8 +259,10 @@ This simple ad for the National Military Museum lasts as long as it takes an F-1
             `,
             edmon: `
 <!-- Empty animated panels reserved for future overlaid content. -->
-<div class="edmon-patterns" aria-hidden="true">
-    <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');"></div>
+<div class="edmon-patterns">
+    <div class="edmon-pattern edmon-hero" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern4.gif');">
+        <h1 class="edmon-headline">Finally a tool that turns characters into characters, and back again</h1>
+    </div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern1.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern7.gif');"></div>
     <div class="edmon-pattern" style="--edmon-pattern: url('https://elias-portfolio.github.io/work/images/edmon/edmonpattern8.gif');"></div>
