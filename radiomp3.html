@@ -285,7 +285,7 @@
       "1": "https://eliass-macbook-air.tail278fee.ts.net:8443/radio-proxy?url=http://playerservices.streamtheworld.com/api/livestream-redirect/RTE_1_INT.mp3",
       "2": "https://cashmereradio.out.airtime.pro/cashmereradio_b",
       "3": "https://20ft-radio.radiocult.fm/stream",
-      "4": "https://stream.radiojar.com/78cxy6wkxtzuv",
+      "4": "https://stream.radiojar.com/78cxy6wkxtzuv", // Radiojar primary; see audioFallbackStreams below
       "5": "https://eliass-macbook-air.tail278fee.ts.net:8443/radio-proxy?url=http://94.130.113.214:8000/dubtechno",
       "6": "https://eternalmix.org/listen/hari_ramas_eternal_mix/radio.mp3",
       "7": "https://stream.zeno.fm/2uhuu5hvzqzuv",
@@ -294,6 +294,10 @@
       "10": "https://playerservices.streamtheworld.com/api/livestream-redirect/3CR.mp3",
       "11": "https://stream.tbc.radio:8000/radio.mp3",
       "12": "https://radio.kamchatkalive.ru:8103/dance"
+    };
+
+    const audioFallbackStreams = {
+      "4": ["https://eliass-macbook-air.tail278fee.ts.net:8443/radio-proxy?url=http://176.9.7.145:8127/stream"] // AVIVmedia.FM, Tel Aviv
     };
 
     const streamLocations = {
@@ -313,7 +317,7 @@
       "1": "Baile Átha Cliath",
       "2": "Berlin",
       "3": "Київ",
-      "4": "بيت لحم",
+      "4": "Tel Aviv",
       "5": "کشمیر",
       "6": "गोवा",
       "7": "Jakarta",
@@ -322,6 +326,10 @@
       "10": "Melbourne",
       "11": "Tāmaki Makaurau",
       "12": "Камчатка"
+    };
+
+    const streamNames = {
+      "4": "AVIVmedia.FM"
     };
 
     const backgroundStreams = {
@@ -365,13 +373,14 @@ function updateRadio() {
   const audioPlayer = document.getElementById('radio-player');
   const locationEl = document.getElementById('stream-info');
   const location = streamLocations[offset] || "unknown location";
+  const station = streamNames[offset];
   
   const bgUrl = backgroundStreams[offset];
   const iframe = document.getElementById("bg-stream-iframe");
   const img = document.getElementById("bg-stream-img");
   const video = document.getElementById("bg-stream-video");
   
-  locationEl.textContent = `on air: gmt ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}`;
+  locationEl.textContent = `on air: gmt ${offset >= 0 ? '+' : ''}${offset}, ${location.toLowerCase()}${station ? ` · ${station}` : ''}`;
   
   // Set background content
   clearInterval(window._radioModeImageInterval);
@@ -448,7 +457,21 @@ function updateRadio() {
   }
 
   if (stream) {
-    audioPlayer.src = stream;
+    const candidates = [stream, ...(audioFallbackStreams[offset] || [])];
+    let candidateIndex = 0;
+    audioPlayer.onerror = () => {
+      if (candidateIndex >= candidates.length - 1) {
+        console.error('All radio audio sources failed for GMT', offset);
+        return;
+      }
+      candidateIndex += 1;
+      console.warn('Radio audio source failed; trying fallback', candidates[candidateIndex]);
+      audioPlayer.src = candidates[candidateIndex];
+      audioPlayer.load();
+      audioPlayer.play().catch(console.error);
+    };
+    audioPlayer.src = candidates[candidateIndex];
+    audioPlayer.load();
     audioPlayer.play().catch(console.error);
   }
 }

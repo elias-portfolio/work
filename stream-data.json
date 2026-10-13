@@ -33,7 +33,7 @@
     "1": "Dublin",
     "2": "Berlin",
     "3": "Kyiv",
-    "4": "Bethlehem",
+    "4": "Tel Aviv",
     "5": "Almaty",
     "6": "Goa",
     "7": "Jakkarta",
@@ -127,9 +127,18 @@
     },
     "4": {
       "url": "https://stream.radiojar.com/78cxy6wkxtzuv",
-      "status": "working",
+      "status": "failed",
       "station": "Radio Alhara",
-      "note": "Direct RadioJar audio stream behind radioalhara.net/stream. Verified 2026-06-28: HTTP 200 audio/mpeg."
+      "note": "HTTP 404 verified 2026-10-14; AVIVmedia.FM is configured as mobile runtime fallback.",
+      "fallbacks": [
+        {
+          "url": "https://eliass-macbook-air.tail278fee.ts.net:8443/radio-proxy?url=http://176.9.7.145:8127/stream",
+          "status": "working",
+          "station": "AVIVmedia.FM",
+          "location": "Tel Aviv",
+          "note": "Official station site links to equinox.shoutca.st:8127 and its playlist resolves to this HTTP audio stream. Verified 2026-10-14 direct origin and through 2AM HTTPS Funnel proxy: HTTP 200 audio/mpeg."
+        }
+      ]
     },
     "5": {
       "url": "https://daystream.palmerablanca.com/daystream-128.mp3",

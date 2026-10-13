@@ -190,7 +190,7 @@ color: red;
       "1": "Baile Átha Cliath",
       "2": "Berlin",
       "3": "Київ",
-      "4": "بيت لحم",
+      "4": "Tel Aviv",
       "5": "Алматы",
       "6": "गोवा",
       "7": "Jakarta",
@@ -235,6 +235,10 @@ color: red;
       "12": "https://radio.kamchatkalive.ru:8103/dance"
     };
 
+    const audioFallbackStreams = {
+      "4": ["https://eliass-macbook-air.tail278fee.ts.net:8443/radio-proxy?url=http://176.9.7.145:8127/stream"] // AVIVmedia.FM, Tel Aviv
+    };
+
     const streamAliases = {
       "-12": "NTS",
       "-11": "NTS",
@@ -252,7 +256,7 @@ color: red;
       "1": "DDR",
       "2": "cashmere",
       "3": "20ft",
-      "4": "radiojar",
+      "4": "AVIVmedia.FM", // Tel Aviv, Israel
       "5": "palmera",
       "6": "eternal mix",
       "7": "zeno",
@@ -333,6 +337,14 @@ color: red;
         console.log('Auto-play prevented:', error);
       });
     }
+    audio.addEventListener('error', () => {
+      const fallback = audioFallbackStreams[virtualOffset]?.[0];
+      if (!fallback || audio.dataset.avivFallback === 'active') return;
+      audio.dataset.avivFallback = 'active';
+      audio.src = fallback;
+      audio.load();
+      audio.play().catch(console.error);
+    });
   
     const backgroundStreams = {
       "-12": "https://eliass-macbook-air.tail278fee.ts.net:8443/stream/awQzjn72bI0/index.m3u8",
@@ -435,6 +447,7 @@ color: red;
     function syncStationToOffset(offset) {
       const newStream = radioStreams[offset];
       if (newStream && audio.src !== newStream) {
+        audio.dataset.avivFallback = '';
         audio.src = newStream;
         audio.load();
         audio.play().catch(console.error);
