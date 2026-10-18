@@ -67,8 +67,7 @@
      * The slideshow keeps swapping faces and polarity, so every copy follows its twin.
      * Each copy takes a face from the shared pool that no visible card is using, which keeps a
      * twin and its copy from ever showing the same glyph on screen. Polarity follows the twin
-     * immediately, so a row still reads as one row, and generated studies are never inverted —
-     * the same rule the slideshow applies to its own cards.
+     * immediately, so a row always reads as one stripe: white rows stay white, black rows black.
      */
     function sync() {
         syncFrame = 0;
@@ -104,8 +103,7 @@
                 used.add(face);
                 if (targetImg.getAttribute('src') !== face) targetImg.setAttribute('src', face);
                 const dark = background === '#000000' || background === 'rgb(0, 0, 0)';
-                const generated = face.indexOf('images/maya/generated') !== -1;
-                const filter = dark && !generated ? 'invert(1)' : '';
+                const filter = dark ? 'invert(1)' : '';
                 if (targetImg.style.filter !== filter) targetImg.style.filter = filter;
             }
         });
@@ -221,6 +219,8 @@
             if (!grid) return;
             teardown();
             build();
+            // The new column count changes which cards form a row, so colours are re-grouped first.
+            if (typeof window.mayaSyncPolarity === 'function') window.mayaSyncPolarity();
             sync();
             startLoop();
         }, RESIZE_DEBOUNCE_MS);

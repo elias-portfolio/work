@@ -98,22 +98,29 @@
             return count > 0 ? count : FALLBACK_COLUMNS;
         }
 
-        /** One random polarity per row: every card in a row shares black or white. */
+        /** Fixed polarity: rows alternate white, black, white, black, and never re-deal. */
         dealRowPolarity() {
             const columns = this.columns();
             const rows = Math.ceil(this.cards.length / columns);
-            this.rowDark = [];
-            for (let row = 0; row < rows; row++) this.rowDark.push(Math.random() < 0.5);
-            // Keep both black and white rows so the board always reads as a mix.
-            const darkRows = this.rowDark.filter(Boolean).length;
-            if (rows > 1 && (darkRows === 0 || darkRows === rows)) {
-                const flipAt = Math.floor(Math.random() * rows);
-                this.rowDark[flipAt] = !this.rowDark[flipAt];
-            }
-            this.dark = this.cards.map((_, index) => {
-                const asset = this.active[index];
-                if (asset && asset.kind === 'generated') return false;
-                return this.rowDark[Math.floor(index / columns)] === true;
+            this.rowDark = Array.from({ length: rows }, (_, row) => row % 2 === 1);
+            this.dark = this.cards.map((_, index) => this.rowDark[Math.floor(index / columns)] === true);
+            this.polarityColumns = columns;
+        }
+
+        /** Colours belong to rows, so a layout change has to re-group them. */
+        syncPolarity() {
+            if (this.columns() === this.polarityColumns) return;
+            this.dealRowPolarity();
+            this.paintPolarity();
+        }
+
+        /** Repaint the stripe on every card without touching its face. */
+        paintPolarity() {
+            this.dark.forEach((dark, index) => {
+                const slot = this.cards[index];
+                if (!slot) return;
+                slot.card.style.backgroundColor = dark ? BLACK : WHITE;
+                if (slot.img && slot.img.style) slot.img.style.filter = dark ? 'invert(1)' : '';
             });
         }
 
@@ -174,8 +181,7 @@
                     this.indices[target.index] = target.candidateIndex;
                     this.active[target.index] = target.asset;
                 });
-                // Polarity is dealt once for the whole board, once the new faces are known.
-                this.dealRowPolarity();
+                // Row polarity is fixed at init: a beat changes faces, never colours.
                 live.forEach((target) => this.render(target.index, decoded.get(target)));
             };
             planned.forEach((target) => {
@@ -189,6 +195,7 @@
         startLoop() {
             this.stopLoop();
             if (this.disposed || !this.initialized || !this.inView || document.hidden) return;
+            this.syncPolarity();
             this.running = true;
             this.timer = setInterval(() => this.flip(), FLIP_MS);
         }
@@ -229,5 +236,10 @@
         document.removeEventListener("visibilitychange", onVisibilityChange);
         if (activeInstance) activeInstance.dispose();
         activeInstance = null;
+    };
+
+    /** Called after the drifting row layout is rebuilt, so the stripes follow the new columns. */
+    window.mayaSyncPolarity = function () {
+        if (activeInstance) activeInstance.syncPolarity();
     };
 })();

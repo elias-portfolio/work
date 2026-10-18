@@ -99,10 +99,11 @@ function makeDom() {
   return { document, nodes, body };
 }
 
-function loadFixture(deferred = false, columns = 3, random = null) {
+function loadFixture(deferred = false, initialColumns = 3, random = null) {
   const loads = [];
   const decodes = [];
   let observer;
+  let columns = initialColumns;
   const timers = makeTimers();
   const dom = makeDom();
   const window = {
@@ -129,7 +130,7 @@ function loadFixture(deferred = false, columns = 3, random = null) {
     clearTimeout: timers.clearTimeout, clearInterval: timers.clearInterval,
   });
   vm.runInContext(slideshowSource, context, { filename: "maya-slideshow.js" });
-  return { ...dom, timers, window, loads, decodes, get observer() { return observer; } };
+  return { ...dom, timers, window, loads, decodes, setColumns: (next) => { columns = next; }, get observer() { return observer; } };
 }
 
 test('one beat flips every card, and nothing swaps before every decode has settled', () => {
@@ -254,7 +255,7 @@ test("every beat advances all twelve cards together without duplicates", () => {
   assert.equal(new Set(second).size, 12, "the board stays free of duplicates");
 });
 
-test("polarity is random per grid row and shared by the cards inside a row", () => {
+test("polarity is fixed per row: rows alternate white and black and never re-deal", () => {
   const fixture = loadFixture(false, 3);
   fixture.window.initMayaSlideshow();
   const rowsOf = (columns, live) => {
@@ -272,26 +273,63 @@ test("polarity is random per grid row and shared by the cards inside a row", () 
   });
 
   const initial = rowPolarity(3, fixture);
-  fixture.timers.advance(1);
-  const flipped = rowPolarity(3, fixture);
   assert.equal(initial.length, 4, "twelve cards form four rows of three");
-  assert.equal(flipped.length, 4);
+  assert.deepEqual(initial, ["#FFFFFF", "#000000", "#FFFFFF", "#000000"], "rows alternate, white first");
+  for (let beat = 1; beat <= 6; beat++) {
+    fixture.timers.advance(1);
+    assert.deepEqual(rowPolarity(3, fixture), initial, `beat ${beat} changes faces, not colours`);
+  }
 
   const narrow = loadFixture(false, 2);
   narrow.window.initMayaSlideshow();
-  assert.equal(rowPolarity(2, narrow).length, 6, "a two-column mobile grid forms six rows");
+  assert.deepEqual(
+    rowPolarity(2, narrow),
+    ["#FFFFFF", "#000000", "#FFFFFF", "#000000", "#FFFFFF", "#000000"],
+    "a two-column mobile grid alternates over six rows"
+  );
 });
 
-test("the board always keeps both black and white rows after a flip", () => {
-  const fixture = loadFixture(false, 3, () => 0.9);
+test("a column change re-groups the stripes instead of mixing a row", () => {
+  const fixture = loadFixture(false, 3);
   fixture.window.initMayaSlideshow();
-  const rowColors = () => [0, 1, 2, 3].map((row) => fixture.nodes.get(`maya-card-${row * 3 + 1}`).style.backgroundColor);
-  const mixed = (colors) => colors.includes("#000000") && colors.includes("#FFFFFF");
-  assert.ok(mixed(rowColors()), "the opening board already mixes black and white rows");
-  for (let beat = 1; beat <= 8; beat++) {
-    fixture.timers.advance(1);
-    assert.ok(mixed(rowColors()), `beat ${beat} keeps both polarities`);
+  const stripes = (columns) => {
+    const all = cards(fixture);
+    const rows = [];
+    for (let start = 0; start < all.length; start += columns) {
+      rows.push([...new Set(all.slice(start, start + columns).map(({ card }) => card.style.backgroundColor))]);
+    }
+    return rows.map((colors) => {
+      assert.equal(colors.length, 1, "a row keeps one colour after the layout change");
+      return colors[0];
+    });
+  };
+  assert.deepEqual(stripes(3), ["#FFFFFF", "#000000", "#FFFFFF", "#000000"]);
+
+  fixture.setColumns(2);
+  fixture.window.mayaSyncPolarity();
+  assert.deepEqual(stripes(2), ["#FFFFFF", "#000000", "#FFFFFF", "#000000", "#FFFFFF", "#000000"]);
+
+  fixture.setColumns(3);
+  fixture.window.mayaSyncPolarity();
+  assert.deepEqual(stripes(3), ["#FFFFFF", "#000000", "#FFFFFF", "#000000"], "rotating back restores four rows");
+});
+
+test("every card follows its row polarity, glyphs and generated studies alike", () => {
+  const fixture = loadFixture(false, 3);
+  fixture.window.initMayaSlideshow();
+  const darkOf = (card) => card.style.backgroundColor === "#000000";
+  const seenGenerated = { dark: false, light: false };
+  for (let beat = 0; beat <= 40; beat++) {
+    if (beat) fixture.timers.advance(1);
+    cards(fixture).forEach(({ img, card }, index) => {
+      const row = Math.floor(index / 3);
+      const dark = darkOf(card);
+      assert.equal(dark, row % 2 === 1, `card ${index + 1} follows its row`);
+      assert.equal(img.style.filter, dark ? "invert(1)" : "", `card ${index + 1} inverts with its row`);
+      if (assetPath(img.src).includes("images/maya/generated/")) seenGenerated[dark ? "dark" : "light"] = true;
+    });
   }
+  assert.ok(seenGenerated.dark && seenGenerated.light, "generated studies appear on both black and white rows");
   fixture.window.stopMayaSlideshow();
 });
 
