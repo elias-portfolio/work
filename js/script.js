@@ -449,17 +449,10 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 </div>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 24px 0 0 12px; max-width: calc(100% - 12px);">
-                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. The cards above cycle through a small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
+                    <p style="margin: 0; font-size: 14px; color: #555;">The Classic Maya hieroglyphic corpus spans well over 800 catalogued signs and thousands of compound block variations. The cards above show a small initial selection of vector studies exploring structural composition, line weight, and geometric sign variants.</p>
                 </div>
 
-                <figure class="maya-before-after">
-                    <div class="maya-compare" data-maya-compare aria-label="Before and after comparison of the Dresden Codex glyph" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Dresden Codex source scan to vectorized drawing">
-                        <img class="maya-compare-image maya-compare-after" src="maya/references/dresden-codex-glyph-03-vector-matched.jpg?v=matched-20260922" alt="Vectorized Maya sign variant for the digital font">
-                        <div class="maya-compare-before"><img class="maya-compare-image" src="maya/references/dresden-codex-glyph-03-source-matched.jpg?v=matched-20260922" alt="Dresden Codex glyph scan for the Maya font project"></div>
-                        <div class="maya-compare-handle" aria-hidden="true"><span></span></div>
-                    </div>
-                    <figcaption>Drag to compare: Dresden Codex source scan / vectorized drawing</figcaption>
-                </figure>
+                <h3 style="font-size: 17px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 26px 0 10px 12px; text-transform: none;">How does Maya work</h3>
 
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 36px 12px; max-width: calc(100% - 12px);">
                     <p style="margin-top: 0;">A Latin script font maps a small alphabet onto sounds in a mostly linear sequence: letters become words by being placed one after another. Maya writing works differently. Classic Maya is logosyllabic: some signs stand for whole words or ideas, others stand for syllables, and they are composed into glyph blocks rather than simply typed in a straight line. The design problem is therefore not just drawing signs. It is teaching a font how signs combine.</p>

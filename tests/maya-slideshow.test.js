@@ -215,9 +215,9 @@ test("Maya slideshow assets, twelve-card rendering, and template invariants", ()
   }
   assert.doesNotMatch(appTemplate, /maya-generated-gallery/);
   assert.match(appTemplate, /maya-generated-disclaimer/);
-  assert.match(appTemplate, /data-maya-compare/);
-  assert.match(appTemplate, /maya-compare-before/);
-  assert.match(appTemplate, /Dresden Codex source scan \/ vectorized drawing/);
+  assert.doesNotMatch(appTemplate, /data-maya-compare/, "the Dresden compare slider is out of the case");
+  assert.match(appTemplate, /<h3[^>]*>How does Maya work<\/h3>/, "a heading introduces how Maya works");
+  assert.match(appTemplate, /maya-generated-disclaimer/);
 
   const scriptsTemplate = appTemplate.match(/scripts:\s*`([\s\S]*?)`/);
   assert.ok(scriptsTemplate, "Scripts project stays registered in the portfolio");
