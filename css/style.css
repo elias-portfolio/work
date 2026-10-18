@@ -773,37 +773,25 @@ body.is-mobile #media.edmon-background {
     text-transform: none;
 }
 
-/* Maya case: each row slides in from the side, alternating right and left. */
-#media.maya-reveal-active,
-#content-display.maya-reveal-active {
-    /* Clip the entering rows instead of growing a horizontal scrollbar. */
-    overflow-x: clip;
+/* Maya case: the card rows drift sideways, alternating right and left, at the reference tempo. */
+.maya-card-grid {
+    --maya-row-gap: 14px;
 }
 
-.maya-reveal {
-    --maya-reveal-shift: 72px;
-    opacity: 0;
-    transform: translateX(var(--maya-reveal-shift));
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+.maya-card-grid .maya-row {
+    grid-column: 1 / -1;
+    overflow: hidden;
 }
 
-.maya-reveal.maya-reveal-from-left {
-    --maya-reveal-shift: -72px;
+.maya-card-grid .maya-row-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
 }
 
-.maya-reveal.maya-reveal-visible {
-    opacity: 1;
-    transform: translateX(0);
-    will-change: auto;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .maya-reveal {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
+.maya-card-grid .maya-row-track > figure {
+    flex: 0 0 var(--maya-item-width, 33%);
+    margin: 0 var(--maya-row-gap) 0 0;
 }
 
 @media (max-width: 600px) {
@@ -811,15 +799,8 @@ body.is-mobile #media.edmon-background {
         width: 100%;
         margin-left: 0;
         gap: 10px;
+        --maya-row-gap: 10px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .maya-reveal {
-        --maya-reveal-shift: 44px;
-    }
-
-    .maya-reveal.maya-reveal-from-left {
-        --maya-reveal-shift: -44px;
     }
 
     .maya-card-grid [id^="maya-card"] img {

@@ -176,8 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
             window.stopMayaSlideshow();
         }
 
-        if (previousSection === 'maya' && typeof window.stopMayaReveal === 'function') {
-            window.stopMayaReveal();
+        if (previousSection === 'maya' && typeof window.stopMayaRows === 'function') {
+            window.stopMayaRows();
         }
 
         const ytBgPlayer = document.getElementById('yt-bg-player');
@@ -510,7 +510,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
         if (content[section]) {
             console.log('Loading content for section:', section);
             contentDisplay.innerHTML = content[section];
-            if (section === 'maya' && typeof window.initMayaReveal === 'function') window.initMayaReveal();
+            if (section === 'maya' && typeof window.initMayaRows === 'function') window.initMayaRows();
             if (section === 'edmon' && typeof window.initEdmonSlideshow === 'function') window.initEdmonSlideshow();
             mediaArea.style.flex = isMobileViewport() ? "1 1 auto" : "0 0 50%";
             mediaArea.style.width = isMobileViewport() ? "100%" : "50%";

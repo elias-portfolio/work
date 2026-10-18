@@ -220,6 +220,8 @@
         document.removeEventListener("visibilitychange", onVisibilityChange);
         if (!document.getElementById("maya-card-1")) return;
         activeInstance = new MayaStream();
+        // Exposed so the drifting row copies can pick faces that no visible card is using.
+        window.mayaAssetPool = activeInstance.assets ? activeInstance.assets.map((asset) => asset.file) : [];
         document.addEventListener("visibilitychange", onVisibilityChange);
     };
 
