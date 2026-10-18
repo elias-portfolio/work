@@ -22,7 +22,8 @@
     let grid = null;
     let observer = null;
     let resizeTimer = null;
-    let syncFrame = 0;
+    let syncPending = false;
+    let syncHandle = 0;
     let frame = 0;
     let lastTime = 0;
     let cursor = 0;
@@ -64,54 +65,63 @@
     }
 
     /**
-     * The slideshow keeps swapping faces and polarity, so every copy follows its twin.
-     * Each copy takes a face from the shared pool that no visible card is using, which keeps a
-     * twin and its copy from ever showing the same glyph on screen. Polarity follows the twin
-     * immediately, so a row always reads as one stripe: white rows stay white, black rows black.
+     * The slideshow keeps swapping faces, so every duplicated cell follows its row.
+     * A cell is told apart from a real card by its class, never by its position: the drift moves
+     * cells around the track, and pairing them by position would repaint a real card's face.
+     * Every copy takes a face from the shared pool that no other card is showing, and the row's
+     * colour comes from the row's own cards, so a row always reads as one stripe.
      */
     function sync() {
-        syncFrame = 0;
+        syncPending = false;
+        syncHandle = 0;
         const faces = pool();
         const used = new Set();
         rows.forEach((state) => {
-            const items = Array.from(state.track.children);
-            const half = Math.floor(items.length / 2);
-            for (let i = 0; i < half; i++) {
-                const img = items[i].querySelector('img');
+            Array.from(state.track.children).forEach((item) => {
+                if (item.classList.contains(CLONE)) return;
+                const img = item.querySelector('img');
                 const face = img ? img.getAttribute('src') : '';
                 if (face) used.add(face);
-            }
+            });
         });
         rows.forEach((state) => {
             const items = Array.from(state.track.children);
-            const half = Math.floor(items.length / 2);
-            for (let i = 0; i < half; i++) {
-                const source = items[i];
-                const target = items[i + half];
-                if (!target) continue;
-                const sourceCard = source.querySelector('[id^="maya-card"]');
-                const targetCard = target.querySelector('[id^="maya-card"]');
-                const background = sourceCard ? sourceCard.style.backgroundColor : '';
-                if (targetCard && background && targetCard.style.backgroundColor !== background) {
-                    targetCard.style.backgroundColor = background;
-                }
-                const targetImg = target.querySelector('img');
-                if (!targetImg || !faces.length) continue;
-                let face = targetImg.getAttribute('src') || '';
+            const originals = items.filter((item) => !item.classList.contains(CLONE));
+            let background = '';
+            originals.forEach((item) => {
+                const card = item.querySelector('[id^="maya-card"]');
+                if (!background && card && card.style.backgroundColor) background = card.style.backgroundColor;
+            });
+            const dark = background === '#000000' || background === 'rgb(0, 0, 0)';
+            const filter = dark ? 'invert(1)' : '';
+            items.forEach((item) => {
+                if (!item.classList.contains(CLONE)) return;
+                const card = item.querySelector('[id^="maya-card"]');
+                if (card && background && card.style.backgroundColor !== background) card.style.backgroundColor = background;
+                const img = item.querySelector('img');
+                if (!img || !faces.length) return;
+                let face = img.getAttribute('src') || '';
                 if (!face || used.has(face)) face = freeFace(used);
-                if (!face) continue;
+                if (!face) return;
                 used.add(face);
-                if (targetImg.getAttribute('src') !== face) targetImg.setAttribute('src', face);
-                const dark = background === '#000000' || background === 'rgb(0, 0, 0)';
-                const filter = dark ? 'invert(1)' : '';
-                if (targetImg.style.filter !== filter) targetImg.style.filter = filter;
-            }
+                if (img.getAttribute('src') !== face) img.setAttribute('src', face);
+                if (img.style.filter !== filter) img.style.filter = filter;
+            });
         });
     }
 
+    /**
+     * A beat repaints every real card in one task; a microtask re-picks the copies before that
+     * frame is painted, so a copy is never caught showing a face a real card has just taken.
+     */
     function scheduleSync() {
-        if (syncFrame || typeof requestAnimationFrame !== 'function') return;
-        syncFrame = requestAnimationFrame(sync);
+        if (syncPending) return;
+        syncPending = true;
+        if (typeof Promise === 'function') {
+            Promise.resolve().then(sync);
+            return;
+        }
+        if (typeof requestAnimationFrame === 'function') syncHandle = requestAnimationFrame(sync);
     }
 
     /** One cell of a row, plus the gap that follows it. */
@@ -229,8 +239,9 @@
     function stop() {
         clearTimeout(resizeTimer);
         resizeTimer = null;
-        if (syncFrame) cancelAnimationFrame(syncFrame);
-        syncFrame = 0;
+        if (syncHandle) cancelAnimationFrame(syncHandle);
+        syncHandle = 0;
+        syncPending = false;
         if (observer) observer.disconnect();
         observer = null;
         window.removeEventListener('resize', onResize);
