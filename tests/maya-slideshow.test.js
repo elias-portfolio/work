@@ -314,6 +314,19 @@ test("a column change re-groups the stripes instead of mixing a row", () => {
   assert.deepEqual(stripes(3), ["#FFFFFF", "#000000", "#FFFFFF", "#000000"], "rotating back restores four rows");
 });
 
+test("a static board deals one face per card and never flips it", () => {
+  const fixture = loadFixture();
+  fixture.window.initMayaSlideshow({ cycle: false });
+  const faces = () => cards(fixture).map(({ img }) => assetPath(img.src));
+  const first = faces();
+  assert.equal(first.filter(Boolean).length, 12, "every card gets a face");
+  assert.equal(new Set(first).size, 12, "the opening board shows no duplicates");
+  assert.equal(fixture.timers.pending(), 0, "a static board schedules no beat");
+  for (let tick = 0; tick < 40; tick++) fixture.timers.advance(1);
+  assert.deepEqual(faces(), first, "the faces stay put for the whole visit");
+  fixture.window.stopMayaSlideshow();
+});
+
 test("every card follows its row polarity, glyphs and generated studies alike", () => {
   const fixture = loadFixture(false, 3);
   fixture.window.initMayaSlideshow();

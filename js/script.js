@@ -534,7 +534,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                 console.log('Initializing Maya slideshow section');
                 setTimeout(() => {
                     if (typeof window.initMayaSlideshow === 'function') {
-                        window.initMayaSlideshow();
+                        // The drifting rows only need one face each: deal the board, never flip it.
+                        window.initMayaSlideshow({ cycle: false });
                     }
                     if (typeof window.initMayaCompare === 'function') {
                         window.initMayaCompare();

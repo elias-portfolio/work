@@ -36,7 +36,9 @@
     }
 
     class MayaStream {
-        constructor() {
+        constructor(options) {
+            // cycle:false keeps the opening faces for good; the drifting rows only need one deal.
+            this.cycle = !(options && options.cycle === false);
             this.cards = [];
             for (let i = 1; i <= CARD_COUNT; i++) {
                 const card = document.getElementById("maya-card-" + i);
@@ -194,7 +196,7 @@
 
         startLoop() {
             this.stopLoop();
-            if (this.disposed || !this.initialized || !this.inView || document.hidden) return;
+            if (!this.cycle || this.disposed || !this.initialized || !this.inView || document.hidden) return;
             this.syncPolarity();
             this.running = true;
             this.timer = setInterval(() => this.flip(), FLIP_MS);
@@ -222,11 +224,11 @@
         else activeInstance.startLoop();
     }
 
-    window.initMayaSlideshow = function () {
+    window.initMayaSlideshow = function (options) {
         if (activeInstance) activeInstance.dispose();
         document.removeEventListener("visibilitychange", onVisibilityChange);
         if (!document.getElementById("maya-card-1")) return;
-        activeInstance = new MayaStream();
+        activeInstance = new MayaStream(options);
         // Exposed so the drifting row copies can pick faces that no visible card is using.
         window.mayaAssetPool = activeInstance.assets ? activeInstance.assets.map((asset) => asset.file) : [];
         document.addEventListener("visibilitychange", onVisibilityChange);
