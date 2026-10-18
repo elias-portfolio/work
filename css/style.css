@@ -773,12 +773,53 @@ body.is-mobile #media.edmon-background {
     text-transform: none;
 }
 
+/* Maya case: each row slides in from the side, alternating right and left. */
+#media.maya-reveal-active,
+#content-display.maya-reveal-active {
+    /* Clip the entering rows instead of growing a horizontal scrollbar. */
+    overflow-x: clip;
+}
+
+.maya-reveal {
+    --maya-reveal-shift: 72px;
+    opacity: 0;
+    transform: translateX(var(--maya-reveal-shift));
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.maya-reveal.maya-reveal-from-left {
+    --maya-reveal-shift: -72px;
+}
+
+.maya-reveal.maya-reveal-visible {
+    opacity: 1;
+    transform: translateX(0);
+    will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .maya-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 @media (max-width: 600px) {
     .maya-card-grid {
         width: 100%;
         margin-left: 0;
         gap: 10px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .maya-reveal {
+        --maya-reveal-shift: 44px;
+    }
+
+    .maya-reveal.maya-reveal-from-left {
+        --maya-reveal-shift: -44px;
     }
 
     .maya-card-grid [id^="maya-card"] img {
