@@ -953,7 +953,7 @@ const radioStreams = {
     "8": "https://listen.belowground.fm/listen/belowground_fm/radio.mp3",
     "9": "https://kathy.torontocast.com:3330/;",
     "10": "https://radio.beshknow.com/beshknow",
-    "11": "https://stream.tbc.radio:8000/radio.mp3",
+    "11": "https://streams.95bfm.com/stream95",
     "12": "https://radio.kamchatkalive.ru:8103/dance"
 };
 

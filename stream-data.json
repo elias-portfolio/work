@@ -176,9 +176,11 @@
       "station": "3CR Melbourne"
     },
     "11": {
-      "url": "https://stream.tbc.radio:8000/radio.mp3",
+      "url": "https://streams.95bfm.com/stream95",
       "status": "working",
-      "station": "TBC Radio"
+      "station": "95bFM",
+      "format": "mp3",
+      "note": "Auckland/Tāmaki Makaurau indie/student radio (95bFM, 256kbps MP3, CORS *). Replaces silent TBC Radio."
     },
     "12": {
       "url": "https://radio.kamchatkalive.ru:8103/dance",
@@ -548,7 +550,15 @@
         "note": "Iceland UTC-2 volcano multi-cam live stream. Verified 2026-09-03: live_status=is_live, proxy 200 HLS."
       }
     ],
-    "11": [],
+    "11": [
+      {
+        "type": "youtube",
+        "id": "PaLDpyFxpXE",
+        "title": "Auckland Waitematā Harbour & Skyline 24/7",
+        "embed_url": "https://www.youtube.com/embed/PaLDpyFxpXE?autoplay=1&mute=1&controls=0&loop=1&playlist=PaLDpyFxpXE&vq=hd1080&enablejsapi=1",
+        "note": "Auckland UTC+11 live harbor camera fallback. Verified 2026-10-30: live_status=is_live, proxy 200 HLS."
+      }
+    ],
     "8": [
       {
         "type": "youtube",
