@@ -488,6 +488,28 @@ body.is-mobile #media.edmon-background {
     padding: 1px;
 }
 
+/* 2.am intro: lead sentence on its own line, roomier body copy. */
+.two-am-copy {
+    max-width: 700px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1a1a1a;
+}
+
+.two-am-copy p {
+    margin: 0 0 15px;
+}
+
+.two-am-copy p:last-child {
+    margin-bottom: 0;
+}
+
+.two-am-copy .two-am-lead {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+}
+
 
 #quotation {
    font-family: 'Suisse', 'sans-serif';/* Clean and professional font */
