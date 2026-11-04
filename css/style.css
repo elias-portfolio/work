@@ -161,20 +161,13 @@ body2 {
     margin-right: 10px;
 }
 
-.maya-project-title {
-    white-space: nowrap;
-}
-
-.maya-title-glyphs-wrap {
-    white-space: nowrap;
-}
-
-.maya-title-glyphs {
+.maya-category-glyphs {
     font-family: 'Maya Bauhaus Glyphs', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.15em;
     font-style: normal;
     font-weight: normal;
     letter-spacing: 0;
+    white-space: nowrap;
 }
 
 .category {

@@ -45,15 +45,15 @@ body.is-mobile strong {
     font-weight: 700;
 }
 
-body.mobile-prototype #app .maya-title-glyphs,
-body.is-mobile #app .maya-title-glyphs {
+body.mobile-prototype #app .maya-category-glyphs,
+body.is-mobile #app .maya-category-glyphs {
     font-family: 'Maya Bauhaus Glyphs', sans-serif !important;
+    font-size: 1em;
 }
 
-body.mobile-prototype .maya-project-title,
-body.is-mobile .maya-project-title {
-    font-size: inherit;
-    white-space: normal;
+body.mobile-prototype .category,
+body.is-mobile .category {
+    white-space: nowrap;
 }
 
 body.mobile-prototype .header,
