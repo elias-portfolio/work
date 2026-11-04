@@ -430,7 +430,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             maya: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
                     <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 10px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
-                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">There isn’t a digital Maya font, so I decided to build one myself. Maya writing is logosyllabic, which means some signs stand for whole words and others for syllables. I’m figuring out how to make those signs work together as a font. I want to help people in Mexico access their own history and writing. Hopefully, it can also be useful for tourism, signs and other everyday communication, and help make Maya culture more visible.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">There isn’t a digital Maya font, so I decided to build one myself. Maya writing is logosyllabic, which means some signs stand for whole words and others for syllables. I want to help people in Mexico access their own history and writing. Hopefully, it can also be useful for tourism, signs and other everyday communication, and help make Maya culture more visible.</p>
                 </div>
 
                 <div class="maya-card-grid" aria-label="Cycling Maya glyph and image studies">
