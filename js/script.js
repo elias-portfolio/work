@@ -189,13 +189,16 @@ document.addEventListener("DOMContentLoaded", () => {
             banned: `
                 <div class="two-am-copy">
                     <p class="two-am-lead"><a href="2amtext.html" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">2.am</a> is a site that only plays radio from places around the world where it’s currently 2am.</p>
-                    <p>To make this, I had to curate and search around the globe for underground and community radio stations to collaborate with, finding at least one for every time zone except GMT−9, −10 and −11, where I couldn’t find any stations broadcasting locally due to the small, scattered populations. Each brings its own musical identity and cultural perspective. For all the insomniacs who love late-night radio.</p>
                 </div>
               
                     <div id="iframe-container" style="margin-top: 20px; margin-bottom: 20px; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0; overflow: visible;">
                         <!-- Old globe prototype kept in repo, but the portfolio now shows the canonical 2amtext.html view -->
                         <iframe id="2am-iframe" src="2amtext.html" style="width: 100%; height: 900px; border: none; border-radius: 8px; box-shadow: none; filter: none; flex-shrink: 0;"></iframe>
                     </div> 
+
+                <div class="two-am-copy">
+                    <p>To make this, I had to curate and search around the globe for underground and community radio stations to collaborate with, finding at least one for every time zone except GMT−9, −10 and −11, where I couldn’t find any stations broadcasting locally due to the small, scattered populations. Each brings its own musical identity and cultural perspective. For all the insomniacs who love late-night radio.</p>
+                </div>
 
             `,
             ipren: `
@@ -434,7 +437,9 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             maya: `
                 <div style="font-size: 16px; font-family: 'Suisse', 'sans-serif'; text-transform: none; color: black; line-height: 1.5; margin: 0 0 18px 12px; max-width: calc(100% - 12px);">
                     <h2 style="font-size: 20px; font-family: 'Suisse', 'sans-serif'; font-weight: normal; margin: 0 0 10px 0; text-transform: none;">The World’s First Digital Maya Font</h2>
-                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">There isn’t a digital Maya font, so I decided to build one myself. Maya writing is logosyllabic, which means some signs stand for whole words and others for syllables. I want to help people in Mexico access their own history and writing. Hopefully, it can also be useful for tourism, signs and other everyday communication, and help make Maya culture more visible.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #222;">There isn’t a digital Maya font, so I decided to build one myself. Maya writing is logosyllabic, which means some signs stand for whole words and others for syllables.</p>
+                    <p style="margin: 10px 0 0 0; font-size: 15px; line-height: 1.55; color: #555;">tldr: each square thing is basically a sentence.</p>
+                    <p style="margin: 10px 0 0 0; font-size: 15px; line-height: 1.55; color: #222;">I want to help people in Mexico access their own history and writing. Hopefully, it can also be useful for tourism, signs and other everyday communication, and help make Maya culture more visible.</p>
                 </div>
 
                 <div class="maya-card-grid" aria-label="Cycling Maya glyph and image studies">
