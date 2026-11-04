@@ -45,6 +45,11 @@ body.is-mobile strong {
     font-weight: 700;
 }
 
+body.mobile-prototype #app .maya-title-glyphs,
+body.is-mobile #app .maya-title-glyphs {
+    font-family: 'Maya Bauhaus Glyphs', sans-serif !important;
+}
+
 body.mobile-prototype .header,
 body.is-mobile .header {
     width: 100%;

@@ -1,4 +1,13 @@
 @font-face {
+    font-family: 'Maya Bauhaus Glyphs';
+    src: url('./maya-bauhaus-glyphs.woff2') format('woff2'),
+         url('./maya-bauhaus-glyphs.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'Suisse';
     src: url('./css/suisse.woff') format('woff');
     font-weight: normal;
@@ -150,6 +159,22 @@ body2 {
     flex: 3;
     text-align: left;
     margin-right: 10px;
+}
+
+.maya-project-title {
+    white-space: normal;
+}
+
+.maya-title-glyphs-wrap {
+    white-space: nowrap;
+}
+
+.maya-title-glyphs {
+    font-family: 'Maya Bauhaus Glyphs', sans-serif;
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: 0;
 }
 
 .category {
