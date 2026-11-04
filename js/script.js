@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const content = {
-            banned: ` <a href="2amtext.html" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">2.am</a> is a site that only plays radio from where in the world it currently is 2am. for those who love night radio.
+            banned: ` <a href="2amtext.html" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">2.am</a> is a site that only plays radio from places around the world where it’s currently 2am. To make this, I had to curate and search around the globe for underground and community radio stations to collaborate with, finding at least one for every time zone except GMT−9, −10 and −11, where I couldn’t find any stations broadcasting locally due to the small, scattered populations. Each brings its own musical identity and cultural perspective. For all the insomniacs who love late-night radio.
               
                     <div id="iframe-container" style="margin-top: 20px; margin-bottom: 20px; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0; overflow: visible;">
                         <!-- Old globe prototype kept in repo, but the portfolio now shows the canonical 2amtext.html view -->

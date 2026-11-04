@@ -162,7 +162,9 @@ body2 {
 }
 
 .maya-project-title {
-    white-space: normal;
+    white-space: nowrap;
+    /* Shrinks just enough on narrow desktop so the title stays on one line. */
+    font-size: clamp(12.5px, calc(8.7px + 0.47vw), 16px);
 }
 
 .maya-title-glyphs-wrap {

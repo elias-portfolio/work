@@ -50,6 +50,12 @@ body.is-mobile #app .maya-title-glyphs {
     font-family: 'Maya Bauhaus Glyphs', sans-serif !important;
 }
 
+body.mobile-prototype .maya-project-title,
+body.is-mobile .maya-project-title {
+    font-size: inherit;
+    white-space: normal;
+}
+
 body.mobile-prototype .header,
 body.is-mobile .header {
     width: 100%;
