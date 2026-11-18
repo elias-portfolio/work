@@ -2,87 +2,78 @@
   'use strict';
 
   const byId = (id) => document.getElementById(id);
+  const canvas = byId('track');
+  const ctx = canvas.getContext('2d');
+  const status = byId('race-status');
   const banner = byId('banner');
   const bannerTitle = byId('banner-title');
   const bannerDetail = byId('banner-detail');
-  const status = byId('race-status');
-  const canvas = byId('track');
-  const ctx = canvas.getContext('2d');
+  const resetLabel = 'Space to restart';
+
+  function showBanner(title, detail) {
+    banner.hidden = !title;
+    bannerTitle.textContent = title;
+    bannerDetail.textContent = detail;
+  }
+
   if (!window.FalseStartPhysics || !ctx) {
-    bannerTitle.textContent = 'Track unavailable';
-    bannerDetail.textContent = 'Reload to try again';
+    showBanner('Track unavailable', 'Reload to try again');
     status.textContent = 'Could not load the game.';
     return;
   }
 
-  const { createRace, stepRace, TRACK_METERS, PIXELS_PER_METER } = window.FalseStartPhysics;
+  const { createRace, stepRace, TRACK_METERS, PIXELS_PER_METER, HURDLE_METERS, HURDLE_HEIGHT_PIXELS } = window.FalseStartPhysics;
   const style = getComputedStyle(document.documentElement);
-  const theme = ['--paper', '--ink', '--brick', '--lane-one', '--lane-two'].map((name) => style.getPropertyValue(name).trim());
-  const [paper, ink, brick, amber, green] = theme;
-  const printTile = document.createElement('canvas');
-  printTile.width = 10;
-  printTile.height = 20;
-  const printInk = printTile.getContext('2d');
-  printInk.fillStyle = '#feffed21';
-  printInk.fillRect(0, 0, 1, 1);
-  printInk.fillRect(5, 10, 1, 1);
-  const screenPrint = ctx.createPattern(printTile, 'repeat');
-  const W = 640, H = 312, LANE_HEIGHT = H / 2, GROUND = 116, SCREEN_X = 164;
+  const [paper, ink, skyBlue, grassGreen, terracotta, red, blue] = ['--paper', '--ink', '--sky', '--grass', '--track', '--lane-one', '--lane-two']
+    .map((name) => style.getPropertyValue(name).trim());
+  const W = 640, H = 396, LANE_HEIGHT = H / 2, GROUND = 170, CAMERA_X = 296;
   const FIXED_STEP = 1 / 120;
-  const keysets = [['KeyQ', 'KeyW', 'KeyA', 'KeyS'], ['KeyI', 'KeyO', 'KeyK', 'KeyL']];
+  const keysets = [['KeyQ', 'KeyW', 'KeyE', 'KeyR'], ['KeyU', 'KeyI', 'KeyO', 'KeyP']];
+  const laneForKey = new Map(keysets.flatMap((keys, lane) => keys.map((key) => [key, lane])));
   const buttons = new Map(Array.from(document.querySelectorAll('[data-key]'), (button) => [button.dataset.key, button]));
-  const scores = [0, 1].map((i) => ({ distance: byId(`distance-${i}`), falls: byId(`falls-${i}`), marker: byId(`marker-${i}`) }));
-  const clock = byId('clock');
+  const scores = [0, 1].map((i) => ({ distance: byId(`distance-${i}`), status: byId(`lane-status-${i}`) }));
   const keyboard = new Set();
+  const focusedKeys = new Set();
   const pointers = new Map();
+  const queued = new Set();
   let race = createRace();
-  let started = false;
   let frame = null;
   let lastTick = null;
   let accumulator = 0;
-  let lastDrawn = '';
   let drawScale = 1;
 
-  const clamp = (x, min, max) => Math.min(max, Math.max(min, x));
-  const isHeld = (key) => keyboard.has(key) || Array.from(pointers.values()).includes(key);
-
-  function formatClock(seconds) {
-    const ticks = Math.floor(seconds * 100 + 1e-6);
-    const pad = (n) => String(n).padStart(2, '0');
-    return `${pad(Math.floor(ticks / 6000))}:${pad(Math.floor(ticks / 100) % 60)}.${pad(ticks % 100)}`;
-  }
+  const isHeld = (key) => keyboard.has(key) || focusedKeys.has(key) || Array.from(pointers.values()).includes(key);
+  const ended = (runner) => runner.down || runner.finished;
+  const formatDistance = (meters) => `${Math.abs(meters) < .05 ? '0.0' : meters.toFixed(1)} m`;
 
   function syncKeys() {
-    for (const [key, button] of buttons) button.classList.toggle('is-held', isHeld(key));
+    for (const [key, button] of buttons) {
+      button.disabled = ended(race.runners[laneForKey.get(key)]);
+      button.classList.toggle('is-held', !button.disabled && isHeld(key));
+    }
   }
 
   function releaseInputs() {
     keyboard.clear();
+    focusedKeys.clear();
     pointers.clear();
+    queued.clear();
     syncKeys();
   }
 
-  function setBanner(title, detail) {
-    banner.hidden = !title;
-    if (title) {
-      bannerTitle.textContent = title;
-      bannerDetail.textContent = detail;
-    }
-  }
-
   function syncScore() {
-    const values = race.runners.map(({ distance, falls }) => [distance.toFixed(1), falls]);
-    const time = formatClock(race.elapsed);
-    const signature = `${values.join('|')}|${time}`;
-    if (signature === lastDrawn) return;
-    lastDrawn = signature;
-    if (clock.textContent !== time) clock.textContent = time;
-    values.forEach(([distance, falls], i) => {
-      const item = scores[i];
-      if (item.distance.firstChild.nodeValue !== distance) item.distance.firstChild.nodeValue = distance;
-      const label = `${falls} ${falls === 1 ? 'fall' : 'falls'}`;
-      if (item.falls.textContent !== label) item.falls.textContent = label;
-      item.marker.style.left = `${clamp(race.runners[i].distance, 0, TRACK_METERS) * 100 / TRACK_METERS}%`;
+    race.runners.forEach((runner, i) => {
+      const distance = formatDistance(ended(runner) ? runner.best : runner.distance);
+      const label = runner.down ? 'Fell' : runner.finished ? 'Finished' : runner.started ? 'Running' : 'Ready';
+      const score = scores[i];
+      if (score.distance.textContent !== distance) score.distance.textContent = distance;
+      if (score.status.textContent !== label) {
+        score.status.textContent = label;
+        if (ended(runner)) {
+          status.textContent = `Player ${i + 1} ${label.toLowerCase()}. Best distance ${distance}.`;
+          syncKeys();
+        }
+      }
     });
   }
 
@@ -102,83 +93,124 @@
     ctx.fill();
   }
 
-  function paintGround(distance, lane) {
-    ctx.fillStyle = lane === 0 ? brick : '#3d1d29';
-    ctx.fillRect(0, 0, W, LANE_HEIGHT);
-    // A still, screen-printed grid behind the moving track markings.
-    ctx.fillStyle = screenPrint;
-    ctx.fillRect(0, 8, W, GROUND - 12);
-    ctx.fillStyle = '#17191a5c';
-    ctx.fillRect(0, GROUND, W, LANE_HEIGHT - GROUND);
-    ctx.fillStyle = '#feffedb3';
-    ctx.fillRect(0, GROUND, W, 1);
-    ctx.fillRect(0, LANE_HEIGHT - 1, W, 1);
+  function paintGround(runner) {
+    const { distance, hurdle } = runner;
+    const sky = ctx.createLinearGradient(0, 0, 0, GROUND - 38);
+    sky.addColorStop(0, skyBlue);
+    sky.addColorStop(.24, '#384e66');
+    sky.addColorStop(1, '#16233a');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, GROUND - 36);
+    ctx.fillStyle = '#1b5ea1';
+    ctx.fillRect(0, GROUND - 52, W, 17);
+    const field = ctx.createLinearGradient(0, GROUND - 36, 0, GROUND - 10);
+    field.addColorStop(0, '#415c1c');
+    field.addColorStop(1, grassGreen);
+    ctx.fillStyle = field;
+    ctx.fillRect(0, GROUND - 36, W, 26);
+    const surface = ctx.createLinearGradient(0, GROUND - 10, 0, LANE_HEIGHT);
+    surface.addColorStop(0, terracotta);
+    surface.addColorStop(1, '#a22e16');
+    ctx.fillStyle = surface;
+    ctx.fillRect(0, GROUND - 10, W, LANE_HEIGHT - GROUND + 10);
+    ctx.fillStyle = '#feffedad';
+    for (const y of [GROUND - 9, GROUND, GROUND + 17]) ctx.fillRect(0, y, W, y === GROUND ? 2 : 1);
+    ctx.fillStyle = '#17191a';
+    ctx.fillRect(0, LANE_HEIGHT - 2, W, 2);
 
-    const xAt = (meter) => SCREEN_X + (meter - distance) * PIXELS_PER_METER;
-    const from = Math.floor(distance - SCREEN_X / PIXELS_PER_METER);
-    const to = Math.ceil(distance + (W - SCREEN_X) / PIXELS_PER_METER);
-    ctx.font = '700 12px monospace';
+    const xAt = (meter) => CAMERA_X + (meter - distance) * PIXELS_PER_METER;
+    const first = Math.max(0, Math.ceil((distance - CAMERA_X / PIXELS_PER_METER) / 5) * 5);
+    ctx.font = 'bold 10px Arial';
     ctx.textAlign = 'center';
-    for (let meter = from; meter <= to; meter++) {
+    for (let meter = first; meter <= TRACK_METERS; meter += 5) {
       const x = Math.round(xAt(meter));
-      const major = meter % 5 === 0;
-      ctx.fillStyle = major ? '#feffedbb' : '#feffed62';
-      ctx.fillRect(x, GROUND, 1, major ? 13 : 6);
-      if (major && meter > 0 && meter < TRACK_METERS) ctx.fillText(`${meter}m`, x, GROUND + 29);
+      if (x > W + 25) break;
+      ctx.fillStyle = paper;
+      if (meter === 0 || meter === TRACK_METERS) {
+        ctx.fillRect(x - 2, GROUND - 9, 4, 27);
+        if (meter === TRACK_METERS) {
+          for (let y = GROUND - 9; y <= GROUND + 11; y += 4) ctx.fillRect(x + ((y - GROUND + 9) % 8 ? -6 : 2), y, 4, 4);
+        }
+      } else ctx.fillRect(x, GROUND, 1, 8);
+      ctx.fillText(meter === 0 ? 'START' : `${meter} m`, x, GROUND + 15);
     }
-    for (const meter of [0, TRACK_METERS]) {
-      const x = Math.round(xAt(meter));
-      if (x < -40 || x > W + 40) continue;
-      ctx.fillStyle = '#feffedb3';
-      ctx.fillRect(x - 1, 12, 2, GROUND + 7);
-      if (meter === TRACK_METERS) {
-        for (let y = 16; y < GROUND; y += 6) ctx.fillRect(x + (y % 12 === 4 ? 1 : -7), y, 6, 6);
-      }
-      ctx.fillText(meter === 0 ? 'START' : 'FINISH', x, GROUND + 29);
+
+    const obstacle = xAt(hurdle?.x ?? HURDLE_METERS);
+    if (obstacle > -24 && obstacle < W + 24) {
+      ctx.save();
+      ctx.translate(obstacle, GROUND - (hurdle ? hurdle.y * PIXELS_PER_METER : HURDLE_HEIGHT_PIXELS / 2));
+      ctx.rotate(-(hurdle?.angle ?? 0)); // World angles are counter-clockwise, with y pointing up.
+      ctx.fillStyle = paper;
+      ctx.fillRect(-4, -HURDLE_HEIGHT_PIXELS / 2, 8, HURDLE_HEIGHT_PIXELS);
+      ctx.fillStyle = ink;
+      ctx.fillRect(-4, -HURDLE_HEIGHT_PIXELS / 2, 8, 3);
+      ctx.restore();
     }
   }
 
   function paintRunner(runner, lane) {
     ctx.save();
-    ctx.translate(SCREEN_X, GROUND - 2);
-    const { head, shoulder, hip, legs } = runner.pose;
-    const color = lane === 0 ? amber : green;
-    const skin = lane === 0 ? '#f6c790' : '#cf8b68';
-    const darkSkin = lane === 0 ? '#b87448' : '#8d4934';
+    ctx.translate(CAMERA_X, GROUND);
+    const { head, shoulder, hip, legs, arms } = runner.pose;
+    const jersey = lane === 0 ? red : blue;
+    const shadow = lane === 0 ? '#86000b' : '#1b5ea1';
+    const skin = lane === 0 ? '#bd7440' : '#d7a26b';
+    const shadedSkin = lane === 0 ? '#834426' : '#9c623d';
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    ctx.fillStyle = '#17191a68';
+    ctx.fillStyle = '#361b184d';
     ctx.beginPath();
-    ctx.ellipse(hip.x + 8, 3, runner.down ? 37 : 23, 4, 0, 0, Math.PI * 2);
+    ctx.ellipse(hip.x, 3, runner.down ? 30 : 18, 3, 0, 0, Math.PI * 2);
     ctx.fill();
     function leg(part, far) {
-      line(ink, 10, hip, part.knee);
-      line(far ? darkSkin : skin, 5, part.knee, part.ankle);
-      line(far ? '#cbc3a2' : paper, 5, part.ankle, part.toe);
+      line(far ? shadow : jersey, 12, hip, {x: (hip.x * 3 + part.knee.x) / 4, y: (hip.y * 3 + part.knee.y) / 4});
+      const upper = {x: (hip.x + part.knee.x * .45) / 1.45, y: (hip.y + part.knee.y * .45) / 1.45};
+      line(far ? shadedSkin : skin, 8.5, upper, part.knee);
+      line(far ? shadedSkin : skin, 6.5, part.knee, part.ankle);
+      line(far ? '#afc0cc' : '#e0e9ef', 5, part.ankle, part.toe);
     }
-    function arm(part, far) {
-      const a = clamp(part.knee.x - hip.x, -22, 22);
-      const elbow = { x: shoulder.x - a * .58 - 5, y: Math.min(shoulder.y + 22, 0) };
-      const hand = { x: elbow.x + (runner.down ? 12 : 11), y: Math.min(elbow.y - 8, 0) };
-      line(far ? darkSkin : skin, 5, shoulder, elbow, hand);
+    function arm(index) {
+      const part = arms?.[index];
+      if (part) {
+        line(index ? shadedSkin : skin, 5.8, shoulder, part.elbow, part.hand);
+        return;
+      }
+      // Illustrate an opposing arm swing from the existing pose; the controls are legs only.
+      const torsoAngle = Math.atan2(hip.y - shoulder.y, hip.x - shoulder.x) - Math.PI / 2;
+      const knee = legs[index ^ 1].knee;
+      const swing = Math.max(-.9, Math.min(.9, (knee.x - hip.x) / 24));
+      const a = torsoAngle + swing;
+      const elbow = {x: shoulder.x - Math.sin(a) * 14, y: Math.min(-3, shoulder.y + Math.cos(a) * 14)};
+      const hand = {x: elbow.x + Math.cos(a) * 11, y: Math.min(-2, elbow.y + Math.sin(a) * 11 - 5)};
+      line(index ? shadedSkin : skin, 5.8, shoulder, elbow, hand);
     }
-    arm(legs[1], true);
+    arm(1);
     leg(legs[1], true);
-    line(ink, 20, shoulder, hip);
-    line(color, 15, shoulder, hip);
-    dot((hip.x + shoulder.x) / 2 + 2, (hip.y + shoulder.y) / 2, 4.8, paper);
+    line(shadow, 19, shoulder, hip);
+    line(jersey, 15, shoulder, hip);
+    const bib = {x: shoulder.x * .62 + hip.x * .38, y: shoulder.y * .62 + hip.y * .38};
+    ctx.save();
+    ctx.translate(bib.x, bib.y);
+    ctx.rotate(Math.atan2(hip.y - shoulder.y, hip.x - shoulder.x) - Math.PI / 2);
+    ctx.fillStyle = paper;
+    ctx.fillRect(-6, -5, 12, 10);
     ctx.fillStyle = ink;
-    ctx.font = '900 7px monospace';
+    ctx.font = 'bold 8px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(String(lane + 1), (hip.x + shoulder.x) / 2 + 2, (hip.y + shoulder.y) / 2 + 2.6);
+    ctx.fillText(String(lane + 1), 0, 3);
+    ctx.restore();
     leg(legs[0], false);
-    arm(legs[0], false);
-    line(skin, 6, shoulder, head);
-    dot(head.x, head.y, 10, ink);
-    dot(head.x + 1.8, head.y + 1, 8, skin);
-    dot(head.x + 5.3, head.y - 1, 1.25, ink);
-    line(color, 3, { x: head.x - 7, y: head.y - 5 }, { x: head.x + 7, y: head.y - 5 });
+    arm(0);
+    line(shadedSkin, 6, shoulder, head);
+    ctx.save();
+    ctx.translate(head.x, head.y);
+    ctx.rotate(Math.atan2(hip.y - shoulder.y, hip.x - shoulder.x) - Math.PI / 2);
+    dot(0, 0, 9, '#3b2521');
+    dot(1.2, 1.8, 7.3, skin);
+    dot(6.8, .8, 2.5, skin);
+    dot(4.7, -.4, 1.05, ink);
+    ctx.restore();
     ctx.restore();
   }
 
@@ -190,14 +222,8 @@
       ctx.beginPath();
       ctx.rect(0, 0, W, LANE_HEIGHT);
       ctx.clip();
-      paintGround(runner.distance, i);
+      paintGround(runner);
       paintRunner(runner, i);
-      if (runner.down) {
-        ctx.fillStyle = i === 0 ? amber : green;
-        ctx.font = '900 14px monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('STUMBLE!', SCREEN_X + 65, 35);
-      }
       ctx.restore();
     });
   }
@@ -205,7 +231,7 @@
   function resize() {
     const width = canvas.getBoundingClientRect().width;
     drawScale = Math.max(1, Math.min(3, width / W * (window.devicePixelRatio || 1)));
-    const w = Math.round(W * drawScale), h = Math.round(H * drawScale);
+    const w = Math.ceil(W * drawScale), h = Math.ceil(H * drawScale);
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w;
       canvas.height = h;
@@ -213,49 +239,53 @@
     draw();
   }
 
-  const readyDetail = () => window.parent === window ? 'Press a leg key to start' : 'Click here, then press a leg key';
-
   function reset() {
     if (frame !== null) cancelAnimationFrame(frame);
     frame = null;
     race = createRace();
-    started = false;
     accumulator = 0;
     lastTick = null;
     releaseInputs();
-    status.textContent = 'Race reset.';
-    setBanner('On your marks', readyDetail());
+    showBanner('', '');
     syncScore();
     draw();
+    status.textContent = 'Both attempts reset.';
   }
 
   function update(now) {
     frame = null;
-    if (!started || document.hidden) return;
+    if (document.hidden || race.complete) return;
     if (lastTick !== null) accumulator += Math.min(.1, (now - lastTick) / 1000);
     lastTick = now;
-    const input = keysets.map((keys) => keys.map(isHeld));
-    while (accumulator >= FIXED_STEP && race.winner === null) {
+    while (accumulator >= FIXED_STEP && !race.complete) {
+      const input = keysets.map((keys) => keys.map((key) => isHeld(key) || queued.has(key)));
+      queued.clear();
       stepRace(race, input, FIXED_STEP);
       accumulator -= FIXED_STEP;
     }
     syncScore();
     draw();
-    if (race.winner !== null) {
+    if (race.complete) {
       releaseInputs();
-      const result = `Runner ${race.winner + 1} wins`;
-      setBanner(result, `${formatClock(race.elapsed)} · Space to restart`);
-      status.textContent = `${result}. Time ${formatClock(race.elapsed)}.`;
-    } else frame = requestAnimationFrame(update);
+      const result = race.winner === null ? 'Tie' : `Player ${race.winner + 1} wins`;
+      const [a, b] = race.runners.map((runner) => formatDistance(runner.best));
+      showBanner(result, `${a} / ${b} · ${resetLabel}`);
+      status.textContent = `${result}. Player 1: ${a}. Player 2: ${b}.`;
+    } else if (queued.size || race.runners.some((runner) => runner.started && !ended(runner))) {
+      frame = requestAnimationFrame(update);
+    } else {
+      accumulator = 0;
+      lastTick = null;
+    }
   }
 
-  function start() {
-    if (started) return;
-    started = true;
-    setBanner('', '');
-    status.textContent = 'Race started.';
-    lastTick = performance.now();
-    frame = requestAnimationFrame(update);
+  function press(key) {
+    queued.add(key);
+    syncKeys();
+    if (frame === null && !document.hidden) {
+      lastTick = performance.now();
+      frame = requestAnimationFrame(update);
+    }
   }
 
   function codeFor(event) {
@@ -264,6 +294,7 @@
     return event.key?.length === 1 ? `Key${event.key.toUpperCase()}` : '';
   }
 
+  const locked = (code) => race.complete || ended(race.runners[laneForKey.get(code)]);
   window.addEventListener('keydown', (event) => {
     if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
     const code = codeFor(event);
@@ -274,10 +305,9 @@
     }
     if (!buttons.has(code)) return;
     event.preventDefault();
-    if (event.repeat || race.winner !== null) return;
+    if (event.repeat || locked(code)) return;
     keyboard.add(code);
-    syncKeys();
-    start();
+    press(code);
   });
   window.addEventListener('keyup', (event) => {
     const code = codeFor(event);
@@ -288,12 +318,11 @@
 
   for (const [code, button] of buttons) {
     button.addEventListener('pointerdown', (event) => {
-      if (event.button !== 0 || race.winner !== null) return;
+      if (event.button !== 0 || locked(code)) return;
       event.preventDefault();
       button.setPointerCapture(event.pointerId);
       pointers.set(event.pointerId, code);
-      syncKeys();
-      start();
+      press(code);
     });
     for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
       button.addEventListener(type, (event) => {
@@ -302,16 +331,14 @@
       });
     }
     button.addEventListener('contextmenu', (event) => event.preventDefault());
-    // Focused buttons also act as momentary controls for keyboard-only visitors.
     button.addEventListener('keydown', (event) => {
       if (!['Enter', ' '].includes(event.key)) return;
       event.preventDefault();
-      if (event.repeat || race.winner !== null) return;
-      keyboard.add(code);
-      syncKeys();
-      start();
+      if (event.repeat || locked(code)) return;
+      focusedKeys.add(code);
+      press(code);
     });
-    const releaseButton = () => { keyboard.delete(code); syncKeys(); };
+    const releaseButton = () => { focusedKeys.delete(code); syncKeys(); };
     button.addEventListener('keyup', (event) => {
       if (['Enter', ' '].includes(event.key)) { event.preventDefault(); releaseButton(); }
     });
@@ -326,20 +353,21 @@
       frame = null;
       lastTick = null;
       accumulator = 0;
-    } else if (started && race.winner === null && frame === null) frame = requestAnimationFrame(update);
+    } else if (!race.complete && frame === null && race.runners.some((runner) => runner.started && !ended(runner))) {
+      frame = requestAnimationFrame(update);
+    }
   });
   byId('reset').addEventListener('click', reset);
   new ResizeObserver(resize).observe(canvas);
   if (window.frameElement?.hasAttribute('data-false-start-embed')) {
+    byId('start-hint').textContent = 'Click the track or use the buttons, then press a leg key. Space restarts both.';
     const meet = document.querySelector('.meet');
     new ResizeObserver(() => {
       const height = `${Math.ceil(meet.getBoundingClientRect().height)}px`;
-      if (window.frameElement && window.frameElement.style.height !== height) {
-        window.frameElement.style.height = height;
-      }
+      if (window.frameElement && window.frameElement.style.height !== height) window.frameElement.style.height = height;
     }).observe(meet);
   }
-  setBanner('On your marks', readyDetail());
   syncScore();
+  syncKeys();
   resize();
 })();

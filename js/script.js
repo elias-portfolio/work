@@ -508,7 +508,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             `,
             quiz: `<div id="jeopardy-root"></div>`,
             'false-start': `
-                <iframe src="false-start.html?v=1" title="False Start: two-player 100 m duel" data-false-start-embed
+                <iframe src="false-start.html?v=classic1" title="False Start: longest distance wins" data-false-start-embed
                     style="display:block; width:100%; height:615px; border:0;"></iframe>
                 <p style="font-size:12px; margin:8px 0 16px;">
                     <a href="false-start.html" target="_blank" rel="noopener">open game in a new tab ↗</a>
