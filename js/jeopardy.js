@@ -160,35 +160,35 @@
             category: 'SPELLING BEE',
             clues: [
                 {
-                    value: 200,
-                    image: 'images/quiz/spelling/dragostea.png',
-                    audio: 'images/quiz/spelling/dragostea.mp3',
-                    answer: 'DRAGOSTEA DIN TEI'
-                },
-                {
-                    value: 400,
-                    image: 'images/quiz/spelling/arja.png',
-                    audio: 'images/quiz/spelling/arja.mp3',
-                    answer: 'ARJA SAIJONMAA'
-                },
-                {
-                    value: 600,
-                    image: 'images/quiz/spelling/netanyahu.png',
-                    audio: 'images/quiz/spelling/netanyahu.mp3',
-                    answer: 'NETANYAHU'
-                },
-                {
-                    value: 800,
-                    image: 'images/quiz/spelling/tenochtitlan.png',
-                    audio: 'images/quiz/spelling/tenochtitlan.mp3',
-                    answer: 'TENOCHTITLAN'
-                },
-                {
-                    value: 1000,
+                    value: 100,
                     dailyDouble: true,
                     specialCategory: 'ETYMOLOGI',
                     clue: 'FRÅN VILKET FOLK KOMMER ORDET ”TJEJ”?',
                     answer: 'ROMERNA. ORDET ÄR LÅNAT FRÅN ROMANI.'
+                },
+                {
+                    value: 200,
+                    image: 'images/quiz/spelling/netanyahu.png',
+                    audio: 'images/quiz/spelling/netanyahu.mp3?v=quiz9',
+                    answer: 'NETANYAHU'
+                },
+                {
+                    value: 400,
+                    image: 'images/quiz/spelling/dragostea.png',
+                    audio: 'images/quiz/spelling/dragostea.mp3?v=quiz9',
+                    answer: 'DRAGOSTEA DIN TEI'
+                },
+                {
+                    value: 600,
+                    image: 'images/quiz/spelling/arja.png',
+                    audio: 'images/quiz/spelling/arja.mp3?v=quiz9',
+                    answer: 'ARJA SAIJONMAA'
+                },
+                {
+                    value: 800,
+                    image: 'images/quiz/spelling/tenochtitlan.png',
+                    audio: 'images/quiz/spelling/tenochtitlan.mp3?v=quiz9',
+                    answer: 'TENOCHTITLAN'
                 }
             ]
         }
