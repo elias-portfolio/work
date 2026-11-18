@@ -1,0 +1,225 @@
+/* quiz-date-contest.css — allas individuella försök på DAGAR OCH TID. */
+
+.quiz-date-contest[hidden],
+.qdc[hidden],
+.qdc [hidden] { display: none !important; }
+
+.quiz-date-contest,
+.qdc {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: min(46rem, 96%);
+    margin: 10px auto 0;
+    padding: 10px 12px;
+    border: 1px solid rgba(196, 208, 255, 0.55);
+    border-radius: 8px;
+    background: rgba(6, 15, 78, 0.72);
+    color: #fff;
+    font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+    text-align: left;
+    text-transform: none;
+}
+
+.qdc-head {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.qdc-heading {
+    margin: 0;
+    color: #ffcb67;
+    font: 700 15px/1.25 inherit;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.qdc-instruction {
+    margin: 0;
+    color: #dde4ff;
+    font-size: 13px;
+}
+
+.qdc-status {
+    margin: 0;
+    min-height: 1.2em;
+    color: #9fe7bd;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.qdc-status:empty { display: none; }
+
+.qdc-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.qdc-tabs-label {
+    color: #aeb9e6;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.qdc-tablist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.qdc-tab {
+    --qdc-seat-color: #4dd8ff;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px 4px 5px;
+    border: 1px solid rgba(196, 208, 255, 0.6);
+    border-left: 4px solid var(--qdc-seat-color);
+    border-radius: 5px;
+    background: #16204d;
+    color: #fff;
+    font: 600 13px/1.2 inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+.qdc-tab:hover:not(:disabled) { background: #1f2c66; }
+.qdc-tab:focus-visible { outline: 2px solid #ffcb67; outline-offset: 2px; }
+
+.qdc-tab.is-active {
+    background: #2b3a86;
+    border-color: #ffcb67;
+    color: #fff5d6;
+    box-shadow: 0 0 0 1px #ffcb67 inset;
+}
+
+.qdc-tab.is-answered {
+    background: #16362b;
+    border-left-color: var(--qdc-seat-color);
+    color: #cfe9dc;
+    cursor: default;
+    opacity: 0.92;
+}
+
+.qdc-tab:disabled { cursor: default; }
+
+.qdc-tab-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35em;
+    height: 1.35em;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.16);
+    font: 700 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.qdc-tab-name { white-space: nowrap; }
+
+.qdc-tab-state {
+    color: #b6c1ea;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.qdc-tab.is-active .qdc-tab-state { color: #ffcb67; }
+.qdc-tab.is-answered .qdc-tab-state { color: #7fd6a6; }
+
+.qdc-result {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(196, 208, 255, 0.35);
+}
+
+.qdc-facit {
+    margin: 0;
+    color: #ffcb67;
+    font: 700 15px/1.3 inherit;
+}
+
+.qdc-rule,
+.qdc-summary {
+    margin: 0;
+    color: #dde4ff;
+    font-size: 13px;
+}
+
+.qdc-rule { color: #aeb9e6; }
+
+.qdc-table {
+    width: 100%;
+    margin-top: 2px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.qdc-caption {
+    padding-bottom: 4px;
+    color: #aeb9e6;
+    font-size: 12px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.qdc-table th,
+.qdc-table td {
+    padding: 4px 6px;
+    border-bottom: 1px solid rgba(196, 208, 255, 0.2);
+    text-align: left;
+    vertical-align: top;
+}
+
+.qdc-table th {
+    color: #aeb9e6;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.qdc-cell-name { white-space: nowrap; }
+
+.qdc-swatch {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 6px;
+    border-radius: 50%;
+    vertical-align: baseline;
+}
+
+.qdc-cell-answer { color: #fff; overflow-wrap: anywhere; }
+.qdc-cell-distance,
+.qdc-cell-correct { color: #cfd8f7; font-variant-numeric: tabular-nums; }
+.qdc-cell-points { color: #9fe7bd; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.qdc-table tr.is-winner td {
+    background: rgba(255, 203, 103, 0.14);
+    color: #fff5d6;
+}
+
+.qdc-table tr.is-winner .qdc-cell-points { color: #ffcb67; }
+.qdc-table tr.is-empty td { color: #8f9ac4; font-style: italic; }
+
+@media (max-width: 640px) {
+    .quiz-date-contest,
+    .qdc { width: 100%; padding: 8px; }
+    .qdc-tab-name { max-width: 8em; overflow: hidden; text-overflow: ellipsis; }
+    .qdc-table th,
+    .qdc-table td { padding: 3px 4px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .qdc-tab { transition: none; }
+}

@@ -1,11 +1,25 @@
 // Local seats for the shared-screen quiz. Scores live only for the current board.
 window.createQuizPlayers = function ({ bar, votes, canConfigure }) {
-    const defaults = [['A','S'], ['J','K'], ['Z','X'], ['N','M'], ['Q','W'], ['O','P']];
-    const makeSeat = i => ({name: `Spelare ${i+1}`, score: 0,
+    const defaults = [['A','S'], ['J','K'], ['Z','X'], ['V','B'], ['Q','W'], ['O','P']];
+    const avatars = [['moth','Mal'], ['hybrid','Hybrid'], ['moth-block','Blockmal'], ['orbit','Omloppsbana']];
+    function avatarImage(id) {
+        const img = document.createElement('img');
+        img.src = `images/quiz/avatars/${avatars[id][0]}.gif`;
+        img.alt = ''; img.className = 'qp-avatar'; img.width = img.height = 32;
+        return img;
+    }
+    const sounds = ['Chimes','Chord','Ding','Notify','Recycle','Ring In','Ring Out','Start','Tada','Balloon','Battery Critical','Battery Low','Critical Stop','Default','Ding','Error','Exclamation','Hardware Fail','Hardware Insert','Hardware Remove','Information Bar','Logoff','Logon','Menu Command','Minimize','Notify','Pop-up Blocked','Print Complete','Recycle','Restore','Ring In','Ring Out','Shutdown','Startup'];
+    const sound = node('audio'); sound.hidden = true; sound.preload = 'none'; sound.volume = .55; bar.append(sound);
+    function buzz(id) {
+        sound.pause(); if (!id) return;
+        sound.src = `images/quiz/buzz-sounds/${String(id).padStart(2,'0')}.mp3`;
+        sound.play().catch(() => {});
+    }
+    const makeSeat = i => ({name: `Spelare ${i+1}`, score: 0, buzzSound: i+1, avatar:i % avatars.length,
         left: `Key${defaults[i][0]}`, right: `Key${defaults[i][1]}`,
         leftLabel: defaults[i][0], rightLabel: defaults[i][1]});
     let seats = [makeSeat(0)], current = 0, draft = [], capture = null;
-    const node = (tag, text) => Object.assign(document.createElement(tag), {textContent: text || ''});
+    function node(tag, text) {return Object.assign(document.createElement(tag), {textContent: text || ''});}
     const button = (text, click) => {
         const b = node('button', text); b.type = 'button'; b.addEventListener('click', click); return b;
     };
@@ -18,17 +32,18 @@ window.createQuizPlayers = function ({ bar, votes, canConfigure }) {
     countLabel.append(count);
     const rows = node('div'); rows.className='qp-rows';
     const message = node('p'); message.setAttribute('role','status');
-    const help = node('p','Välj två olika tangenter per spelare. Den första buzzrar och betyder ja, den andra betyder nej. Ni kan också trycka på skärmen.');
+    const help = node('p','Välj två olika tangenter per spelare. Första tangenten buzzrar. Båda används för att styra i Zatacka. Efter facit ger spelarnumret poäng.');
     const save = button('Klar', saveSetup), cancel = button('Avbryt', () => dlg.close());
     dlg.append(title, countLabel, help, rows, message, save, cancel);
     bar.append(setup, scoreList, dlg);
     count.addEventListener('change', () => { capture=null; message.textContent=''; renderRows(); });
-    dlg.addEventListener('close', () => { capture=null; });
+    dlg.addEventListener('close', () => { capture=null; sound.pause(); });
     function refresh() {
         setup.disabled = !canConfigure();
         scoreList.replaceChildren(...seats.map((s,i) => {
-            const pill=node('span',`${i===current?'▶ ':''}${s.name}: ${s.score}`);
+            const pill=node('span',`${i+1}. ${s.name}: ${s.score}`);
             if (i===current) {pill.className='qp-active'; pill.setAttribute('aria-label',`${s.name} har turen, ${s.score} poäng`);}
+            pill.prepend(avatarImage(s.avatar));
             return pill;
         }));
     }
@@ -49,7 +64,25 @@ window.createQuizPlayers = function ({ bar, votes, canConfigure }) {
                 });
                 row.append(b);
             }
-            rows.append(row);
+            const choices = node('div'); choices.className='qp-avatar-list'; choices.setAttribute('role','group'); choices.setAttribute('aria-label',`Avatar för spelare ${i+1}`);
+            avatars.forEach(([, label], id) => {
+                const pick = button('', () => {
+                    s.avatar = id;
+                    Array.from(choices.children).forEach((el,j)=>el.setAttribute('aria-pressed',String(j===id)));
+                });
+                pick.setAttribute('aria-label',label); pick.title=label;
+                pick.setAttribute('aria-pressed',String(s.avatar===id)); pick.append(avatarImage(id)); choices.append(pick);
+            });
+            row.append(choices);
+            const soundRow = node('div'); soundRow.className='qp-sound-row';
+            const soundLabel = node('label', 'Buzzerljud '), select = node('select');
+            select.setAttribute('aria-label', `Buzzerljud för spelare ${i+1}`);
+            select.add(new Option('Tyst','0'));
+            sounds.forEach((label,j) => select.add(new Option(`${String(j+1).padStart(2,'0')} · ${label}`,String(j+1))));
+            select.value=String(s.buzzSound);
+            select.addEventListener('change', () => { s.buzzSound=Number(select.value); buzz(s.buzzSound); });
+            soundLabel.append(select); soundRow.append(soundLabel,button('Provlyssna',()=>buzz(s.buzzSound)));
+            row.append(soundRow); rows.append(row);
         });
     }
     function handleKey(e) {
@@ -61,6 +94,7 @@ window.createQuizPlayers = function ({ bar, votes, canConfigure }) {
         if (!e.code || e.key.length!==1 || e.key===' ' || e.altKey || e.ctrlKey || e.metaKey || e.isComposing) {
             message.textContent='Välj en bokstav, siffra eller symbol utan kortkommando.'; return true;
         }
+        if(['KeyN','KeyM'].includes(e.code)) {message.textContent='N byter låt och M byter instrument. Välj en annan tangent.';return true;}
         const {i,side,b,label}=capture;
         if(draft.slice(0,Number(count.value)).some((s,j)=>['left','right'].some(k=>!(i===j && side===k) && s[k]===e.code))) {
             message.textContent='Tangenten används redan. Välj en annan.';return true;
@@ -80,7 +114,7 @@ window.createQuizPlayers = function ({ bar, votes, canConfigure }) {
     }
     return {
         get count(){return seats.length;},get currentIndex(){return current;},get currentName(){return seats[current].name;},get currentScore(){return seats[current].score;},
-        getSeats:()=>seats.map(s=>({...s})),addAt,add(delta){addAt(current,delta);},
+        playBuzz(index){if(seats[index]) buzz(seats[index].buzzSound);},getSeats:()=>seats.map(s=>({...s})),addAt,add(delta){addAt(current,delta);},
         rotate(){current=(current+1)%seats.length;refresh();},resetScores(){seats.forEach(s=>s.score=0);current=0;refresh();},
         finishRapid(perfect){perfect.forEach((yes,i)=>{if(yes)addAt(i,50);});},closeVote(){votes.hidden=true;},refresh,handleKey
     };

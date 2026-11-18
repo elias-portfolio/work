@@ -9,8 +9,7 @@
   const HEAD_RADIUS = 3.4;
   const TRAIL_RADIUS = 3;
   const CELL_SIZE = 32;
-  const COLORS = ['#ff5c8a', '#4dd8ff', '#ffd166', '#82f2a2'];
-  const GUEST_NAMES = ['Gäst Rosa', 'Gäst Blå', 'Gäst Gul', 'Gäst Grön'];
+  const COLORS = ['#ff5c8a', '#4dd8ff', '#ffd166', '#82f2a2', '#d58bff', '#ff9d6b'];
   const DEFAULT_KEYS = [
     ['KeyA', 'KeyD'],
     ['ArrowLeft', 'ArrowRight'],
@@ -30,7 +29,7 @@
   }
 
   function normalizePlayers(input) {
-    const source = Array.isArray(input) ? input.slice(0, 4) : [];
+    const source = Array.isArray(input) ? input : [];
     const usedKeys = new Set();
     source.forEach(function (player) {
       if (!player || typeof player !== 'object') return;
@@ -38,11 +37,10 @@
       if (typeof player.right === 'string') usedKeys.add(player.right);
     });
 
-    const normalized = [];
-    for (let index = 0; index < 4; index += 1) {
-      const supplied = source[index] && typeof source[index] === 'object' ? source[index] : null;
-      let left = supplied && typeof supplied.left === 'string' && supplied.left ? supplied.left : '';
-      let right = supplied && typeof supplied.right === 'string' && supplied.right ? supplied.right : '';
+    return source.slice(0, 6).map(function (player, index) {
+      const supplied = player && typeof player === 'object' ? player : {};
+      let left = typeof supplied.left === 'string' && supplied.left ? supplied.left : '';
+      let right = typeof supplied.right === 'string' && supplied.right ? supplied.right : '';
       if (!left || !right || left === right) {
         const fallback = DEFAULT_KEYS.find(function (pair) {
           return !usedKeys.has(pair[0]) && !usedKeys.has(pair[1]);
@@ -52,18 +50,16 @@
       }
       usedKeys.add(left);
       usedKeys.add(right);
-      const suppliedName = supplied && typeof supplied.name === 'string' ? supplied.name.trim() : '';
-      normalized.push({
+      const suppliedName = typeof supplied.name === 'string' ? supplied.name.trim() : '';
+      return {
         index: index,
-        name: suppliedName || GUEST_NAMES[index],
-        score: supplied ? finiteScore(supplied.score) : 1000,
-        guest: !supplied,
+        name: suppliedName || 'Spelare ' + (index + 1),
+        score: finiteScore(supplied.score),
         left: left,
         right: right,
         color: COLORS[index]
-      });
-    }
-    return normalized;
+      };
+    });
   }
 
   function keyLabel(code) {
@@ -138,6 +134,7 @@
     if (activeDispose) activeDispose();
     const settings = options && typeof options === 'object' ? options : {};
     const players = normalizePlayers(settings.players);
+    const solo = players.length === 1;
     const onResult = typeof settings.onResult === 'function' ? settings.onResult : function () {};
     const onClose = typeof settings.onClose === 'function' ? settings.onClose : function () {};
     const previousFocus = document.activeElement;
@@ -166,10 +163,10 @@
     dialog.dataset.phase = phase;
     dialog.setAttribute('aria-labelledby', 'quiz-zatacka-title');
     dialog.innerHTML = `
-      <div class="qz-shell">
+      <div class="qz-shell" data-qz-count="${players.length}" data-qz-solo="${solo}">
         <header class="qz-header">
           <div>
-            <p class="qz-kicker">Lokal fyrspelarutmaning</p>
+            <p class="qz-kicker">Lokal ${players.length === 1 ? 'träningsrunda' : players.length + ' spelare'}</p>
             <h2 id="quiz-zatacka-title">Quiz-Zatacka</h2>
           </div>
           <button type="button" class="qz-icon-button" data-qz-role="close" aria-label="Stäng Zatacka">×</button>
@@ -185,7 +182,7 @@
             <button type="button" class="qz-primary" data-qz-role="resume">Fortsätt</button>
           </div>
         </div>
-        <p class="qz-status" data-qz-role="status" aria-live="polite">Sätt varje deltagares heltalsinsats och starta när alla är redo.</p>
+        <p class="qz-status" data-qz-role="status" aria-live="polite"></p>
         <div class="qz-touch" data-qz-role="touch" aria-label="Pekstyrning"></div>
         <section class="qz-result" data-qz-role="result" aria-live="polite" hidden>
           <h3 data-qz-role="result-title"></h3>
@@ -193,7 +190,7 @@
         </section>
         <footer class="qz-footer">
           <span>Håll vänster/höger för att svänga. Vägg och alla spår ger krasch.</span>
-          <button type="button" class="qz-primary" data-qz-role="start">Lås insatser och starta</button>
+          <button type="button" class="qz-primary" data-qz-role="start"></button>
         </footer>
       </div>`;
 
@@ -234,31 +231,42 @@
       state.dataset.qzRole = 'player-state';
       state.textContent = 'Redo';
       heading.append(name, state);
-      const wagerLabel = document.createElement('label');
-      wagerLabel.className = 'qz-wager';
-      const wagerText = document.createElement('span');
-      const maximum = Math.max(1000, player.score);
-      wagerText.textContent = 'Insats (0–' + maximum + ')';
-      const input = document.createElement('input');
-      input.type = 'number';
-      input.inputMode = 'numeric';
-      input.min = '0';
-      input.max = String(maximum);
-      input.step = '1';
-      input.value = String(Math.min(100, maximum));
-      input.dataset.qzRole = 'wager';
-      input.dataset.player = String(player.index);
-      input.setAttribute('aria-label', player.name + ': insats');
-      wagerLabel.append(wagerText, input);
-      const controls = document.createElement('p');
-      controls.className = 'qz-keys';
-      controls.textContent = keyLabel(player.left) + ' / ' + keyLabel(player.right) + (player.guest ? ' · lokal gäst' : '');
-      card.append(heading, wagerLabel, controls);
+      card.appendChild(heading);
+      if (solo) {
+        const soloInfo = document.createElement('p');
+        soloInfo.className = 'qz-keys';
+        soloInfo.textContent = 'Träning – inga poäng eller insats.';
+        card.appendChild(soloInfo);
+        player.input = null;
+        player.maximum = 0;
+        player.bet = 0;
+      } else {
+        const wagerLabel = document.createElement('label');
+        wagerLabel.className = 'qz-wager';
+        const wagerText = document.createElement('span');
+        const maximum = Math.max(0, player.score);
+        wagerText.textContent = 'Insats (0–' + maximum + ')';
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.inputMode = 'numeric';
+        input.min = '0';
+        input.max = String(maximum);
+        input.step = '1';
+        input.value = String(Math.min(100, maximum));
+        input.dataset.qzRole = 'wager';
+        input.dataset.player = String(player.index);
+        input.setAttribute('aria-label', player.name + ': insats');
+        wagerLabel.append(wagerText, input);
+        const controls = document.createElement('p');
+        controls.className = 'qz-keys';
+        controls.textContent = keyLabel(player.left) + ' / ' + keyLabel(player.right);
+        card.append(wagerLabel, controls);
+        player.input = input;
+        player.maximum = maximum;
+        player.bet = Math.min(100, maximum);
+      }
       player.card = card;
       player.stateElement = state;
-      player.input = input;
-      player.maximum = maximum;
-      player.bet = Math.min(100, maximum);
       return card;
     }
 
@@ -404,12 +412,36 @@
     }
 
     function initializeRound() {
-      const starts = [
-        [WIDTH * 0.22, HEIGHT * 0.27, 0.45],
-        [WIDTH * 0.78, HEIGHT * 0.27, Math.PI - 0.45],
-        [WIDTH * 0.78, HEIGHT * 0.73, Math.PI + 0.45],
-        [WIDTH * 0.22, HEIGHT * 0.73, -0.45]
-      ];
+      const count = players.length;
+      const starts = [];
+      for (let index = 0; index < count; index += 1) {
+        let x;
+        let y;
+        let angle;
+        if (count === 1) {
+          x = WIDTH * 0.5;
+          y = HEIGHT * 0.62;
+          angle = -Math.PI / 2;
+        } else if (count === 2) {
+          x = WIDTH * (index === 0 ? 0.28 : 0.72);
+          y = HEIGHT * 0.5;
+          angle = index === 0 ? 0 : Math.PI;
+        } else {
+          const topCount = Math.ceil(count / 2);
+          if (index < topCount) {
+            x = WIDTH * ((index + 1) / (topCount + 1));
+            y = HEIGHT * 0.12;
+            angle = 0;
+          } else {
+            const bottomIndex = index - topCount;
+            const bottomCount = count - topCount;
+            x = WIDTH * ((bottomIndex + 1) / (bottomCount + 1));
+            y = HEIGHT * 0.88;
+            angle = Math.PI;
+          }
+        }
+        starts.push([x, y, angle]);
+      }
       spatial = new Map();
       simulationStep = 0;
       accumulator = 0;
@@ -424,7 +456,7 @@
         player.alive = true;
         player.gapIn = 230 + Math.random() * 260;
         player.gapRemaining = 0;
-        setPlayerState(player, 'Låst', 'locked');
+        setPlayerState(player, solo ? 'Redo' : 'Låst', solo ? 'ready' : 'locked');
       });
       draw();
     }
@@ -539,7 +571,11 @@
         }
       });
       const survivors = players.filter(function (player) { return player.alive; });
-      if (survivors.length <= 1) finishRound(survivors.length === 1 ? survivors[0] : null);
+      if (solo) {
+        if (survivors.length === 0) finishRound(null);
+      } else if (survivors.length <= 1) {
+        finishRound(survivors.length === 1 ? survivors[0] : null);
+      }
     }
 
     function signed(value) {
@@ -554,21 +590,24 @@
       countdown.hidden = true;
       pausePanel.hidden = true;
       resultDeltas = players.map(function (player) {
-        if (!winner) return 0;
+        if (solo || !winner) return 0;
         return player.index === winner.index ? player.bet : -player.bet;
       });
       players.forEach(function (player) {
-        if (winner && player.index === winner.index) setPlayerState(player, 'Vinnare', 'winner');
+        if (solo) {
+          if (!player.alive) setPlayerState(player, 'Klar', 'trained');
+        } else if (winner && player.index === winner.index) setPlayerState(player, 'Vinnare', 'winner');
         else if (!winner && !player.alive) setPlayerState(player, 'Delad', 'tied');
       });
-      resultTitle.textContent = winner ? winner.name + ' vann!' : 'Delad rond – ingen unik vinnare';
+      if (solo) resultTitle.textContent = 'Träningsrundan är klar';
+      else resultTitle.textContent = winner ? winner.name + ' vann!' : 'Delad rond – ingen unik vinnare';
       resultRows.replaceChildren();
       players.forEach(function (player, index) {
         const row = document.createElement('div');
         row.className = 'qz-result-row';
         row.dataset.player = String(index);
         const name = document.createElement('span');
-        name.textContent = player.name + ' (insats ' + player.bet + ')';
+        name.textContent = solo ? player.name : player.name + ' (insats ' + player.bet + ')';
         const delta = document.createElement('strong');
         delta.textContent = signed(resultDeltas[index]);
         delta.style.color = resultDeltas[index] > 0 ? '#82f2a2' : resultDeltas[index] < 0 ? '#ff8ba7' : '#d6e4ff';
@@ -577,7 +616,9 @@
       });
       resultPanel.hidden = false;
       startButton.hidden = true;
-      setPhase('result', winner ? 'Ronden är avgjord. Resultatet är registrerat.' : 'Alla återstående spelare kraschade samtidigt. Noll avräkning.');
+      setPhase('result', solo
+        ? 'Träningsrundan är klar. Inga poäng avräknades.'
+        : winner ? 'Ronden är avgjord. Resultatet är registrerat.' : 'Alla återstående spelare kraschade samtidigt. Noll avräkning.');
       draw();
       resultPanel.scrollIntoView({ block: 'nearest' });
       closeButton.focus({ preventScroll: true });
@@ -655,6 +696,10 @@
       if (phase !== 'setup') return;
       let valid = true;
       players.forEach(function (player) {
+        if (solo) {
+          player.bet = 0;
+          return;
+        }
         const raw = player.input.value.trim();
         const value = Number(raw);
         const inputValid = /^\d+$/.test(raw) && Number.isSafeInteger(value) && value >= 0 && value <= player.maximum;
@@ -667,12 +712,14 @@
         dialog.querySelector('[aria-invalid="true"]').focus();
         return;
       }
-      players.forEach(function (player) { player.input.disabled = true; });
+      players.forEach(function (player) {
+        if (player.input) player.input.disabled = true;
+      });
       startButton.disabled = true;
       initializeRound();
       countdownEnd = performance.now() + 3200;
       countdown.hidden = false;
-      setPhase('countdown', 'Insatserna är låsta. Ronden startar snart.');
+      setPhase('countdown', solo ? 'Träningsrunda. Ronden startar snart.' : 'Insatserna är låsta. Ronden startar snart.');
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(tick);
     }
@@ -740,6 +787,10 @@
     initializeRound();
     players.forEach(function (player) { setPlayerState(player, 'Redo', 'ready'); });
     updateTouchAvailability();
+    status.textContent = solo
+      ? 'Ensam träningsrunda: ingen insats och ingen poängavdräkning. Kör så länge du klarar.'
+      : 'Sätt varje deltagares heltalsinsats och starta när alla är redo.';
+    startButton.textContent = solo ? 'Starta träningsrundan' : 'Lås insatser och starta';
     dialog.showModal();
     startButton.focus({ preventScroll: true });
     activeDispose = dispose;

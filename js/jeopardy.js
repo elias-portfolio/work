@@ -66,7 +66,7 @@
                 animal('kat2_2_pissmyra', "Vem äter pissmyran?", "Rätt svar är hackspetten, framför allt gröngölingen.", 400),
                 animal('kat2_3_alg', "Vem äter älgen?", "Rätt svar är varg och brunbjörn.", 600, { swimBonus: true }),
                 animal('kat2_4_sjogurka', "Vem äter sjögurkan?", "Rätt svar är sjöstjärnor, krabbor och rovsnäckor.", 800),
-                animal('kat2_5_flamingo', "Vem äter flamingon?", "Flamingons främsta rovdjur är örnar, gamar, marabustorkar, schakaler och hyenor.", 1000, { zatacka: true })
+                { value: 1000, zatacka: true }
             ],
             swim: spoken(extraAudio, 'special_giraff', 'KAN EN GIRAFF SIMMA?', 'NEJ ENLIGT QUIZFACIT. GIRAFFER KAN VADA; SIMNING ÄR INTE BELAGD.', { value: 600, dailyDouble: true, specialCategory: 'KAN DJURET SIMMA?' })
         },
@@ -185,12 +185,14 @@
 
     let keydownHandler = null;
     let disposeMini = null;
+    let music = null;
 
     function cleanupJeopardyQuiz() {
+        music?.dispose(); music = null;
         const dispose = disposeMini;
         disposeMini = null;
         dispose?.();
-        document.querySelector('#jeopardy-root audio')?.pause();
+        document.querySelectorAll('#jeopardy-root audio').forEach(audio => {audio.onended = audio.onerror = null; audio.pause();});
         if (keydownHandler) {
             document.removeEventListener('keydown', keydownHandler);
             keydownHandler = null;
@@ -224,6 +226,8 @@
         root.innerHTML = `
             <div class="jeopardy-shell${isFullscreen ? ' jeopardy-shell--fullscreen' : ''}">
                 <div class="quiz-player-bar"></div>
+                <div class="quiz-buzzer-host"></div>
+                <div class="quiz-intro-strip"><button type="button" class="jeopardy-clue-btn" data-welcome>Spela välkomstintro</button> <span role="status">Tryck på en kategorirubrik för att låsa upp frågorna.</span></div>
                 <div class="jeopardy-monitor">
                     <div class="jeopardy-screen is-vhs" id="jeopardy-screen">
                         <div class="jeopardy-vhs-stage" id="jeopardy-vhs-stage">
@@ -247,7 +251,7 @@
                                         <img class="jeopardy-clue-image" id="jeopardy-clue-image" alt="" hidden>
                                         <p class="jeopardy-clue-text" id="jeopardy-clue-text"></p>
                                         <div class="quiz-player-votes" hidden></div>
-                                        <div class="quiz-buzzer"></div>
+                                        <div class="quiz-date-contest" hidden></div>
                                         <form class="jeopardy-entry" hidden>
                                             <div class="jeopardy-clock" hidden>
                                                 <svg viewBox="0 0 160 160" role="group" aria-label="Ställ in klockan">
@@ -279,6 +283,7 @@
                                     <div class="jeopardy-clue-actions" id="jeopardy-clue-actions">
                                         <button type="button" class="jeopardy-clue-btn" data-action="all-answers" hidden>spela hela facit</button>
                                         <audio id="jeopardy-clue-audio" preload="none" hidden></audio>
+                                        <audio data-reaction preload="none" hidden></audio>
                                         <button type="button" class="jeopardy-clue-btn" data-action="replay" hidden>spela frågan</button>
                                         <button type="button" class="jeopardy-clue-btn" data-action="moppe" hidden>bonus: tio små moppepojkar</button>
                                         <button type="button" class="jeopardy-clue-btn" data-action="swim" hidden>bonus: kan djuret simma?</button>
@@ -314,50 +319,48 @@
             votes: root.querySelector('.quiz-player-votes'),
             canConfigure: () => !state.activeClue && state.played.size === 0
         });
+        const musicControls = document.createElement('span');
+        musicControls.className = 'qp-music-controls'; root.querySelector('.quiz-player-bar').append(musicControls);
+        music = window.createQuizMusic({root, controls:musicControls});
         const buzzer = window.createQuizBuzzer({
-            root: root.querySelector('.quiz-buzzer'), getSeats: () => players.getSeats().map(seat => ({ ...seat, leftLabel: 'Ja', rightLabel: 'Nej' })),
-            onFail(index) {
-                const active = state.activeClue;
-                if (active && !active.round && !active.claimOnly) players.addAt(index, -active.clueData.value);
-                updateStats();
-            },
+            onPick(index) { players.playBuzz(index); },
+            root: root.querySelector('.quiz-buzzer-host'), getSeats: () => players.getSeats().map(seat => ({ ...seat, leftLabel: 'Ja', rightLabel: 'Nej' })),
             onResolve(index) {
                 const active = state.activeClue;
-                if (!active || active.resolved) return;
-                active.respondent = index;
-                const name = index === null ? 'Ingen svarade' : players.getSeats()[index].name;
-                if (active.claimOnly && index !== null) {
-                    clueMeta.textContent += ` · ${name} svarar`;
-                    if (active.clueData.parts) revealBtn.hidden = false;
-                    else entry.hidden = false;
-                    return;
+                if (!active || !state.answerRevealed || !active.awardPending) return;
+                active.awardPending = false;
+                active.awarded = true;
+                // Don't interrupt a spoken answer: play the reaction only when the speaker is free.
+                if (clueAudio.paused || clueAudio.ended) {
+                    const reaction = root.querySelector('[data-reaction]');
+                    reaction.src = `${extraAudio}${index === null ? 'reaktion_fel' : 'reaktion_ratt'}.mp3`;
+                    reaction.play().catch(() => {});
                 }
-                active.resolved = true;
-                if (active.round) {
-                    const round = active.round;
-                    round.perfect = round.perfect.map((ok, i) => ok && i === index);
-                    if (index !== null) players.addAt(index, 50);
-                } else if (index !== null) players.addAt(index, active.clueData.value);
-                revealAnswer();
-                correctBtn.hidden = wrongBtn.hidden = extraScores.hidden = true;
-                clueMeta.textContent += ` · ${index === null ? name : name + ' rätt'}`;
+                if (index !== null) players.addAt(index, active.awardPoints);
+                if (active.round?.shared) {
+                    active.round.perfect = active.round.perfect.map((ok,i) => ok && index === i);
+                    nextBtn.hidden = false;
+                }
+                entryResult.textContent = index === null ? 'Ingen fick poäng.' : `${players.getSeats()[index].name}: +${active.awardPoints} poäng`;
+                entryResult.hidden = false;
                 updateStats();
             }
         });
+        const contest = window.createDateContest({ root: root.querySelector('.quiz-date-contest'), getSeats: () => players.getSeats() });
+        function givePointsAfterReveal(points) {
+            const active = state.activeClue;
+            if (!active || !state.answerRevealed || active.awarded || active.awardPending) return;
+            active.awardPoints = points;
+            active.awardPending = true;
+            buzzer.open({award:true,points});
+        }
         function openBuzzer(first = null) {
             const active = state.activeClue;
-            if (players.count < 2 || !active || active.clueData.dailyDouble || active.round && !active.round.scored) return;
-            active.claimOnly = !active.round && (!entry.hidden || !!active.clueData.parts);
-            active.respondent = null;
-            active.resolved = false;
-            entry.hidden = revealBtn.hidden = true;
-            buzzer.open({ first, binary: active.clueData.yes ?? null, claimOnly: active.claimOnly });
+            if (players.count > 1 && active && !state.wagerPending && !contest.active && !active.clueData.dailyDouble && !(active.round && !active.round.scored)) {
+                buzzer.open({signalOnly:true,first});
+            }
         }
-        function awardToResponder(points) {
-            const seat = state.activeClue?.respondent;
-            if (Number.isInteger(seat)) players.addAt(seat, points);
-            else players.add(points);
-        }
+        function awardToResponder(points) { players.add(points); }
         const screen = document.getElementById('jeopardy-screen');
         const stage = document.getElementById('jeopardy-vhs-stage');
         const board = document.getElementById('jeopardy-board');
@@ -429,7 +432,7 @@
         period.addEventListener('change', renderClock);
         const entryResult = overlay.querySelector('.jeopardy-entry-result');
         const allAnswersBtn = overlay.querySelector('[data-action=all-answers]');
-        const clueAudio = overlay.querySelector('audio');
+        const clueAudio = overlay.querySelector('#jeopardy-clue-audio');
         const moppeBtn = overlay.querySelector('[data-action=moppe]');
         const swimBtn = overlay.querySelector('[data-action=swim]');
         const extraScores = overlay.querySelector('.jeopardy-extra-scores');
@@ -438,6 +441,7 @@
 
         function playClueAudio() {
             if (!clueAudio.hasAttribute('src')) return;
+            root.querySelector('[data-reaction]').pause();
             clueAudio.currentTime = 0;
             clueAudio.play().catch(() => {}); // The replay button remains available if playback is blocked.
         }
@@ -452,12 +456,57 @@
         const categoryEls = [];
         const cellMap = new Map();
 
+        let introGeneration = 0;
+        let playingIntro = null;
+        const introStrip = root.querySelector('.quiz-intro-strip');
+        const introStatus = introStrip.querySelector('[role=status]');
+        function cancelCategoryIntro() {
+            introGeneration++;
+            if (playingIntro) playingIntro.removeAttribute('aria-busy');
+            playingIntro = null;
+            clueAudio.onended = clueAudio.onerror = null;
+            clueAudio.pause();
+        }
+        function sound(name) {
+            cancelCategoryIntro();
+            clueAudio.src = `${extraAudio}${name}.mp3`;
+            playClueAudio();
+        }
+        introStrip.querySelector('[data-welcome]').onclick = () => {
+            if (!state.activeClue) { sound('00_valkommen_intro'); introStatus.textContent='Välj sedan en kategorirubrik.'; }
+        };
+        function hearCategory(cat, col, button) {
+            if (state.activeClue) return;
+            cancelCategoryIntro();
+            const token = introGeneration;
+            playingIntro = button;
+            button.setAttribute('aria-busy','true');
+            introStatus.textContent = `Spelar intro: ${cat.category}`;
+            clueAudio.src = cat.intro;
+            const fail = () => {
+                if (token !== introGeneration) return;
+                cancelCategoryIntro();
+                introStatus.textContent = 'Introt kunde inte spelas. Tryck på rubriken för att försöka igen.';
+            };
+            clueAudio.onerror = fail;
+            clueAudio.onended = () => {
+                if (token !== introGeneration || !root.isConnected || state.activeClue) return;
+                cancelCategoryIntro();
+                state.introduced.add(cat);
+                cat.clues.forEach((_, row) => {
+                    const key = `${col}-${row}`, tile = cellMap.get(key);
+                    if (tile && !state.played.has(key)) tile.disabled = false;
+                });
+                introStatus.textContent = `${cat.category} är upplåst.`;
+            };
+            clueAudio.play().catch(fail);
+        }
         function renderBoard() {
             board.innerHTML = '';
             categoryEls.length = 0;
             cellMap.clear();
 
-            ELIAS_QUIZ_BOARD.forEach((colData) => {
+            ELIAS_QUIZ_BOARD.forEach((colData,colIndex) => {
                 const catEl = document.createElement('div');
                 catEl.className = 'jeopardy-cat';
                 catEl.setAttribute('role', 'columnheader');
@@ -469,13 +518,7 @@
                     intro.setAttribute('aria-label', `${colData.category}: spela kategoriintro`);
                     intro.append(...catEl.childNodes);
                     catEl.append(intro);
-                    intro.addEventListener('click', () => {
-                        if (state.activeClue) return;
-                        state.introduced.add(colData);
-                        clueAudio.onended = null;
-                        clueAudio.src = colData.intro;
-                        playClueAudio();
-                    });
+                    intro.addEventListener('click', () => hearCategory(colData,colIndex,intro));
                 }
                 board.appendChild(catEl);
                 categoryEls.push(catEl);
@@ -494,6 +537,7 @@
                     cellBtn.setAttribute('aria-label', `${ELIAS_QUIZ_BOARD[colIndex].category} för $${item.value}`);
                     cellBtn.innerHTML = `<span class="jeopardy-value">$${item.value}</span>`;
 
+                    cellBtn.disabled = !!ELIAS_QUIZ_BOARD[colIndex].intro && !state.introduced.has(ELIAS_QUIZ_BOARD[colIndex]);
                     if (state.played.has(key)) {
                         cellBtn.classList.add('is-played');
                         cellBtn.disabled = true;
@@ -535,19 +579,6 @@
             return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         }
 
-        function playCategoryIntro(catData) {
-            state.introduced.add(catData);
-            const active = state.activeClue;
-            const listener = () => {
-                if (state.activeClue !== active || state.answerRevealed || overlay.hidden || overlay.classList.contains('is-closing')) return;
-                clueAudio.onended = null;
-                if (!state.wagerPending) playQuestion(active.clueData, true);
-            };
-            clueAudio.onended = listener;
-            clueAudio.src = catData.intro;
-            playClueAudio();
-        }
-
         function playQuestion(clueData, withIntro = false) {
             clueAudio.onended = null;
             if (!clueData.audio) return;
@@ -565,6 +596,7 @@
         }
 
         function showClueContent(catData, clueData, wager, deferAudio = false) {
+            state.activeClue.awardPending = state.activeClue.awarded = false;
             state.wagerPending = false;
             state.activeWager = wager;
             wagerBox.hidden = true;
@@ -623,7 +655,8 @@
             pickerBtn.hidden = input.type !== 'date' || typeof input.showPicker !== 'function';
             nextBtn.hidden = true;
             entry.querySelector('label').textContent = spelling ? 'Skriv stavningen' : clueData.medley ? 'Antal låtar du kände igen (0–31)' : kind === 'clock' ? 'Välj klockslag' : input.type === 'date' ? 'Välj datum' : kind === 'days' ? 'Antal dagar kvar' : 'Skriv ditt svar';
-            state.calendarAnswer = clueData.calendar ? calendarAnswer(clueData.calendar) : null;
+            const referenceTime = new Date();
+            state.calendarAnswer = clueData.calendar ? calendarAnswer(clueData.calendar, referenceTime) : null;
             clueAnswer.textContent = clueData.answer || '';
             clueAnswer.hidden = true;
             revealBtn.textContent = 'visa svar';
@@ -632,6 +665,28 @@
             wrongBtn.hidden = true;
             correctBtn.textContent = `+$${wager}`;
             wrongBtn.textContent = `-$${wager}`;
+            if (players.count > 1 && (clueData.calendar || clueData.medley)) {
+                entry.hidden = revealBtn.hidden = true;
+                const active = state.activeClue;
+                contest.open({kind:clueData.calendar || 'medley',referenceTime,answer:state.calendarAnswer,value:clueData.value,
+                    onTurn(index) {
+                        entry.hidden = index < 0;
+                        input.value = '';
+                        guess.hour = 12; guess.minute = 0; period.value = '0'; renderClock();
+                        if (index >= 0) entryLabel.textContent = `${players.getSeats()[index].name}: ditt svar`;
+                    },
+                    onFinish({answerText,summary,awards}) {
+                        if (state.activeClue !== active || state.answerRevealed) return;
+                        state.answerRevealed = true;
+                        clueAudio.pause(); clueAudio.onended = null;
+                        entry.hidden = true;
+                        clueAnswer.textContent = answerText; clueAnswer.hidden = !answerText;
+                        entryResult.textContent = summary; entryResult.hidden = false;
+                        awards.forEach((n,i) => players.addAt(i,n)); updateStats();
+                        if (clueData.medley) {clueAudio.src='images/quiz/dagar/facit.mp3'; replayBtn.textContent='spela facit igen'; playClueAudio();}
+                    }
+                });
+            }
         }
 
         function renderWagerPresets(defaultValue) {
@@ -662,33 +717,23 @@
             wagerInput.value = String(defaultValue);
         }
 
-        function openFlamingoGame(firstIntro) {
-            const active = state.activeClue;
-            const roster = players.getSeats();
-            const seats = Array.from({ length: Math.min(roster.length, 4) }, (_, i) => (players.currentIndex + i) % roster.length);
-            const lineup = seats.map(i => roster[i]);
-            const taken = new Set(lineup.flatMap(p => [p.left, p.right]));
-            const spare = Array.from('ZXNMJKDFQWUIASOPTYGHBCVELR', k => 'Key' + k).filter(k => !taken.has(k));
-            while (lineup.length < 4) lineup.push({ name: `Gäst ${lineup.length - seats.length + 1}`, score: 0, left: spare.shift(), right: spare.shift() });
+        function openFlamingoGame() {
+            const active = state.activeClue, roster = players.getSeats();
             let settled = false;
-            const dispose = window.openQuizZatacka({
-                players: lineup,
+            disposeMini = window.openQuizZatacka({players:roster,
                 onResult(deltas) {
-                    if (settled || !disposeMini || state.activeClue !== active || !Array.isArray(deltas) || deltas.length !== 4 || !deltas.every(Number.isSafeInteger)) return;
+                    if (settled || !disposeMini || state.activeClue !== active || !Array.isArray(deltas) || deltas.length !== roster.length || !deltas.every(Number.isSafeInteger)) return;
                     settled = true;
-                    seats.forEach((seat, i) => players.addAt(seat, deltas[i]));
-                    updateStats();
+                    deltas.forEach((delta,i) => players.addAt(i,delta)); updateStats();
                 },
                 onClose() {
                     if (!disposeMini) return;
                     disposeMini = null;
-                    if (!root.isConnected || state.activeClue !== active) return;
-                    openBuzzer();
-                    if (firstIntro) playCategoryIntro(active.catData);
-                    else playQuestion(active.clueData);
+                    if (state.activeClue !== active || !root.isConnected) return;
+                    state.activeClue = null; state.animating = false;
+                    players.rotate(); updateStats();
                 }
             });
-            disposeMini = dispose;
         }
 
         function openClue(colIndex, rowIndex, cellBtn) {
@@ -697,8 +742,8 @@
 
             const catData = ELIAS_QUIZ_BOARD[colIndex];
             const clueData = catData.clues[rowIndex];
-
-            clueAudio.pause();
+            if (catData.intro && !state.introduced.has(catData)) return;
+            cancelCategoryIntro();
             allAnswersBtn.hidden = true;
             state.activeClue = { colIndex, rowIndex, key, cellBtn, catData, clueData };
             state.answerRevealed = false;
@@ -706,21 +751,22 @@
 
             categoryEls.forEach((el, idx) => el.classList.toggle('is-active', idx === colIndex));
 
-            const firstIntro = Boolean(catData.intro && !state.introduced.has(catData));
+            if (clueData.zatacka) {
+                state.played.add(key); cellBtn.disabled = true; cellBtn.classList.add('is-played');
+                categoryEls[colIndex].classList.remove('is-active'); updateStats(); openFlamingoGame(); return;
+            }
             if (clueData.round) {
-                startRound(clueData.round, clueData.roundTitle || 'RAPID FIRE', true, firstIntro);
+                startRound(clueData.round, clueData.roundTitle || 'RAPID FIRE', true);
             } else if (clueData.dailyDouble) {
                 showWager(catData, clueData);
             } else {
-                showClueContent(catData, clueData, clueData.value, firstIntro || clueData.zatacka);
+                showClueContent(catData, clueData, clueData.value);
                 if (!clueData.zatacka) openBuzzer();
             }
 
             const startTransform = computeFlipTransform(cellBtn);
             overlay.hidden = false;
             overlay.setAttribute('aria-hidden', 'false');
-            if (clueData.zatacka) openFlamingoGame(firstIntro);
-            else if (firstIntro) playCategoryIntro(catData);
             overlay.classList.remove('is-open', 'is-closing');
             overlay.style.transition = 'none';
             overlay.style.transform = startTransform;
@@ -755,6 +801,7 @@
             clueAudio.pause();
             clueAudio.onended = null;
             state.answerRevealed = false;
+            sound('reaktion_specialfraga');
             state.wagerPending = true;
             state.activeWager = clueData.value;
             overlay.classList.add('is-daily-double');
@@ -781,6 +828,7 @@
             const { round } = active;
             active.clueData = round.items[round.index];
             state.answerRevealed = false;
+            active.awardPending = active.awarded = false;
             round.mark = false;
             correctBtn.removeAttribute('aria-pressed');
             wrongBtn.removeAttribute('aria-pressed');
@@ -804,7 +852,7 @@
 
         function advanceRound() {
             const round = state.activeClue?.round;
-            if (!round || round.finished || state.animating || (round.shared && !state.answerRevealed)) return;
+            if (!round || round.finished || state.animating || (round.shared && (!state.answerRevealed || !state.activeClue.awarded))) return;
             players.closeVote();
             if (!round.shared && round.scored && round.mark) {
                 round.correct++;
@@ -854,7 +902,8 @@
         }
 
         function revealAnswer() {
-            if (!state.activeClue || buzzer.active || !entry.hidden || state.wagerPending || state.answerRevealed) return;
+            if (!state.activeClue || contest.active || !entry.hidden || state.wagerPending || state.answerRevealed) return;
+            buzzer.close();
             state.answerRevealed = true;
             clueAnswer.hidden = false;
             revealBtn.hidden = true;
@@ -866,7 +915,8 @@
             swimBtn.hidden = !clueData.swimBonus;
             if (round?.shared) {
                 correctBtn.hidden = wrongBtn.hidden = true;
-                nextBtn.hidden = false;
+                nextBtn.hidden = true;
+                givePointsAfterReveal(50);
                 updateStats();
             } else if (round) {
                 correctBtn.hidden = !round.scored;
@@ -886,6 +936,10 @@
                     extraScores.append(button);
                 }
             }
+            if (players.count > 1 && !round && !clueData.parts) {
+                correctBtn.hidden = wrongBtn.hidden = true;
+                givePointsAfterReveal(state.activeWager);
+            }
             if (clueData.answerAudio) {
                 clueAudio.onended = null;
                 clueAudio.src = clueData.answerAudio;
@@ -904,6 +958,7 @@
             }
 
             const { cellBtn } = state.activeClue;
+            contest.close();
             players.closeVote();
             buzzer.close();
             state.animating = true;
@@ -955,6 +1010,7 @@
             const active = state.activeClue;
             const { clueData } = active;
             const response = clueData.calendar === 'clock' ? clockTime() : input.value;
+            if (contest.active) { contest.submit(response); return; }
             let points;
             entryResult.replaceChildren();
             if (clueData.medley) {
@@ -990,18 +1046,19 @@
                 typed.forEach((letter, i) => {
                     const span = document.createElement('span');
                     span.textContent = letter;
-                    if (letter === expected[i]) { span.className = 'is-correct'; points++; }
+                    if (letter === expected[i]) { span.className = 'is-correct'; points += 20; }
                     entryResult.append(span);
                 });
             }
             clueAudio.pause();
             state.answerRevealed = true;
-            awardToResponder(points);
+            if (players.count === 1) awardToResponder(points);
             updateStats();
             entry.hidden = true;
             entryResult.append(document.createTextNode(` +${points} poäng`));
             entryResult.hidden = false;
             clueAnswer.hidden = !clueData.answer && !clueData.calendar;
+            if (players.count > 1) { buzzer.close(); givePointsAfterReveal(points); }
             if (clueData.medley) {
                 clueAudio.onended = null;
                 clueAudio.src = 'images/quiz/dagar/facit.mp3';
@@ -1033,9 +1090,10 @@
                 } else if (action === 'moppe' && state.activeClue && !moppeBtn.hidden) {
                     startRound(moppeRound, 'TIO SMÅ MOPPEPOJKAR', false);
                 } else if (action === 'swim' && state.activeClue && !swimBtn.hidden) {
-                    scoreClue(0);
+                    buzzer.close(); scoreClue(0);
                 } else if (action === 'parts' && !extraScores.hidden) {
-                    scoreClue(Number(actionBtn.dataset.points));
+                    if (players.count > 1) { extraScores.hidden = true; givePointsAfterReveal(Number(actionBtn.dataset.points)); }
+                    else scoreClue(Number(actionBtn.dataset.points));
                 } else if (action === 'replay') {
                     if (state.activeClue?.clueData.medley && !state.medleyStarted && !state.answerRevealed) startMedley();
                     else if (state.activeClue?.catData.intro && clueAudio.getAttribute('src') === state.activeClue.catData.intro) playQuestion(state.activeClue.clueData);
@@ -1056,7 +1114,7 @@
                 return;
             }
 
-            if (state.wagerPending || (state.activeClue?.round && state.answerRevealed)) return;
+            if (state.wagerPending || contest.active || state.activeClue?.awardPending || (state.activeClue?.round && state.answerRevealed)) return;
 
             if (!state.answerRevealed) {
                 revealAnswer();
@@ -1080,6 +1138,8 @@
                 state.answerRevealed = false;
                 state.animating = false;
             }
+            cancelCategoryIntro(); contest.close();
+            introStatus.textContent = 'Tryck på en kategorirubrik för att låsa upp frågorna.';
             state.played.clear();
             state.introduced.clear();
             buzzer.close();
@@ -1109,7 +1169,7 @@
                 cleanupJeopardyQuiz();
                 return;
             }
-            if (disposeMini || buzzer.handleKey(event) || players.handleKey(event)) return;
+            if (disposeMini || players.handleKey(event) || music?.handleKey(event) || contest.handleKey(event) || buzzer.handleKey(event)) return;
             if (event.target?.closest?.('dialog[open]')) return;
             if (!state.activeClue) {
                 if ((event.key === 'r' || event.key === 'R') && !event.metaKey && !event.ctrlKey) {
@@ -1117,7 +1177,7 @@
                 }
                 return;
             }
-            if (buzzer.active && event.key !== 'Escape') return;
+            if ((state.activeClue.awardPending || contest.active) && event.key !== 'Escape') return;
             if (event.key === 'Escape') {
                 event.preventDefault();
                 closeClue(0);
