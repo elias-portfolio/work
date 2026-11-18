@@ -1,182 +1,182 @@
 (function () {
     const ELIAS_QUIZ_BOARD = [
         {
-            category: 'ELIAS PORTFOLIO',
+            category: 'VAD ÄTER DJURET',
             clues: [
                 {
                     value: 200,
-                    clue: 'THIS PROJECT PLAYS LIVE RADIO FROM CITIES AROUND THE WORLD WHERE IT IS CURRENTLY 2 IN THE MORNING',
-                    answer: 'WHAT IS 2.AM?'
+                    clue: 'DETTA AUSTRALISKA PUNGDJUR SOVER UPP TILL 20 TIMMAR OM DYGNET OCH LEVER NÄSTAN ENBART PÅ EUKALYPTUSBLAD',
+                    answer: 'VAD ÄR EN KOALA?'
                 },
                 {
                     value: 400,
-                    clue: 'IN THIS 2024 EXHIBIT WITH ERIK KESSELS, VISITORS BROWSED RANDOMIZED FOUND ARTIFACTS FROM ACROSS THE CONTINENT',
-                    answer: 'WHAT IS EUROPA ARCHIVE?'
+                    clue: 'DENNA ROSA FÅGEL FÅR SIN FÄRG AV KAROTENOIDER I ALGER OCH SMÅ KRÄFTDJUR SOM DEN SILAR MED NÄBBEN',
+                    answer: 'VAD ÄR EN FLAMINGO?'
                 },
                 {
                     value: 600,
-                    clue: 'THIS AD FOR THE NATIONAL MILITARY MUSEUM LASTS ONLY AS LONG AS IT TAKES AN F-16 TO FLY 700 METERS',
-                    answer: 'WHAT IS F-16 JET (NL)?'
+                    clue: 'DETTA SVARTVITA DJUR TILLHÖR ROVDJUREN MEN HAR STÄLLT OM DIETEN SÅ ATT CIRKA 99 PROCENT BESTÅR AV BAMBU',
+                    answer: 'VAD ÄR JÄTTEPANDAN?'
                 },
                 {
                     value: 800,
-                    clue: 'NOT LINEAR LIKE LATIN TEXT, CLASSIC MAYA WRITING COMBINES WHOLE-WORD SIGNS AND SYLLABLES INTO THESE SQUARE UNITS',
-                    answer: 'WHAT ARE GLYPH BLOCKS?'
+                    clue: 'BLADSKÄRARMYROR ÄTER EGENTLIGEN INTE BLADEN DE BÄR HEM, DE ANVÄNDER DEM SOM GÖDSEL FÖR ATT ODLA DENNA ORGANISM',
+                    answer: 'VAD ÄR SVAMP?'
                 },
                 {
                     value: 1000,
-                    clue: 'TO MAKE THIS AI STARTUP FEEL LIKE A PHYSICAL PRODUCT FOR INVESTORS, ITS RELEASES WERE MODELED ON OLD BOXES OF THIS ANTIVIRUS',
-                    answer: 'WHAT IS MCAFEE?'
+                    clue: 'VÄRLDENS STÖRSTA FISK, VALHAJEN, JAGAR INTE SÄLAR UTAN LEVER SOM FILTRERARE PÅ DETTA',
+                    answer: 'VAD ÄR PLANKTON (OCH SMÅFISK)?'
                 }
             ]
         },
         {
-            category: 'EARLY 2000s CODED',
+            category: 'VEM ÄTER DJURET',
             clues: [
                 {
                     value: 200,
-                    clue: 'OLIVIA RODRIGO IS OBSESSED WITH 2000s CULTURE & SHOUTED OUT THIS PARIS HILTON/NICOLE RICHIE SOCIOLOGICAL REALITY SHOW',
-                    answer: 'WHAT IS THE SIMPLE LIFE?'
+                    clue: 'BLADLUSSENS STÖRSTA FIENDE I TRÄDGÅRDEN ÄR DENNA RÖDA OCH SVARTPRICKIGA SKALBAGGE',
+                    answer: 'VEM ÄR NYCKELPIGAN?'
                 },
                 {
                     value: 400,
-                    clue: 'IN OCTOBER 2001 APPLE LAUNCHED THIS POCKET-SIZED DEVICE PROMISING "1,000 SONGS IN YOUR POCKET"',
-                    answer: 'WHAT IS THE IPOD?'
+                    clue: 'MANETER ÄR HUVUDFÖDA FÖR DENNA STORA HAVSREPTIL, SOM DÄRFÖR OFTA MISSTAR EN PLASTPÅSE FÖR ETT BYTE',
+                    answer: 'VEM ÄR HAVSSKÖLDPADDAN?'
                 },
                 {
                     value: 600,
-                    clue: 'RELEASED IN 2000, THIS FINNISH PHONE BECAME FAMOUS FOR SURVIVING ALMOST ANYTHING AND SHIPPING WITH SNAKE II',
-                    answer: 'WHAT IS THE NOKIA 3310?'
+                    clue: 'FJÄLLRÄVAR OCH DENNA HELVITA ROVFÅGEL HAR SINA BÄSTA HÄCKNINGSÅR NÄR DET KRYLLAR AV LÄMMLAR PÅ FJÄLLET',
+                    answer: 'VEM ÄR FJÄLLUGGLAN?'
                 },
                 {
                     value: 800,
-                    clue: 'EVERY NEW USER ON THIS 2003 SOCIAL NETWORK AUTOMATICALLY STARTED WITH A FOUNDER NAMED TOM AS THEIR FIRST FRIEND',
-                    answer: 'WHAT IS MYSPACE?'
+                    clue: 'VITHAJEN TRODDES STÅ ÖVERST I HAVETS NÄRINGSKEDJA TILLS FORSKARE SÅG HUR DENNA SVARTVITA VAL JAGAR OCH ÄTER HAJENS LEVER',
+                    answer: 'VEM ÄR SPÄCKHUGGAREN?'
                 },
                 {
                     value: 1000,
-                    clue: 'BORN IN SWEDEN AS "THE ANNOYING THING", THIS BLUE CGI AMPHIBIAN HIT NUMBER ONE ON THE UK CHARTS IN 2005',
-                    answer: 'WHAT IS CRAZY FROG?'
+                    clue: 'KOALANS EUKALYPTUSBLAD ÄR GIFTIGA, OCH VUXNA KOALOR HAR KNAPPT NÅGRA FIENDER UTOM DENNA AUSTRALISKA VILDHUND',
+                    answer: 'VEM ÄR DINGON?'
                 }
             ]
         },
         {
-            category: 'AD LAND & COPY',
+            category: 'KÖRKORTSFRÅGOR',
             clues: [
                 {
                     value: 200,
-                    clue: 'SWEDEN’S OLDEST ADVERTISING AWARD, HANDED OUT ANNUALLY BY KOMM, IS SHAPED LIKE THIS',
-                    answer: 'WHAT IS A GOLDEN EGG (GULDÄGGET)?'
+                    clue: 'VID DENNA PROMILLEHALT AV ALKOHOL I BLODET GÅR GRÄNSEN FÖR RATTFYLLERI I SVERIGE',
+                    answer: 'VAD ÄR 0,2 PROMILLE?'
                 },
                 {
                     value: 400,
-                    clue: 'IN 1959 DOYLE DANE BERNBACH SOLD AMERICANS ON THE VOLKSWAGEN BEETLE WITH THIS TWO-WORD HEADLINE',
-                    answer: 'WHAT IS "THINK SMALL"?'
+                    clue: 'OM DU ÖKAR FARTEN FRÅN 30 TILL 90 KM/H BLIR HASTIGHETEN TRE GÅNGER HÖGRE, MEN BROMSSTRÄCKAN ÖKAR SÅ HÄR MÅNGA GÅNGER',
+                    answer: 'VAD ÄR NIO GÅNGER?'
                 },
                 {
                     value: 600,
-                    clue: 'KESSELSKRAMER IN AMSTERDAM RAN A FAMOUS CAMPAIGN FOR THE HANS BRINKER BUDGET HOTEL CALLING IT THIS',
-                    answer: 'WHAT IS THE WORST HOTEL IN THE WORLD?'
+                    clue: 'DETTA GULA ROMBFORMADE VÄGMÄRKE MED VIT KANT BETYDER ATT KORSANDE TRAFIK HAR VÄJNINGSPLIKT MOT DIG',
+                    answer: 'VAD ÄR HUVUDLED?'
                 },
                 {
                     value: 800,
-                    clue: 'BEFORE BECOMING A SPORTSWEAR SLOGAN IN 1988, DAN WIEDEN’S "JUST DO IT" WAS INSPIRED BY THE LAST WORDS OF THIS UTAH CONVICT',
-                    answer: 'WHO IS GARY GILMORE?'
+                    clue: 'MELLAN 1 DECEMBER OCH 31 MARS KRÄVS VINTERDÄCK VID VINTERVÄGLAG, MED DETTA MINSTA MÖNSTERDJUP',
+                    answer: 'VAD ÄR 3 MILLIMETER?'
                 },
                 {
                     value: 1000,
-                    clue: 'THE YOUNG ONES STUDENT COMPETITION IS RUN EACH YEAR BY THIS NEW YORK CREATIVE CLUB',
-                    answer: 'WHAT IS THE ONE CLUB FOR CREATIVITY?'
+                    clue: 'DU FÅR INTE STANNA ELLER PARKERA NÄRMARE ÄN SÅ HÄR MÅNGA METER FÖRE ETT ÖVERGÅNGSSTÄLLE ELLER EN CYKELPASSAGE',
+                    answer: 'VAD ÄR 10 METER?'
                 }
             ]
         },
         {
-            category: 'SWEDISH LORE',
+            category: 'SVENSKA STATIONER',
             clues: [
                 {
                     value: 200,
-                    clue: 'THIS EFFERVESCENT SWEDISH PAINKILLER COMBINES ACETYLSALICYLIC ACID WITH CAFFEINE',
-                    answer: 'WHAT IS TREO?'
+                    clue: 'STOCKHOLMS TUNNELBANAS GRÖNA, RÖDA OCH BLÅ LINJE MÖTS ALLA PÅ DENNA CENTRALA STATION',
+                    answer: 'VAD ÄR T-CENTRALEN?'
                 },
                 {
                     value: 400,
-                    clue: 'BUILT ACROSS 14 ISLANDS WHERE LAKE MÄLAREN MEETS THE BALTIC, THIS CAPITAL IS LINKED BY OVER 50 BRIDGES',
-                    answer: 'WHAT IS STOCKHOLM?'
+                    clue: 'DETTA ÄR SISTA SVENSKA STATIONEN PÅ ÖRESUNDSTÅGET INNAN TÅGET KÖR UT PÅ BRON MOT DANMARK',
+                    answer: 'VAD ÄR HYLLIE?'
                 },
                 {
                     value: 600,
-                    clue: 'IKEA NAMES ITS BOOKCASES AFTER PROFESSIONS AND ITS SOFAS AND COFFEE TABLES AFTER THESE GEOGRAPHIC THINGS',
-                    answer: 'WHAT ARE SWEDISH PLACES?'
+                    clue: 'MED EN PLATTFORM 34 METER UNDER MARKEN ÄR DETTA DEN DJUPAST LIGGANDE I DRIFT VARANDE TUNNELBANESTATIONEN I STOCKHOLM',
+                    answer: 'VAD ÄR KUNGSTRÄDGÅRDEN?'
                 },
                 {
                     value: 800,
-                    clue: 'ON APRIL 24, 1961, THIS 17TH-CENTURY WARSHIP WAS RAISED FROM STOCKHOLM HARBOR AFTER 333 YEARS UNDERWATER',
-                    answer: 'WHAT IS THE VASA?'
+                    clue: 'PÅ DENNA TUNNELBANESTATION I SOLNA FINNS SVERIGES LÄNGSTA RULLTRAPPA, HELA 66 METER LÅNG',
+                    answer: 'VAD ÄR VÄSTRA SKOGEN?'
                 },
                 {
                     value: 1000,
-                    clue: 'THIS SWEDISH WORD FOR A COFFEE BREAK WITH A PASTRY DOUBLES AS BOTH A NOUN AND A VERB',
-                    answer: 'WHAT IS FIKA?'
+                    clue: 'MALMBANAN FRÅN KIRUNA MOT NARVIK PASSERAR DENNA KÄNDA FJÄLLSTATION DÄR KUNGSLEDEN HAR SIN NORRA STARTPUNKT',
+                    answer: 'VAD ÄR ABISKO TURISTSTATION?'
                 }
             ]
         },
         {
-            category: 'LATE NIGHT & 2 AM',
+            category: 'DAGAR OCH TID',
             clues: [
                 {
                     value: 200,
-                    clue: 'ONLY THREE TIME ZONES HAD NO LOCAL STATION ON 2.AM DUE TO SPARSE ISLAND POPULATIONS: GMT−9, −10, AND THIS ONE',
-                    answer: 'WHAT IS GMT−11?'
+                    clue: 'OM DET ÄR TISDAG IDAG ÄR DETTA VECKODAGEN OM ÅTTA DAGAR',
+                    answer: 'VAD ÄR ONSDAG?'
                 },
                 {
                     value: 400,
-                    clue: 'IN THE "TWIN PEAKS" PILOT, AGENT DALE COOPER RAVES ABOUT THIS BEVERAGE AT THE GREAT NORTHERN HOTEL',
-                    answer: 'WHAT IS A DAMN FINE CUP OF COFFEE?'
+                    clue: 'DENNA MÅNAD HAR 28 DAGAR VARJE VANLIGT ÅR, OCH 29 DAGAR UNDER SKOTTÅR',
+                    answer: 'VAD ÄR FEBRUARI?'
                 },
                 {
                     value: 600,
-                    clue: 'EDWARD HOPPER’S 1942 PAINTING OF FOUR PEOPLE INSIDE A BRIGHTLY LIT DOWNTOWN DINER LATE AT NIGHT CARRIES THIS TITLE',
-                    answer: 'WHAT IS NIGHTHAWKS?'
+                    clue: 'NÄR SVERIGE STÄLLER OM TILL VINTERTID SISTA SÖNDAGEN I OKTOBER VRIDS KLOCKAN ETT STEG ÅT DETTA HÅLL',
+                    answer: 'VAD ÄR BAKÅT (EN TIMME)?'
                 },
                 {
                     value: 800,
-                    clue: 'FROM 1982 TO 2015, THIS LATE-NIGHT TELEVISION HOST MADE THE "TOP TEN LIST" A NIGHTLY STAPLE',
-                    answer: 'WHO IS DAVID LETTERMAN?'
+                    clue: 'SÅ HÄR MÅNGA SEKUNDER GÅR DET PÅ EN HEL TIMME',
+                    answer: 'VAD ÄR 3 600 SEKUNDER?'
                 },
                 {
                     value: 1000,
-                    clue: 'SINCE ITS 1964 DEBUT, EVERY JEOPARDY! CLUE IS AN ANSWER AND CONTESTANTS MUST RESPOND IN THIS FORM',
-                    answer: 'WHAT IS A QUESTION?'
+                    clue: 'ÅR 1753 HOPPADE SVERIGE ÖVER ELVA DAGAR I FEBRUARI NÄR LANDET BYTTE FRÅN DEN JULIANSKA KALENDERN TILL DENNA',
+                    answer: 'VAD ÄR DEN GREGORIANSKA KALENDERN?'
                 }
             ]
         },
         {
-            category: 'DEADLY SERIOUS',
+            category: 'SPELLING BEE',
             clues: [
                 {
                     value: 200,
-                    clue: 'IN ANCIENT GREECE, A COIN WAS PLACED IN THE MOUTH OF THE DECEASED TO PAY THIS UNDERWORLD FERRYMAN',
-                    answer: 'WHO IS CHARON?'
+                    clue: 'STAVA DET SVENSKA ORDET FÖR EN MÅNADSKOSTNAD PÅ TELEFON ELLER TIDNING, TVÅ "N" MEN BARA ETT "B"',
+                    answer: 'VAD ÄR A-B-O-N-N-E-M-A-N-G?'
                 },
                 {
                     value: 400,
-                    clue: 'DESIGNED BY ED BENGUIAT AND VIC CARUSO IN 1974, THIS SERIF FONT HAS DISPLAYED EVERY JEOPARDY! CLUE SINCE 1984',
-                    answer: 'WHAT IS ITC KORINNA?'
+                    clue: 'STAVA DET SVENSKA ADJEKTIVET FÖR NÅGON SOM ÄR VÄLDIGT NOGA, MED DUBBELT "G" OCH DUBBELT "N"',
+                    answer: 'VAD ÄR N-O-G-G-R-A-N-N?'
                 },
                 {
                     value: 600,
-                    clue: 'DEVELOPING BLACK-AND-WHITE FILM AT HOME USING INSTANT COFFEE, VITAMIN C, AND WASHING SODA IS CALLED THIS',
-                    answer: 'WHAT IS CAFFENOL?'
+                    clue: 'STAVA ORDET FÖR TVÅ LINJER SOM ALDRIG MÖTS, MED DUBBELT "L" PÅ TVÅ OLIKA STÄLLEN',
+                    answer: 'VAD ÄR P-A-R-A-L-L-E-L-L?'
                 },
                 {
                     value: 800,
-                    clue: 'FOUND IN ANCIENT CHINESE TOMBS, THESE SPIRIT OBJECTS REPRESENT SERVANTS, ANIMALS, AND EVERYDAY GOODS FOR THE AFTERLIFE',
-                    answer: 'WHAT ARE MINGQI?'
+                    clue: 'STAVA DET ENGELSKA ORDET FÖR "NÖDVÄNDIG", ETT "C" OCH TVÅ "S", ALDRIG TVÄRTOM',
+                    answer: 'VAD ÄR N-E-C-E-S-S-A-R-Y?'
                 },
                 {
                     value: 1000,
-                    clue: 'THE CLASSIC MAYA USED THESE ROASTED BEANS BOTH FOR CEREMONIAL DRINKS AND AS EVERYDAY CURRENCY',
-                    answer: 'WHAT ARE CACAO BEANS?'
+                    clue: 'STAVA DET FRANSKLÅNADE SVENSKA ORDET FÖR EN VILOSOFFA UTAN RYGGSTÖD PÅ ENA SIDAN, BÖRJAR MED "SCH"',
+                    answer: 'VAD ÄR S-C-H-Ä-S-L-O-N-G?'
                 }
             ]
         }
@@ -227,13 +227,13 @@
                                         <p class="jeopardy-clue-answer" id="jeopardy-clue-answer" hidden></p>
                                     </div>
                                     <div class="jeopardy-clue-actions" id="jeopardy-clue-actions">
-                                        <button type="button" class="jeopardy-clue-btn" data-action="reveal">reveal answer</button>
+                                        <button type="button" class="jeopardy-clue-btn" data-action="reveal">visa svar</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="correct" hidden>+$0</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="wrong" hidden>-$0</button>
-                                        <button type="button" class="jeopardy-clue-btn" data-action="close">back to board</button>
+                                        <button type="button" class="jeopardy-clue-btn" data-action="close">tillbaka</button>
                                     </div>
                                 </div>
-                                <button type="button" class="jeopardy-clue-close-x" data-action="close" aria-label="Back to board">×</button>
+                                <button type="button" class="jeopardy-clue-close-x" data-action="close" aria-label="Tillbaka till brädet">×</button>
                             </div>
                         </div>
                         <div class="jeopardy-vhs-scanlines" aria-hidden="true"></div>
@@ -241,12 +241,13 @@
                 </div>
                 ${isFullscreen ? '' : `
                 <div class="jeopardy-controls">
-                    <span class="jeopardy-stat" id="jeopardy-score">score: $0</span>
-                    <span class="jeopardy-stat" id="jeopardy-remaining">clues: ${totalClues}/${totalClues}</span>
-                    <button type="button" class="jeopardy-control-btn" id="jeopardy-vhs-toggle" aria-pressed="true">vhs blur: on</button>
-                    <button type="button" class="jeopardy-control-btn" id="jeopardy-reset-btn">reset board</button>
+                    <span class="jeopardy-stat" id="jeopardy-score">poäng: $0</span>
+                    <span class="jeopardy-stat" id="jeopardy-remaining">frågor: ${totalClues}/${totalClues}</span>
+                    <button type="button" class="jeopardy-control-btn" id="jeopardy-vhs-toggle" aria-pressed="true">vhs blur: på</button>
+                    <button type="button" class="jeopardy-control-btn" id="jeopardy-reset-btn">nollställ</button>
+                    <a class="jeopardy-control-btn" href="quiz.html" target="_blank" rel="noopener">fullskärm ↗</a>
                 </div>
-                <p class="jeopardy-caption">click any dollar amount to zoom in. click the clue (or press space) to reveal the answer, then click again or press esc to return to the board.</p>
+                <p class="jeopardy-caption">klicka på ett belopp för att zooma in. klicka på frågan (eller tryck mellanslag) för att visa svaret, och klicka igen eller tryck esc för att gå tillbaka.</p>
                 `}
             </div>
         `;
@@ -274,7 +275,7 @@
             categoryEls.length = 0;
             cellMap.clear();
 
-            ELIAS_QUIZ_BOARD.forEach((colData, colIndex) => {
+            ELIAS_QUIZ_BOARD.forEach((colData) => {
                 const catEl = document.createElement('div');
                 catEl.className = 'jeopardy-cat';
                 catEl.setAttribute('role', 'columnheader');
@@ -293,7 +294,7 @@
                     cellBtn.className = 'jeopardy-cell';
                     cellBtn.dataset.col = String(colIndex);
                     cellBtn.dataset.row = String(rowIndex);
-                    cellBtn.setAttribute('aria-label', `${ELIAS_QUIZ_BOARD[colIndex].category} for $${item.value}`);
+                    cellBtn.setAttribute('aria-label', `${ELIAS_QUIZ_BOARD[colIndex].category} för $${item.value}`);
                     cellBtn.innerHTML = `<span class="jeopardy-value">$${item.value}</span>`;
 
                     if (state.played.has(key)) {
@@ -311,8 +312,8 @@
 
         function updateStats() {
             const sign = state.score < 0 ? '-' : '';
-            if (scoreEl) scoreEl.textContent = `score: ${sign}$${Math.abs(state.score)}`;
-            if (remainingEl) remainingEl.textContent = `clues: ${totalClues - state.played.size}/${totalClues}`;
+            if (scoreEl) scoreEl.textContent = `poäng: ${sign}$${Math.abs(state.score)}`;
+            if (remainingEl) remainingEl.textContent = `frågor: ${totalClues - state.played.size}/${totalClues}`;
         }
 
         function computeFlipTransform(cellEl) {
@@ -366,7 +367,6 @@
             overlay.style.transition = 'none';
             overlay.style.transform = startTransform;
 
-            // Mark cell played right away so returning reveals the blank blue square
             state.played.add(key);
             cellBtn.classList.add('is-played');
             cellBtn.disabled = true;
@@ -380,7 +380,6 @@
                 return;
             }
 
-            // Force layout flush before transitioning to full screen
             void overlay.offsetWidth;
 
             requestAnimationFrame(() => {
@@ -485,7 +484,7 @@
                 state.vhs = !state.vhs;
                 screen.classList.toggle('is-vhs', state.vhs);
                 vhsBtn.setAttribute('aria-pressed', String(state.vhs));
-                vhsBtn.textContent = `vhs blur: ${state.vhs ? 'on' : 'off'}`;
+                vhsBtn.textContent = `vhs blur: ${state.vhs ? 'på' : 'av'}`;
             });
         }
 

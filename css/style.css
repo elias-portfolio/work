@@ -1246,6 +1246,8 @@ body.jeopardy-fullscreen-body #jeopardy-root {
 .jeopardy-control-btn {
     appearance: none;
     -webkit-appearance: none;
+    display: inline-block;
+    text-decoration: none;
     background: #ffffff;
     color: #000000;
     border: 1px solid #000000;
