@@ -65,28 +65,30 @@
             clues: [
                 {
                     value: 200,
-                    clue: 'VID DENNA PROMILLEHALT AV ALKOHOL I BLODET GÅR GRÄNSEN FÖR RATTFYLLERI I SVERIGE',
-                    answer: 'VAD ÄR 0,2 PROMILLE?'
+                    clue: 'DU PARKERAR EN TISDAG KLOCKAN 16.54 PÅ EN PLATS MED KRAV PÅ P-SKIVA. DETTA KLOCKSLAG SKA DU STÄLLA IN',
+                    answer: 'VAD ÄR 17.00?'
                 },
                 {
                     value: 400,
-                    clue: 'OM DU ÖKAR FARTEN FRÅN 30 TILL 90 KM/H BLIR HASTIGHETEN TRE GÅNGER HÖGRE, MEN BROMSSTRÄCKAN ÖKAR SÅ HÄR MÅNGA GÅNGER',
-                    answer: 'VAD ÄR NIO GÅNGER?'
+                    clue: 'DET ÄR DEN 17:E I MÅNADEN OCH EN SKYLT VISAR DATUMPARKERING. PÅ DENNA SIDA AV GATAN ÄR DET FÖRBJUDET ATT PARKERA',
+                    answer: 'VAD ÄR SIDAN MED UDDA HUSNUMMER?'
                 },
                 {
                     value: 600,
-                    clue: 'DETTA GULA ROMBFORMADE VÄGMÄRKE MED VIT KANT BETYDER ATT KORSANDE TRAFIK HAR VÄJNINGSPLIKT MOT DIG',
-                    answer: 'VAD ÄR HUVUDLED?'
+                    clue: '',
+                    image: 'images/quiz/c2-forbud-mot-trafik.svg',
+                    imageAlt: 'Vägmärke',
+                    answer: 'VAD ÄR FÖRBUD MOT TRAFIK MED FORDON?'
                 },
                 {
                     value: 800,
-                    clue: 'MELLAN 1 DECEMBER OCH 31 MARS KRÄVS VINTERDÄCK VID VINTERVÄGLAG, MED DETTA MINSTA MÖNSTERDJUP',
-                    answer: 'VAD ÄR 3 MILLIMETER?'
+                    clue: 'OM DU FÅR MOTORSTOPP PÅ EN PLATS DÄR DET ÄR FÖRBJUDET ATT STANNA MÅSTE DU SÄTTA UT VARNINGSTRIANGEL NÄR HÖGSTA TILLÅTNA HASTIGHET ÖVERSTIGER DETTA',
+                    answer: 'VAD ÄR 50 KM/H?'
                 },
                 {
                     value: 1000,
-                    clue: 'DU FÅR INTE STANNA ELLER PARKERA NÄRMARE ÄN SÅ HÄR MÅNGA METER FÖRE ETT ÖVERGÅNGSSTÄLLE ELLER EN CYKELPASSAGE',
-                    answer: 'VAD ÄR 10 METER?'
+                    clue: 'VID EN BUSSHÅLLPLATS SOM SAKNAR GUL VÄGMARKERING FÅR DU INTE PARKERA NÄRMARE ÄN SÅ HÄR MÅNGA METER FÖRE OCH EFTER HÅLLPLATSMÄRKET',
+                    answer: 'VAD ÄR 20 METER FÖRE OCH 5 METER EFTER?'
                 }
             ]
         },
@@ -223,6 +225,7 @@
                                 <div class="jeopardy-clue-inner" id="jeopardy-clue-inner">
                                     <div class="jeopardy-clue-meta" id="jeopardy-clue-meta"></div>
                                     <div class="jeopardy-clue-body">
+                                        <img class="jeopardy-clue-image" id="jeopardy-clue-image" alt="" hidden>
                                         <p class="jeopardy-clue-text" id="jeopardy-clue-text"></p>
                                         <p class="jeopardy-clue-answer" id="jeopardy-clue-answer" hidden></p>
                                     </div>
@@ -257,6 +260,7 @@
         const board = document.getElementById('jeopardy-board');
         const overlay = document.getElementById('jeopardy-clue-overlay');
         const clueMeta = document.getElementById('jeopardy-clue-meta');
+        const clueImage = document.getElementById('jeopardy-clue-image');
         const clueText = document.getElementById('jeopardy-clue-text');
         const clueAnswer = document.getElementById('jeopardy-clue-answer');
         const scoreEl = document.getElementById('jeopardy-score');
@@ -351,7 +355,22 @@
             categoryEls.forEach((el, idx) => el.classList.toggle('is-active', idx === colIndex));
 
             clueMeta.textContent = `${catData.category} · $${clueData.value}`;
-            clueText.textContent = clueData.clue;
+            if (clueData.image) {
+                clueImage.src = clueData.image;
+                clueImage.alt = clueData.imageAlt || 'Frågebild';
+                clueImage.hidden = false;
+            } else {
+                clueImage.removeAttribute('src');
+                clueImage.alt = '';
+                clueImage.hidden = true;
+            }
+            if (clueData.clue) {
+                clueText.textContent = clueData.clue;
+                clueText.hidden = false;
+            } else {
+                clueText.textContent = '';
+                clueText.hidden = true;
+            }
             clueAnswer.textContent = clueData.answer;
             clueAnswer.hidden = true;
             revealBtn.hidden = false;

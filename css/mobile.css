@@ -476,6 +476,13 @@ body.is-mobile #content-display .jeopardy-clue-answer {
     font-size: 3.3cqw;
 }
 
+body.mobile-prototype #content-display .jeopardy-clue-image,
+body.is-mobile #content-display .jeopardy-clue-image {
+    width: clamp(84px, 28cqw, 160px) !important;
+    max-height: 40cqw !important;
+    margin: 0 auto !important;
+}
+
 body.mobile-prototype #content-display .jeopardy-clue-actions,
 body.is-mobile #content-display .jeopardy-clue-actions {
     width: auto;
