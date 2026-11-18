@@ -1075,6 +1075,11 @@ body.is-mobile #media.edmon-background {
     filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
 }
 
+.jeopardy-clue-image:not([hidden]) + .jeopardy-clue-text {
+    font-size: clamp(12px, 2.5cqw, 34px);
+    margin-top: 1cqw;
+}
+
 .jeopardy-clue-image[hidden] {
     display: none;
 }

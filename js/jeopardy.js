@@ -79,7 +79,7 @@
                 },
                 {
                     value: 600,
-                    clue: '',
+                    clue: 'VAD BETYDER VÄGMÄRKET?',
                     image: 'images/quiz/c2-forbud-mot-trafik.svg',
                     imageAlt: 'Vägmärke',
                     answer: 'VAD ÄR FÖRBUD MOT TRAFIK MED FORDON?'
@@ -161,28 +161,34 @@
             clues: [
                 {
                     value: 200,
-                    clue: 'STAVA DET SVENSKA ORDET FÖR EN MÅNADSKOSTNAD PÅ TELEFON ELLER TIDNING, TVÅ "N" MEN BARA ETT "B"',
-                    answer: 'VAD ÄR A-B-O-N-N-E-M-A-N-G?'
+                    image: 'images/quiz/spelling/dragostea.png',
+                    audio: 'images/quiz/spelling/dragostea.mp3',
+                    answer: 'DRAGOSTEA DIN TEI'
                 },
                 {
                     value: 400,
-                    clue: 'STAVA DET SVENSKA ADJEKTIVET FÖR NÅGON SOM ÄR VÄLDIGT NOGA, MED DUBBELT "G" OCH DUBBELT "N"',
-                    answer: 'VAD ÄR N-O-G-G-R-A-N-N?'
+                    image: 'images/quiz/spelling/arja.png',
+                    audio: 'images/quiz/spelling/arja.mp3',
+                    answer: 'ARJA SAIJONMAA'
                 },
                 {
                     value: 600,
-                    clue: 'STAVA ORDET FÖR TVÅ LINJER SOM ALDRIG MÖTS, MED DUBBELT "L" PÅ TVÅ OLIKA STÄLLEN',
-                    answer: 'VAD ÄR P-A-R-A-L-L-E-L-L?'
+                    image: 'images/quiz/spelling/netanyahu.png',
+                    audio: 'images/quiz/spelling/netanyahu.mp3',
+                    answer: 'NETANYAHU'
                 },
                 {
                     value: 800,
-                    clue: 'STAVA DET ENGELSKA ORDET FÖR "NÖDVÄNDIG", ETT "C" OCH TVÅ "S", ALDRIG TVÄRTOM',
-                    answer: 'VAD ÄR N-E-C-E-S-S-A-R-Y?'
+                    image: 'images/quiz/spelling/tenochtitlan.png',
+                    audio: 'images/quiz/spelling/tenochtitlan.mp3',
+                    answer: 'TENOCHTITLAN'
                 },
                 {
                     value: 1000,
-                    clue: 'STAVA DET FRANSKLÅNADE SVENSKA ORDET FÖR EN VILOSOFFA UTAN RYGGSTÖD PÅ ENA SIDAN, BÖRJAR MED "SCH"',
-                    answer: 'VAD ÄR S-C-H-Ä-S-L-O-N-G?'
+                    dailyDouble: true,
+                    specialCategory: 'ETYMOLOGI',
+                    clue: 'FRÅN VILKET FOLK KOMMER ORDET ”TJEJ”?',
+                    answer: 'ROMERNA. ORDET ÄR LÅNAT FRÅN ROMANI.'
                 }
             ]
         }
@@ -191,6 +197,7 @@
     let keydownHandler = null;
 
     function cleanupJeopardyQuiz() {
+        document.querySelector('#jeopardy-root audio')?.pause();
         if (keydownHandler) {
             document.removeEventListener('keydown', keydownHandler);
             keydownHandler = null;
@@ -248,6 +255,8 @@
                                         <p class="jeopardy-clue-answer" id="jeopardy-clue-answer" hidden></p>
                                     </div>
                                     <div class="jeopardy-clue-actions" id="jeopardy-clue-actions">
+                                        <audio id="jeopardy-clue-audio" preload="none" hidden></audio>
+                                        <button type="button" class="jeopardy-clue-btn" data-action="replay" hidden>spela frågan</button>
                                         <button type="button" class="jeopardy-clue-btn" data-action="reveal">visa svar</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="correct" hidden>+$0</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="wrong" hidden>-$0</button>
@@ -290,7 +299,15 @@
         const remainingEl = document.getElementById('jeopardy-remaining');
         const vhsBtn = document.getElementById('jeopardy-vhs-toggle');
         const resetBtn = document.getElementById('jeopardy-reset-btn');
+        const clueAudio = overlay.querySelector('audio');
+        const replayBtn = overlay.querySelector('[data-action="replay"]');
         const revealBtn = overlay.querySelector('[data-action="reveal"]');
+
+        function playClueAudio() {
+            if (!clueAudio.hasAttribute('src')) return;
+            clueAudio.currentTime = 0;
+            clueAudio.play().catch(() => {}); // The replay button remains available if playback is blocked.
+        }
         const correctBtn = overlay.querySelector('[data-action="correct"]');
         const wrongBtn = overlay.querySelector('[data-action="wrong"]');
 
@@ -384,6 +401,12 @@
                 clueImage.alt = '';
                 clueImage.hidden = true;
             }
+            clueAudio.pause();
+            replayBtn.hidden = !clueData.audio;
+            if (clueData.audio) {
+                clueAudio.src = clueData.audio;
+                playClueAudio();
+            }
             if (clueData.clue) {
                 clueText.textContent = clueData.clue;
                 clueText.hidden = false;
@@ -448,6 +471,7 @@
                 clueMeta.textContent = `${catData.category} · $${clueData.value}`;
                 ddCategoryEl.textContent = `KATEGORI: ${clueData.specialCategory || catData.category}`;
                 renderWagerPresets(clueData.value);
+                replayBtn.hidden = true;
                 wagerBox.hidden = false;
                 clueImage.removeAttribute('src');
                 clueImage.alt = '';
@@ -506,6 +530,7 @@
 
         function closeClue(scoreDelta) {
             if (!state.activeClue || state.animating) return;
+            clueAudio.pause();
             if (typeof scoreDelta === 'number' && scoreDelta !== 0) {
                 state.score += scoreDelta;
                 updateStats();
@@ -560,7 +585,9 @@
             if (actionBtn) {
                 event.stopPropagation();
                 const action = actionBtn.dataset.action;
-                if (action === 'reveal') {
+                if (action === 'replay') {
+                    playClueAudio();
+                } else if (action === 'reveal') {
                     revealAnswer();
                 } else if (action === 'correct' && state.activeClue) {
                     closeClue(state.activeWager);
@@ -582,6 +609,7 @@
         });
 
         function resetBoard() {
+            clueAudio.pause();
             if (state.activeClue) {
                 overlay.hidden = true;
                 overlay.setAttribute('aria-hidden', 'true');
