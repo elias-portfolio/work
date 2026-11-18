@@ -1,98 +1,78 @@
 (function () {
+    const worldAudio = 'images/quiz/varldsvan/';
+    const animalAudio = 'images/quiz/djur/';
+    function spoken(folder, stem, clue, answer, extra = {}) {
+        return { clue, answer, audio: `${folder}${stem}_fraga.mp3`, answerAudio: `${folder}${stem}_svar.mp3`, ...extra };
+    }
+    const animal = (stem, clue, answer, value, extra) => spoken(animalAudio, stem, clue, answer, { value, ...extra });
+    const artistRound = [
+        ['3a_elton_john', 'ELTON JOHN', 'ARTISTNAMN: REGINALD DWIGHT'],
+        ['3b_adele', 'ADELE', 'RIKTIGT FÖRNAMN: ADELE ADKINS'],
+        ['3c_taylor_swift', 'TAYLOR SWIFT', 'RIKTIGT NAMN'],
+        ['3d_natalie_portman', 'NATALIE PORTMAN', 'ARTISTNAMN: NETA-LEE HERSHLAG'],
+        ['3e_kylie_minogue', 'KYLIE MINOGUE', 'RIKTIGT NAMN']
+    ].map(([stem, name, answer], i) => ({
+        clue: `ARTISTNAMN ELLER RIKTIGT NAMN? ${name}`,
+        answer,
+        introAudio: i === 0 ? `${worldAudio}q4_3_artistnamn_intro.mp3` : null,
+        audio: `${worldAudio}q4_${stem}.mp3`,
+        answerAudio: `${worldAudio}q4_${stem}_svar.mp3`
+    }));
+    const moppeRound = [
+        'En körde vilse, sen var de bara nio.',
+        'De meka utan måtta, en meka för mycket, sen var de bara åtta.',
+        'En letade sig en fru, en högg på kroken, sen var de bara sju.',
+        'En spanade in ett kex, en såg för noga, sen var de bara sex.',
+        'En ville åka hem, en svängde vänster, sen var de bara fem.',
+        'En greps av väldig yra, en greps av hybris, sen var de bara fyra.',
+        'Såvitt man kunde se, en syntes inte, sen var de bara tre.',
+        'På disko skulle gå, en lyssnade inte, sen var de bara två.',
+        'De ropade kom igen, en kom av sig, sen var de bara en.',
+        'Ensam kvar av tio, körde till en korvmoj, där stod de andra nio.'
+    ].map((answer, i) => spoken(`${worldAudio}moppepojkar/`, `moppe_${String(10 - i).padStart(2, '0')}`, 'VAD HÄNDE SEN?', answer));
+
     const ELIAS_QUIZ_BOARD = [
         {
             category: 'VAD ÄTER DJURET?',
+            intro: `${animalAudio}kat1_0_intro.mp3`,
             clues: [
-                {
-                    value: 200,
-                    clue: 'FLODHÄST',
-                    answer: 'GRÄS'
-                },
-                {
-                    value: 400,
-                    clue: 'PISSMYRA',
-                    answer: 'HONUNGSDAGG OCH SMÅINSEKTER/LARVER'
-                },
-                {
-                    value: 600,
-                    clue: 'ÄLG',
-                    answer: 'BARR OCH KVISTAR'
-                },
-                {
-                    value: 800,
-                    dailyDouble: true,
-                    specialCategory: 'KAN DJURET SIMMA?',
-                    clue: 'KAN EN KAMEL SIMMA?',
-                    answer: 'JA! (KHARAI-KAMELER KAN SIMMA UPP TILL 3 KM)'
-                },
-                {
-                    value: 1000,
-                    clue: 'SJÖGURKA',
-                    answer: 'BOTTENAVFALL'
-                }
-            ]
+                animal('kat1_1_flodhast', 'FLODHÄST', 'GRÄS', 200),
+                animal('kat1_2_pissmyra', 'PISSMYRA', 'HONUNGSDAGG OCH SMÅINSEKTER/LARVER', 400),
+                animal('kat1_3_alg', 'ÄLG', 'BARR OCH KVISTAR', 600),
+                animal('kat1_4_sjogurka', 'SJÖGURKA', 'BOTTENAVFALL', 800, { swimBonus: true }),
+                animal('kat1_5_flamingo', 'FLAMINGO', 'ALGER OCH SMÅ KRÄFTDJUR, BLAND ANNAT', 1000)
+            ],
+            swim: { value: 800, dailyDouble: true, specialCategory: 'KAN DJURET SIMMA?', clue: 'KAN EN KAMEL SIMMA?', answer: 'JA! KHARAI-KAMELER KAN SIMMA UPP TILL 3 KM.' }
         },
         {
             category: 'VEM ÄTER DJURET?',
+            intro: `${animalAudio}kat2_0_intro.mp3`,
             clues: [
-                {
-                    value: 200,
-                    clue: 'FLODHÄST',
-                    answer: 'LEJON, KROKODIL ELLER HYENA (UNGAR)'
-                },
-                {
-                    value: 400,
-                    clue: 'PISSMYRA',
-                    answer: 'HACKSPETT'
-                },
-                {
-                    value: 600,
-                    dailyDouble: true,
-                    specialCategory: 'KAN DJURET SIMMA?',
-                    clue: 'KAN EN GIRAFF SIMMA?',
-                    answer: 'NEJ! (DE KAN VADA MEN INTE SIMMA)'
-                },
-                {
-                    value: 800,
-                    clue: 'ÄLG',
-                    answer: 'VARG OCH BRUNBJÖRN'
-                },
-                {
-                    value: 1000,
-                    clue: 'SJÖGURKA',
-                    answer: 'SJÖSTJÄRNA'
-                }
-            ]
+                animal('kat2_1_flodhast', 'FLODHÄST', 'LEJON, NILKROKODILER OCH FLÄCKIGA HYENOR (FRÄMST UNGAR)', 200),
+                animal('kat2_2_pissmyra', 'PISSMYRA', 'HACKSPETT, SÄRSKILT GRÖNGÖLING OCH SPILLKRÅKA', 400),
+                animal('kat2_3_alg', 'ÄLG', 'VARG OCH BRUNBJÖRN', 600, { swimBonus: true }),
+                animal('kat2_4_sjogurka', 'SJÖGURKA', 'SJÖSTJÄRNOR, KRABBOR, ROVSNÄCKOR OCH VISSA FISKAR', 800),
+                animal('kat2_5_flamingo', 'FLAMINGO', 'BLAND ANNAT MARABUSTORKAR, ÖRNAR, GAMAR OCH SCHAKALER', 1000)
+            ],
+            swim: { value: 600, dailyDouble: true, specialCategory: 'KAN DJURET SIMMA?', clue: 'KAN EN GIRAFF SIMMA?', answer: 'DE KAN VADA. DATORMODELLER TYDER PÅ ATT DE KAN FLYTA, MEN SIMNING ÄR INTE BELAGD.' }
         },
         {
-            category: 'KÖRKORTSFRÅGOR',
+            category: 'VÄRLDSVAN',
             clues: [
+                spoken(worldAudio, 'q1_sovjetisk_bil', 'VAD HETER DEN KLASSISKA SOVJETISKA BILEN?', 'LADA', { value: 100 }),
+                spoken(worldAudio, 'q2_arlanda', 'VAD ÄR ARLANDAS FLYGPLATSKOD OCH VILKEN ÄR DEN STORA INTERNATIONELLA TERMINALEN?', 'ARN OCH TERMINAL 5. ÄVEN TERMINAL 2 HAR UTRIKESFLYG.', { value: 200, parts: 2 }),
+                spoken(worldAudio, 'q3_paris_flygplatser', 'VAD HETER PARIS FLYGPLATSER?', 'CHARLES DE GAULLE (CDG), ORLY (ORY) OCH BEAUVAIS (BVA). LE BOURGET ANVÄNDS FÖR PRIVATFLYG.', { value: 300, parts: 3 }),
+                { value: 400, round: [
+                    spoken(worldAudio, 'q4_1_ramsay_oliver', 'VEM ÄR RIKAST, GORDON RAMSAY ELLER JAMIE OLIVER?', 'GORDON RAMSAY ENLIGT QUIZFACIT'),
+                    spoken(worldAudio, 'q4_2_ronaldo_cruise', 'VEM ÄR RIKAST, CRISTIANO RONALDO ELLER TOM CRUISE?', 'CRISTIANO RONALDO ENLIGT QUIZFACIT'),
+                    ...artistRound
+                ] },
                 {
-                    value: 200,
-                    clue: 'DU PARKERAR EN TISDAG KLOCKAN 16.54 PÅ EN PLATS MED KRAV PÅ P-SKIVA. DETTA KLOCKSLAG SKA DU STÄLLA IN',
-                    answer: 'VAD ÄR 17.00?'
-                },
-                {
-                    value: 400,
-                    clue: 'DET ÄR DEN 17:E I MÅNADEN OCH EN SKYLT VISAR DATUMPARKERING. PÅ DENNA SIDA AV GATAN ÄR DET FÖRBJUDET ATT PARKERA',
-                    answer: 'VAD ÄR SIDAN MED UDDA HUSNUMMER?'
-                },
-                {
-                    value: 600,
-                    clue: 'VAD BETYDER VÄGMÄRKET?',
-                    image: 'images/quiz/c2-forbud-mot-trafik.svg',
-                    imageAlt: 'Vägmärke',
-                    answer: 'VAD ÄR FÖRBUD MOT TRAFIK MED FORDON?'
-                },
-                {
-                    value: 800,
-                    clue: 'OM DU FÅR MOTORSTOPP PÅ EN PLATS DÄR DET ÄR FÖRBJUDET ATT STANNA MÅSTE DU SÄTTA UT VARNINGSTRIANGEL NÄR HÖGSTA TILLÅTNA HASTIGHET ÖVERSTIGER DETTA',
-                    answer: 'VAD ÄR 50 KM/H?'
-                },
-                {
-                    value: 1000,
-                    clue: 'VID EN BUSSHÅLLPLATS SOM SAKNAR GUL VÄGMARKERING FÅR DU INTE PARKERA NÄRMARE ÄN SÅ HÄR MÅNGA METER FÖRE OCH EFTER HÅLLPLATSMÄRKET',
-                    answer: 'VAD ÄR 20 METER FÖRE OCH 5 METER EFTER?'
+                    value: 500,
+                    audio: `${worldAudio}q5_plastik_fraga.mp3`,
+                    clue: 'VILKA TRE LÄNDER GJORDE FLEST ESTETISKA INGREPP TOTALT 2025 (KIRURGISKA OCH ICKE-KIRURGISKA)?',
+                    answer: 'USA, BRASILIEN OCH KINA (ISAPS 2025)',
+                    parts: 3
                 }
             ]
         },
@@ -256,6 +236,9 @@
                                         <audio id="jeopardy-clue-audio" preload="none" hidden></audio>
                                         <button type="button" class="jeopardy-clue-btn" data-action="replay" hidden>spela frågan</button>
                                         <button type="button" class="jeopardy-clue-btn" data-action="medley" hidden>bonus: medley</button>
+                                        <button type="button" class="jeopardy-clue-btn" data-action="moppe" hidden>bonus: tio små moppepojkar</button>
+                                        <button type="button" class="jeopardy-clue-btn" data-action="swim" hidden>bonus: kan djuret simma?</button>
+                                        <span class="jeopardy-extra-scores" aria-label="Poäng för delfrågor" hidden></span>
                                         <button type="button" class="jeopardy-clue-btn" data-action="reveal">visa svar</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="correct" hidden>+$0</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="wrong" hidden>-$0</button>
@@ -304,6 +287,9 @@
         const allAnswersBtn = overlay.querySelector('[data-action=all-answers]');
         const clueAudio = overlay.querySelector('audio');
         const medleyBtn = overlay.querySelector('[data-action=medley]');
+        const moppeBtn = overlay.querySelector('[data-action=moppe]');
+        const swimBtn = overlay.querySelector('[data-action=swim]');
+        const extraScores = overlay.querySelector('.jeopardy-extra-scores');
         const replayBtn = overlay.querySelector('[data-action="replay"]');
         const revealBtn = overlay.querySelector('[data-action="reveal"]');
 
@@ -421,10 +407,14 @@
             }
             clueAudio.pause();
             replayBtn.hidden = !clueData.audio;
-            if (clueData.audio) {
+            if (clueData.audio && !clueData.introAudio) {
                 clueAudio.src = clueData.audio;
                 playClueAudio();
             }
+            moppeBtn.hidden = true;
+            swimBtn.hidden = true;
+            extraScores.hidden = true;
+            extraScores.replaceChildren();
             if (clueData.clue) {
                 clueText.textContent = clueData.clue;
                 clueText.hidden = false;
@@ -436,6 +426,17 @@
             if (clueData.medley) {
                 clueAudio.onended = startMedley;
                 replayBtn.textContent = 'starta medley';
+            } else if (clueData.introAudio) {
+                const active = state.activeClue;
+                clueAudio.src = clueData.introAudio;
+                clueAudio.onended = () => {
+                    clueAudio.onended = null;
+                    if (state.activeClue !== active || state.answerRevealed || overlay.hidden) return;
+                    clueAudio.src = clueData.audio;
+                    playClueAudio();
+                };
+                replayBtn.textContent = 'spela frågan';
+                playClueAudio();
             } else {
                 clueAudio.onended = null;
                 replayBtn.textContent = 'spela frågan';
@@ -502,27 +503,10 @@
 
             categoryEls.forEach((el, idx) => el.classList.toggle('is-active', idx === colIndex));
 
-            if (clueData.dailyDouble) {
-                state.wagerPending = true;
-                state.activeWager = clueData.value;
-                overlay.classList.add('is-daily-double');
-                clueMeta.textContent = `${catData.category} · $${clueData.value}`;
-                ddCategoryEl.textContent = `KATEGORI: ${clueData.specialCategory || catData.category}`;
-                renderWagerPresets(clueData.value);
-                medleyBtn.hidden = true;
-                entry.hidden = true;
-                entryResult.hidden = true;
-                replayBtn.hidden = true;
-                wagerBox.hidden = false;
-                clueImage.removeAttribute('src');
-                clueImage.alt = '';
-                clueImage.hidden = true;
-                clueText.textContent = '';
-                clueText.hidden = true;
-                clueAnswer.hidden = true;
-                revealBtn.hidden = true;
-                correctBtn.hidden = true;
-                wrongBtn.hidden = true;
+            if (clueData.round) {
+                startRound(clueData.round, 'RAPID FIRE', true);
+            } else if (clueData.dailyDouble) {
+                showWager(catData, clueData);
             } else {
                 showClueContent(catData, clueData, clueData.value);
             }
@@ -560,6 +544,80 @@
             }, 500);
         }
 
+        function showWager(catData, clueData) {
+            clueAudio.pause();
+            clueAudio.onended = null;
+            state.answerRevealed = false;
+            state.wagerPending = true;
+            state.activeWager = clueData.value;
+            overlay.classList.add('is-daily-double');
+            clueMeta.textContent = `${catData.category} · $${clueData.value}`;
+            ddCategoryEl.textContent = `KATEGORI: ${clueData.specialCategory || catData.category}`;
+            renderWagerPresets(clueData.value);
+            medleyBtn.hidden = moppeBtn.hidden = swimBtn.hidden = extraScores.hidden = true;
+            entry.hidden = entryResult.hidden = replayBtn.hidden = true;
+            wagerBox.hidden = false;
+            clueImage.removeAttribute('src');
+            clueImage.alt = '';
+            clueImage.hidden = clueText.hidden = clueAnswer.hidden = true;
+            revealBtn.hidden = correctBtn.hidden = wrongBtn.hidden = true;
+        }
+
+        function startRound(items, title, scored) {
+            state.activeClue.round = { items, title, scored, index: 0, correct: 0, finished: false };
+            showRoundQuestion();
+        }
+
+        function showRoundQuestion() {
+            const active = state.activeClue;
+            const { round } = active;
+            active.clueData = round.items[round.index];
+            state.answerRevealed = false;
+            showClueContent(active.catData, active.clueData, round.scored ? 50 : 0);
+            clueMeta.textContent = `${round.title} · ${round.index + 1}/${round.items.length}`;
+        }
+
+        function advanceRound(correct) {
+            const { round } = state.activeClue;
+            if (!round || round.finished || !state.answerRevealed || state.animating) return;
+            if (round.scored && correct) {
+                round.correct++;
+                state.score += 50;
+            }
+            if (++round.index < round.items.length) {
+                updateStats();
+                showRoundQuestion();
+                return;
+            }
+            round.finished = true;
+            clueAudio.pause();
+            clueAudio.onended = null;
+            replayBtn.hidden = correctBtn.hidden = wrongBtn.hidden = true;
+            clueText.textContent = 'RUNDAN ÄR KLAR';
+            if (round.scored) {
+                const bonus = round.correct === round.items.length ? 50 : 0;
+                state.score += bonus;
+                clueAnswer.textContent = `${round.correct}/${round.items.length} RÄTT · ${round.correct * 50 + bonus} POÄNG${bonus ? ' (50 I BONUS)' : ''}`;
+                moppeBtn.hidden = false;
+            } else {
+                clueAnswer.hidden = true;
+            }
+            updateStats();
+        }
+
+        function scoreClue(delta) {
+            const active = state.activeClue;
+            if (!active || !state.answerRevealed || state.animating) return;
+            if (active.clueData.swimBonus) {
+                state.score += delta;
+                updateStats();
+                active.clueData = active.catData.swim;
+                showWager(active.catData, active.clueData);
+            } else {
+                closeClue(delta);
+            }
+        }
+
         function revealAnswer() {
             if (!state.activeClue || !entry.hidden || state.wagerPending || state.answerRevealed) return;
             state.answerRevealed = true;
@@ -567,13 +625,31 @@
             revealBtn.hidden = true;
             correctBtn.hidden = false;
             wrongBtn.hidden = false;
-            const { clueData, colIndex } = state.activeClue;
+            const { clueData, round, catData } = state.activeClue;
+            swimBtn.hidden = !clueData.swimBonus;
+            if (round) {
+                correctBtn.hidden = !round.scored;
+                correctBtn.textContent = 'rätt +50';
+                wrongBtn.textContent = round.scored ? 'fel / nästa' : 'nästa';
+            } else if (clueData.parts) {
+                correctBtn.hidden = wrongBtn.hidden = true;
+                extraScores.hidden = false;
+                for (let i = 0; i <= clueData.parts; i++) {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'jeopardy-clue-btn';
+                    button.dataset.action = 'parts';
+                    button.dataset.points = String(i * 100);
+                    button.textContent = `${i} rätt (+${i * 100})`;
+                    extraScores.append(button);
+                }
+            }
             if (clueData.answerAudio) {
                 clueAudio.onended = null;
                 clueAudio.src = clueData.answerAudio;
                 replayBtn.textContent = 'spela facit igen';
                 playClueAudio();
-                allAnswersBtn.hidden = !ELIAS_QUIZ_BOARD[colIndex].clues.every((_, row) => state.played.has(`${colIndex}-${row}`));
+                allAnswersBtn.hidden = catData.category !== 'FIXA SVENGELSKAN' || !catData.clues.every((_, row) => state.played.has(`${colIndex}-${row}`));
             }
         }
 
@@ -707,6 +783,12 @@
                 if (action === 'all-answers' && !allAnswersBtn.hidden) {
                     clueAudio.src = 'images/quiz/svengelska/svengelska_facit.mp3';
                     playClueAudio();
+                } else if (action === 'moppe' && state.activeClue && !moppeBtn.hidden) {
+                    startRound(moppeRound, 'TIO SMÅ MOPPEPOJKAR', false);
+                } else if (action === 'swim' && state.activeClue && !swimBtn.hidden) {
+                    scoreClue(0);
+                } else if (action === 'parts' && !extraScores.hidden) {
+                    scoreClue(Number(actionBtn.dataset.points));
                 } else if (action === 'medley' && state.activeClue && !medleyBtn.hidden) {
                     const { catData } = state.activeClue;
                     const clueData = { value: 0, audio: 'images/quiz/dagar/max_martin.mp3', medley: true };
@@ -720,9 +802,11 @@
                 } else if (action === 'reveal') {
                     revealAnswer();
                 } else if (action === 'correct' && state.activeClue) {
-                    closeClue(state.activeWager);
+                    if (state.activeClue.round) advanceRound(true);
+                    else scoreClue(state.activeWager);
                 } else if (action === 'wrong' && state.activeClue) {
-                    closeClue(-state.activeWager);
+                    if (state.activeClue.round) advanceRound(false);
+                    else scoreClue(-state.activeWager);
                 } else if (action === 'close') {
                     closeClue(0);
                 }

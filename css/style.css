@@ -1239,6 +1239,13 @@ body.is-mobile #media.edmon-background {
     transition: opacity 150ms ease;
 }
 
+.jeopardy-extra-scores:not([hidden]) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
 .jeopardy-clue-overlay:hover .jeopardy-clue-actions,
 .jeopardy-clue-overlay:focus-within .jeopardy-clue-actions {
     opacity: 1;
