@@ -1102,6 +1102,93 @@ body.is-mobile #media.edmon-background {
     display: none;
 }
 
+.jeopardy-wager-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4cqw;
+    width: 100%;
+    cursor: default;
+}
+
+.jeopardy-wager-box[hidden] {
+    display: none;
+}
+
+.jeopardy-dd-badge {
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif;
+    font-size: clamp(20px, 5.2cqw, 84px);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    color: #f4b130;
+    text-transform: uppercase;
+    text-shadow: 0.06em 0.08em 0 #000000;
+}
+
+.jeopardy-screen.is-vhs .jeopardy-dd-badge {
+    text-shadow:
+        -1.5px 0 1.8px rgba(255, 55, 95, 0.42),
+        1.5px 0 1.8px rgba(45, 220, 255, 0.42),
+        0.06em 0.08em 0 #000000;
+}
+
+.jeopardy-dd-category {
+    margin: 0;
+    font-family: 'ITC Korinna Std', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(13px, 2.7cqw, 44px);
+    line-height: 1.2;
+    letter-spacing: 0.025em;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 0.06em 0.08em 0 #000000;
+}
+
+.jeopardy-wager-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.jeopardy-wager-label {
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif;
+    font-size: clamp(10px, 1.35cqw, 18px);
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.78);
+    text-transform: uppercase;
+}
+
+.jeopardy-wager-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.jeopardy-wager-input {
+    width: 110px;
+    padding: 5px 8px;
+    background: rgba(2, 5, 28, 0.85);
+    color: #f4b130;
+    border: 1px solid rgba(244, 177, 48, 0.7);
+    border-radius: 3px;
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.jeopardy-wager-presets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
 .jeopardy-clue-actions {
     display: flex;
     flex-wrap: wrap;

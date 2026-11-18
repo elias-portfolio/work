@@ -1,62 +1,66 @@
 (function () {
     const ELIAS_QUIZ_BOARD = [
         {
-            category: 'VAD ÄTER DJURET',
+            category: 'VAD ÄTER DJURET?',
             clues: [
                 {
                     value: 200,
-                    clue: 'DETTA AUSTRALISKA PUNGDJUR SOVER UPP TILL 20 TIMMAR OM DYGNET OCH LEVER NÄSTAN ENBART PÅ EUKALYPTUSBLAD',
-                    answer: 'VAD ÄR EN KOALA?'
+                    clue: 'FLODHÄST',
+                    answer: 'GRÄS'
                 },
                 {
                     value: 400,
-                    clue: 'DENNA ROSA FÅGEL FÅR SIN FÄRG AV KAROTENOIDER I ALGER OCH SMÅ KRÄFTDJUR SOM DEN SILAR MED NÄBBEN',
-                    answer: 'VAD ÄR EN FLAMINGO?'
+                    clue: 'PISSMYRA',
+                    answer: 'HONUNGSDAGG OCH SMÅINSEKTER/LARVER'
                 },
                 {
                     value: 600,
-                    clue: 'DETTA SVARTVITA DJUR TILLHÖR ROVDJUREN MEN HAR STÄLLT OM DIETEN SÅ ATT CIRKA 99 PROCENT BESTÅR AV BAMBU',
-                    answer: 'VAD ÄR JÄTTEPANDAN?'
+                    clue: 'ÄLG',
+                    answer: 'BARR OCH KVISTAR'
                 },
                 {
                     value: 800,
-                    clue: 'BLADSKÄRARMYROR ÄTER EGENTLIGEN INTE BLADEN DE BÄR HEM, DE ANVÄNDER DEM SOM GÖDSEL FÖR ATT ODLA DENNA ORGANISM',
-                    answer: 'VAD ÄR SVAMP?'
+                    dailyDouble: true,
+                    specialCategory: 'KAN DJURET SIMMA?',
+                    clue: 'KAN EN KAMEL SIMMA?',
+                    answer: 'JA! (KHARAI-KAMELER KAN SIMMA UPP TILL 3 KM)'
                 },
                 {
                     value: 1000,
-                    clue: 'VÄRLDENS STÖRSTA FISK, VALHAJEN, JAGAR INTE SÄLAR UTAN LEVER SOM FILTRERARE PÅ DETTA',
-                    answer: 'VAD ÄR PLANKTON (OCH SMÅFISK)?'
+                    clue: 'SJÖGURKA',
+                    answer: 'BOTTENAVFALL'
                 }
             ]
         },
         {
-            category: 'VEM ÄTER DJURET',
+            category: 'VEM ÄTER DJURET?',
             clues: [
                 {
                     value: 200,
-                    clue: 'BLADLUSSENS STÖRSTA FIENDE I TRÄDGÅRDEN ÄR DENNA RÖDA OCH SVARTPRICKIGA SKALBAGGE',
-                    answer: 'VEM ÄR NYCKELPIGAN?'
+                    clue: 'FLODHÄST',
+                    answer: 'LEJON, KROKODIL ELLER HYENA (UNGAR)'
                 },
                 {
                     value: 400,
-                    clue: 'MANETER ÄR HUVUDFÖDA FÖR DENNA STORA HAVSREPTIL, SOM DÄRFÖR OFTA MISSTAR EN PLASTPÅSE FÖR ETT BYTE',
-                    answer: 'VEM ÄR HAVSSKÖLDPADDAN?'
+                    clue: 'PISSMYRA',
+                    answer: 'HACKSPETT'
                 },
                 {
                     value: 600,
-                    clue: 'FJÄLLRÄVAR OCH DENNA HELVITA ROVFÅGEL HAR SINA BÄSTA HÄCKNINGSÅR NÄR DET KRYLLAR AV LÄMMLAR PÅ FJÄLLET',
-                    answer: 'VEM ÄR FJÄLLUGGLAN?'
+                    dailyDouble: true,
+                    specialCategory: 'KAN DJURET SIMMA?',
+                    clue: 'KAN EN GIRAFF SIMMA?',
+                    answer: 'NEJ! (DE KAN VADA MEN INTE SIMMA)'
                 },
                 {
                     value: 800,
-                    clue: 'VITHAJEN TRODDES STÅ ÖVERST I HAVETS NÄRINGSKEDJA TILLS FORSKARE SÅG HUR DENNA SVARTVITA VAL JAGAR OCH ÄTER HAJENS LEVER',
-                    answer: 'VEM ÄR SPÄCKHUGGAREN?'
+                    clue: 'ÄLG',
+                    answer: 'VARG OCH BRUNBJÖRN'
                 },
                 {
                     value: 1000,
-                    clue: 'KOALANS EUKALYPTUSBLAD ÄR GIFTIGA, OCH VUXNA KOALOR HAR KNAPPT NÅGRA FIENDER UTOM DENNA AUSTRALISKA VILDHUND',
-                    answer: 'VEM ÄR DINGON?'
+                    clue: 'SJÖGURKA',
+                    answer: 'SJÖSTJÄRNA'
                 }
             ]
         },
@@ -208,6 +212,8 @@
             score: 0,
             vhs: true,
             activeClue: null,
+            activeWager: 0,
+            wagerPending: false,
             answerRevealed: false,
             animating: false
         };
@@ -225,6 +231,18 @@
                                 <div class="jeopardy-clue-inner" id="jeopardy-clue-inner">
                                     <div class="jeopardy-clue-meta" id="jeopardy-clue-meta"></div>
                                     <div class="jeopardy-clue-body">
+                                        <div class="jeopardy-wager-box" id="jeopardy-wager-box" hidden>
+                                            <div class="jeopardy-dd-badge">SPECIALFRÅGA</div>
+                                            <p class="jeopardy-dd-category" id="jeopardy-dd-category"></p>
+                                            <form class="jeopardy-wager-form" id="jeopardy-wager-form">
+                                                <label class="jeopardy-wager-label" for="jeopardy-wager-input">SATSNING ($)</label>
+                                                <div class="jeopardy-wager-row">
+                                                    <input type="number" class="jeopardy-wager-input" id="jeopardy-wager-input" min="0" step="100" value="800" required>
+                                                    <button type="submit" class="jeopardy-clue-btn jeopardy-clue-btn--score">satsa &amp; visa fråga</button>
+                                                </div>
+                                                <div class="jeopardy-wager-presets" id="jeopardy-wager-presets"></div>
+                                            </form>
+                                        </div>
                                         <img class="jeopardy-clue-image" id="jeopardy-clue-image" alt="" hidden>
                                         <p class="jeopardy-clue-text" id="jeopardy-clue-text"></p>
                                         <p class="jeopardy-clue-answer" id="jeopardy-clue-answer" hidden></p>
@@ -260,6 +278,11 @@
         const board = document.getElementById('jeopardy-board');
         const overlay = document.getElementById('jeopardy-clue-overlay');
         const clueMeta = document.getElementById('jeopardy-clue-meta');
+        const wagerBox = document.getElementById('jeopardy-wager-box');
+        const ddCategoryEl = document.getElementById('jeopardy-dd-category');
+        const wagerForm = document.getElementById('jeopardy-wager-form');
+        const wagerInput = document.getElementById('jeopardy-wager-input');
+        const wagerPresets = document.getElementById('jeopardy-wager-presets');
         const clueImage = document.getElementById('jeopardy-clue-image');
         const clueText = document.getElementById('jeopardy-clue-text');
         const clueAnswer = document.getElementById('jeopardy-clue-answer');
@@ -341,20 +364,17 @@
             return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         }
 
-        function openClue(colIndex, rowIndex, cellBtn) {
-            const key = `${colIndex}-${rowIndex}`;
-            if (state.animating || state.activeClue || state.played.has(key)) return;
+        function showClueContent(catData, clueData, wager) {
+            state.wagerPending = false;
+            state.activeWager = wager;
+            wagerBox.hidden = true;
+            overlay.classList.remove('is-daily-double');
 
-            const catData = ELIAS_QUIZ_BOARD[colIndex];
-            const clueData = catData.clues[rowIndex];
+            const headerCat = clueData.specialCategory || catData.category;
+            clueMeta.textContent = clueData.dailyDouble
+                ? `${headerCat} · SATSNING: $${wager}`
+                : `${headerCat} · $${clueData.value}`;
 
-            state.activeClue = { colIndex, rowIndex, key, cellBtn, clueData };
-            state.answerRevealed = false;
-            state.animating = true;
-
-            categoryEls.forEach((el, idx) => el.classList.toggle('is-active', idx === colIndex));
-
-            clueMeta.textContent = `${catData.category} · $${clueData.value}`;
             if (clueData.image) {
                 clueImage.src = clueData.image;
                 clueImage.alt = clueData.imageAlt || 'Frågebild';
@@ -376,8 +396,71 @@
             revealBtn.hidden = false;
             correctBtn.hidden = true;
             wrongBtn.hidden = true;
-            correctBtn.textContent = `+$${clueData.value}`;
-            wrongBtn.textContent = `-$${clueData.value}`;
+            correctBtn.textContent = `+$${wager}`;
+            wrongBtn.textContent = `-$${wager}`;
+        }
+
+        function renderWagerPresets(defaultValue) {
+            const amounts = [200, 500, 1000, 2000];
+            wagerPresets.innerHTML = '';
+            amounts.forEach((amt) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'jeopardy-clue-btn';
+                btn.textContent = `$${amt}`;
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    wagerInput.value = String(amt);
+                });
+                wagerPresets.appendChild(btn);
+            });
+            if (state.score > 0) {
+                const allBtn = document.createElement('button');
+                allBtn.type = 'button';
+                allBtn.className = 'jeopardy-clue-btn jeopardy-clue-btn--score';
+                allBtn.textContent = `allt ($${state.score})`;
+                allBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    wagerInput.value = String(state.score);
+                });
+                wagerPresets.appendChild(allBtn);
+            }
+            wagerInput.value = String(defaultValue);
+        }
+
+        function openClue(colIndex, rowIndex, cellBtn) {
+            const key = `${colIndex}-${rowIndex}`;
+            if (state.animating || state.activeClue || state.played.has(key)) return;
+
+            const catData = ELIAS_QUIZ_BOARD[colIndex];
+            const clueData = catData.clues[rowIndex];
+
+            state.activeClue = { colIndex, rowIndex, key, cellBtn, catData, clueData };
+            state.answerRevealed = false;
+            state.animating = true;
+
+            categoryEls.forEach((el, idx) => el.classList.toggle('is-active', idx === colIndex));
+
+            if (clueData.dailyDouble) {
+                state.wagerPending = true;
+                state.activeWager = clueData.value;
+                overlay.classList.add('is-daily-double');
+                clueMeta.textContent = `${catData.category} · $${clueData.value}`;
+                ddCategoryEl.textContent = `KATEGORI: ${clueData.specialCategory || catData.category}`;
+                renderWagerPresets(clueData.value);
+                wagerBox.hidden = false;
+                clueImage.removeAttribute('src');
+                clueImage.alt = '';
+                clueImage.hidden = true;
+                clueText.textContent = '';
+                clueText.hidden = true;
+                clueAnswer.hidden = true;
+                revealBtn.hidden = true;
+                correctBtn.hidden = true;
+                wrongBtn.hidden = true;
+            } else {
+                showClueContent(catData, clueData, clueData.value);
+            }
 
             const startTransform = computeFlipTransform(cellBtn);
             overlay.hidden = false;
@@ -413,7 +496,7 @@
         }
 
         function revealAnswer() {
-            if (!state.activeClue || state.answerRevealed) return;
+            if (!state.activeClue || state.wagerPending || state.answerRevealed) return;
             state.answerRevealed = true;
             clueAnswer.hidden = false;
             revealBtn.hidden = true;
@@ -434,11 +517,14 @@
             const finishClose = () => {
                 overlay.hidden = true;
                 overlay.setAttribute('aria-hidden', 'true');
-                overlay.classList.remove('is-open', 'is-closing');
+                overlay.classList.remove('is-open', 'is-closing', 'is-daily-double');
                 overlay.style.transition = '';
                 overlay.style.transform = '';
+                wagerBox.hidden = true;
                 categoryEls.forEach((el) => el.classList.remove('is-active'));
                 state.activeClue = null;
+                state.wagerPending = false;
+                state.activeWager = 0;
                 state.answerRevealed = false;
                 state.animating = false;
             };
@@ -457,6 +543,18 @@
             window.setTimeout(finishClose, 360);
         }
 
+        wagerForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!state.activeClue || !state.wagerPending) return;
+            const parsed = Math.max(0, Math.round(Number(wagerInput.value) || 0));
+            showClueContent(state.activeClue.catData, state.activeClue.clueData, parsed);
+        });
+
+        wagerBox.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
         overlay.addEventListener('click', (event) => {
             const actionBtn = event.target.closest('[data-action]');
             if (actionBtn) {
@@ -465,14 +563,16 @@
                 if (action === 'reveal') {
                     revealAnswer();
                 } else if (action === 'correct' && state.activeClue) {
-                    closeClue(state.activeClue.clueData.value);
+                    closeClue(state.activeWager);
                 } else if (action === 'wrong' && state.activeClue) {
-                    closeClue(-state.activeClue.clueData.value);
+                    closeClue(-state.activeWager);
                 } else if (action === 'close') {
                     closeClue(0);
                 }
                 return;
             }
+
+            if (state.wagerPending) return;
 
             if (!state.answerRevealed) {
                 revealAnswer();
@@ -485,10 +585,13 @@
             if (state.activeClue) {
                 overlay.hidden = true;
                 overlay.setAttribute('aria-hidden', 'true');
-                overlay.classList.remove('is-open', 'is-closing');
+                overlay.classList.remove('is-open', 'is-closing', 'is-daily-double');
                 overlay.style.transition = '';
                 overlay.style.transform = '';
+                wagerBox.hidden = true;
                 state.activeClue = null;
+                state.wagerPending = false;
+                state.activeWager = 0;
                 state.answerRevealed = false;
                 state.animating = false;
             }
@@ -526,6 +629,7 @@
                 event.preventDefault();
                 closeClue(0);
             } else if (event.key === ' ' || event.key === 'Enter') {
+                if (state.wagerPending) return;
                 if (event.target && event.target.tagName === 'BUTTON') return;
                 event.preventDefault();
                 if (!state.answerRevealed) {

@@ -501,6 +501,32 @@ body.is-mobile #content-display .jeopardy-shell button {
     font-size: inherit !important;
 }
 
+body.mobile-prototype #content-display .jeopardy-shell input[type="number"],
+body.is-mobile #content-display .jeopardy-shell input[type="number"] {
+    display: inline-block !important;
+    width: 100px !important;
+    max-width: 100px !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-wager-form,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-wager-form {
+    display: flex !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-dd-badge,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-dd-badge {
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif !important;
+    font-size: 6cqw;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-dd-category,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-dd-category {
+    font-family: 'ITC Korinna Std', Georgia, serif !important;
+    font-size: 3.6cqw;
+}
+
 body.mobile-prototype #content-display .jeopardy-shell .jeopardy-cell,
 body.is-mobile #content-display .jeopardy-shell .jeopardy-cell {
     display: flex !important;
