@@ -1,0 +1,20 @@
+.quiz-player-bar { box-sizing: border-box; display:flex; align-items:center; gap:.65rem; width:100%; padding:.4rem .6rem; background:#101638; color:#fff; font:14px/1.3 system-ui,sans-serif; text-transform:none; }
+.quiz-player-bar button,.quiz-player-bar select,.quiz-player-bar input { font:inherit; }
+.quiz-player-bar button { cursor:pointer; border:1px solid #a5b0de; background:#17214b; color:white; padding:.35rem .6rem; border-radius:4px; }
+.quiz-player-bar button:disabled { color:#adb2c3; cursor:default; }
+.qp-scores { display:flex; flex-wrap:wrap; gap:.25rem .75rem; min-width:0; }
+.qp-scores span { overflow-wrap:anywhere; }
+.qp-active { color:#ffcb67; font-weight:bold; }
+.jeopardy-shell--fullscreen { flex-direction:column; }
+.jeopardy-shell--fullscreen .quiz-player-bar { flex:none; }
+@media(min-aspect-ratio:1/1) { .jeopardy-shell--fullscreen .jeopardy-monitor { flex:1; min-height:0; } }
+.qp-dialog { box-sizing:border-box; margin:auto; width:min(32rem,94vw); max-height:88dvh; overflow:auto; background:#101638; color:#fff; padding:1rem; border:1px solid #a5b0de; border-radius:8px; font:15px/1.45 system-ui,sans-serif; text-transform:none; }
+.qp-dialog::backdrop { background:#040719bb; }
+.qp-dialog h2 { margin:0 0 .65rem; }
+.qp-dialog button { margin-right:.3rem; }
+.qp-dialog select,.qp-dialog input { color:#111; background:#fff; border:1px solid #b5bedc; border-radius:3px; padding:.3rem; }
+.qp-row { display:grid; grid-template-columns:minmax(4rem,1fr) auto auto; gap:.35rem; margin:.45rem 0; }
+.qp-row input { box-sizing:border-box; width:100%; min-width:0; }
+.qp-dialog p[role=status] { color:#ffcb67; }
+body.is-mobile #content-display .quiz-player-bar button { width:auto !important; margin:0 !important; }
+body.is-mobile #content-display .quiz-player-bar .qp-row input { width:100% !important; margin:0 !important; }

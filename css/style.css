@@ -9,7 +9,7 @@
 
 @font-face {
     font-family: 'Suisse';
-    src: url('./css/suisse.woff') format('woff');
+    src: url('./suisse.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -1074,6 +1074,15 @@ body.is-mobile #media.edmon-background {
     text-shadow: 0.06em 0.08em 0 #000000;
 }
 
+.jeopardy-clue-overlay.has-long-clue .jeopardy-clue-text {
+    font-size: clamp(12px, 2.75cqw, 48px);
+}
+
+.jeopardy-clue-overlay.has-long-clue .jeopardy-clue-answer {
+    font-size: clamp(11px, 2.1cqw, 36px);
+    margin: 2cqw 0 0;
+}
+
 .jeopardy-clue-text[hidden] {
     display: none;
 }
@@ -1134,7 +1143,51 @@ body.is-mobile #media.edmon-background {
 .jeopardy-entry label { flex-basis: 100%; }
 .jeopardy-entry input { width: min(18em, 65%); }
 .jeopardy-entry input[type="number"] { width: 5em; }
-.jeopardy-entry[hidden], .jeopardy-entry-result[hidden] { display: none; }
+.jeopardy-entry input[type="date"] {
+    color-scheme: dark;
+    color: white;
+    background: #101844;
+    border: 1px solid #aab5df;
+    border-radius: 4px;
+    padding: 5px 8px;
+    width: auto;
+    max-width: 100%;
+    font: inherit;
+}
+.jeopardy-clue-btn[data-action="next"],
+.jeopardy-clue-btn[aria-pressed="true"] {
+    color: #fff;
+    border-color: #f4b130;
+    background: #29204d;
+}
+.jeopardy-entry[hidden], .jeopardy-entry-result[hidden], .jeopardy-clock[hidden] { display: none; }
+.jeopardy-clock {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 10px;
+    color: white;
+}
+.jeopardy-clock svg {
+    display: block;
+    width: min(30cqw, 150px);
+    height: auto;
+    margin-inline: 40%;
+    touch-action: none;
+    user-select: none;
+}
+.jeopardy-clock .clock-face { fill: #101844; stroke: #aab5df; stroke-width: 2; }
+.jeopardy-clock text { fill: white; font: bold 11px system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; }
+.jeopardy-clock [data-hand] { cursor: grab; }
+.jeopardy-clock line { stroke-linecap: round; pointer-events: none; }
+.jeopardy-clock .clock-hour line { stroke: #e9efff; stroke-width: 7; }
+.jeopardy-clock .clock-minute line { stroke: #f4b130; stroke-width: 4; }
+.jeopardy-clock [data-hand] circle { fill: transparent; }
+.jeopardy-clock [data-hand]:focus-visible circle { stroke: #fff; stroke-width: 2; }
+.jeopardy-clock select { color-scheme: dark; font: inherit; }
+.jeopardy-clock output { font-variant-numeric: tabular-nums; }
 .jeopardy-entry-result { margin: 8px 0 0; color: white; overflow-wrap: anywhere; }
 .jeopardy-entry-result span { display: inline-block; margin: 1px; padding: 2px 3px; background: #20285a; }
 .jeopardy-entry-result .is-correct { background: #147341; color: white; }
