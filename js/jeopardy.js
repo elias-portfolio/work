@@ -97,63 +97,24 @@
             ]
         },
         {
-            category: 'SVENSKA STATIONER',
+            category: 'FIXA SVENGELSKAN',
+            intro: 'images/quiz/svengelska/svengelska_0_intro.mp3',
             clues: [
-                {
-                    value: 200,
-                    clue: 'STOCKHOLMS TUNNELBANAS GRÖNA, RÖDA OCH BLÅ LINJE MÖTS ALLA PÅ DENNA CENTRALA STATION',
-                    answer: 'VAD ÄR T-CENTRALEN?'
-                },
-                {
-                    value: 400,
-                    clue: 'DETTA ÄR SISTA SVENSKA STATIONEN PÅ ÖRESUNDSTÅGET INNAN TÅGET KÖR UT PÅ BRON MOT DANMARK',
-                    answer: 'VAD ÄR HYLLIE?'
-                },
-                {
-                    value: 600,
-                    clue: 'MED EN PLATTFORM 34 METER UNDER MARKEN ÄR DETTA DEN DJUPAST LIGGANDE I DRIFT VARANDE TUNNELBANESTATIONEN I STOCKHOLM',
-                    answer: 'VAD ÄR KUNGSTRÄDGÅRDEN?'
-                },
-                {
-                    value: 800,
-                    clue: 'PÅ DENNA TUNNELBANESTATION I SOLNA FINNS SVERIGES LÄNGSTA RULLTRAPPA, HELA 66 METER LÅNG',
-                    answer: 'VAD ÄR VÄSTRA SKOGEN?'
-                },
-                {
-                    value: 1000,
-                    clue: 'MALMBANAN FRÅN KIRUNA MOT NARVIK PASSERAR DENNA KÄNDA FJÄLLSTATION DÄR KUNGSLEDEN HAR SIN NORRA STARTPUNKT',
-                    answer: 'VAD ÄR ABISKO TURISTSTATION?'
-                }
+                { value: 200, audio: 'images/quiz/svengelska/svengelska_1_audition.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_1_audition.mp3', answer: 'SCENPROV, PROVSPELNING ELLER UTTAGNING' },
+                { value: 400, audio: 'images/quiz/svengelska/svengelska_2_scrolla.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_2_scrolla.mp3', answer: 'BLÄDDRA ELLER RULLA' },
+                { value: 600, audio: 'images/quiz/svengelska/svengelska_3_backa.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_3_backa.mp3', answer: 'SÄKERHETSKOPIERA' },
+                { value: 800, audio: 'images/quiz/svengelska/svengelska_4_signa_upp.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_4_signa_upp.mp3', answer: 'REGISTRERA SIG, ANMÄLA SIG ELLER REGGA' },
+                { value: 1000, audio: 'images/quiz/svengelska/svengelska_5_tweaka.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_5_tweaka.mp3', answer: 'JUSTERA ELLER FINJUSTERA' }
             ]
         },
         {
             category: 'DAGAR OCH TID',
             clues: [
-                {
-                    value: 200,
-                    clue: 'OM DET ÄR TISDAG IDAG ÄR DETTA VECKODAGEN OM ÅTTA DAGAR',
-                    answer: 'VAD ÄR ONSDAG?'
-                },
-                {
-                    value: 400,
-                    clue: 'DENNA MÅNAD HAR 28 DAGAR VARJE VANLIGT ÅR, OCH 29 DAGAR UNDER SKOTTÅR',
-                    answer: 'VAD ÄR FEBRUARI?'
-                },
-                {
-                    value: 600,
-                    clue: 'NÄR SVERIGE STÄLLER OM TILL VINTERTID SISTA SÖNDAGEN I OKTOBER VRIDS KLOCKAN ETT STEG ÅT DETTA HÅLL',
-                    answer: 'VAD ÄR BAKÅT (EN TIMME)?'
-                },
-                {
-                    value: 800,
-                    clue: 'SÅ HÄR MÅNGA SEKUNDER GÅR DET PÅ EN HEL TIMME',
-                    answer: 'VAD ÄR 3 600 SEKUNDER?'
-                },
-                {
-                    value: 1000,
-                    clue: 'ÅR 1753 HOPPADE SVERIGE ÖVER ELVA DAGAR I FEBRUARI NÄR LANDET BYTTE FRÅN DEN JULIANSKA KALENDERN TILL DENNA',
-                    answer: 'VAD ÄR DEN GREGORIANSKA KALENDERN?'
-                }
+                { value: 200, audio: 'images/quiz/dagar/pask.mp3', calendar: 'easter' },
+                { value: 400, audio: 'images/quiz/dagar/fullmane.mp3', calendar: 'moon' },
+                { value: 600, audio: 'images/quiz/dagar/namnsdag.mp3', calendar: 'names' },
+                { value: 800, audio: 'images/quiz/dagar/dagar_kvar.mp3', calendar: 'days' },
+                { value: 1000, clue: 'VAD ÄR KLOCKAN NU?', calendar: 'clock' }
             ]
         },
         {
@@ -193,6 +154,36 @@
             ]
         }
     ];
+
+    const stockholm = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm', dateStyle: 'long' });
+    const calendarData = fetch('./js/quiz-data/calendar-2026-2031.json').then(response => {
+        if (!response.ok) throw new Error('Kalenderdata saknas');
+        return response.json();
+    }).catch(() => null);
+    const swedishClock = new Intl.DateTimeFormat('sv-SE', {
+        timeZone: 'Europe/Stockholm', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+    });
+    async function calendarAnswer(kind, now = new Date()) {
+        if (kind === 'clock') return swedishClock.format(now);
+        const data = await calendarData;
+        const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Europe/Stockholm', year: 'numeric', month: 'numeric', day: 'numeric'
+        }).formatToParts(now).map(({type, value}) => [type, Number(value)]));
+        const { year, month, day } = parts;
+        if (kind === 'names') return data ? data.names[month][day].join(' och ') || 'Ingen namnsdag i almanackan' : null;
+        if (kind === 'days') return `${(Date.UTC(year, 11, 31) - Date.UTC(year, month - 1, day)) / 86400000} dagar (idag borträknad)`;
+        if (kind === 'moon') {
+            const next = data?.fullMoons.find(value => new Date(value) >= now);
+            return next ? stockholm.format(new Date(next)) : null;
+        }
+        if (data?.easter[year]) return stockholm.format(new Date(data.easter[year]));
+        // Gregorian computus; this question uses Easter Sunday.
+        const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+        const h = (19 * a + b - Math.floor(b / 4) - Math.floor((b - Math.floor((b + 8) / 25) + 1) / 3) + 15) % 30;
+        const l = (32 + 2 * (b % 4) + 2 * Math.floor(c / 4) - h - c % 4) % 7;
+        const n = h + l - 7 * Math.floor((a + 11 * h + 22 * l) / 451) + 114;
+        return `Påskdagen: ${stockholm.format(new Date(Date.UTC(year, Math.floor(n / 31) - 1, n % 31 + 1)))}`;
+    }
 
     let keydownHandler = null;
 
@@ -252,11 +243,19 @@
                                         </div>
                                         <img class="jeopardy-clue-image" id="jeopardy-clue-image" alt="" hidden>
                                         <p class="jeopardy-clue-text" id="jeopardy-clue-text"></p>
+                                        <form class="jeopardy-entry" hidden>
+                                            <label for="jeopardy-entry-input"></label>
+                                            <input id="jeopardy-entry-input" required autocomplete="off" autocapitalize="off" spellcheck="false">
+                                            <button type="submit" class="jeopardy-clue-btn">rätta</button>
+                                        </form>
+                                        <p class="jeopardy-entry-result" aria-live="polite" hidden></p>
                                         <p class="jeopardy-clue-answer" id="jeopardy-clue-answer" hidden></p>
                                     </div>
                                     <div class="jeopardy-clue-actions" id="jeopardy-clue-actions">
+                                        <button type="button" class="jeopardy-clue-btn" data-action="all-answers" hidden>spela hela facit</button>
                                         <audio id="jeopardy-clue-audio" preload="none" hidden></audio>
                                         <button type="button" class="jeopardy-clue-btn" data-action="replay" hidden>spela frågan</button>
+                                        <button type="button" class="jeopardy-clue-btn" data-action="medley" hidden>bonus: medley</button>
                                         <button type="button" class="jeopardy-clue-btn" data-action="reveal">visa svar</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="correct" hidden>+$0</button>
                                         <button type="button" class="jeopardy-clue-btn jeopardy-clue-btn--score" data-action="wrong" hidden>-$0</button>
@@ -299,7 +298,12 @@
         const remainingEl = document.getElementById('jeopardy-remaining');
         const vhsBtn = document.getElementById('jeopardy-vhs-toggle');
         const resetBtn = document.getElementById('jeopardy-reset-btn');
+        const entry = overlay.querySelector('.jeopardy-entry');
+        const input = entry.querySelector('input');
+        const entryResult = overlay.querySelector('.jeopardy-entry-result');
+        const allAnswersBtn = overlay.querySelector('[data-action=all-answers]');
         const clueAudio = overlay.querySelector('audio');
+        const medleyBtn = overlay.querySelector('[data-action=medley]');
         const replayBtn = overlay.querySelector('[data-action="replay"]');
         const revealBtn = overlay.querySelector('[data-action="reveal"]');
 
@@ -324,6 +328,20 @@
                 catEl.className = 'jeopardy-cat';
                 catEl.setAttribute('role', 'columnheader');
                 catEl.innerHTML = `<span class="jeopardy-cat-title">${colData.category}</span>`;
+                if (colData.intro) {
+                    const intro = document.createElement('button');
+                    intro.type = 'button';
+                    intro.className = 'jeopardy-category-intro';
+                    intro.setAttribute('aria-label', `${colData.category}: spela kategoriintro`);
+                    intro.append(...catEl.childNodes);
+                    catEl.append(intro);
+                    intro.addEventListener('click', () => {
+                        if (state.activeClue) return;
+                        clueAudio.onended = null;
+                        clueAudio.src = colData.intro;
+                        playClueAudio();
+                    });
+                }
                 board.appendChild(catEl);
                 categoryEls.push(catEl);
             });
@@ -414,9 +432,27 @@
                 clueText.textContent = '';
                 clueText.hidden = true;
             }
-            clueAnswer.textContent = clueData.answer;
+            state.medleyStarted = false;
+            if (clueData.medley) {
+                clueAudio.onended = startMedley;
+                replayBtn.textContent = 'starta medley';
+            } else {
+                clueAudio.onended = null;
+                replayBtn.textContent = 'spela frågan';
+            }
+            const spelling = catData.category === 'SPELLING BEE' && !clueData.dailyDouble;
+            medleyBtn.hidden = true;
+            entry.hidden = !spelling && !clueData.medley && !clueData.calendar;
+            entryResult.hidden = true;
+            input.value = '';
+            input.type = clueData.medley ? 'number' : 'text';
+            input.min = '0';
+            input.max = '31';
+            entry.querySelector('label').textContent = spelling ? 'Skriv stavningen' : clueData.medley ? 'Antal låtar du kände igen (0–31)' : clueData.calendar === 'clock' ? 'Skriv klockslaget (HH:MM)' : 'Skriv ditt svar';
+            state.calendarAnswer = clueData.calendar ? calendarAnswer(clueData.calendar) : null;
+            clueAnswer.textContent = clueData.answer || '';
             clueAnswer.hidden = true;
-            revealBtn.hidden = false;
+            revealBtn.hidden = !entry.hidden;
             correctBtn.hidden = true;
             wrongBtn.hidden = true;
             correctBtn.textContent = `+$${wager}`;
@@ -458,6 +494,8 @@
             const catData = ELIAS_QUIZ_BOARD[colIndex];
             const clueData = catData.clues[rowIndex];
 
+            clueAudio.pause();
+            allAnswersBtn.hidden = true;
             state.activeClue = { colIndex, rowIndex, key, cellBtn, catData, clueData };
             state.answerRevealed = false;
             state.animating = true;
@@ -471,6 +509,9 @@
                 clueMeta.textContent = `${catData.category} · $${clueData.value}`;
                 ddCategoryEl.textContent = `KATEGORI: ${clueData.specialCategory || catData.category}`;
                 renderWagerPresets(clueData.value);
+                medleyBtn.hidden = true;
+                entry.hidden = true;
+                entryResult.hidden = true;
                 replayBtn.hidden = true;
                 wagerBox.hidden = false;
                 clueImage.removeAttribute('src');
@@ -520,12 +561,20 @@
         }
 
         function revealAnswer() {
-            if (!state.activeClue || state.wagerPending || state.answerRevealed) return;
+            if (!state.activeClue || !entry.hidden || state.wagerPending || state.answerRevealed) return;
             state.answerRevealed = true;
             clueAnswer.hidden = false;
             revealBtn.hidden = true;
             correctBtn.hidden = false;
             wrongBtn.hidden = false;
+            const { clueData, colIndex } = state.activeClue;
+            if (clueData.answerAudio) {
+                clueAudio.onended = null;
+                clueAudio.src = clueData.answerAudio;
+                replayBtn.textContent = 'spela facit igen';
+                playClueAudio();
+                allAnswersBtn.hidden = !ELIAS_QUIZ_BOARD[colIndex].clues.every((_, row) => state.played.has(`${colIndex}-${row}`));
+            }
         }
 
         function closeClue(scoreDelta) {
@@ -568,6 +617,76 @@
             window.setTimeout(finishClose, 360);
         }
 
+        function startMedley() {
+            if (!state.activeClue?.clueData.medley || overlay.hidden || state.answerRevealed) return;
+            clueAudio.onended = null;
+            state.medleyStarted = true;
+            clueAudio.src = 'images/quiz/dagar/medley.mp3';
+            replayBtn.textContent = 'spela medley igen';
+            playClueAudio();
+        }
+
+        entry.addEventListener('click', event => event.stopPropagation());
+        entry.addEventListener('submit', async event => {
+            event.preventDefault();
+            if (!state.activeClue || entry.hidden || state.answerRevealed) return;
+            const active = state.activeClue;
+            const { clueData } = active;
+            const response = input.value;
+            let points;
+            entryResult.replaceChildren();
+            if (clueData.medley) {
+                points = Number(response) * 100;
+            } else if (clueData.calendar) {
+                const answer = await state.calendarAnswer;
+                if (state.activeClue !== active || state.answerRevealed || state.animating) return;
+                const normalize = text => text.toLocaleLowerCase('sv-SE').trim().replace(/\s+/g, ' ');
+                const typed = normalize(response), expected = normalize(answer || '');
+                let correct = typed === expected;
+                if (clueData.calendar === 'clock') {
+                    correct = typed.replace('.', ':').padStart(5, '0') === expected;
+                } else if (clueData.calendar === 'days') {
+                    correct = typed.replace(/ dagar?$/, '') === expected.split(' ')[0];
+                } else if (clueData.calendar === 'names' && expected.includes(' och ')) {
+                    const names = text => text.split(/\s*(?:,| och |&|\/)\s*/).sort().join('|');
+                    correct = names(typed) === names(expected);
+                } else if (clueData.calendar !== 'names') {
+                    const day = expected.replace(/^påskdagen: /, '').replace(/ \d{4}$/, '');
+                    const months = 'januari februari mars april maj juni juli augusti september oktober november december'.split(' ');
+                    const [d, m] = day.split(' ');
+                    const numeric = typed.match(/^(\d{1,2})[/.](\d{1,2})$/);
+                    correct ||= typed === day || typed === `${day} ${expected.slice(-4)}` || (numeric && Number(numeric[1]) === Number(d) && Number(numeric[2]) === months.indexOf(m) + 1);
+                }
+                points = answer && correct ? clueData.value : 0;
+                clueAnswer.textContent = answer || 'Facit saknas i kalendern';
+                medleyBtn.hidden = clueData.calendar !== 'clock';
+            } else {
+                const letters = text => Array.from(text.normalize('NFC').toLocaleUpperCase('sv-SE').replace(/[^\p{L}]/gu, ''));
+                const typed = letters(input.value), expected = letters(clueData.answer);
+                points = 0;
+                typed.forEach((letter, i) => {
+                    const span = document.createElement('span');
+                    span.textContent = letter;
+                    if (letter === expected[i]) { span.className = 'is-correct'; points++; }
+                    entryResult.append(span);
+                });
+            }
+            clueAudio.pause();
+            state.answerRevealed = true;
+            state.score += points;
+            updateStats();
+            entry.hidden = true;
+            entryResult.append(document.createTextNode(` +${points} poäng`));
+            entryResult.hidden = false;
+            clueAnswer.hidden = !clueData.answer && !clueData.calendar;
+            if (clueData.medley) {
+                clueAudio.onended = null;
+                clueAudio.src = 'images/quiz/dagar/facit.mp3';
+                replayBtn.textContent = 'spela facit igen';
+                playClueAudio();
+            }
+        });
+
         wagerForm.addEventListener('submit', (event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -585,8 +704,19 @@
             if (actionBtn) {
                 event.stopPropagation();
                 const action = actionBtn.dataset.action;
-                if (action === 'replay') {
+                if (action === 'all-answers' && !allAnswersBtn.hidden) {
+                    clueAudio.src = 'images/quiz/svengelska/svengelska_facit.mp3';
                     playClueAudio();
+                } else if (action === 'medley' && state.activeClue && !medleyBtn.hidden) {
+                    const { catData } = state.activeClue;
+                    const clueData = { value: 0, audio: 'images/quiz/dagar/max_martin.mp3', medley: true };
+                    state.activeClue.clueData = clueData;
+                    state.answerRevealed = false;
+                    showClueContent(catData, clueData, 0);
+                    clueMeta.textContent = 'BONUS: MEDLEY';
+                } else if (action === 'replay') {
+                    if (state.activeClue?.clueData.medley && !state.medleyStarted && !state.answerRevealed) startMedley();
+                    else playClueAudio();
                 } else if (action === 'reveal') {
                     revealAnswer();
                 } else if (action === 'correct' && state.activeClue) {
@@ -658,7 +788,7 @@
                 closeClue(0);
             } else if (event.key === ' ' || event.key === 'Enter') {
                 if (state.wagerPending) return;
-                if (event.target && event.target.tagName === 'BUTTON') return;
+                if (event.target?.closest?.('button, input')) return;
                 event.preventDefault();
                 if (!state.answerRevealed) {
                     revealAnswer();
