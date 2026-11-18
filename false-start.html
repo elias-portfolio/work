@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17191a">
+  <title>False Start · 100 m duel</title>
+  <link rel="stylesheet" href="css/false-start.css?v=1">
+  <script src="js/false-start-physics.js?v=1" defer></script>
+  <script src="js/false-start.js?v=1" defer></script>
+</head>
+<body>
+  <main class="meet" aria-labelledby="game-title">
+    <header class="mast">
+      <div class="meet-line"><span>Track &amp; field</span><span>Event 01 / 100 m</span></div>
+      <h1 id="game-title">False Start<span>.</span></h1>
+      <div class="subhead"><p>Two runners. One keyboard.</p><button type="button" id="reset" aria-keyshortcuts="Space" aria-label="Restart the race">↻&nbsp; Restart</button></div>
+    </header>
+
+    <section class="broadcast" aria-label="The race">
+      <div class="results">
+        <div class="score score-one"><span class="lane-chip">01</span><span class="metric" id="distance-0">0.0<span> m</span></span><small id="falls-0">0 falls</small></div>
+        <div class="clock"><span>Race time</span><span id="clock">00:00.00</span></div>
+        <div class="score score-two"><span class="lane-chip">02</span><span class="metric" id="distance-1">0.0<span> m</span></span><small id="falls-1">0 falls</small></div>
+      </div>
+      <div class="arena">
+        <canvas id="track" width="640" height="312" aria-label="Two illustrated runners, each shown in their own tracking camera">Your browser does not support canvas.</canvas>
+        <div class="race-banner" id="banner"><strong id="banner-title">On your marks</strong><small id="banner-detail">Press a leg key to start</small></div>
+      </div>
+      <div class="course" aria-label="Race progress from 0 to 100 meters">
+        <span>0m</span>
+        <div class="course-scale" aria-hidden="true"><i id="marker-0"></i><i id="marker-1"></i></div>
+        <span>100m</span>
+      </div>
+      <p class="sr-only" role="status" id="race-status"></p>
+    </section>
+
+    <section class="control-deck" aria-label="Runner controls">
+      <div class="player-controls player-one" role="group" aria-label="Runner 1">
+        <div class="control-title"><span class="lane-chip">01</span> Runner 1</div>
+        <div class="control-row"><span>Thighs</span><button type="button" data-key="KeyQ" aria-label="Runner 1, thigh Q">Q</button><button type="button" data-key="KeyW" aria-label="Runner 1, thigh W">W</button></div>
+        <div class="control-row"><span>Calves</span><button type="button" data-key="KeyA" aria-label="Runner 1, calf A">A</button><button type="button" data-key="KeyS" aria-label="Runner 1, calf S">S</button></div>
+      </div>
+      <div class="player-controls player-two" role="group" aria-label="Runner 2">
+        <div class="control-title"><span class="lane-chip">02</span> Runner 2</div>
+        <div class="control-row"><span>Thighs</span><button type="button" data-key="KeyI" aria-label="Runner 2, thigh I">I</button><button type="button" data-key="KeyO" aria-label="Runner 2, thigh O">O</button></div>
+        <div class="control-row"><span>Calves</span><button type="button" data-key="KeyK" aria-label="Runner 2, calf K">K</button><button type="button" data-key="KeyL" aria-label="Runner 2, calf L">L</button></div>
+      </div>
+    </section>
+
+    <footer class="notes">
+      <p><b>Try a rhythm:</b> alternate diagonals about three times a second. Q+S / W+A or I+L / O+K.</p>
+      <a href="https://www.foddy.net/blog/2010/10/qwop/" target="_blank" rel="noopener">After Bennett Foddy’s QWOP ↗</a>
+    </footer>
+  </main>
+</body>
+</html>
