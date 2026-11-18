@@ -211,9 +211,10 @@
         };
 
         const totalClues = ELIAS_QUIZ_BOARD.reduce((sum, cat) => sum + cat.clues.length, 0);
+        const isFullscreen = root.dataset.fullscreen === 'true';
 
         root.innerHTML = `
-            <div class="jeopardy-shell">
+            <div class="jeopardy-shell${isFullscreen ? ' jeopardy-shell--fullscreen' : ''}">
                 <div class="jeopardy-monitor">
                     <div class="jeopardy-screen is-vhs" id="jeopardy-screen">
                         <div class="jeopardy-vhs-stage" id="jeopardy-vhs-stage">
@@ -236,9 +237,9 @@
                             </div>
                         </div>
                         <div class="jeopardy-vhs-scanlines" aria-hidden="true"></div>
-                        <div class="jeopardy-vhs-tracking" aria-hidden="true"></div>
                     </div>
                 </div>
+                ${isFullscreen ? '' : `
                 <div class="jeopardy-controls">
                     <span class="jeopardy-stat" id="jeopardy-score">score: $0</span>
                     <span class="jeopardy-stat" id="jeopardy-remaining">clues: ${totalClues}/${totalClues}</span>
@@ -246,6 +247,7 @@
                     <button type="button" class="jeopardy-control-btn" id="jeopardy-reset-btn">reset board</button>
                 </div>
                 <p class="jeopardy-caption">click any dollar amount to zoom in. click the clue (or press space) to reveal the answer, then click again or press esc to return to the board.</p>
+                `}
             </div>
         `;
 
@@ -309,8 +311,8 @@
 
         function updateStats() {
             const sign = state.score < 0 ? '-' : '';
-            scoreEl.textContent = `score: ${sign}$${Math.abs(state.score)}`;
-            remainingEl.textContent = `clues: ${totalClues - state.played.size}/${totalClues}`;
+            if (scoreEl) scoreEl.textContent = `score: ${sign}$${Math.abs(state.score)}`;
+            if (remainingEl) remainingEl.textContent = `clues: ${totalClues - state.played.size}/${totalClues}`;
         }
 
         function computeFlipTransform(cellEl) {
@@ -461,14 +463,7 @@
             }
         });
 
-        vhsBtn.addEventListener('click', () => {
-            state.vhs = !state.vhs;
-            screen.classList.toggle('is-vhs', state.vhs);
-            vhsBtn.setAttribute('aria-pressed', String(state.vhs));
-            vhsBtn.textContent = `vhs blur: ${state.vhs ? 'on' : 'off'}`;
-        });
-
-        resetBtn.addEventListener('click', () => {
+        function resetBoard() {
             if (state.activeClue) {
                 overlay.hidden = true;
                 overlay.setAttribute('aria-hidden', 'true');
@@ -483,14 +478,32 @@
             state.score = 0;
             renderBoard();
             updateStats();
-        });
+        }
+
+        if (vhsBtn) {
+            vhsBtn.addEventListener('click', () => {
+                state.vhs = !state.vhs;
+                screen.classList.toggle('is-vhs', state.vhs);
+                vhsBtn.setAttribute('aria-pressed', String(state.vhs));
+                vhsBtn.textContent = `vhs blur: ${state.vhs ? 'on' : 'off'}`;
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', resetBoard);
+        }
 
         keydownHandler = (event) => {
             if (!document.getElementById('jeopardy-root')) {
                 cleanupJeopardyQuiz();
                 return;
             }
-            if (!state.activeClue) return;
+            if (!state.activeClue) {
+                if ((event.key === 'r' || event.key === 'R') && !event.metaKey && !event.ctrlKey) {
+                    resetBoard();
+                }
+                return;
+            }
             if (event.key === 'Escape') {
                 event.preventDefault();
                 closeClue(0);

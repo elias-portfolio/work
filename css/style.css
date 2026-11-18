@@ -930,7 +930,7 @@ body.is-mobile #media.edmon-background {
 .jeopardy-cat-title {
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: clamp(10px, 2.0cqw, 18px);
+    font-size: clamp(10px, 2.0cqw, 36px);
     line-height: 1.06;
     letter-spacing: 0.02em;
     color: #ffffff;
@@ -981,7 +981,7 @@ body.is-mobile #media.edmon-background {
 .jeopardy-value {
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: clamp(14px, 4.1cqw, 38px);
+    font-size: clamp(14px, 4.1cqw, 72px);
     line-height: 1;
     letter-spacing: 0.015em;
     color: #f0a726;
@@ -1031,7 +1031,7 @@ body.is-mobile #media.edmon-background {
 
 .jeopardy-clue-meta {
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif;
-    font-size: clamp(9px, 1.55cqw, 14px);
+    font-size: clamp(9px, 1.55cqw, 24px);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.62);
@@ -1053,7 +1053,7 @@ body.is-mobile #media.edmon-background {
     margin: 0;
     font-family: 'ITC Korinna Std', Georgia, serif;
     font-weight: 700;
-    font-size: clamp(14px, 3.5cqw, 31px);
+    font-size: clamp(14px, 3.5cqw, 62px);
     line-height: 1.22;
     letter-spacing: 0.02em;
     color: #ffffff;
@@ -1072,7 +1072,7 @@ body.is-mobile #media.edmon-background {
     margin: 3.5cqw 0 0;
     font-family: 'ITC Korinna Std', Georgia, serif;
     font-weight: 700;
-    font-size: clamp(12px, 2.55cqw, 23px);
+    font-size: clamp(12px, 2.55cqw, 46px);
     line-height: 1.2;
     letter-spacing: 0.025em;
     color: #f4b130;
@@ -1147,16 +1147,12 @@ body.is-mobile #media.edmon-background {
     color: #ffffff;
 }
 
-.jeopardy-vhs-scanlines,
-.jeopardy-vhs-tracking {
+.jeopardy-vhs-scanlines {
     position: absolute;
     inset: 0;
     pointer-events: none;
     opacity: 0;
     transition: opacity 180ms ease;
-}
-
-.jeopardy-vhs-scanlines {
     z-index: 20;
     background:
         repeating-linear-gradient(
@@ -1173,31 +1169,61 @@ body.is-mobile #media.edmon-background {
     opacity: 1;
 }
 
-.jeopardy-vhs-tracking {
-    z-index: 21;
-    background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(255, 255, 255, 0.05) 48%,
-        rgba(170, 210, 255, 0.08) 50%,
-        rgba(255, 255, 255, 0.03) 52%,
-        transparent 100%
-    );
-    background-size: 100% 24%;
-    background-repeat: no-repeat;
+/* Standalone full-screen Jeopardy mode (quiz.html) */
+body.jeopardy-fullscreen-body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    background: #020519;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.jeopardy-screen.is-vhs .jeopardy-vhs-tracking {
-    opacity: 0.75;
-    animation: jeopardy-vhs-sweep 7.5s linear infinite;
+body.jeopardy-fullscreen-body #jeopardy-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes jeopardy-vhs-sweep {
-    0% {
-        background-position: 0 -30%;
+.jeopardy-shell--fullscreen {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jeopardy-shell--fullscreen .jeopardy-monitor {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: #020519;
+}
+
+.jeopardy-shell--fullscreen .jeopardy-screen {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+}
+
+@media (max-aspect-ratio: 1 / 1) {
+    .jeopardy-shell--fullscreen .jeopardy-monitor {
+        height: auto;
     }
-    100% {
-        background-position: 0 130%;
+
+    .jeopardy-shell--fullscreen .jeopardy-screen {
+        height: auto;
+        aspect-ratio: 4 / 3;
     }
 }
 
