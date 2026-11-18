@@ -180,6 +180,10 @@ document.addEventListener("DOMContentLoaded", () => {
             window.stopMayaRows();
         }
 
+        if (previousSection === 'quiz' && typeof window.cleanupJeopardyQuiz === 'function') {
+            window.cleanupJeopardyQuiz();
+        }
+
         const ytBgPlayer = document.getElementById('yt-bg-player');
         if (ytBgPlayer && section !== 'spotify') {
             ytBgPlayer.src = '';
@@ -501,7 +505,8 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
                     <p id="movieLink"></p>
                     <div id="movieCredits"></div>
                 </div>
-            `
+            `,
+            quiz: `<div id="jeopardy-root"></div>`
         };
 
         // Keep the animated Edmon background confined to the media column.
@@ -513,6 +518,7 @@ The decode the election campaign mirrored the bewilderment felt across the Ameri
             contentDisplay.innerHTML = content[section];
             if (section === 'maya' && typeof window.initMayaRows === 'function') window.initMayaRows();
             if (section === 'edmon' && typeof window.initEdmonSlideshow === 'function') window.initEdmonSlideshow();
+            if (section === 'quiz' && typeof window.initJeopardyQuiz === 'function') window.initJeopardyQuiz();
             mediaArea.style.flex = isMobileViewport() ? "1 1 auto" : "0 0 50%";
             mediaArea.style.width = isMobileViewport() ? "100%" : "50%";
             syncSectionParam(section);

@@ -406,3 +406,120 @@ body.is-mobile #content-display .f16-text {
         padding-right: 11px;
     }
 }
+
+body.mobile-prototype #app .jeopardy-clue-text,
+body.is-mobile #app .jeopardy-clue-text,
+body.mobile-prototype #app .jeopardy-clue-answer,
+body.is-mobile #app .jeopardy-clue-answer {
+    font-family: 'ITC Korinna Std', Georgia, serif !important;
+}
+
+body.mobile-prototype #app .jeopardy-cat-title,
+body.is-mobile #app .jeopardy-cat-title,
+body.mobile-prototype #app .jeopardy-value,
+body.is-mobile #app .jeopardy-value,
+body.mobile-prototype #app .jeopardy-clue-meta,
+body.is-mobile #app .jeopardy-clue-meta {
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'Helvetica Neue', sans-serif !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-monitor,
+body.is-mobile #content-display .jeopardy-monitor {
+    padding: 6px;
+}
+
+body.mobile-prototype #content-display .jeopardy-screen,
+body.is-mobile #content-display .jeopardy-screen {
+    aspect-ratio: 4 / 3;
+}
+
+body.mobile-prototype #content-display .jeopardy-board,
+body.is-mobile #content-display .jeopardy-board {
+    gap: 2px;
+    padding: 2px;
+}
+
+body.mobile-prototype #content-display .jeopardy-cat,
+body.is-mobile #content-display .jeopardy-cat {
+    padding: 2px;
+}
+
+body.mobile-prototype #content-display .jeopardy-cat-title,
+body.is-mobile #content-display .jeopardy-cat-title {
+    font-size: 2.25cqw;
+    line-height: 1.05;
+}
+
+body.mobile-prototype #content-display .jeopardy-value,
+body.is-mobile #content-display .jeopardy-value {
+    font-size: 4.5cqw;
+}
+
+body.mobile-prototype #content-display .jeopardy-clue-overlay,
+body.is-mobile #content-display .jeopardy-clue-overlay {
+    padding: 8% 6%;
+}
+
+body.mobile-prototype #content-display .jeopardy-clue-body,
+body.is-mobile #content-display .jeopardy-clue-body {
+    max-width: 94%;
+}
+
+body.mobile-prototype #content-display .jeopardy-clue-text,
+body.is-mobile #content-display .jeopardy-clue-text {
+    font-size: 4.1cqw;
+    line-height: 1.24;
+}
+
+body.mobile-prototype #content-display .jeopardy-clue-answer,
+body.is-mobile #content-display .jeopardy-clue-answer {
+    font-size: 3.3cqw;
+}
+
+body.mobile-prototype #content-display .jeopardy-clue-actions,
+body.is-mobile #content-display .jeopardy-clue-actions {
+    width: auto;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell [hidden],
+body.is-mobile #content-display .jeopardy-shell [hidden] {
+    display: none !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell button,
+body.is-mobile #content-display .jeopardy-shell button {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    font-size: inherit !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-cell,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-cell {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-clue-btn,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-clue-btn {
+    display: inline-flex;
+    font-size: 11px !important;
+    padding: 4px 9px;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-clue-close-x,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-clue-close-x {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    display: inline-flex;
+    font-size: 18px !important;
+}
+
+body.mobile-prototype #content-display .jeopardy-shell .jeopardy-control-btn,
+body.is-mobile #content-display .jeopardy-shell .jeopardy-control-btn {
+    display: inline-flex;
+    font-size: 12px !important;
+    padding: 3px 9px;
+}
