@@ -1053,13 +1053,25 @@ body.is-mobile #media.edmon-background {
 
 .jeopardy-clue-body {
     flex: 1 1 auto;
+    min-height: 0;
     width: 100%;
     max-width: 86%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: safe center;
+    overflow-y: auto;
     margin: 2% 0;
+}
+
+.jeopardy-clue-body > :not(.jeopardy-clue-image) {
+    flex-shrink: 0;
+}
+
+.jeopardy-clue-text,
+.jeopardy-clue-answer {
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .jeopardy-clue-text {

@@ -49,9 +49,7 @@ window.createQuizMusic = function ({ root, controls } = {}) {
     ];
 
     const OUT_LEVEL = 0.26;   // musikbussens normalnivå: låg, under rösterna
-    const DUCK_LEVEL = 0.05;  // dämpad nivå när en talröst hörs
-    const SILENT_LEVEL = 0.0006; // i praktiken tyst när en ljudfil (t.ex. medley) spelar
-    const SHORT_CLIP = 3;     // kortare ljud = klick/effekt och dämpar bara musiken
+    const DUCK_LEVEL = 0.15;  // hörbar bakgrund även under uppläsning och medley
     const DUCK_TAU = 0.09;
     const LOOKAHEAD = 0.6;    // sekunder MIDI som schemaläggs i förväg
     const TICK_MS = 60;
@@ -242,8 +240,8 @@ window.createQuizMusic = function ({ root, controls } = {}) {
     function setLevel(immediate) {
         if (!ctx || !master) return;
         const target = (muted || paused) ? 0.0001
-            : ducks >= 2 ? SILENT_LEVEL
-            : ducks === 1 ? DUCK_LEVEL
+            : ducks === 2 ? 0
+            : ducks ? DUCK_LEVEL
             : OUT_LEVEL;
         const t = ctx.currentTime;
         const g = master.gain;
@@ -572,30 +570,25 @@ window.createQuizMusic = function ({ root, controls } = {}) {
 
     // ------------------------------------------------------------ duckar röster
 
-    // 0 = inget i förgrunden, 1 = dämpa (kort effekt eller talröst),
-    // 2 = tyst (längre ljudfil: inläst fråga, facit eller spelmedley).
-    // Musikfilen spelas i Web Audio och syns därför aldrig bland <audio>-elementen,
-    // så den kan inte dämpa sig själv.
+    // Ordinary quiz audio shares the mix. Only the actual song-identification medley plays alone.
     function foregroundState() {
-        const nodes = document.querySelectorAll('audio');
-        for (let i = 0; i < nodes.length; i++) {
-            const node = nodes[i];
+        let level = window.speechSynthesis?.speaking ? 1 : 0;
+        for (const node of root.querySelectorAll('audio')) {
             if (node.paused || node.ended || node.muted || node.volume <= 0) continue;
-            if (node.currentTime <= 0) continue;
-            const short = Number.isFinite(node.duration) && node.duration < SHORT_CLIP;
-            return short ? 1 : 2;
+            if (node.id === 'jeopardy-clue-audio' && node.getAttribute('src') === 'images/quiz/dagar/medley.mp3') return 2;
+            level = 1;
         }
-        const synth = window.speechSynthesis;
-        if (synth && synth.speaking) return 1;
-        return 0;
+        return level;
     }
 
     function pollForeground() {
         if (disposed) return;
         const state = foregroundState();
-        if (state !== ducks) { ducks = state; setLevel(); }
+        if (state !== ducks) { ducks = state; setLevel(state === 2); }
     }
 
+    const mediaEvents = ['play', 'pause', 'ended', 'emptied'];
+    mediaEvents.forEach(type => root.addEventListener(type, pollForeground, true));
     pollTimer = setInterval(pollForeground, 220);
 
     // --------------------------------------------------------------- livscykel
@@ -709,6 +702,7 @@ window.createQuizMusic = function ({ root, controls } = {}) {
         document.removeEventListener('visibilitychange', onVisibility);
         document.removeEventListener('pointerdown', unlock, { capture: true });
         if (wrap.parentNode) wrap.remove();
+        mediaEvents.forEach(type => root.removeEventListener(type, pollForeground, true));
         cache.clear();
         try { if (limiter) limiter.disconnect(); } catch (_) {}
         try { if (master) master.disconnect(); } catch (_) {}

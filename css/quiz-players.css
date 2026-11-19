@@ -32,3 +32,24 @@ body.is-mobile #content-display .quiz-player-bar .qp-row input { width:100% !imp
 
 .qp-sound-row { display:flex; align-items:center; gap:.35rem; grid-column:1/-1; flex-wrap:wrap; }
 .qp-music-controls { margin-inline-start:auto; }
+
+/* HUD coordinates are relative to the screen, not the whole portfolio page. */
+.qp-drawer {position:absolute;left:.4rem;top:.35rem;z-index:42;max-width:calc(100% - .8rem);color:white;font:14px/1.35 system-ui,sans-serif;}
+.qp-drawer summary {cursor:pointer;list-style:none;float:right;border-radius:4px;padding:.22rem .45rem;background:#101638d9;}
+.qp-drawer summary::-webkit-details-marker {display:none;}
+.qp-drawer-body {clear:both;max-height:42vh;overflow:auto;background:#101638;border-radius:5px;box-shadow:0 3px 18px #0008;}
+.qp-drawer:not([open])>.qp-drawer-body {display:none;}
+.qp-drawer .quiz-player-bar {flex-wrap:wrap;}
+.qp-float-layer {--token-size:clamp(30px,3.8vw,48px);position:absolute;inset:0;pointer-events:none;z-index:32;}
+.qp-token {position:absolute;width:var(--token-size);height:var(--token-size);}
+.qp-token button {position:relative;pointer-events:auto;touch-action:none;user-select:none;cursor:grab;display:grid;place-items:center;background:#101638cf;color:white;border:1px solid #929dcb;border-radius:50%;width:100%;height:100%;margin:0;padding:3px;}
+.qp-token.qp-current button {border-color:#ffcb67;}
+.qp-token button:active {cursor:grabbing;}
+.qp-token button img {width:100%;height:100%;object-fit:contain;pointer-events:none;}
+.qp-token small {position:absolute;right:0;bottom:0;border-radius:50%;background:#101638;padding:0 3px;font:10px/1.25 system-ui;}
+.qp-token-info {position:absolute;top:100%;left:0;background:#101638;color:white;border:1px solid #929dcb;border-radius:4px;padding:5px 8px;width:max-content;max-width:40vw;overflow-wrap:anywhere;font:13px/1.3 system-ui;text-transform:none;}
+.qp-token.qp-near-right .qp-token-info {right:0;left:auto;}
+.qp-token.qp-near-bottom .qp-token-info {top:auto;bottom:100%;}
+.qp-token.qp-selected {z-index:1;}
+body.is-mobile #content-display .qp-float-layer .qp-token {width:var(--token-size);}
+body.is-mobile #content-display .qp-float-layer .qp-token button {display:grid!important;width:100%!important;height:100%!important;margin:0!important;}

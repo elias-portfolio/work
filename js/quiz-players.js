@@ -38,14 +38,58 @@ window.createQuizPlayers = function ({ bar, votes, canConfigure }) {
     bar.append(setup, scoreList, dlg);
     count.addEventListener('change', () => { capture=null; message.textContent=''; renderRows(); });
     dlg.addEventListener('close', () => { capture=null; sound.pause(); });
+    const layer = bar.closest('.jeopardy-shell').querySelector('.qp-float-layer');
+    const tokens = [];
+    let expanded = -1;
+    function syncTokens() {
+        while (tokens.length > seats.length) tokens.pop().wrap.remove();
+        seats.forEach((seat,i) => {
+            let t=tokens[i];
+            if (!t) {
+                const wrap=node('div'); wrap.className='qp-token';
+                const anchor=button('', e => {
+                    if (e.detail && t.dragged) {t.dragged=false;return;}
+                    expanded=expanded===i?-1:i; syncTokens();
+                });
+                const info=node('span'); info.className='qp-token-info'; info.id=`qp-seat-info-${i}`;
+                const img=avatarImage(seat.avatar); img.draggable=false;
+                const number=node('small',String(i+1));anchor.append(img,number);anchor.setAttribute('aria-controls',info.id);
+                wrap.append(anchor,info); layer.append(wrap);
+                t={wrap,anchor,info,img,x:.012+i*.115,y:.979,dragged:false};tokens.push(t);
+                let down=null;
+                anchor.addEventListener('pointerdown', e=>{
+                    if (!e.isPrimary || e.button!==0) return;
+                    down={id:e.pointerId,x:e.clientX,y:e.clientY,px:t.x,py:t.y}; t.dragged=false;
+                    anchor.setPointerCapture(e.pointerId);
+                });
+                anchor.addEventListener('pointermove', e=>{
+                    if (!down || down.id!==e.pointerId) return;
+                    const dx=e.clientX-down.x,dy=e.clientY-down.y;
+                    if(!t.dragged && Math.hypot(dx,dy)<5) return;
+                    t.dragged=true;expanded=-1;
+                    const r=layer.getBoundingClientRect(),w=wrap.offsetWidth,h=wrap.offsetHeight;
+                    t.x=Math.max(0,Math.min(1,down.px+dx/Math.max(1,r.width-w)));
+                    t.y=Math.max(0,Math.min(1,down.py+dy/Math.max(1,r.height-h)));syncTokens();
+                });
+                anchor.addEventListener('lostpointercapture',()=>{down=null;});
+            }
+            t.wrap.style.left=`calc(${t.x*100}% - ${t.x} * var(--token-size))`;
+            t.wrap.style.top=`calc(${t.y*100}% - ${t.y} * var(--token-size))`;
+            t.wrap.classList.toggle('qp-near-right',t.x>.52);t.wrap.classList.toggle('qp-near-bottom',t.y>.5);
+            t.wrap.classList.toggle('qp-selected',i===expanded);t.wrap.classList.toggle('qp-current',i===current);
+            t.anchor.setAttribute('aria-expanded',String(i===expanded));t.anchor.setAttribute('aria-label',`Visa ${seat.name}, ${seat.score} poäng`);
+            const path=`images/quiz/avatars/${avatars[seat.avatar][0]}.gif`;if(t.img.getAttribute('src')!==path)t.img.src=path;
+            t.info.textContent=`${i+1}. ${seat.name} · ${seat.score} poäng${i===current?' · Din tur':''}`;t.info.hidden=i!==expanded;
+        });
+    }
     function refresh() {
         setup.disabled = !canConfigure();
         scoreList.replaceChildren(...seats.map((s,i) => {
             const pill=node('span',`${i+1}. ${s.name}: ${s.score}`);
-            if (i===current) {pill.className='qp-active'; pill.setAttribute('aria-label',`${s.name} har turen, ${s.score} poäng`);}
-            pill.prepend(avatarImage(s.avatar));
+            if (i===current) pill.className='qp-active';
             return pill;
         }));
+        syncTokens();
     }
     function openSetup() {
         if (!canConfigure()) return;

@@ -96,21 +96,21 @@
             category: 'FIXA SVENGELSKAN',
             intro: 'images/quiz/svengelska/svengelska_0_intro.mp3',
             clues: [
-                { value: 200, audio: 'images/quiz/svengelska/svengelska_1_audition.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_1_audition.mp3', answer: 'SCENPROV, PROVSPELNING ELLER UTTAGNING' },
-                { value: 400, audio: 'images/quiz/svengelska/svengelska_2_scrolla.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_2_scrolla.mp3', answer: 'BLÄDDRA ELLER RULLA' },
-                { value: 600, audio: 'images/quiz/svengelska/svengelska_3_backa.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_3_backa.mp3', answer: 'SÄKERHETSKOPIERA' },
-                { value: 800, audio: 'images/quiz/svengelska/svengelska_4_signa_upp.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_4_signa_upp.mp3', answer: 'REGISTRERA SIG, ANMÄLA SIG ELLER REGGA' },
-                { value: 1000, audio: 'images/quiz/svengelska/svengelska_5_tweaka.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_5_tweaka.mp3', answer: 'JUSTERA ELLER FINJUSTERA' }
+                { value: 200, clue: 'Det här ordet hör man så fort någon ska in i en musikal eller ett band eller en roll. Vad heter det på riktig svenska när man går på audition?', audio: 'images/quiz/svengelska/svengelska_1_audition.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_1_audition.mp3', answer: 'SCENPROV, PROVSPELNING ELLER UTTAGNING' },
+                { value: 400, clue: 'Du sitter vid mobilen hela kvällen och säger att du bara ska scrolla lite. Nu tar vi det på ren svenska. Vad är det korrekta svenska ordet för scrolla?', audio: 'images/quiz/svengelska/svengelska_2_scrolla.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_2_scrolla.mp3', answer: 'BLÄDDRA ELLER RULLA' },
+                { value: 600, clue: 'Datorn krånglar och någon säger att du måste backa upp dina filer. Vad är det korrekta svenska ordet för backa?', audio: 'images/quiz/svengelska/svengelska_3_backa.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_3_backa.mp3', answer: 'SÄKERHETSKOPIERA' },
+                { value: 800, clue: 'Du hittar en ny tjänst på nätet och säger att du ska signa upp dig. Det där låter lite väl engelskt. Vad säger man på riktig svenska i stället?', audio: 'images/quiz/svengelska/svengelska_4_signa_upp.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_4_signa_upp.mp3', answer: 'REGISTRERA SIG, ANMÄLA SIG ELLER REGGA' },
+                { value: 1000, clue: 'När du bara ska tweaka inställningarna en liten smula innan du är helt nöjd. Vad borde du säga på ren svenska i stället för tweaka?', audio: 'images/quiz/svengelska/svengelska_5_tweaka.mp3', answerAudio: 'images/quiz/svengelska/svengelska_svar_5_tweaka.mp3', answer: 'JUSTERA ELLER FINJUSTERA' }
             ]
         },
         {
             category: 'DAGAR OCH TID',
             intro: `${extraAudio}intro_dagar_och_tid.mp3`,
             clues: [
-                { value: 200, audio: 'images/quiz/dagar/pask.mp3', calendar: 'easter' },
-                { value: 400, audio: 'images/quiz/dagar/fullmane.mp3', calendar: 'moon' },
-                { value: 600, audio: 'images/quiz/dagar/namnsdag.mp3', calendar: 'names' },
-                { value: 800, clue: 'MAX MARTIN-QUIZ', audio: 'images/quiz/dagar/max_martin.mp3', medley: true },
+                { value: 200, clue: 'När är, eller när var det påsk i år? Det är alltså själva datumet jag söker.', audio: 'images/quiz/dagar/pask.mp3', calendar: 'easter' },
+                { value: 400, clue: 'När är nästa fullmåne?', audio: 'images/quiz/dagar/fullmane.mp3', calendar: 'moon' },
+                { value: 600, clue: 'Vad är dagens namnsdag?', audio: 'images/quiz/dagar/namnsdag.mp3', calendar: 'names' },
+                { value: 800, clue: 'Max Martin-quiz: Hur många låtar känner du igen? 100 poäng per låt.', audio: 'images/quiz/dagar/max_martin.mp3', medley: true },
                 { value: 1000, audio: `${extraAudio}dagar_5_klockan_fraga.mp3`, clue: 'VAD ÄR KLOCKAN NU?', calendar: 'clock' }
             ]
         },
@@ -225,11 +225,14 @@
 
         root.innerHTML = `
             <div class="jeopardy-shell${isFullscreen ? ' jeopardy-shell--fullscreen' : ''}">
-                <div class="quiz-player-bar"></div>
-                <div class="quiz-buzzer-host"></div>
-                <div class="quiz-intro-strip"><button type="button" class="jeopardy-clue-btn" data-welcome>Spela välkomstintro</button> <span role="status">Tryck på en kategorirubrik för att låsa upp frågorna.</span></div>
                 <div class="jeopardy-monitor">
                     <div class="jeopardy-screen is-vhs" id="jeopardy-screen">
+                        <details class="qp-drawer"><summary aria-label="Spelmeny">☰</summary><div class="qp-drawer-body">
+                <div class="quiz-player-bar"></div>
+                <div class="quiz-buzzer-host"></div>
+                <div class="quiz-intro-strip"><button type="button" class="jeopardy-clue-btn" data-welcome>Spela välkomstintro</button> <span role="status">Tryck var som helst i en kategori för att spela introt. Välj sedan en fråga.</span></div>
+                        </div></details>
+                        <div class="qp-float-layer"></div>
                         <div class="jeopardy-vhs-stage" id="jeopardy-vhs-stage">
                             <div class="jeopardy-board" id="jeopardy-board" role="grid" aria-label="Elias Quiz Jeopardy Board"></div>
                             <div class="jeopardy-clue-overlay" id="jeopardy-clue-overlay" aria-hidden="true" hidden>
@@ -473,10 +476,10 @@
             playClueAudio();
         }
         introStrip.querySelector('[data-welcome]').onclick = () => {
-            if (!state.activeClue) { sound('00_valkommen_intro'); introStatus.textContent='Välj sedan en kategorirubrik.'; }
+            if (!state.activeClue) { sound('00_valkommen_intro'); introStatus.textContent='Tryck sedan på en kategori eller ett belopp.'; }
         };
         function hearCategory(cat, col, button) {
-            if (state.activeClue) return;
+            if (state.activeClue || playingIntro === button) return;
             cancelCategoryIntro();
             const token = introGeneration;
             playingIntro = button;
@@ -486,7 +489,7 @@
             const fail = () => {
                 if (token !== introGeneration) return;
                 cancelCategoryIntro();
-                introStatus.textContent = 'Introt kunde inte spelas. Tryck på rubriken för att försöka igen.';
+                introStatus.textContent = 'Introt kunde inte spelas. Tryck i kolumnen för att försöka igen.';
             };
             clueAudio.onerror = fail;
             clueAudio.onended = () => {
@@ -495,7 +498,7 @@
                 state.introduced.add(cat);
                 cat.clues.forEach((_, row) => {
                     const key = `${col}-${row}`, tile = cellMap.get(key);
-                    if (tile && !state.played.has(key)) tile.disabled = false;
+                    if (tile && !state.played.has(key)) tile.setAttribute('aria-label', `${cat.category} för $${cat.clues[row].value}`);
                 });
                 introStatus.textContent = `${cat.category} är upplåst.`;
             };
@@ -518,7 +521,7 @@
                     intro.setAttribute('aria-label', `${colData.category}: spela kategoriintro`);
                     intro.append(...catEl.childNodes);
                     catEl.append(intro);
-                    intro.addEventListener('click', () => hearCategory(colData,colIndex,intro));
+                    catEl.addEventListener('click', () => hearCategory(colData,colIndex,intro));
                 }
                 board.appendChild(catEl);
                 categoryEls.push(catEl);
@@ -537,14 +540,21 @@
                     cellBtn.setAttribute('aria-label', `${ELIAS_QUIZ_BOARD[colIndex].category} för $${item.value}`);
                     cellBtn.innerHTML = `<span class="jeopardy-value">$${item.value}</span>`;
 
-                    cellBtn.disabled = !!ELIAS_QUIZ_BOARD[colIndex].intro && !state.introduced.has(ELIAS_QUIZ_BOARD[colIndex]);
+                    const category = ELIAS_QUIZ_BOARD[colIndex];
+                    if (category.intro && !state.introduced.has(category)) cellBtn.setAttribute('aria-label', `${category.category}: spela kategoriintro`);
                     if (state.played.has(key)) {
                         cellBtn.classList.add('is-played');
                         cellBtn.disabled = true;
                         cellBtn.setAttribute('aria-disabled', 'true');
                     }
 
-                    cellBtn.addEventListener('click', () => openClue(colIndex, rowIndex, cellBtn));
+                    cellBtn.addEventListener('click', () => {
+                        if (category.intro && !state.introduced.has(category)) {
+                            hearCategory(category, colIndex, categoryEls[colIndex].querySelector('button'));
+                            return;
+                        }
+                        openClue(colIndex, rowIndex, cellBtn);
+                    });
                     board.appendChild(cellBtn);
                     cellMap.set(key, cellBtn);
                 }
@@ -624,17 +634,14 @@
             swimBtn.hidden = true;
             extraScores.hidden = true;
             extraScores.replaceChildren();
-            overlay.classList.toggle('has-long-clue', (clueData.clue?.length || 0) > 120);
-            if (clueData.clue) {
-                clueText.textContent = clueData.clue;
-                clueText.hidden = false;
-            } else {
-                clueText.textContent = '';
-                clueText.hidden = true;
-            }
+            const spelling = catData.category === 'SPELLING BEE' && !clueData.dailyDouble;
+            const prompt = clueData.clue || (spelling ? 'Lyssna och stava det du hör.' : '');
+            overlay.classList.toggle('has-long-clue', prompt.length > 120);
+            clueText.textContent = prompt;
+            clueText.hidden = !prompt;
+            clueText.parentElement.scrollTop = 0;
             state.medleyStarted = false;
             replayBtn.textContent = clueData.medley ? 'starta medley' : 'spela frågan';
-            const spelling = catData.category === 'SPELLING BEE' && !clueData.dailyDouble;
             entry.hidden = !spelling && !clueData.medley && !clueData.calendar;
             entryResult.hidden = true;
             input.value = '';
@@ -1139,7 +1146,7 @@
                 state.animating = false;
             }
             cancelCategoryIntro(); contest.close();
-            introStatus.textContent = 'Tryck på en kategorirubrik för att låsa upp frågorna.';
+            introStatus.textContent = 'Tryck var som helst i en kategori för att spela introt. Välj sedan en fråga.';
             state.played.clear();
             state.introduced.clear();
             buzzer.close();
